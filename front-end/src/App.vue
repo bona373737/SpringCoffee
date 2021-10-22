@@ -2,7 +2,13 @@
 <div>
   <Header></Header>
   <Body></Body>
+
+  <!-- <Register></Register> -->
+  <Login></Login>
+  <RegisterForm></RegisterForm>
+
   <Footer></Footer>
+
 </div>
 </template>
 
@@ -10,6 +16,8 @@
 import Header from './components/Header.vue'
 import Body from './components/Body.vue'
 import Footer from './components/Footer.vue'
+import RegisterForm from './components/RegisterFrom.vue'
+import Login from './components/Login.vue'
 
 export default {
   name: 'App',
@@ -17,6 +25,8 @@ export default {
     Header,
     Body,
     Footer,
+    RegisterForm,
+    Login,
   }
 }
 </script>
@@ -33,6 +43,6 @@ export default {
   -moz-user-select:none;
   -ms-user-select:none;
   user-select:none;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>
