@@ -27,6 +27,18 @@ export default {
     Footer,
     RegisterForm,
     Login,
+  },
+
+  data() {
+    return {
+      users: []
+    }
+  },
+  mounted() {
+
+  },
+
+  methods: {
   }
 }
 </script>
