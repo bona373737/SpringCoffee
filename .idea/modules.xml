@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/back-end/back-end.iml" filepath="$PROJECT_DIR$/back-end/back-end.iml" />
       <module fileurl="file://$PROJECT_DIR$/front-end/front-end.iml" filepath="$PROJECT_DIR$/front-end/front-end.iml" />
+      <module fileurl="file://$PROJECT_DIR$/back-end/springcoffee.iml" filepath="$PROJECT_DIR$/back-end/springcoffee.iml" />
     </modules>
   </component>
 </project>
