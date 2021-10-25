@@ -1,44 +1,38 @@
 <template>
 <div>
-  <Header></Header>
-  <Body></Body>
-
-  <!-- <Register></Register> -->
-  <Login></Login>
-  <RegisterForm></RegisterForm>
-
-  <Footer></Footer>
-
+  <div v-if="$store.state.isShow">
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">메인</a>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <router-link to="/admin" @click="changeShow" class="nav-link">관리자 페이지</router-link>
+        </li>
+      </ul>
+    </nav>
+    <Header />
+    <router-view />
+    <Footer />
+  </div>
+  <div v-if="!$store.state.isShow">
+    <router-view></router-view>
+  </div>
 </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Body from './components/Body.vue'
-import Footer from './components/Footer.vue'
-import RegisterForm from './components/RegisterFrom.vue'
-import Login from './components/Login.vue'
+import Header from './components/user/Header.vue';
+import Footer from './components/user/Footer.vue';
 
 export default {
   name: 'App',
   components: {
     Header,
-    Body,
-    Footer,
-    RegisterForm,
-    Login,
+    Footer
   },
-
-  data() {
-    return {
-      users: []
-    }
-  },
-  mounted() {
-
-  },
-
   methods: {
+    changeShow() {
+      this.$store.commit('checkShow')
+    }
   }
 }
 </script>

@@ -2,7 +2,6 @@
 <div>
     <!-- 회원가입 첫페이지 =========================================================================================== -->
     <div class="outterborder" v-if="!isStep2">
-        <img src="../assets/springlogo.jpg" alt="로고이미지" class="logo" >
         <h2>Welcome Spring Coffee!</h2>
         <br />
 
@@ -93,7 +92,7 @@
 <script>
 
 export default {
-  name: "SignUpPage",
+  name: "Register",
   data() {
     return {
       isStep2: false,

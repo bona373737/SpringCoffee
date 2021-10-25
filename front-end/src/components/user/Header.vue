@@ -3,16 +3,18 @@
   <div class="px-3 py-2 border-bottom mb-2">
     <div class="container d-flex flex-wrap justify-content-center">
       <div class="text-end col-12 mb-2 mb-lg-0 me-lg-auto">
-        <span type="button" class="btn btn-light text-dark me-2">로그인</span>
-        <span type="button" class="btn btn-primary">회원가입</span>
+        <router-link to="/login" exact>
+          <span type="button" class="btn btn-light text-dark me-2">
+          로그인
+          </span>
+        </router-link>
+        <router-link to="/register">
+          <span type="button" class="btn btn-primary me-2">
+          회원가입
+          </span>
+        </router-link>
       </div>
     </div>
-  </div>
-
-  <div class="logo">
-    <a href="#">
-      <img src="../assets/temp.png" alt="">
-    </a>
   </div>
 
   <nav class="navbar navbar-expand-lg">
@@ -49,6 +51,7 @@
 
 <script>
 export default {
+  name: 'Header',
 }
 </script>
 
@@ -56,15 +59,12 @@ export default {
 header {
     width: 100%;
 }
-header .logo img {
-    width: 250px;
-}
 header .navbar {
     top: 50px;
     margin: 0 auto;
     width: 80%;
 }
 header .navbar .container-fluid {
-    padding: 5px;
+    padding-bottom: 70px;
 }
 </style> 

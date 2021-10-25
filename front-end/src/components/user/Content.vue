@@ -57,12 +57,10 @@
 
 <script>
 export default {
-    
+    name: 'Body',
 }
 </script>
 
 <style>
-.event {
-    padding-top: 50px;
-}
+
 </style> 

@@ -1,6 +1,5 @@
 <template>
   <div class="outterborder">
-    <img src="../assets/springlogo.jpg" alt="로고이미지" class="logo">
     <h2>Spring Coffee</h2><br>
     <form>
       <div class="mb-3">
@@ -23,27 +22,17 @@
 
 </template>
 
-
-// =================================================================================================
 <script>
 export default {
-  name: "SignIn"
+  name: "Login"
 }
 </script>
 
-
-
-
-// =================================================================================================
 <style scoped>
 
 .outterborder{
   width: 30%;
   margin: auto;
-}
-.logo{
-  width: 20%;
-  height: 20%;
 }
 
 </style>

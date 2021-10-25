@@ -1,9 +1,6 @@
 <template>
-<!-- Footer -->
-
 <footer class="page-footer font-small stylish-color-dark pt-5">
   <hr>
-  <!-- Social buttons -->
   <ul class="list-unstyled list-inline text-center">
     <li class="list-inline-item">
       <a href="https://github.com/KOSA-I-ON-3TEAM/SpringCoffee" class="btn-floating btn-fb mx-1">
@@ -13,25 +10,23 @@
       </a>
     </li>
   </ul>
-  <!-- Social buttons -->
-
-  <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© 2021 Copyright:
     <a>Kosa-3team</a>
   </div>
-  <!-- Copyright -->
-
 </footer>
-<!-- Footer -->
+
+
 </template>
 
 <script>
 export default {
+  name: 'Footer',
 }
 </script>
 
 <style>
 footer {
+    bottom: 0;
     width: 100%;
 }
 </style> 
