@@ -1,22 +1,27 @@
 <template>
 <div>
-  <div v-if="$store.state.isShow">
+
+  <div v-if="!$store.state.isShow">
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">메인</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" >메인</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <router-link to="/admin" @click="changeShow" class="nav-link">관리자 페이지</router-link>
         </li>
       </ul>
     </nav>
+  </div>
+
+  <div v-if="$store.state.isShow">
     <Header />
-    <router-view />
-    <Footer />
+     <div id="wrap">
+      <router-view ></router-view>
+      <Footer></Footer>
+    </div>
   </div>
-  <div v-if="!$store.state.isShow">
-    <router-view></router-view>
-  </div>
+
 </div>
+
 </template>
 
 <script>
@@ -50,5 +55,10 @@ export default {
   -ms-user-select:none;
   user-select:none;
   /* margin-top: 60px; */
+}
+#wrap{
+  min-height: 120vh;
+  position: relative;
+  width: 100%;
 }
 </style>

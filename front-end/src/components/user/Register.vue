@@ -1,7 +1,8 @@
 <template>
 <div>
-    <!-- 회원가입 첫페이지 =========================================================================================== -->
+    <!-- 회원가입 첫페이지  -->
     <div class="outterborder" v-if="!isStep2">
+        <img :src="logoImg" alt="로고이미지" class="logo" >
         <h2>Welcome Spring Coffee!</h2>
         <br />
 
@@ -41,17 +42,17 @@
                 <a href="">개인정보제공</a> 및 <a href="">이용약관</a>에동의합니다.
             </label>
         </div>
-        <br />
+        <br/>
 
         <button type="submit" class="btn btn-outline-success" style="width: 50%" @click="moveNextPage">next</button>
   </div>
 
 
-  <!-- 회원가입 두번째페이지(회원정보입력)========================================================================= -->
+  <!-- 회원가입 두번째페이지(회원정보입력) -->
   <div class="outterborder" v-else>
-    <img src="" alt="로고이미지" />
+    <img :src="logoImg" alt="로고이미지" class="logo" />
     <h2>Spring Coffee 회원정보 입력</h2>
-    <br />
+    <br/>
     <form>
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
@@ -82,7 +83,7 @@
           id="address"
         />
       </div>
-      <br />
+      <br/>
       <button type="submit" class="btn btn-outline-success" style="width: 50%" @click="registerUser">Register</button>
     </form>
   </div>
@@ -92,7 +93,7 @@
 <script>
 
 export default {
-  name: "Register",
+  name: "SignUpPage",
   data() {
     return {
       isStep2: false,
@@ -104,6 +105,7 @@ export default {
         phoneNumber: 0,
         address: "",
       },
+      logoImg: require('../.././assets/springlogo.jpg')
     };
   },
   methods: {
