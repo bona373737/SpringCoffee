@@ -39,71 +39,23 @@
 
 
           <button type="button" class="btn btn-outline-light me-2" @click="$router.push('path:/login')">Login</button>
-          <button type="button" class="btn btn-success" @click="$router.push('path:/register')">Sign-up</button>
+          <button type="button" class="btn btn-success me-2" @click="$router.push('path:/register')">Sign-up</button>
+          <router-link to="/admin"><button type="button" class="btn btn-primary" @click="changeShow">관리자</button></router-link>
         </div>
       </div>
     </div>
-
   </header>
-
-
-  <!-- header type2 -->
-  <!--<header>
-   <div class="px-3 py-2 border-bottom mb-2">
-    <div class="container d-flex flex-wrap justify-content-center">
-      <div class="text-end col-12 mb-2 mb-lg-0 me-lg-auto">
-        <span type="button" class="btn btn-light text-dark me-2" @click="$router.push('path:/login')">로그인</span>
-        <span type="button" class="btn btn-primary" @click="$router.push('path:/registerForm')" >회원가입</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="logo">
-    <a href="#">
-      <img src="../assets/temp.png" alt="" @click="$router.push('path:/')">
-    </a>
-  </div>
-
-  <nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link"  @click="$router.push('path:/coffeeProductList')">커피</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">텀블러</a>
-        </li>
-         <li class="nav-item">
-          <a class="nav-link" @click="$router.push('path:/NoticeForm')">공지사항</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-  </nav>
-</header>
--->
 </template>
 
 
 <script>
 export default {
- 
+  name: 'Header',
+  methods:{
+    changeShow() {
+      this.$store.commit('checkShow')
+    }
+  }
 }
 </script>
 
@@ -111,7 +63,7 @@ export default {
 <style scoped>
 header {
     width: 100%;
-    margin-bottom: 1%
+    margin-bottom: 50px;
 }
 header .logo img {
     width: 250px;

@@ -1,7 +1,7 @@
 <template>
 <!-- Footer -->
 
-<footer class="page-footer font-small stylish-color-dark pt-5">
+<footer class="page-footer font-small stylish-color-dark pt-5 border-top">
   <!-- Social buttons -->
   <ul class="list-unstyled list-inline text-center">
     <li class="list-inline-item">
@@ -36,7 +36,6 @@ export default {
 } */
 footer {
   width: 100%;
-  height: 110px;
   bottom: 0px;
   position: absolute;
 }
