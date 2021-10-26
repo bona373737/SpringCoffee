@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.23.0",
-    "core-js": "^3.6.5",
+    "core-js": "^3.19.0",
     "mitt": "^3.0.0",
     "path": "^0.12.7",
     "request": "^2.88.2",

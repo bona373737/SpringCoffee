@@ -1,5 +1,6 @@
 <template>
   <div class="outterborder">
+    <img src="../.././assets/springlogo.jpg" alt="로고이미지" class="logo"><br>
     <h2>Spring Coffee</h2><br>
     <form>
       <div class="mb-3">
@@ -11,7 +12,7 @@
         <input type="password" class="form-control" id="exampleInputPassword1">
       </div><br>
     
-      <button type="submit" class="btn btn-outline-success" style="width:50%">Sign In</button>
+      <button type="submit" class="btn btn-outline-success" style="width:50%">Log In</button>
     </form><br>
     <div>
     <a href=""><span class="text-success">아이디찾기 | </span></a>
@@ -22,17 +23,23 @@
 
 </template>
 
+
 <script>
 export default {
-  name: "Login"
+  name: "LogIn"
 }
 </script>
+
 
 <style scoped>
 
 .outterborder{
   width: 30%;
   margin: auto;
+}
+.logo{
+  width: 20%;
+  height: 20%;
 }
 
 </style>
