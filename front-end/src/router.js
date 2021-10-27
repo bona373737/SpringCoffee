@@ -34,7 +34,12 @@ const routes = [
     component: () => import('@/components/admin/Admin.vue')
   },
   {
-    path: '/*',
+    path: '/:pathMatch(.*)*',
+    redirect: "/404"
+  },
+  {
+    path: '/404',
+    name: 'NotFoundPage',
     component: () => import('@/components/user/NotFoundPage.vue')
   },
 ];

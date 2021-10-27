@@ -2,7 +2,6 @@
 <div>
     <!-- 회원가입 첫페이지  -->
     <div class="outterborder" v-if="!isStep2">
-        <img :src="logoImg" alt="로고이미지" class="logo" >
         <h2>Welcome Spring Coffee!</h2>
         <br />
 
@@ -50,7 +49,6 @@
 
   <!-- 회원가입 두번째페이지(회원정보입력) -->
   <div class="outterborder" v-else>
-    <img :src="logoImg" alt="로고이미지" class="logo" />
     <h2>Spring Coffee 회원정보 입력</h2>
     <br/>
     <form>
@@ -105,8 +103,7 @@ export default {
         phoneNumber: 0,
         address: "",
       },
-      logoImg: require('../.././assets/springlogo.jpg')
-    };
+    }
   },
   methods: {
     moveNextPage() {
@@ -130,9 +127,5 @@ export default {
 .outterborder{
   width: 30%;
   margin: auto;
-}
-.logo{
-  width: 20%;
-  height: 20%;
 }
 </style>

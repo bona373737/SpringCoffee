@@ -1,7 +1,6 @@
 <template>
   <div class="outterborder">
-    <img src="../.././assets/springlogo.jpg" alt="로고이미지" class="logo"><br>
-    <h2>Spring Coffee</h2><br>
+    <h2>로그인</h2><br>
     <form>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -36,6 +35,7 @@ export default {
 .outterborder{
   width: 30%;
   margin: auto;
+
 }
 .logo{
   width: 20%;
