@@ -2,12 +2,12 @@
     <div>
         <div class="tab-bar">
             <div class="tab-shop py-3" style="width:100%;">
-                <span class="tab-title">공지사항</span>            
+                <span class="tab-title">Q & A</span>            
             </div>
         </div>
         <div class="py-2"><br></div>
-        <span class="info"><i class="bi bi-info-circle-fill"></i></span><br>
-        <span style="font-size: 11pt;">Spring Coffee의 새로운 소식을 접해보세요!</span>
+        <span class="qna"><i class="bi bi-question-circle-fill"></i></span><br>
+        <span style="font-size: 11pt;">궁금한 것이 있다면 자유롭게 문의 해보세요!</span>
         
         <div class="outterDiv py-5">
             <div>
@@ -62,11 +62,11 @@ export default {
     margin-right: 80%;
 }
 
-.info {
+.qna {
     font-size: 26pt;
 }
 
-.info:hover {
+.qna:hover {
     color: green;
     font-size: 26pt;
     transition: 0.3s;

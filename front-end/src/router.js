@@ -24,6 +24,11 @@ const routes = [
     component: () => import('@/components/user/NoticeForm.vue')
   },
   {
+    path: '/inquiry',
+    name: 'Inquiry',
+    component: () => import('@/components/user/Inquiry.vue')
+  },
+  {
     path: '/shop',
     name: 'Shop',
     component: () => import('@/components/user/Shop.vue')
