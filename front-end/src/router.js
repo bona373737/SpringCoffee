@@ -24,6 +24,11 @@ const routes = [
     component: () => import('@/components/user/NoticeForm.vue')
   },
   {
+    path: '/inquiry',
+    name: 'Inquiry',
+    component: () => import('@/components/user/Inquiry.vue')
+  },
+  {
     path: '/shop',
     name: 'Shop',
     component: () => import('@/components/user/Shop.vue')
@@ -34,7 +39,12 @@ const routes = [
     component: () => import('@/components/admin/Admin.vue')
   },
   {
-    path: '/*',
+    path: '/:pathMatch(.*)*',
+    redirect: "/404"
+  },
+  {
+    path: '/404',
+    name: 'NotFoundPage',
     component: () => import('@/components/user/NotFoundPage.vue')
   },
 ];
