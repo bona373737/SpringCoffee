@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface BoardService {
 
+    void create(BoardDTO dto);
     PageResultDTO<BoardDTO, Board> readAll(PageRequestDTO requestDTO); // 전체 조회
 
     default Board dtoToEntity(BoardDTO dto) {

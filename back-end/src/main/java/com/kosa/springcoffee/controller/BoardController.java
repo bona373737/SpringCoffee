@@ -17,6 +17,14 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    @PostMapping("/register")
+    public String create(@RequestBody BoardDTO dto) {
+        boardService.create(dto);
+        log.info("게시글 등록");
+
+        return "redirect:/board/list";
+    }
+
     @GetMapping("/list")
     public PageResultDTO<BoardDTO, Board> readAll(PageRequestDTO pageRequestDTO) {
         log.info("게시글 전체 조회");

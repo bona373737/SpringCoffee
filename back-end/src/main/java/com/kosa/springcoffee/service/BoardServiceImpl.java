@@ -22,6 +22,12 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
 
     @Override
+    public void create(BoardDTO dto) {
+        Board entity = dtoToEntity(dto);
+        boardRepository.save(entity);
+    }
+
+    @Override
     public PageResultDTO<BoardDTO, Board> readAll(PageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("boardNo").descending());
 
