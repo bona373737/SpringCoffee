@@ -13,7 +13,7 @@ public interface BoardService {
 
     default Board dtoToEntity(BoardDTO dto) {
         Board entity = Board.builder()
-                .noticeNo(dto.getNoticeNo())
+                .boardNo(dto.getBoardNo())
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .writer(dto.getWriter())
@@ -23,7 +23,7 @@ public interface BoardService {
 
     default BoardDTO entityToDto(Board entity) {
         BoardDTO dto = BoardDTO.builder()
-                .noticeNo(entity.getNoticeNo())
+                .boardNo(entity.getBoardNo())
                 .title(entity.getTitle())
                 .content(entity.getContent())
                 .writer(entity.getWriter())

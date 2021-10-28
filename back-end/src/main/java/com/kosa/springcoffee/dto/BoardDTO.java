@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 public class BoardDTO {
 
-    private Long noticeNo;
+    private Long boardNo;
     private String title;
     private String content;
     private String writer;
