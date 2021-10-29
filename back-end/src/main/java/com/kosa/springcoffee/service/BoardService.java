@@ -1,6 +1,7 @@
 package com.kosa.springcoffee.service;
 
 import com.kosa.springcoffee.dto.BoardDTO;
+import com.kosa.springcoffee.dto.CategoryPageRequestDTO;
 import com.kosa.springcoffee.dto.PageRequestDTO;
 import com.kosa.springcoffee.dto.PageResultDTO;
 import com.kosa.springcoffee.entity.Board;
@@ -18,6 +19,7 @@ public interface BoardService {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .writer(dto.getWriter())
+                .category(dto.getCategory())
                 .build();
         return entity;
     }
@@ -28,6 +30,7 @@ public interface BoardService {
                 .title(entity.getTitle())
                 .content(entity.getContent())
                 .writer(entity.getWriter())
+                .category(entity.getCategory())
                 .build();
         return dto;
     }

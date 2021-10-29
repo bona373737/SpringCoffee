@@ -15,6 +15,7 @@ public class BoardDTO {
     private String content;
     private String writer;
     private LocalDateTime regDate, modDate;
+    private String category;
 
 }
 
