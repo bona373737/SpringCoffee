@@ -1,47 +1,36 @@
 <template>
   <!-- header type1 -->
-  <header class="p-3 bg-dark text-white">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <svg class="bi me-2" width="40" height="25" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-        </a>
+  <header>
 
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><img src="../.././assets/springlogo.jpg" alt="Img" style="width:60px"></li>
-          <li><a href="#" class="nav-link px-2 text-secondary" @click="$router.push('path:/')">Home</a></li>
-          <li><a href="#" class="nav-link px-2 text-white" @click="$router.push('path:/shop')">Shop</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-          <li><a href="#" class="nav-link px-2 text-white" @click="$router.push('path:/noticeForm')">공지사항</a></li>
-        </ul>
+    <div class="border-top border-bottom text-end">
+      <router-link class="navset me-2" style="text-decoration: none; color: #666;" to="/login">로그인</router-link>
+      <router-link class="navset me-5" style="text-decoration: none;" to="/register">회원가입</router-link>
+    </div>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-        </form>
-
-        <div class="text-end">
-
-          <button class="btn btn-outline-light me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">장바구니</button>
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-            <div class="offcanvas-header">
-              <h5 id="offcanvasRightLabel">Offcanvas right</h5>
-              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-              <ul>
-                <li></li>
-                <li></li>
-              </ul>
-              <button type="button" class="btn btn-success"> 구매하기 </button>
-            </div>
-          </div>
-
-
-
-          <button type="button" class="btn btn-outline-light me-2" @click="$router.push('path:/login')">Login</button>
-          <button type="button" class="btn btn-success me-2" @click="$router.push('path:/register')">Sign-up</button>
-          <router-link to="/admin"><button type="button" class="btn btn-primary" @click="changeShow">관리자</button></router-link>
-        </div>
+    <div class="p-3 bg-light">
+      <a href="/">
+        <img src="../.././assets/springlogo.png" alt="Img" style="width:150px">
+      </a>
+    </div>
+    <div class="bg-light border-top ">
+      <div class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <router-link class="navbox" to="/shop">
+          <p class="tooltip-text">SHOP</p>
+        </router-link>
+        <router-link class="navbox" to="/noticeForm">
+          <p class="tooltip-text">NOTICE</p>
+        </router-link>
+        <router-link class="navbox" to="/inquiry">
+          <p class="tooltip-text">Q&A</p>
+        </router-link>
+        <router-link class="navbox" to="/">
+          <p class="tooltip-text">STORE</p>
+        </router-link>
+        <router-link class="navbox" to="/">
+          <p class="tooltip-text">Spring Coffee</p>
+        </router-link>
+      </div>
+      <div class="userInfo">
       </div>
     </div>
   </header>
@@ -59,22 +48,41 @@ export default {
 }
 </script>
 
-
 <style scoped>
 header {
     width: 100%;
-    margin-bottom: 50px;
-}
-header .logo img {
-    width: 250px;
-}
-header .navbar {
-    top: 50px;
-    margin: 0 auto;
-    width: 80%;
-}
-header .navbar .container-fluid {
-    padding: 5px;
+    /* margin-bottom: 10px; */
 }
 
+.navbox {
+  text-decoration: none;
+  width: 180px;
+  height: 40px;
+  font-size: 36pt;
+  padding: auto;
+  text-align: center;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.navbox .tooltip-text:hover {
+  border-top: 2px green solid;
+  color: rgba(0, 200, 0, 0.7);
+  transition: 0.1s;
+}
+
+.tooltip-text {
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  font-size: 13pt;
+  font-weight: 600;
+  color: green;
+  transition: all 0.1s;
+}
+
+.navset {
+  font-size: 10pt;
+}
 </style> 

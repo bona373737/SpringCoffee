@@ -1,11 +1,17 @@
 <template>
 <div>
-    <!-- 회원가입 첫페이지  -->
-    <div class="outterborder" v-if="!isStep2">
-        <img :src="logoImg" alt="로고이미지" class="logo" >
-        <h2>Welcome Spring Coffee!</h2>
-        <br />
+  <div class="tab-bar">
+    <div class="tab-shop py-3" style="width:100%;">
+        <span class="tab-title">회원가입</span>            
+    </div>
+  </div>
+  <div class="py-2"><br></div>
+  <span class="qna"><i class="bi bi-shield-lock-fill"></i></span><br>
+  <span style="font-size: 11pt;">Spring Coffee 의 회원이 되어보세요!</span><br>
+  <span style="font-size: 11pt;">다양한 이벤트가 기다리고 있습니다!</span>
+  
 
+    <div class="outterborder" v-if="!isStep2">
         <div class="mb-3">
             <label for="email" class="form-label">Email address </label>
             <input  v-model="email"
@@ -50,7 +56,6 @@
 
   <!-- 회원가입 두번째페이지(회원정보입력) -->
   <div class="outterborder" v-else>
-    <img :src="logoImg" alt="로고이미지" class="logo" />
     <h2>Spring Coffee 회원정보 입력</h2>
     <br/>
     <form>
@@ -105,8 +110,7 @@ export default {
         phoneNumber: 0,
         address: "",
       },
-      logoImg: require('../.././assets/springlogo.jpg')
-    };
+    }
   },
   methods: {
     moveNextPage() {
@@ -127,12 +131,35 @@ export default {
 </script>
 
 <style scoped>
-.outterborder{
-  width: 30%;
-  margin: auto;
+.tab-bar {
+  background-image: url('../.././assets/background.jpg');
+  background-repeat : no-repeat;
+  background-size : cover;
+  position: relative;
 }
-.logo{
-  width: 20%;
-  height: 20%;
+
+.tab-shop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.tab-title {
+    font-size: 22pt;
+    color: white;
+}
+
+.qna {
+    font-size: 26pt;
+}
+
+.qna:hover {
+    color: green;
+    font-size: 26pt;
+    transition: 0.3s;
+}
+
+.outterborder{
+  width: 40%;
+  margin: auto;
+  padding: 20px;
 }
 </style>
