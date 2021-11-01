@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.kosa</groupId>
-    <artifactId>Login</artifactId>
+    <artifactId>springcoffee</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Login</name>
-    <description>Login</description>
+    <name>back-end</name>
+    <description>back-end</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -71,6 +71,10 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
         </dependency>
     </dependencies>
 
