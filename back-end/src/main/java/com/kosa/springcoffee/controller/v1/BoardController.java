@@ -1,10 +1,10 @@
 package com.kosa.springcoffee.controller;
 
-import com.kosa.springcoffee.dto.BoardDTO;
-import com.kosa.springcoffee.dto.PageRequestDTO;
-import com.kosa.springcoffee.dto.PageResultDTO;
+import com.kosa.springcoffee.dto.board.BoardDTO;
+import com.kosa.springcoffee.dto.board.PageRequestDTO;
+import com.kosa.springcoffee.dto.board.PageResultDTO;
 import com.kosa.springcoffee.entity.Board;
-import com.kosa.springcoffee.service.BoardService;
+import com.kosa.springcoffee.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
