@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "sc_board")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -22,8 +22,8 @@ public class Board extends BaseEntity {
     @Column(length = 1500, nullable = false)
     private String content;
 
-    @Column(length = 50, nullable = false)
-    private String writer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member writer;
 
     @Column(nullable = false)
     private String category;
