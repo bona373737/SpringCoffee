@@ -14,7 +14,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -24,9 +27,48 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
 
     @Override
-    public void create(BoardDTO dto) {
+    public Long create(BoardDTO dto) {
         Board entity = dtoToEntity(dto);
         boardRepository.save(entity);
+
+        return entity.getBoardNo();
+    }
+
+    @Override
+    public BoardDTO get(Long boardNo) {
+        Optional<Board> result = boardRepository.getWithWriter(boardNo);
+
+        if(result.isPresent()){
+            return entityToDto(result.get());
+        }
+
+        return null;
+    }
+
+    @Override
+    public void modify(BoardDTO boardDTO) {
+        Long boardNo = boardDTO.getBoardNo();
+        Optional<Board> result = boardRepository.findById(boardNo);
+
+        if(result.isPresent()){
+            Board board = result.get();
+            board.changeTitle(boardDTO.getTitle());
+            board.changeContent(boardDTO.getContent());
+            boardRepository.save(board);
+        }
+    }
+
+    @Override
+    public void remove(Long boardNo) {
+        boardRepository.deleteById(boardNo);
+    }
+
+    @Override
+    public List<BoardDTO> getAllWithWriter(String writerEmail) {
+        List<Board> boardList = boardRepository.getList(writerEmail);
+
+        return boardList.stream().map(board -> entityToDto(board))
+                .collect(Collectors.toList());
     }
 
     @Override

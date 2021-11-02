@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, String> {
-    @EntityGraph(attributePaths = {"roleSet"}, type = EntityGraph.EntityGraphType.LOAD)//Role과 left outer join
+    @EntityGraph(attributePaths = {"roleSet"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("select m from sc_member m where m.fromSocial = :social and m.email=:email")
     Optional<Member> findByEmail(String email, boolean social);
 
