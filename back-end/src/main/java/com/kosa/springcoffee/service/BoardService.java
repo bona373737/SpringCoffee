@@ -7,6 +7,8 @@ import com.kosa.springcoffee.dto.PageResultDTO;
 import com.kosa.springcoffee.entity.Board;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
+
 @Service
 public interface BoardService {
 
@@ -32,6 +34,8 @@ public interface BoardService {
                 .content(entity.getContent())
                 .writer(entity.getWriter())
                 .category(entity.getCategory())
+                .modDate(entity.getModDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .regDate(entity.getRegDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .build();
         return dto;
     }
