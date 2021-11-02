@@ -6,10 +6,8 @@ import com.kosa.springcoffee.dto.PageRequestDTO;
 import com.kosa.springcoffee.dto.PageResultDTO;
 import com.kosa.springcoffee.entity.Board;
 import com.kosa.springcoffee.entity.Member;
-import org.springframework.stereotype.Service;
-
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 
 public interface BoardService {
 
@@ -42,6 +40,8 @@ public interface BoardService {
                 .content(entity.getContent())
                 .writer(entity.getWriter().getEmail())
                 .category(entity.getCategory())
+                .modDate(entity.getModDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .regDate(entity.getRegDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .build();
         return dto;
     }
