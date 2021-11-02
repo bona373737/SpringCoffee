@@ -7,7 +7,6 @@ import io.jsonwebtoken.impl.DefaultClaims;
 import io.jsonwebtoken.impl.DefaultJws;
 import lombok.extern.log4j.Log4j2;
 
-import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.util.Date;
 @Log4j2
@@ -25,7 +24,6 @@ public class JWTUtil {
                 .signWith(SignatureAlgorithm.HS256, secretKey.getBytes("UTF-8"))
                 .compact();
     }
-
 
     public String validateAndExtract(String tokenStr) throws Exception{
         String contentValue = null;

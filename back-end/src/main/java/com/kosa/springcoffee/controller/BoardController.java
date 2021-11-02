@@ -32,7 +32,7 @@ public class BoardController {
     }
     @GetMapping(value = "/{boardNo}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BoardDTO> read(@PathVariable("boardNo") Long boardNo){
-        log.info(boardNo);
+        log.info(boardNo+"상세 페이지");
         return new ResponseEntity<>(boardService.get(boardNo), HttpStatus.OK);
     }
 
@@ -55,6 +55,7 @@ public class BoardController {
         boardService.modify(boardDTO);
         return new ResponseEntity<>("modified", HttpStatus.OK);
     }
+
     @GetMapping("/list")
     public PageResultDTO<BoardDTO, Board> readAll(PageRequestDTO pageRequestDTO) {
         log.info("게시글 전체 조회");

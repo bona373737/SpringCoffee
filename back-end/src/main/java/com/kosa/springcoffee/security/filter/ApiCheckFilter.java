@@ -57,7 +57,6 @@ public class ApiCheckFilter extends OncePerRequestFilter {
             return;
         }
 
-
         filterChain.doFilter(request, response);
     }
 

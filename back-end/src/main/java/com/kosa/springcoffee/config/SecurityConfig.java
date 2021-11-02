@@ -1,8 +1,5 @@
 package com.kosa.springcoffee.config;
 
-
-
-
 import com.kosa.springcoffee.security.filter.ApiCheckFilter;
 import com.kosa.springcoffee.security.filter.ApiLoginFilter;
 import com.kosa.springcoffee.security.handler.ApiLoginFailHandler;
@@ -10,7 +7,6 @@ import com.kosa.springcoffee.security.util.JWTUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -46,8 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return apiLoginFilter;
     }
 
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -57,11 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.logout();
 
-
         http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(apiLoginFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
-
-
 }

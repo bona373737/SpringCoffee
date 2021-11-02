@@ -47,13 +47,13 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void modify(BoardDTO boardDTO) {
-        Long boarNo = boardDTO.getBoardNo();
-        Optional<Board> result = boardRepository.findById(boarNo);
+        Long boardNo = boardDTO.getBoardNo();
+        Optional<Board> result = boardRepository.findById(boardNo);
 
         if(result.isPresent()){
             Board board = result.get();
             board.changeTitle(boardDTO.getTitle());
-            board.changeContent(board.getContent());
+            board.changeContent(boardDTO.getContent());
             boardRepository.save(board);
         }
     }
