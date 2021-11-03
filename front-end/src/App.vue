@@ -1,18 +1,9 @@
 <template>
 <div>
-
-  <div v-if="$store.state.isShow">
     <Header></Header>
     <router-view></router-view>
     <Footer></Footer>
-  </div>
-
-  <div v-if="!$store.state.isShow">
-    <router-view ></router-view>
-  </div>
-
 </div>
-
 </template>
 
 <script>
@@ -25,11 +16,7 @@ export default {
     Header,
     Footer
   },
-  methods: {
-    changeShow() {
-      this.$store.commit('checkShow')
-    }
-  }
+
 }
 </script>
 

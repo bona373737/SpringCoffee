@@ -30,13 +30,13 @@
         <div class="ProductListTechnologies d-flex py-5">
             <router-link to="#">
                 <div class="ProductListTechnologies__element me-2">
-                    <img width="120" height="80" src="../.././assets/shop1.webp" role="presentation" class="" alt="">
+                    <img width="120" height="80" src="../../../assets/shop1.webp" role="presentation" class="" alt="">
                     <div class="ProductListTechnologies__name">오리지널</div>
                 </div>
             </router-link>
             <router-link to="#">
                 <div class="ProductListTechnologies__element me-2">            
-                    <img width="120" height="80" src="../.././assets/shop2.webp" role="presentation" class="" alt="">
+                    <img width="120" height="80" src="../../../assets/shop2.webp" role="presentation" class="" alt="">
                     <div class="ProductListTechnologies__name">버츄오</div>
                 </div>
             </router-link>
@@ -87,7 +87,7 @@ export default {
 
 <style scoped>
 .tab-bar {
-  background-image: url('../.././assets/background.jpg');
+  background-image: url('../../../assets/background.jpg');
   background-repeat : no-repeat;
   background-size : cover;
   position: relative;
