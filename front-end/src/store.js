@@ -23,13 +23,13 @@ let store = createStore({
   },
   actions: { // ajax 넣는곳, 오래 걸리는 작업들 넣는곳
     fetchBoard(context){
-      axios.get('/v1/list')
+      axios.get(`/v1/list`)
           .then(response => {
             context.commit('setBoard', response.data.dtoList);
           })
     },
     fetchBoardDetail(context, boardNo){
-      axios.get(`v1/${boardNo}`)      // axios dynamic URL,
+      axios.get(`/v1/${boardNo}`)      // axios dynamic URL,
           .then(response =>{
             context.commit('setBoardDetail', response.data);
           })
