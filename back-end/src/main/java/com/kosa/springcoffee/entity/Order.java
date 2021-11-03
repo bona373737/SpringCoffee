@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "sc_order")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -20,7 +20,7 @@ public class Order {
     private Long orderNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "email")
+    @JoinColumn(name = "member_email")
     private Member member;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "sc_order_item")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -17,11 +17,11 @@ public class OrderItem {
     private Long orderItemNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "itemId")
+    @JoinColumn(name = "item_itemId")
     private Item item;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="orderNo")
+    @JoinColumn(name="order_orderNo")
     private Order order;
 
     private int allPrice;

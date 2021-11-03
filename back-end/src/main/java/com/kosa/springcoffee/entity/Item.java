@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "sc_item")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -29,5 +29,26 @@ public class Item {
     private int price;
 
     private String category;
+
+    public void changeName(String name) {
+        this.name = name;
+    }
+
+    public void changeContent(String content) {
+        this.content = content;
+    }
+
+    public void changeImage(String image) {
+        this.image=image;
+    }
+    public void changeStockQuantity(int stockQuantity){
+        this.stockQuantity=stockQuantity;
+    }
+    public void changePrice(int price){
+        this.price = price;
+    }
+    public void changeCategory(String category){
+        this.category=category;
+    }
 
 }
