@@ -3,6 +3,8 @@
   <header>
 
     <div class="border-top border-bottom text-end">
+      <router-link class="navset me-2" style="text-decoration: none; color: #666;" to="/mypage">마이페이지</router-link>
+      <router-link class="navset me-2" style="text-decoration: none; color: #666;" to="/admin">관리자페이지</router-link>
       <router-link class="navset me-2" style="text-decoration: none; color: #666;" to="/login">로그인</router-link>
       <router-link class="navset me-5" style="text-decoration: none;" to="/register">회원가입</router-link>
     </div>
@@ -23,7 +25,7 @@
         <router-link class="navbox" to="/inquiry">
           <p class="tooltip-text">Q&A</p>
         </router-link>
-        <router-link class="navbox" to="/">
+        <router-link class="navbox" to="/offstore">
           <p class="tooltip-text">STORE</p>
         </router-link>
         <router-link class="navbox" to="/">

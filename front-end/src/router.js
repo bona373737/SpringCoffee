@@ -29,6 +29,22 @@ const routes = [
     component: () => import('@/components/user/Inquiry.vue')
   },
   {
+    path: '/offstore',
+    name: 'OffStore',
+    component: () => import('@/components/user/OffStore.vue')
+  },
+  {
+    path: '/mypage/:',
+    name: 'MyPage',
+    component: () => import('@/components/user/MyPage.vue'),
+    children: [
+      {
+        path: "profile",
+        component: () => import('@/components/user/Profile.vue'),
+      },
+    ]
+  },
+  {
     path: '/shop',
     name: 'Shop',
     component: () => import('@/components/user/Shop.vue')
@@ -38,15 +54,15 @@ const routes = [
     name: 'Admin',
     component: () => import('@/components/admin/Admin.vue')
   },
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: "/404"
-  },
-  {
-    path: '/404',
-    name: 'NotFoundPage',
-    component: () => import('@/components/user/NotFoundPage.vue')
-  },
+  // {
+  //   path: '/:pathMatch(.*)*',
+  //   redirect: "/404"
+  // },
+  // {
+  //   path: '/404',
+  //   name: 'NotFoundPage',
+  //   component: () => import('@/components/user/NotFoundPage.vue')
+  // },
 ];
 
 export const router = createRouter({

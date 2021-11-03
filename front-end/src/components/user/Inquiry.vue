@@ -66,10 +66,4 @@ export default {
     font-size: 26pt;
 }
 
-.qna:hover {
-    color: green;
-    font-size: 26pt;
-    transition: 0.3s;
-}
-
 </style>
