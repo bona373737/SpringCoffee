@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <div class="tab-bar">
-      <div class="tab-shop py-3" style="width:100%;">
+      <div class="tab-map py-3" style="width:100%;">
         <span class="tab-title">오시는 길</span>
       </div>
     </div>
@@ -31,7 +31,7 @@ export default {
   position: relative;
 }
 
-.tab-shop {
+.tab-map {
   background-color: rgba(0, 0, 0, 0.5);
 }
 

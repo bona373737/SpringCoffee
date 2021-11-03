@@ -8,38 +8,22 @@
         <div class="py-2"><br></div>
         <span class="info"><i class="bi bi-info-circle-fill"></i></span><br>
         <span style="font-size: 11pt;">Spring Coffee의 새로운 소식을 접해보세요!</span>
-        
-        <div class="outterDiv py-5">
-            <div>
-                <table class="table table-bordered table-condensed">
-                    <colgroup>
-                        <col width="10%" />
-                        <col width="65%" />
-                        <col width="15%" />
-                        <col width="10%" />
-                    </colgroup>
-                    <tr>
-                        <th>No.</th>
-                        <th>제목</th>
-                        <th>작성일</th>
-                        <th>조회수</th>
-                    </tr>
-                </table>
-            </div>
-        </div>
+
+        <router-view></router-view>
+
     </div>
 </template>
 
 <script>
 export default {
-    name:'NoticeForm'
-  
+  name:'NoticeForm',
 };
 </script>
 
+
 <style scoped>
 .tab-bar {
-  background-image: url('../.././assets/background.jpg');
+  background-image: url('../../../assets/background.jpg');
   background-repeat : no-repeat;
   background-size : cover;
   position: relative;
@@ -64,6 +48,12 @@ export default {
 
 .info {
     font-size: 26pt;
+}
+
+.info:hover {
+    color: green;
+    font-size: 26pt;
+    transition: 0.3s;
 }
 
 </style>

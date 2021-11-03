@@ -1,34 +1,55 @@
 <template>
   <div>
       <div class="mypage">
-          <div class="user-info py-3 border-top">
+        <div class="tab-bar">
+            <div class="tab-my py-3" style="width:100%;">
+                <span class="tab-title">My Page</span>            
+            </div>
+        </div>
+        <div class="py-2"><br></div>
+        <span class="info"><i class="bi bi-gear-fill"></i></span><br>
+        <span style="font-size: 11pt;">??? 회원님 반갑습니다!</span>
+        
+
+          <!-- <div class="user-info py-3 border-top">
               <div class="user-intro">
                   홍길동
               </div>
-          </div>
+          </div> -->
 
           <div class="bt-menu">
-              <ui class="bt-info">
-                  <li>
-                      <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
-                      <router-link to="/mypage/profile">
-                        <div class="bt-text">회원정보</div>
-                      </router-link>
+              <ui class="bt-info py-3">
+                  <li class="content">
+                      <div class="con-card">
+                        <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
+                        <router-link to="/mypage/profile">
+                            <div class="bt-text">회원정보</div>
+                        </router-link>
+                      </div>
                   </li>
-                  <li>
+                  <li class="content">
+                      <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-cart-check-fill"></i></div>
                       <div class="bt-text">장바구니</div>
+                      </div>
                   </li>
-                  <li>
+                  <li class="content">
+                      <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-question-circle"></i></div>
                       <div class="bt-text">문의내역</div>
+                      </div>
                   </li>
-                  <li>
+                  <li class="content">
+                      <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-currency-dollar"></i></div>
                       <div class="bt-text">결제내역</div>
+                      </div>
                   </li>
               </ui>
+              <div class="rout border-top border-dark">
                 <router-view></router-view>
+
+              </div>
 
                 <!-- <div class="content py-5">
                     <div class="con-card">
@@ -57,16 +78,46 @@ export default {
 </script>
 
 <style>
+.rout {
+    padding: 20px;
+    width:100%;
+    height:100%;
+}
+
+.tab-bar {
+  background-image: url('../.././assets/background.jpg');
+  background-repeat : no-repeat;
+  background-size : cover;
+  position: relative;
+}
+
+.tab-my {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.tab-title {
+    font-size: 22pt;
+    color: white;
+}
+
+.info {
+    font-size: 26pt;
+}
+
 .user-info {
     width: 100%;
     background-color: greenyellow;
 }
 
 .user-intro {
-    color: oldlace;
+    color: white;
     text-shadow: 1px 1px 5px green;
     font-size: 30pt;
     font-weight: 900;
+}
+
+.bt-menu {
+    padding: 30px;
 }
 
 .bt-menu .bt-info {
@@ -75,17 +126,10 @@ export default {
     text-align: center;
     margin: auto;
     list-style-type : none;
-    background-color: #333;
 }
 
 .bt-menu .bt-info li {
-    color: white;
-    padding: 10px;
-}
-
-.bt-menu .bt-info li:hover {
-    cursor: pointer;
-    color: greenyellow;
+    color: #333;
     padding: 10px;
 }
 
@@ -103,11 +147,17 @@ export default {
 }
 
 .content .con-card {
-    width: 200px;
-    height: 250px;
+    width: 100px;
+    height: 100px;
     background-color: white;
     box-shadow: 1px 1px 10px #333;
     border-radius: 10px;
     margin-right: 20px;
+}
+
+.content .con-card:hover {
+    cursor: pointer;
+    color: green;
+    transition: 0.3s;
 }
 </style>

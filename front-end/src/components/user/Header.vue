@@ -19,7 +19,7 @@
         <router-link class="navbox" to="/shop">
           <p class="tooltip-text">SHOP</p>
         </router-link>
-        <router-link class="navbox" to="/noticeForm">
+        <router-link class="navbox" to="/noticelayout">
           <p class="tooltip-text">NOTICE</p>
         </router-link>
         <router-link class="navbox" to="/inquiry">

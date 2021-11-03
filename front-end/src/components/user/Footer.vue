@@ -36,10 +36,8 @@ export default {
 } */
 footer {
   width: 100%;
-  left: 0;
   bottom: 0;
-  padding: 30px 0;
+  margin-top: 50px;
   color: #333;
-  margin-top: 25%;
 }
 </style> 

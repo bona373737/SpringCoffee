@@ -19,9 +19,32 @@ const routes = [
     component: () => import('@/components/user/Register.vue')
   },
   {
-    path: '/noticeForm',
-    name: 'NoticeForm',
-    component: () => import('@/components/user/NoticeForm.vue')
+    path: '/noticeLayout',
+    name: 'NoticeLayout',
+    component: () => import('@/components/user/notice/NoticeLayout.vue'),
+    children :[
+      {
+        path: '',
+        name: 'noticeList',
+        component: () => import('@/components/user/notice/NoticeList.vue'),
+        props : true
+      },
+      {
+        path: 'noticeDetail/:boardNo',
+        name: 'noticeDetail',
+        component: () => import('@/components/user/notice/NoticeDetail.vue')
+      },
+      {
+        path: '/noticeAdd',
+        name: 'noticeAdd',
+        component: () => import('@/components/user/notice/NoticeAdd.vue')
+      },
+      {
+        path: '/noticeUpdate:boardNo',
+        name: 'noticeUpdate',
+        component: () => import('@/components/user/notice/NoticeUpdate.vue')
+      },
+    ]
   },
   {
     path: '/inquiry',
@@ -35,6 +58,7 @@ const routes = [
   },
   {
     path: '/mypage/:',
+    redirect: '/mypage/profile',
     name: 'MyPage',
     component: () => import('@/components/user/MyPage.vue'),
     children: [
@@ -47,7 +71,7 @@ const routes = [
   {
     path: '/shop',
     name: 'Shop',
-    component: () => import('@/components/user/Shop.vue')
+    component: () => import('@/components/user/shop/ShopLayout.vue')
   },
   {
     path: '/admin',
