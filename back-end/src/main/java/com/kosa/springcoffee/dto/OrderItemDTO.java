@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class OrderItemDTO {
     private Long orderItemNo;
-    private String item;
-    private String order;
+    private Long itemNo;
+    private Long orderNo;
     private int allPrice;
     private int count;
 }
