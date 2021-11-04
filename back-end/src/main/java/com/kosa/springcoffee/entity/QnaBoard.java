@@ -25,6 +25,12 @@ public class QnaBoard extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member writer;
 
+    @Column(length = 50, nullable = false)
+    private String category;
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isAnswered;
+
     public void changeTitle(String title) {
         this.title = title;
     }

@@ -16,5 +16,6 @@ public class QnaBoardDTO {
     private String content;
     private String regDate, modDate;
     private String writer;
-
+    private String category;
+    private Boolean isAnswered;
 }
