@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItem {
+public class OrderItem{
     @Id @GeneratedValue
     private Long orderItemNo;
 
@@ -44,6 +44,8 @@ public class OrderItem {
         return getAllPrice() * getCount();
     }
 
-
+    public void changeCount(int count) {
+        this.count = count;
+    }
 
 }

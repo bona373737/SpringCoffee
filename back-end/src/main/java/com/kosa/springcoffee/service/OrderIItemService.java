@@ -1,25 +1,23 @@
-package com.kosa.springcoffee.dto;
+package com.kosa.springcoffee.service;
 
+import com.kosa.springcoffee.dto.BoardDTO;
+import com.kosa.springcoffee.dto.OrderItemDTO;
+import com.kosa.springcoffee.dto.PageRequestDTO;
+import com.kosa.springcoffee.dto.PageResultDTO;
+import com.kosa.springcoffee.entity.Board;
 import com.kosa.springcoffee.entity.Item;
 import com.kosa.springcoffee.entity.Order;
 import com.kosa.springcoffee.entity.OrderItem;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class OrderItemDTO {
-    private Long orderItemNo;
-    private Long itemNo;
-    private Long orderNo;
-    private int allPrice;
-    private int count;
+public interface OrderIItemService {
+    Long create(OrderItemDTO dto);
+    void modify(OrderItemDTO dto);
+    void remove(Long orderItemNo);
 
-    public static OrderItem dtoToEntityOrderItem(OrderItemDTO dto){
+    PageResultDTO<OrderItemDTO, OrderItem> readAll(PageRequestDTO requestDTO);
+
+
+    default OrderItem dtoToEntityOrderItem(OrderItemDTO dto){
         OrderItem entity = OrderItem.builder()
                 .orderItemNo(dto.getOrderItemNo())
                 .item(Item.builder().itemNo(dto.getItemNo()).build())
@@ -30,7 +28,7 @@ public class OrderItemDTO {
         return entity;
     }
 
-    public static OrderItemDTO entityToDtoOrderItem(OrderItem entity){
+    default OrderItemDTO entityToDtoOrderItem(OrderItem entity){
         OrderItemDTO dto = OrderItemDTO.builder()
                 .orderItemNo(entity.getOrderItemNo())
                 .itemNo(entity.getItem().getItemNo())
@@ -40,5 +38,6 @@ public class OrderItemDTO {
                 .build();
         return dto;
     }
+
 
 }

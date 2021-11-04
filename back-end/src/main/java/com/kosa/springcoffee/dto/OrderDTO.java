@@ -15,6 +15,6 @@ import java.util.List;
 public class OrderDTO {
     private Long orderNo;
     private String member;
-    private List<OrderItemDTO> orderItems = new ArrayList<>(); //여기 처리가 애매;
+    private List<OrderItemDTO> orderItems = new ArrayList<>();
     private String status;
 }

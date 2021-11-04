@@ -8,11 +8,11 @@ import java.util.List;
 
 @Entity(name = "sc_order")
 @Getter
-@Setter
 @Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order extends BaseEntity {
+public class Order extends BaseEntityOrder{
 
     @Id @GeneratedValue
     private Long orderNo;
@@ -24,7 +24,6 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
     //연관관계 메소드
@@ -44,7 +43,6 @@ public class Order extends BaseEntity {
     }
     //비즈니스 로직 주문 취소
     public void cancel() {
-
         this.setStatus(OrderStatus.CANCEL);
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
