@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity(name = "sc_qna_board")
 @Getter
-@Builder
+//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -28,8 +28,19 @@ public class QnaBoard extends BaseEntity {
     @Column(length = 50, nullable = false)
     private String category;
 
-    @Column(columnDefinition = "boolean default false")
+    @Column(nullable = false)
     private Boolean isAnswered;
+
+    @Builder
+    public QnaBoard(Long qnaBoardNo, String title, String content, Member writer, String category) {
+        this.isAnswered = false; // default
+
+        this.qnaBoardNo = qnaBoardNo;
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+        this.category = category;
+    }
 
     public void changeTitle(String title) {
         this.title = title;
@@ -38,5 +49,8 @@ public class QnaBoard extends BaseEntity {
     public void changeContent(String content) {
         this.content = content;
     }
-}
 
+    public void changeIsAnswered(Boolean isAnswered) {
+        this.isAnswered = isAnswered;
+    }
+}
