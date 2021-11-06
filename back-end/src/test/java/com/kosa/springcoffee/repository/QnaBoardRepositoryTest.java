@@ -21,13 +21,50 @@ public class QnaBoardRepositoryTest {
 
     @Test
     public void insertDummies() {
-        IntStream.rangeClosed(1,100).forEach(i -> {
+        IntStream.rangeClosed(1,25).forEach(i -> {
             Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com" , false);
             Member member = result.get();
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)
                     .content("qna Content" + i)
                     .writer(member)
+                    .category("상품문의")
+                    .build();
+            System.out.println(qnABoardRepository.save(qnaBoard));
+        });
+
+        IntStream.rangeClosed(26,50).forEach(i -> {
+            Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com" , false);
+            Member member = result.get();
+            QnaBoard qnaBoard = QnaBoard.builder()
+                    .title("qna Title"+ i)
+                    .content("qna Content" + i)
+                    .writer(member)
+                    .category("배송문의")
+                    .build();
+            System.out.println(qnABoardRepository.save(qnaBoard));
+        });
+
+        IntStream.rangeClosed(51,75).forEach(i -> {
+            Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com" , false);
+            Member member = result.get();
+            QnaBoard qnaBoard = QnaBoard.builder()
+                    .title("qna Title"+ i)
+                    .content("qna Content" + i)
+                    .writer(member)
+                    .category("교환 및 반품문의")
+                    .build();
+            System.out.println(qnABoardRepository.save(qnaBoard));
+        });
+
+        IntStream.rangeClosed(76,100).forEach(i -> {
+            Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com" , false);
+            Member member = result.get();
+            QnaBoard qnaBoard = QnaBoard.builder()
+                    .title("qna Title"+ i)
+                    .content("qna Content" + i)
+                    .writer(member)
+                    .category("기타")
                     .build();
             System.out.println(qnABoardRepository.save(qnaBoard));
         });
