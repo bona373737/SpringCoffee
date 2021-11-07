@@ -60,18 +60,18 @@ const routes = [
         props : true
       },
       {
-        path: 'qnaDetail/:boardNo',
-        name: 'QnaDetail',
+        path: 'qnaDetail/:qnaBoardNo',
+        name: 'qnaDetail',
         component: () => import('@/components/user/qna/QnaDetail.vue')
       },
       {
         path: '/qnaAdd',
-        name: 'QnaAdd',
+        name: 'qnaAdd',
         component: () => import('@/components/user/qna/QnaAdd.vue')
       },
       {
-        path: '/qnaUpdate:boardNo',
-        name: 'QnaUpdate',
+        path: '/qnaUpdate/:qnaBoardNo',
+        name: 'qnaUpdate',
         component: () => import('@/components/user/qna/QnaUpdate.vue')
       },
     ]

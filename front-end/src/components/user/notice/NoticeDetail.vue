@@ -2,7 +2,7 @@
   <div>
     <div class="outterDiv py-5">
       <table class="notice-context">
-        <tr><td class="table-title">제목 {{$store.state.boardDetail.title}} </td></tr>
+        <tr><td class="table-title"> {{$store.state.boardDetail.title}} </td></tr>
         <tr><td class="table-context"> {{$store.state.boardDetail.content}} </td></tr>
         <tr><td class=""> 작성일 </td></tr>
       </table>
@@ -14,18 +14,18 @@
       </div>
       <br>
       <table class="updown-page">
-      <colgroup>
-        <col style="width: 25%" />
-        <col style="width: 85%" />
-      </colgroup>
-      <tr class="goToUpperList">
-        <th style="background-color:#a9a9a92e"> 윗글 </th>
-        <td style="padding: 8px" @click="$route.push('')" > 글 제목 </td>
-      </tr>
-      <tr>
-        <th style="background-color:#a9a9a92e">  아랫글 </th>
-        <td style="padding: 8px" > 글 제목 </td>
-      </tr>
+        <colgroup>
+          <col style="width: 25%" />
+          <col style="width: 85%" />
+        </colgroup>
+        <tr class="goToUpperList">
+          <th style="background-color:#a9a9a92e"> 윗글 </th>
+          <td style="padding: 8px" @click="$route.push('')" > 글 제목 </td>
+        </tr>
+        <tr>
+          <th style="background-color:#a9a9a92e">  아랫글 </th>
+          <td style="padding: 8px" > 글 제목 </td>
+        </tr>
       </table>
 
     </div>
@@ -53,11 +53,11 @@ export default {
     },
     noticeDelete(boardNo){
       axios.delete(`/v1/${boardNo}`)
-      .then( res => {
-        console.log(res.data)
-        alert("공지사항 게시글이 삭제 되었습니다.")
-        this.$router.push({name : 'noticeList'});
-      })
+          .then( res => {
+            console.log(res.data)
+            alert("공지사항 게시글이 삭제 되었습니다.")
+            this.$router.push({name : 'noticeList'});
+          })
     }
   }
 };
@@ -66,8 +66,8 @@ export default {
 
 <style scoped>
 .outterDiv{
-    width: 60%;
-    margin: auto;
+  width: 60%;
+  margin: auto;
 }
 .notice-context{
   width: 100%;

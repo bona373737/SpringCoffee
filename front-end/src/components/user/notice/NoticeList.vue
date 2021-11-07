@@ -34,24 +34,6 @@
           </tbody>
         </table>
       </div>
-    <ul v-if="pager.pages && pager.pages.length" class="pagination" :style="ulStyles">
-        <li class="page-item first" :class="{'disabled': pager.currentPage === 1}" :style="liStyles">
-            <a class="page-link" @click="setPage(1)" :style="aStyles">{{labels.first}}</a>
-        </li>
-        <li class="page-item previous" :class="{'disabled': pager.currentPage === 1}" :style="liStyles">
-            <a class="page-link" @click="setPage(pager.currentPage - 1)" :style="aStyles">{{labels.previous}}</a>
-        </li>
-        <li v-for="page in pager.pages" :key="page" class="page-item page-number" :class="{'active': pager.currentPage === page}" :style="liStyles">
-            <a class="page-link" @click="setPage(page)" :style="aStyles">{{page}}</a>
-        </li>
-        <li class="page-item next" :class="{'disabled': pager.currentPage === pager.totalPages}" :style="liStyles">
-            <a class="page-link" @click="setPage(pager.currentPage + 1)" :style="aStyles">{{labels.next}}</a>
-        </li>
-        <li class="page-item last" :class="{'disabled': pager.currentPage === pager.totalPages}" :style="liStyles">
-            <a class="page-link" @click="setPage(pager.totalPages)" :style="aStyles">{{labels.last}}</a>
-        </li>
-    </ul>
-
     </div>
   </div>
 </template>
@@ -61,21 +43,14 @@
 export default {
   name:'NoticeForm',
   created() {
-    this.$store.dispatch('fetchBoard', this.$route.params);
+    this.$store.dispatch('fetchBoard');
   },
   data() {
-            return {
-                pager: {},
-                ulStyles: {},
-                liStyles: {},
-                aStyles: {}
-            }
-  },
+    return {
 
+    }
+  },
   methods: {
-    onChangePage(pageOfItems) {
-      this.pageOfItems = pageOfItems;
-    },
     goNoticeDetail(boardNo) {
       this.$router.push({
         name: 'noticeDetail',

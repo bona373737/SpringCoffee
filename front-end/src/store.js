@@ -3,25 +3,33 @@ import axios from "axios";
 
 
 let store = createStore({
-  state(){  // 데이터보관하고 싶으면 여기에 기재
+  state(){
     return{
       isShow: true,
-      boardList: [],  // Map 형식으로 하면 boardNo 가능
+      boardList: [],
       boardDetail: {},
+      qnaBoardList: [],
+      qnaBoardDetail : {},
     }
   },
-  mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
+  mutations: {
     checkShow(state) {
       state.isShow = !this.state.isShow;
     },
-    setBoard(state, board) {
-      state.boardList = board;
+    setBoard(state, payload) {
+      state.boardList = payload;
     },
-    setBoardDetail(state,boardDetail){
-      state.boardDetail = boardDetail;
+    setBoardDetail(state,payload){
+      state.boardDetail = payload;
+    },
+    setQnaBoardList(state, payload){
+      state.qnaBoardList = payload;
+    },
+    setQnaBoardDetail(state,payload){
+      state.qnaBoardDetail = payload
     }
   },
-  actions: { // ajax 넣는곳, 오래 걸리는 작업들 넣는곳
+  actions: {
     fetchBoard(context){
       axios.get(`/v1/list`)
           .then(response => {
@@ -29,11 +37,25 @@ let store = createStore({
           })
     },
     fetchBoardDetail(context, boardNo){
-      axios.get(`/v1/${boardNo}`)      // axios dynamic URL,
+      axios.get(`/v1/${boardNo}`)
           .then(response =>{
             context.commit('setBoardDetail', response.data);
           })
+    },
+    fetchQnaBoardList(context){
+      axios.get('/v3/list')
+          .then(response =>{
+            context.commit('setQnaBoardList', response.data.dtoList);
+          })
+    },
+    fetchQnaBoardDetail(context,qnaBoardNo){
+      console.log(qnaBoardNo)
+      axios.get(`/v3/${qnaBoardNo}`)
+          .then(response => {
+            context.commit('setQnaBoardDetail',response.data)
+          })
     }
+
   },
 })
 

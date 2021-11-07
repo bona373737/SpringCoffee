@@ -7,17 +7,28 @@
           <col width="*" />
         </colgroup>
         <tr>
+          <th>카테고리</th>
+          <td class="table-title">
+            <form>
+              <input type="radio" name="categoryOpt"> 상품문의
+              <input type="radio" name="categoryOpt"> 배송문의
+              <input type="radio" name="categoryOpt"> 교환 및 반품문의
+              <input type="radio" name="categoryOpt"> 기타
+            </form>
+          </td>
+        </tr>
+        <tr>
           <th>제목</th>
-          <td class="table-title"><input type="text" placeholder="공지글 제목" v-model="title"></td>
+          <td class="table-title"><input type="text" placeholder="문의글 제목" v-model="title"></td>
         </tr>
         <tr>
           <th>내용</th>
-          <td class="table-context"><textarea v-model="content"> 공지글 상세내용</textarea></td>
+          <td class="table-context"><textarea v-model="content"> 문의글 상세내용</textarea></td>
         </tr>
       </table>
       <br>
       <div class="BtnWrap">
-        <button class="btn btn-success" @click="noticeAdd"> 추가 </button>
+        <button class="btn btn-success" @click="noticeAdd"> Q&A등록 </button>
         <button class="btn btn-success"> 목록으로 가기 </button>
       </div>
 
@@ -31,15 +42,15 @@ import axios from 'axios';
 export default {
   data(){
     return{
-      category: 'notice',
+      category: '',
       title : '',
       content : '',
-      writer: 'bona'  // TODO 로그인한 사용자 이메일로 대체하기
+      writer: 'user3@springCoffee.com'  //  TODO 로그인한 사용자 이메일로 대체하기
     }
   },
   methods:{
     noticeAdd(){
-      axios.post('/v1/register', {
+      axios.post('/v3/register', {
         category: this.category,
         writer:this.writer,
         title: this.title,

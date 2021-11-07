@@ -4,7 +4,7 @@
       <div class="btnWrap text-end">
         <input type="text" class="me-2">
         <button class="btn btn-success me-2" > 검색 </button>
-        <button class="btn btn-primary" @click="$router.push('/noticeAdd')"> 추가 </button>
+        <button class="btn btn-primary" @click="$router.push('/qnaAdd')"> 문의하기 </button>
       </div>
 
       <div>
@@ -21,58 +21,38 @@
             <th>제목</th>
             <th>작성자</th>
             <th>작성일</th>
-<!--            <th>조회수</th>-->
+<!--<th>조회수</th>-->
           </tr>
           </thead>
           <tbody>
-          <tr class="tbody-th1" v-for="board in this.$store.state.boardList" v-bind:key="board.boardNo" @click="goNoticeDetail(board.boardNo)" >
-            <th>{{ board.boardNo }}</th>
-            <th>{{ board.title }}</th>
-            <th>{{ board.writer }}</th>
-            <th>{{ board.modDate }}</th>
+          <tr class="tbody-th1" v-for="qnaBoard in this.$store.state.qnaBoardList" :key="qnaBoard.qnaBoardNo" @click="goQnaDetail(qnaBoard.qnaBoardNo)" >
+            <th>{{ qnaBoard.qnaBoardNo }}</th>
+            <th>{{ qnaBoard.title }}</th>
+            <th>{{ qnaBoard.writer }}</th>
+            <th>{{ qnaBoard.regDate }}</th>
           </tr>
           </tbody>
         </table>
       </div>
-        <div class="btn-cover">
-      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
-        이전
-      </button>
-      <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
-      <button :disabled="pageNum >= pageCount - 1" @click="nextPage" class="page-btn">
-        다음
-      </button>
-    </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name:'NoticeForm',
+  name:'QnaList',
   created() {
-    this.$store.dispatch('fetchBoard', this.$route.params.category="notice");
+    this.$store.dispatch('fetchQnaBoardList')
   },
   data() {
     return {
-      totalPage: 0,
-      listRowCount: 10,
-      pageLinkCount: 10,
-      currentPageIndex: 1,
-      page: 0,
-      start: 0,
-      end: 0,
-      prev: false,
-      next: false
-
     };
   },
-
   methods: {
-    goNoticeDetail(boardNo) {
+    goQnaDetail(qnaBoardNo) {
       this.$router.push({
-        name: 'noticeDetail',
-        params: { boardNo: boardNo }
+        name: 'qnaDetail',
+        params: { qnaBoardNo: qnaBoardNo }
       })
     },
   },
