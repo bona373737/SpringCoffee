@@ -15,6 +15,8 @@ public interface QnaBoardRepository extends JpaRepository<QnaBoard, Long> {
 
     Page<QnaBoard> findByIsAnswered(Boolean isAnswered, Pageable pageable);
 
+    Page<QnaBoard> findByCategoryAndIsAnswered(String category, Boolean isAnswered, Pageable pageable);
+
     @EntityGraph(attributePaths = "writer", type = EntityGraph.EntityGraphType.LOAD)
     @Query("select b from sc_qna_board b where b.qnaBoardNo = :qnaBoardNo")
     Optional<QnaBoard> getWithWriter(Long qnaBoardNo);

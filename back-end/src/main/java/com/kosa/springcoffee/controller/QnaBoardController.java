@@ -46,12 +46,17 @@ public class QnaBoardController {
         return qnaBoardService.getCategory(pageRequestDTO);
     }
 
-    @GetMapping(value = "/list/answer/{isAnswered}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/list/all/{isAnswered}", produces = MediaType.APPLICATION_JSON_VALUE)
     public PageResultDTO<QnaBoardDTO, QnaBoard> getAnswered(AnsweredPageRequestDTO pageRequestDTO, @PathVariable Boolean isAnswered) {
         log.info("Q&A " + isAnswered + "조회");
-        System.out.println("isAnswer : "+isAnswered);
-        System.out.println(pageRequestDTO);
         return qnaBoardService.getAnswered(pageRequestDTO);
+    }
+
+    @GetMapping(value = "/list/{category}/{isAnswered}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public PageResultDTO<QnaBoardDTO, QnaBoard> getCategoryAndAnswered(QnaCategoryAnsweredPageRequestDTO pageRequestDTO, @PathVariable String category, @PathVariable Boolean isAnswered) {
+        log.info("Q&A " + category + ", " + isAnswered + " 조회");
+        System.out.println(pageRequestDTO);
+        return qnaBoardService.getCategoryAndAnswered(pageRequestDTO);
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)

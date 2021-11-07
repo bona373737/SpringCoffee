@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 @Entity(name = "sc_qna_board")
 @Getter
-//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

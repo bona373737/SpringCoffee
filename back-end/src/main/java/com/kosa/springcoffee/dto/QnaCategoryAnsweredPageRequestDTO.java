@@ -10,13 +10,14 @@ import org.springframework.data.domain.Sort;
 @Builder
 @AllArgsConstructor
 @Data
-public class AnsweredPageRequestDTO {
+public class QnaCategoryAnsweredPageRequestDTO {
 
     private int page;
     private int size;
+    private String category;
     private Boolean isAnswered;
 
-    public AnsweredPageRequestDTO() {
+    public QnaCategoryAnsweredPageRequestDTO() {
         this.page = 1;
         this.size = 10;
     }

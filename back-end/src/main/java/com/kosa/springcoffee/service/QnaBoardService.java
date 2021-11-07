@@ -1,10 +1,8 @@
 package com.kosa.springcoffee.service;
 
 import com.kosa.springcoffee.dto.*;
-import com.kosa.springcoffee.entity.Board;
 import com.kosa.springcoffee.entity.Member;
 import com.kosa.springcoffee.entity.QnaBoard;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -16,6 +14,8 @@ public interface QnaBoardService {
     PageResultDTO<QnaBoardDTO, QnaBoard> readAll(PageRequestDTO requestDTO); // 전체 조회
 
     QnaBoardDTO get(Long qnaBoardNo); // 상세 조회
+
+    PageResultDTO<QnaBoardDTO, QnaBoard> getCategoryAndAnswered(QnaCategoryAnsweredPageRequestDTO requestDTO);
 
     PageResultDTO<QnaBoardDTO, QnaBoard> getCategory(CategoryPageRequestDTO requestDTO); // 카테고리 조회
 
