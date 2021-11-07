@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from 'vue-router';
 import Content from '@/components/user/Content.vue'
+import QnaLayout from '@/components/user/qna/QnaLayout'
 
 const routes = [
   {
@@ -49,7 +50,8 @@ const routes = [
   {
     path: '/qnaLayout',
     name: 'QnaLayout',
-    component: () => import('@/components/user/qna/QnaLayout.vue'),
+    component: QnaLayout,
+    // component: () => import('@/components/user/qna/QnaLayout.vue'),
     children :[
       {
         path: '',
