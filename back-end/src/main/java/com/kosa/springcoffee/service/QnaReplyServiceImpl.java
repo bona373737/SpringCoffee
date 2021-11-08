@@ -40,4 +40,21 @@ public class QnaReplyServiceImpl implements QnaReplyService{
         return entity.getQnaReplyNo();
     }
 
+    @Override
+    public QnaReplyDTO get(Long qnaBoardNo) {
+        Optional<QnaReply> result = qnaReplyRepository.findByQnaBoard(QnaBoard.builder().qnaBoardNo(qnaBoardNo).build());
+
+        if (result.isPresent()) {
+            QnaReply entity = result.get();
+
+            QnaReplyDTO qnaReplyDTO = QnaReplyDTO.builder()
+                    .qnaReplyNo(entity.getQnaReplyNo())
+                    .content(entity.getContent())
+                    .replyer(entity.getReplyer().getEmail())
+                    .qnaBoardNo(entity.getQnaBoard().getQnaBoardNo()).build();
+            return qnaReplyDTO;
+        }
+
+        return null;
+    }
 }

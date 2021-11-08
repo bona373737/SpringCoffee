@@ -5,6 +5,7 @@ import com.kosa.springcoffee.service.QnaReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,12 @@ public class QnaReplyController {
         System.out.println(dto);
         Long num = qnaReplyService.create(dto);
         return new ResponseEntity<>(num, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{qnaBoardNo}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<QnaReplyDTO> read(@PathVariable("qnaBoardNo") Long qnaBoardNo) {
+        log.info(qnaBoardNo + " 답변 조회");
+        return new ResponseEntity<>(qnaReplyService.get(qnaBoardNo), HttpStatus.OK);
     }
 
 }

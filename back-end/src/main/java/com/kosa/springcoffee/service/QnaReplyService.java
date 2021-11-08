@@ -7,4 +7,5 @@ public interface QnaReplyService {
 
     Long create(QnaReplyDTO dto);
 
+    QnaReplyDTO get(Long qnaBoardNo); // 상세 조회
 }
