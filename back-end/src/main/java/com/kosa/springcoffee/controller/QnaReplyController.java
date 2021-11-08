@@ -31,4 +31,10 @@ public class QnaReplyController {
         return new ResponseEntity<>(qnaReplyService.get(qnaBoardNo), HttpStatus.OK);
     }
 
+    @PutMapping(value = "/{qnaBoardNo}", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> modify(@RequestBody QnaReplyDTO qnaReplyDTO){
+        log.info(qnaReplyDTO + " 수정");
+        qnaReplyService.modify(qnaReplyDTO);
+        return new ResponseEntity<>("modified", HttpStatus.OK);
+    }
 }

@@ -23,4 +23,8 @@ public class QnaReply extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private QnaBoard qnaBoard;
+
+    public void changeContent(String content) {
+        this.content = content;
+    }
 }

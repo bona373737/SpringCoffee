@@ -57,4 +57,16 @@ public class QnaReplyServiceImpl implements QnaReplyService{
 
         return null;
     }
+
+    @Override
+    public void modify(QnaReplyDTO dto) {
+        Long qnaReplyNo = dto.getQnaReplyNo();
+        Optional<QnaReply> result = qnaReplyRepository.findById(qnaReplyNo);
+
+        if (result.isPresent()){
+            QnaReply qnaReply = result.get();
+            qnaReply.changeContent(dto.getContent());
+            qnaReplyRepository.save(qnaReply);
+        }
+    }
 }
