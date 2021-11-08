@@ -11,7 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
+
     Page<Board> findByCategory(String category, Pageable pageable);
+
+    Page<Board> findByTitleContaining(String keyword, Pageable pageable);
 
     @EntityGraph(attributePaths = "writer", type = EntityGraph.EntityGraphType.LOAD)
     @Query("select b from sc_notice_board b where b.boardNo = :boardNo")
