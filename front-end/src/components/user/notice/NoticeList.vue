@@ -20,7 +20,7 @@
             <th>제목</th>
             <th>작성자</th>
             <th>작성일</th>
-<!--            <th>조회수</th>-->
+<!--        <th>조회수</th>-->
           </tr>
           </thead>
           <tbody>
@@ -36,13 +36,13 @@
       </div>
 
        <button>이전</button>
+
        <button class="pageNo" :class="{active: this.page === this.$store.state.noticeBoardList.page}"
                v-for="page in this.$store.state.noticeBoardList.pageList" :key="page"
                @click="movePage(page)">{{page}}</button>
        <button>다음</button>
 
     </div>
-
   </div>
 </template>
 

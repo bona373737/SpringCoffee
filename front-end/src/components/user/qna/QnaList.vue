@@ -29,7 +29,8 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="tbody-th1" v-for="qnaBoard in this.$store.state.qnaBoardList" :key="qnaBoard.qnaBoardNo" @click="goQnaDetail(qnaBoard.qnaBoardNo)" >
+          <tr class="tbody-th1" v-for="qnaBoard in this.$store.state.qnaBoardList" :key="qnaBoard.qnaBoardNo"
+              @click="goQnaDetail(qnaBoard.qnaBoardNo)" >
             <th>{{ qnaBoard.qnaBoardNo }}</th>
             <th>{{ qnaBoard.category }}</th>
             <th>{{qnaBoard.title }}</th>
