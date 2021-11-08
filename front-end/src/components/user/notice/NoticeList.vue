@@ -6,7 +6,6 @@
         <button class="btn btn-success me-2" > 검색 </button>
         <button class="btn btn-primary" @click="$router.push('/noticeAdd')"> 추가 </button>
       </div>
-
       <div>
         <table class="table table-bordered table-condensed">
           <colgroup>
@@ -25,7 +24,8 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="tbody-th1" v-for="board in this.$store.state.boardList" v-bind:key="board.boardNo" @click="goNoticeDetail(board.boardNo)" >
+          <tr class="tbody-th1" v-for="board in this.$store.state.noticeBoardList.dtoList" v-bind:key="board.boardNo"
+              @click="goNoticeDetail(board.boardNo)">
             <th>{{ board.boardNo }}</th>
             <th>{{ board.title }}</th>
             <th>{{ board.writer }}</th>
@@ -34,16 +34,24 @@
           </tbody>
         </table>
       </div>
+
+       <button>이전</button>
+       <button class="pageNo" :class="{active: this.page === this.$store.state.noticeBoardList.page}"
+               v-for="page in this.$store.state.noticeBoardList.pageList" :key="page"
+               @click="movePage(page)">{{page}}</button>
+       <button>다음</button>
+
     </div>
+
   </div>
 </template>
 
 <script>
 
 export default {
-  name:'NoticeForm',
+  name:'NoticeList',
   created() {
-    this.$store.dispatch('fetchBoard');
+    this.$store.dispatch('fetchNoticeBoardList');
   },
   data() {
     return {
@@ -57,13 +65,17 @@ export default {
         params: { boardNo: boardNo }
       })
     },
+    movePage(page){
+      this.store.dispatch('fetchNoticeBoardList',page)
+
+    }
   }
 };
 </script>
 
 <style scoped>
 .outterDiv{
-  width: 60%;
+  width: 80%;
   margin: auto;
 }
 .btnWrap{
@@ -86,5 +98,8 @@ export default {
 th{
   border-left: 1px solid white;
   border-right: 1px solid white;
+}
+.pageNo{
+  background: tomato;
 }
 </style>

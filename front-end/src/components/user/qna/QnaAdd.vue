@@ -10,10 +10,10 @@
           <th>카테고리</th>
           <td class="table-title">
             <form>
-              <input type="radio" name="categoryOpt"> 상품문의
-              <input type="radio" name="categoryOpt"> 배송문의
-              <input type="radio" name="categoryOpt"> 교환 및 반품문의
-              <input type="radio" name="categoryOpt"> 기타
+              <input type="radio" name="categoryOpt" v-model="category"> 상품문의
+              <input type="radio" name="categoryOpt" v-model="category"> 배송문의
+              <input type="radio" name="categoryOpt" v-model="category"> 교환 및 반품문의
+              <input type="radio" name="categoryOpt" v-model="category"> 기타
             </form>
           </td>
         </tr>
@@ -29,7 +29,7 @@
       <br>
       <div class="BtnWrap">
         <button class="btn btn-success" @click="noticeAdd"> Q&A등록 </button>
-        <button class="btn btn-success"> 목록으로 가기 </button>
+        <button class="btn btn-success" @click="$router.push('/qnaList')"> 목록으로 가기 </button>
       </div>
 
     </div>
@@ -56,6 +56,7 @@ export default {
         title: this.title,
         content : this.content
       });
+      this.$router.push('/qnaList')
     }
   }
 };

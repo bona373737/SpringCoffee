@@ -7,11 +7,11 @@
           <col width="*" />
         </colgroup>
         <tr>
-          <th>카테코리</th>
+          <th>카테고리</th>
           <td>
             <form>
-              <input type="radio" name="categoryOpt"> notice
-              <input type="radio" name="categoryOpt"> event
+              <input type="radio" name="categoryOpt" value="notice"> notice
+              <input type="radio" name="categoryOpt" value="event"> event
             </form>
           </td>
         </tr>
@@ -39,12 +39,12 @@ export default {
   data(){
     return{
       boardNo: '',
-      title : this.$store.state.boardDetail.title,
-      content: this.$store.state.boardDetail.content,
+      title : this.$store.state.noticeBoardDetail.title,
+      content: this.$store.state.noticeBoardDetail.content,
     }
   },
   created() {
-    this.$store.dispatch('fetchBoardDetail',this.$route.params.boardNo);
+    this.$store.dispatch('fetchNoticeBoardDetail',this.$route.params.boardNo);
   },
   methods:{
     noticeUpdate(boardNo){

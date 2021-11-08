@@ -8,10 +8,10 @@
         </colgroup>
         <tr>
           <th>카테고리</th>
-          <td>
+          <td >
             <form>
-              <input type="radio" name="categoryOpt"> notice
-              <input type="radio" name="categoryOpt"> event
+              <input type="radio" name="categoryOpt" v-model="category"> notice
+              <input type="radio" name="categoryOpt" v-model="category"> event
             </form>
           </td>
         </tr>

@@ -6,8 +6,8 @@ let store = createStore({
   state(){
     return{
       isShow: true,
-      boardList: [],
-      boardDetail: {},
+      noticeBoardList: [],
+      noticeBoardDetail: {},
       qnaBoardList: [],
       qnaBoardDetail : {},
     }
@@ -16,11 +16,11 @@ let store = createStore({
     checkShow(state) {
       state.isShow = !this.state.isShow;
     },
-    setBoard(state, payload) {
-      state.boardList = payload;
+    setNoticeBoard(state, payload) {
+      state.noticeBoardList = payload;
     },
-    setBoardDetail(state,payload){
-      state.boardDetail = payload;
+    setNoticeBoardDetail(state,payload){
+      state.noticeBoardDetail = payload;
     },
     setQnaBoardList(state, payload){
       state.qnaBoardList = payload;
@@ -30,16 +30,16 @@ let store = createStore({
     }
   },
   actions: {
-    fetchBoard(context){
+    fetchNoticeBoardList(context){
       axios.get(`/v1/list`)
           .then(response => {
-            context.commit('setBoard', response.data.dtoList);
+            context.commit('setNoticeBoard', response.data);
           })
     },
-    fetchBoardDetail(context, boardNo){
+    fetchNoticeBoardDetail(context, boardNo){
       axios.get(`/v1/${boardNo}`)
           .then(response =>{
-            context.commit('setBoardDetail', response.data);
+            context.commit('setNoticeBoardDetail', response.data);
           })
     },
     fetchQnaBoardList(context){

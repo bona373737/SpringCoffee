@@ -11,25 +11,33 @@
         <table class="table table-bordered table-condensed">
           <colgroup>
             <col width="5%" />
-            <col width="55%" />
+            <col width="10%" />
+            <col width="45%" />
+            <col width="15%" />
             <col width="15%" />
             <col width="15%" />
           </colgroup>
           <thead>
           <tr>
             <th>No.</th>
+            <th>Q&A유형</th>
             <th>제목</th>
             <th>작성자</th>
             <th>작성일</th>
+            <th>답변상태</th>
 <!--<th>조회수</th>-->
           </tr>
           </thead>
           <tbody>
           <tr class="tbody-th1" v-for="qnaBoard in this.$store.state.qnaBoardList" :key="qnaBoard.qnaBoardNo" @click="goQnaDetail(qnaBoard.qnaBoardNo)" >
             <th>{{ qnaBoard.qnaBoardNo }}</th>
-            <th>{{ qnaBoard.title }}</th>
+            <th>{{ qnaBoard.category }}</th>
+            <th>{{qnaBoard.title }}</th>
             <th>{{ qnaBoard.writer }}</th>
             <th>{{ qnaBoard.regDate }}</th>
+            <th><span v-if="qnaBoard.isAnswered == 1">답변완료</span>
+                <span v-if="qnaBoard.isAnswered == 0">답변대기</span>
+            </th>
           </tr>
           </tbody>
         </table>
@@ -61,7 +69,7 @@ export default {
 
 <style scoped>
 .outterDiv{
-  width: 60%;
+  width: 80%;
   margin: auto;
 }
 .btnWrap{

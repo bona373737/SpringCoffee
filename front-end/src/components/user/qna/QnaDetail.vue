@@ -4,15 +4,20 @@
       <table class="notice-context">
         <tr><td class="table-title"> {{$store.state.qnaBoardDetail.title}} </td></tr>
         <tr><td class="table-context"> {{$store.state.qnaBoardDetail.content}} </td></tr>
-        <tr><td class=""> 작성일 </td></tr>
       </table>
       <br>
+
       <div class="BtnWrap">
         <button class="btn btn-success" @click="qnaDelete(this.$route.params.qnaBoardNo)"> 삭제 </button>
         <button class="btn btn-success" @click="goQnaUpdate(this.$route.params.qnaBoardNo)"> 수정 </button>
         <button class="btn btn-success" @click="$router.push({name : 'noticeList'})"> 목록으로 가기 </button>
       </div>
-      <br>
+
+      <div class="answer" >
+        <ul>
+          <li> 답변내역 <button>답변수정</button></li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -82,5 +87,8 @@ export default {
 .goToUpperList{
   border-bottom: 1px solid  #ddd;
   text-align: left;
+}
+.answer{
+  background: darkgray;
 }
 </style>

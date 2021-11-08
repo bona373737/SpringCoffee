@@ -2,8 +2,8 @@
   <div>
     <div class="outterDiv py-5">
       <table class="notice-context">
-        <tr><td class="table-title"> {{$store.state.boardDetail.title}} </td></tr>
-        <tr><td class="table-context"> {{$store.state.boardDetail.content}} </td></tr>
+        <tr><td class="table-title"> {{$store.state.noticeBoardDetail.title}} </td></tr>
+        <tr><td class="table-context"> {{$store.state.noticeBoardDetail.content}} </td></tr>
         <tr><td class=""> 작성일 </td></tr>
       </table>
       <br>
@@ -42,7 +42,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('fetchBoardDetail',this.$route.params.boardNo); // board_no -> 글번호에 해당하는 내용을 가져와라!
+    this.$store.dispatch('fetchNoticeBoardDetail',this.$route.params.boardNo); // board_no -> 글번호에 해당하는 내용을 가져와라!
   },
   methods:{
     goNoticeUpdate(boardNo){
