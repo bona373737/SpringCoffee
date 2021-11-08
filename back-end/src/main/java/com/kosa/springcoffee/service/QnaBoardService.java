@@ -1,13 +1,12 @@
 package com.kosa.springcoffee.service;
 
 import com.kosa.springcoffee.dto.*;
-import com.kosa.springcoffee.entity.Board;
 import com.kosa.springcoffee.entity.Member;
 import com.kosa.springcoffee.entity.QnaBoard;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public interface QnaBoardService {
 
@@ -17,6 +16,8 @@ public interface QnaBoardService {
 
     QnaBoardDTO get(Long qnaBoardNo); // 상세 조회
 
+    PageResultDTO<QnaBoardDTO, QnaBoard> getCategoryAndAnswered(QnaCategoryAnsweredPageRequestDTO requestDTO);
+
     PageResultDTO<QnaBoardDTO, QnaBoard> getCategory(CategoryPageRequestDTO requestDTO); // 카테고리 조회
 
     PageResultDTO<QnaBoardDTO, QnaBoard> getAnswered(AnsweredPageRequestDTO requestDTO); // 답변여부 조회
@@ -25,10 +26,9 @@ public interface QnaBoardService {
 
     void modify(QnaBoardDTO qnaBoardDTO);
 
-    void modifyIsAnswered(QnaBoardDTO qnaBoardDTO);
+    void modifyIsAnswered(Long qnaBoardNo, Boolean isAnswered);
 
     void remove(Long qnaBoardNo);
-
 
     default QnaBoard dtoToEntity(QnaBoardDTO dto) {
         QnaBoard entity = QnaBoard.builder()
@@ -48,6 +48,11 @@ public interface QnaBoardService {
                 .content(entity.getContent())
                 .writer(entity.getWriter().getEmail())
                 .category(entity.getCategory())
+                .replyList(entity.getQnaReplies().stream().map(qnaReply -> QnaReplyDTO.builder()
+                        .qnaReplyNo(qnaReply.getQnaReplyNo())
+                        .content(qnaReply.getContent())
+                        .replyer(qnaReply.getReplyer().getEmail())
+                        .qnaBoardNo(qnaReply.getQnaBoard().getQnaBoardNo()).build()).collect(Collectors.toList()))
                 .isAnswered(entity.getIsAnswered())
                 .modDate(entity.getModDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .regDate(entity.getRegDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))

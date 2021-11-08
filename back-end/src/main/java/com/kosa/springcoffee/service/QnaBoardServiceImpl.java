@@ -1,7 +1,6 @@
 package com.kosa.springcoffee.service;
 
 import com.kosa.springcoffee.dto.*;
-import com.kosa.springcoffee.entity.Board;
 import com.kosa.springcoffee.entity.QnaBoard;
 import com.kosa.springcoffee.repository.QnaBoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +56,6 @@ public class QnaBoardServiceImpl implements QnaBoardService{
     public PageResultDTO<QnaBoardDTO, QnaBoard> getCategory(CategoryPageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("qnaBoardNo").descending());
 
-        System.out.println(requestDTO);
         Page<QnaBoard> result = qnaBoardRepository.findByCategory(requestDTO.getCategory(), pageable);
 
         Function<QnaBoard, QnaBoardDTO> fn = (entity -> entityToDto(entity));
@@ -69,8 +67,18 @@ public class QnaBoardServiceImpl implements QnaBoardService{
     public PageResultDTO<QnaBoardDTO, QnaBoard> getAnswered(AnsweredPageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("qnaBoardNo").descending());
 
-        System.out.println(requestDTO);
         Page<QnaBoard> result = qnaBoardRepository.findByIsAnswered(requestDTO.getIsAnswered(), pageable);
+
+        Function<QnaBoard, QnaBoardDTO> fn = (entity -> entityToDto(entity));
+
+        return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public PageResultDTO<QnaBoardDTO, QnaBoard> getCategoryAndAnswered(QnaCategoryAnsweredPageRequestDTO requestDTO) {
+        Pageable pageable = requestDTO.getPageable(Sort.by("qnaBoardNo").descending());
+
+        Page<QnaBoard> result = qnaBoardRepository.findByCategoryAndIsAnswered(requestDTO.getCategory(), requestDTO.getIsAnswered(), pageable);
 
         Function<QnaBoard, QnaBoardDTO> fn = (entity -> entityToDto(entity));
 
@@ -99,13 +107,12 @@ public class QnaBoardServiceImpl implements QnaBoardService{
     }
 
     @Override
-    public void modifyIsAnswered(QnaBoardDTO qnaBoardDTO) {
-        Long qnaBoardNo = qnaBoardDTO.getQnaBoardNo();
+    public void modifyIsAnswered(Long qnaBoardNo, Boolean isAnswered) {
         Optional<QnaBoard> result = qnaBoardRepository.findById(qnaBoardNo);
 
         if(result.isPresent()){
             QnaBoard qnaBoard = result.get();
-            qnaBoard.changeIsAnswered(!qnaBoardDTO.getIsAnswered());
+            qnaBoard.changeIsAnswered(isAnswered);
             qnaBoardRepository.save(qnaBoard);
         }
     }

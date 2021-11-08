@@ -14,7 +14,7 @@ public class QnaReply extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long replyNo;
+    private Long qnaReplyNo;
 
     private String content;
 
@@ -22,5 +22,10 @@ public class QnaReply extends BaseEntity {
     private Member replyer;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "qna_board_no")
     private QnaBoard qnaBoard;
+
+    public void changeContent(String content) {
+        this.content = content;
+    }
 }
