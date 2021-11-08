@@ -59,9 +59,21 @@ public class QnaBoardController {
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<QnaBoardDTO>> getList(String email){
-        log.info(email);
+    public ResponseEntity<List<QnaBoardDTO>> getList(@RequestParam(value = "email") String email){
+        log.info(email + " 검색");
         return new ResponseEntity<>(qnaBoardService.getAllWithWriter(email), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/search/keyword")
+    public PageResultDTO<QnaBoardDTO, QnaBoard> searchKeyword(KeywordPageRequestDTO requestDTO) {
+        log.info(requestDTO.getKeyword() + " 검색");
+        return qnaBoardService.searchKeyword(requestDTO);
+    }
+
+    @GetMapping(value = "/search/email")
+    public PageResultDTO<QnaBoardDTO, QnaBoard> searchEmail(EmailPageRequestDTO requestDTO) {
+        log.info(requestDTO.getEmail() + " 검색");
+        return qnaBoardService.searchEmail(requestDTO);
     }
 
     @PutMapping(value = "/{qnaBoardNo}", produces = MediaType.TEXT_PLAIN_VALUE)
