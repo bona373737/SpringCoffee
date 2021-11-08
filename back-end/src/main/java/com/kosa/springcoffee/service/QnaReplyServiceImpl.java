@@ -36,8 +36,8 @@ public class QnaReplyServiceImpl implements QnaReplyService{
     }
 
     @Override
-    public QnaReplyDTO get(Long qnaBoardNo) {
-        Optional<QnaReply> result = qnaReplyRepository.findByQnaBoard(QnaBoard.builder().qnaBoardNo(qnaBoardNo).build());
+    public QnaReplyDTO get(Long qnaReplyNo) {
+        Optional<QnaReply> result = qnaReplyRepository.findById(qnaReplyNo);
 
         if (result.isPresent()) {
             QnaReply entity = result.get();

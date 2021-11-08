@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,5 +19,6 @@ public class QnaBoardDTO {
     private String regDate, modDate;
     private String writer;
     private String category;
+    private List<QnaReplyDTO> replyList;
     private Boolean isAnswered;
 }

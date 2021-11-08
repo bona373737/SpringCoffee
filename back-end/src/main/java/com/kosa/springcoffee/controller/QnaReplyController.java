@@ -25,10 +25,10 @@ public class QnaReplyController {
         return new ResponseEntity<>(num, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{qnaBoardNo}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<QnaReplyDTO> read(@PathVariable("qnaBoardNo") Long qnaBoardNo) {
-        log.info(qnaBoardNo + " 답변 조회");
-        return new ResponseEntity<>(qnaReplyService.get(qnaBoardNo), HttpStatus.OK);
+    @GetMapping(value = "/{qnaReplyNo}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<QnaReplyDTO> read(@PathVariable("qnaReplyNo") Long qnaReplyNo) {
+        log.info(qnaReplyNo + " 답변 조회");
+        return new ResponseEntity<>(qnaReplyService.get(qnaReplyNo), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{qnaReplyNo}", produces = MediaType.TEXT_PLAIN_VALUE)

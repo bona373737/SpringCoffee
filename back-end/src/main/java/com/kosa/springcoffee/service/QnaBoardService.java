@@ -6,6 +6,7 @@ import com.kosa.springcoffee.entity.QnaBoard;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public interface QnaBoardService {
 
@@ -47,6 +48,11 @@ public interface QnaBoardService {
                 .content(entity.getContent())
                 .writer(entity.getWriter().getEmail())
                 .category(entity.getCategory())
+                .replyList(entity.getQnaReplies().stream().map(qnaReply -> QnaReplyDTO.builder()
+                        .qnaReplyNo(qnaReply.getQnaReplyNo())
+                        .content(qnaReply.getContent())
+                        .replyer(qnaReply.getReplyer().getEmail())
+                        .qnaBoardNo(qnaReply.getQnaBoard().getQnaBoardNo()).build()).collect(Collectors.toList()))
                 .isAnswered(entity.getIsAnswered())
                 .modDate(entity.getModDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .regDate(entity.getRegDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))

@@ -3,6 +3,8 @@ package com.kosa.springcoffee.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "sc_qna_board")
 @Getter
@@ -29,6 +31,9 @@ public class QnaBoard extends BaseEntity {
 
     @Column(nullable = false)
     private Boolean isAnswered;
+
+    @OneToMany(mappedBy = "qnaBoard", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    List<QnaReply> qnaReplies = new ArrayList<>();
 
     @Builder
     public QnaBoard(Long qnaBoardNo, String title, String content, Member writer, String category) {
