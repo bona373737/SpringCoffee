@@ -10,10 +10,10 @@
           <th>카테고리</th>
           <td class="table-title">
             <form>
-              <input type="radio" name="categoryOpt" v-model="category"> 상품문의
-              <input type="radio" name="categoryOpt" v-model="category"> 배송문의
-              <input type="radio" name="categoryOpt" v-model="category"> 교환 및 반품문의
-              <input type="radio" name="categoryOpt" v-model="category"> 기타
+              <input type="radio" name="categoryOpt" v-model="category" id="상품문의" value="상품문의"> 상품문의
+              <input type="radio" name="categoryOpt" v-model="category" id="배송문의" value="배송문의"> 배송문의
+              <input type="radio" name="categoryOpt" v-model="category" id="교환 및 반품문의" value="교환 및 반품문의"> 교환 및 반품문의
+              <input type="radio" name="categoryOpt" v-model="category" id="기타" value="기타"> 기타
             </form>
           </td>
         </tr>

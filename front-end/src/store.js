@@ -10,13 +10,14 @@ let store = createStore({
       noticeBoardDetail: {},
       qnaBoardList: [],
       qnaBoardDetail : {},
+      QnaFilterList : []
     }
   },
   mutations: {
     checkShow(state) {
       state.isShow = !this.state.isShow;
     },
-    setNoticeBoard(state, payload) {
+    setNoticeBoardList(state, payload) {
       state.noticeBoardList = payload;
     },
     setNoticeBoardDetail(state,payload){
@@ -27,13 +28,16 @@ let store = createStore({
     },
     setQnaBoardDetail(state,payload){
       state.qnaBoardDetail = payload
+    },
+    setQnaFilterList(state,payload){
+      state.QnaFilterList = payload
     }
   },
   actions: {
     fetchNoticeBoardList(context){
       axios.get(`/v1/list`)
           .then(response => {
-            context.commit('setNoticeBoard', response.data);
+            context.commit('setNoticeBoardList', response.data);
           })
     },
     fetchNoticeBoardDetail(context, boardNo){
@@ -53,6 +57,12 @@ let store = createStore({
       axios.get(`/v3/${qnaBoardNo}`)
           .then(response => {
             context.commit('setQnaBoardDetail',response.data)
+          })
+    },
+    fetchQnaFilterList(context,category,isAnswered){
+      axios.get(`/list/${category}/${isAnswered}`)
+          .then(response =>{
+            context.commit('setQnaFilterList',response.data)
           })
     }
 

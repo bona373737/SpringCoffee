@@ -1,8 +1,24 @@
 <template>
   <div>
      <div class="outterDiv py-5">
+
+       <div class="filter">
+         <span>filter</span>
+         <select v-model="category">
+           <option value="상품문의" >상품문의</option>
+           <option value="배송문의" >배송문의</option>
+           <option value="교환 및 반품문의" >교환및반품문의</option>
+           <option value="기타" >기타</option>
+         </select>
+         <select v-model="isAnswered">
+           <option value=0>답변대기</option>
+           <option value=1>답변완료</option>
+         </select>
+         <button @click="qnaFilterList(this.category,this.isAnswered)"> 조회하기 </button>
+       </div>
+
       <div class="btnWrap text-end">
-        <input type="text" class="me-2">
+        <input type="text" class="me-2" placeholder="제목,작성자">
         <button class="btn btn-success me-2" > 검색 </button>
         <button class="btn btn-primary" @click="$router.push('/qnaAdd')"> 문의하기 </button>
       </div>
@@ -11,8 +27,8 @@
         <table class="table table-bordered table-condensed">
           <colgroup>
             <col width="5%" />
-            <col width="10%" />
-            <col width="45%" />
+            <col width="15%" />
+            <col width="40%" />
             <col width="15%" />
             <col width="15%" />
             <col width="15%" />
@@ -53,9 +69,11 @@ export default {
   created() {
     this.$store.dispatch('fetchQnaBoardList')
   },
-  data() {
-    return {
-    };
+  data(){
+    return{
+      category:'',
+      isAnswered:Boolean,
+    }
   },
   methods: {
     goQnaDetail(qnaBoardNo) {
@@ -64,6 +82,10 @@ export default {
         params: { qnaBoardNo: qnaBoardNo }
       })
     },
+    qnaFilterList(category, isAnswered){
+      console.log(category)
+      this.$store.dispatch('fetchQnaBoardList',category, isAnswered)
+    }
   },
 };
 </script>
