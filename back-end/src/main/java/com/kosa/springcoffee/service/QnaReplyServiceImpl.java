@@ -23,19 +23,14 @@ public class QnaReplyServiceImpl implements QnaReplyService{
     @Override
     public Long create(QnaReplyDTO dto) {
 
-        System.out.println("service dto : " + dto);
-
         QnaReply entity = QnaReply.builder()
                         .qnaReplyNo(dto.getQnaReplyNo())
                         .content(dto.getContent())
                         .replyer(Member.builder().email(dto.getReplyer()).build())
                         .qnaBoard(QnaBoard.builder().qnaBoardNo(dto.getQnaBoardNo()).build()).build();
 
-        System.out.println("service entity : " + entity);
-
         qnaReplyRepository.save(entity);
-
-        qnaBoardService.modifyIsAnswered(dto.getQnaBoardNo());
+        qnaBoardService.modifyIsAnswered(dto.getQnaBoardNo(), true);
 
         return entity.getQnaReplyNo();
     }
