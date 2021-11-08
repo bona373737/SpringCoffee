@@ -10,4 +10,6 @@ public interface QnaReplyService {
     QnaReplyDTO get(Long qnaBoardNo); // 상세 조회
 
     void modify(QnaReplyDTO dto);
+
+    void remove(Long qnaReplyNo);
 }

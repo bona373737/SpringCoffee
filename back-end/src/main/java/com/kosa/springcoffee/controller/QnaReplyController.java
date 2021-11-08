@@ -37,4 +37,12 @@ public class QnaReplyController {
         qnaReplyService.modify(qnaReplyDTO);
         return new ResponseEntity<>("modified", HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/{qnaReplyNo}", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> remove(@PathVariable("qnaReplyNo") Long qnaReplyNo) {
+        log.info(qnaReplyNo + " 삭제");
+        qnaReplyService.remove(qnaReplyNo);
+        return new ResponseEntity<>("removed", HttpStatus.OK);
+    }
+
 }

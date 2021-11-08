@@ -69,4 +69,11 @@ public class QnaReplyServiceImpl implements QnaReplyService{
             qnaReplyRepository.save(qnaReply);
         }
     }
+
+    @Override
+    public void remove(Long qnaReplyNo) {
+        Long qnaBoardNo = qnaReplyRepository.findById(qnaReplyNo).get().getQnaBoard().getQnaBoardNo();
+        qnaReplyRepository.deleteById(qnaReplyNo);
+        qnaBoardService.modifyIsAnswered(qnaBoardNo, false);
+    }
 }
