@@ -2,7 +2,7 @@
   <div>
     <div class="outterDiv py-5">
       <table class="notice-context">
-        <tr><td class="table-title"> {{$store.state.boardDetail.title}} </td></tr>
+        <tr><td class="table-title">제목 {{$store.state.boardDetail.title}} </td></tr>
         <tr><td class="table-context"> {{$store.state.boardDetail.content}} </td></tr>
         <tr><td class=""> 작성일 </td></tr>
       </table>

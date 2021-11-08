@@ -47,9 +47,32 @@ const routes = [
     ]
   },
   {
-    path: '/inquiry',
-    name: 'Inquiry',
-    component: () => import('@/components/user/Inquiry.vue')
+    path: '/qnaLayout',
+    name: 'QnaLayout',
+    component: () => import('@/components/user/qna/QnaLayout.vue'),
+    children :[
+      {
+        path: '',
+        name: 'QnaList',
+        component: () => import('@/components/user/qna/QnaList.vue'),
+        props : true
+      },
+      {
+        path: 'qnaDetail/:boardNo',
+        name: 'QnaDetail',
+        component: () => import('@/components/user/qna/QnaDetail.vue')
+      },
+      {
+        path: '/qnaAdd',
+        name: 'QnaAdd',
+        component: () => import('@/components/user/qna/QnaAdd.vue')
+      },
+      {
+        path: '/qnaUpdate:boardNo',
+        name: 'QnaUpdate',
+        component: () => import('@/components/user/qna/QnaUpdate.vue')
+      },
+    ]
   },
   {
     path: '/offstore',
@@ -75,8 +98,8 @@ const routes = [
   },
   {
     path: '/admin',
-    name: 'Admin',
-    component: () => import('@/components/admin/Admin.vue')
+    name: 'AdminPage',
+    component: () => import('@/components/admin/AdminPage.vue')
   },
   // {
   //   path: '/:pathMatch(.*)*',

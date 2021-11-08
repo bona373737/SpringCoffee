@@ -34,55 +34,48 @@
           </tbody>
         </table>
       </div>
-    <ul v-if="pager.pages && pager.pages.length" class="pagination" :style="ulStyles">
-        <li class="page-item first" :class="{'disabled': pager.currentPage === 1}" :style="liStyles">
-            <a class="page-link" @click="setPage(1)" :style="aStyles">{{labels.first}}</a>
-        </li>
-        <li class="page-item previous" :class="{'disabled': pager.currentPage === 1}" :style="liStyles">
-            <a class="page-link" @click="setPage(pager.currentPage - 1)" :style="aStyles">{{labels.previous}}</a>
-        </li>
-        <li v-for="page in pager.pages" :key="page" class="page-item page-number" :class="{'active': pager.currentPage === page}" :style="liStyles">
-            <a class="page-link" @click="setPage(page)" :style="aStyles">{{page}}</a>
-        </li>
-        <li class="page-item next" :class="{'disabled': pager.currentPage === pager.totalPages}" :style="liStyles">
-            <a class="page-link" @click="setPage(pager.currentPage + 1)" :style="aStyles">{{labels.next}}</a>
-        </li>
-        <li class="page-item last" :class="{'disabled': pager.currentPage === pager.totalPages}" :style="liStyles">
-            <a class="page-link" @click="setPage(pager.totalPages)" :style="aStyles">{{labels.last}}</a>
-        </li>
-    </ul>
-
+        <div class="btn-cover">
+      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+        이전
+      </button>
+      <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
+      <button :disabled="pageNum >= pageCount - 1" @click="nextPage" class="page-btn">
+        다음
+      </button>
+    </div>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name:'NoticeForm',
   created() {
-    this.$store.dispatch('fetchBoard', this.$route.params);
+    this.$store.dispatch('fetchBoard', this.$route.params.category="notice");
   },
   data() {
-            return {
-                pager: {},
-                ulStyles: {},
-                liStyles: {},
-                aStyles: {}
-            }
+    return {
+      totalPage: 0,
+      listRowCount: 10,
+      pageLinkCount: 10,
+      currentPageIndex: 1,
+      page: 0,
+      start: 0,
+      end: 0,
+      prev: false,
+      next: false
+
+    };
   },
 
   methods: {
-    onChangePage(pageOfItems) {
-      this.pageOfItems = pageOfItems;
-    },
     goNoticeDetail(boardNo) {
       this.$router.push({
         name: 'noticeDetail',
         params: { boardNo: boardNo }
       })
     },
-  }
+  },
 };
 </script>
 

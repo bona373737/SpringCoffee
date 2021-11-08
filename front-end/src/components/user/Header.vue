@@ -22,7 +22,7 @@
         <router-link class="navbox" to="/noticelayout">
           <p class="tooltip-text">NOTICE</p>
         </router-link>
-        <router-link class="navbox" to="/inquiry">
+        <router-link class="navbox" to="/qnalayout">
           <p class="tooltip-text">Q&A</p>
         </router-link>
         <router-link class="navbox" to="/offstore">
