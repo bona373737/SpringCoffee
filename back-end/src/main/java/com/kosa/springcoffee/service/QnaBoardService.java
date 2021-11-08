@@ -25,10 +25,9 @@ public interface QnaBoardService {
 
     void modify(QnaBoardDTO qnaBoardDTO);
 
-    void modifyIsAnswered(QnaBoardDTO qnaBoardDTO);
+    void modifyIsAnswered(Long qnaBoardNo, Boolean isAnswered);
 
     void remove(Long qnaBoardNo);
-
 
     default QnaBoard dtoToEntity(QnaBoardDTO dto) {
         QnaBoard entity = QnaBoard.builder()

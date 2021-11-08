@@ -22,9 +22,8 @@ public class QnaBoardController {
 
     @PostMapping("/register")
     public ResponseEntity<Long> create(@RequestBody QnaBoardDTO dto) {
-        qnaBoardService.create(dto);
-        log.info("게시글 등록");
         Long num = qnaBoardService.create(dto);
+        log.info("게시글 등록");
         return new ResponseEntity<>(num, HttpStatus.OK);
     }
 

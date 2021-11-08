@@ -22,6 +22,7 @@ public class QnaReply extends BaseEntity {
     private Member replyer;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "qna_board_no")
     private QnaBoard qnaBoard;
 
     public void changeContent(String content) {

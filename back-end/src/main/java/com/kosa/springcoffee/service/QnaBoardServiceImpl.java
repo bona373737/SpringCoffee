@@ -107,13 +107,12 @@ public class QnaBoardServiceImpl implements QnaBoardService{
     }
 
     @Override
-    public void modifyIsAnswered(QnaBoardDTO qnaBoardDTO) {
-        Long qnaBoardNo = qnaBoardDTO.getQnaBoardNo();
+    public void modifyIsAnswered(Long qnaBoardNo, Boolean isAnswered) {
         Optional<QnaBoard> result = qnaBoardRepository.findById(qnaBoardNo);
 
         if(result.isPresent()){
             QnaBoard qnaBoard = result.get();
-            qnaBoard.changeIsAnswered(!qnaBoardDTO.getIsAnswered());
+            qnaBoard.changeIsAnswered(isAnswered);
             qnaBoardRepository.save(qnaBoard);
         }
     }

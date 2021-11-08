@@ -25,14 +25,14 @@ public class BoardController {
 
     @PostMapping("/register")
     public ResponseEntity<Long> create(@RequestBody BoardDTO dto) {
-        boardService.create(dto);
-        log.info("게시글 등록");
         Long num = boardService.create(dto);
+        log.info("게시글 등록");
         return new ResponseEntity<>(num, HttpStatus.OK);
     }
+
     @GetMapping(value = "/{boardNo}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BoardDTO> read(@PathVariable("boardNo") Long boardNo){
-        log.info(boardNo+"상세 페이지");
+        log.info(boardNo+" 상세 페이지");
         return new ResponseEntity<>(boardService.get(boardNo), HttpStatus.OK);
     }
 
