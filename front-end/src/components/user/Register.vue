@@ -41,14 +41,6 @@
             maxlength="16"
             />
         </div>
-        <br />
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-            <label class="form-check-label" for="exampleCheck1">
-                <a href="">개인정보제공</a> 및 <a href="">이용약관</a>에동의합니다.
-            </label>
-        </div>
-        <br/>
 
         <button type="submit" class="btn btn-outline-success" style="width: 50%" @click="moveNextPage">next</button>
   </div>

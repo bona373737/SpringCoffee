@@ -23,9 +23,7 @@
       <button type="submit" class="btn btn-outline-success" style="width:50%">Log In</button>
     </form><br>
     <div>
-    <a href=""><span class="text-success">아이디찾기 | </span></a>
-    <a href=""><span class="text-success">비밀번호찾기 | </span></a>
-    <a href=""><span class="text-success">회원가입</span></a>
+    <router-link to="/register"><span class="text-success">회원가입</span></router-link>
     </div>
   </div>
 </div>
@@ -34,8 +32,30 @@
 
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: "LogIn"
+  name: "LogIn",
+  data() {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    onLogin: function() {
+      const frm = new FormData()
+      frm.append('user_mail', this.user_mail)
+      frm.append('user_pass', this.user_pass)
+
+      axios.post('http://localhost:8080/restUser/login', frm)
+      .then( response => {
+        console.log('response', JSON.stringify(response, null, 2))
+      }).catch(error => {
+        console.log('failed', error)
+      })
+    }
+  }
 }
 </script>
 

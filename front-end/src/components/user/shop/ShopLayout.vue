@@ -17,10 +17,11 @@
               <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-              <ul>
-                <li></li>
-                <li></li>
-              </ul>
+              <tr v-for="cart in myCartlist" :key="cart">
+                <td>{{ cart.image }}</td>
+                <td>{{ cart.title }}</td>
+                <td>{{ cart.price }}</td>
+              </tr>
               <button type="button" class="btn btn-success"> 구매하기 </button>
             </div>
           </div>
@@ -60,29 +61,74 @@
                    </div>
                 </td>
             </tr>
-             <tr class="product-item">
-                <td> <img src="" alt="상품img"></td>
-                <td> 상품명 </td>
-                <td> 가격 </td>
+            <tr class="product-item" v-for="item in this.$store.state.itemList" v-bind:key="item.itemId" @click="goItemDetail(item.itemNo)">
+                <td> <img width="120" height="80" ref="imageOutput" :src="item.image"> </td>
+                <td> {{item.title}}</td>
+                <td> {{item.content}}</td>
                 <td>
                    <div class="btn-group" role="group" aria-label="Basic example">
-                   <button type="button" class="btn btn-success"> - </button>
-                   <button type="button" class="btn btn-success"> + </button>
+                    <button type="button" class="btn btn-success" @click="disCart(item)"> - </button>
+                    <button type="button" class="btn btn-success" @click="addCart(item)"> + </button>
                    </div>
                 </td>
             </tr>
         </table>
     </div>
     </div>
-
-
 </template>
 
 <script>
 export default {
-    name:'CoffeeProductList'
+    name:'CoffeeProductList',
+  created() {
+    this.$store.dispatch('fetchItem');
+  },
+  data() {
+    return {
+        count: 0,
+        myCartlist: [
+            {
+                image : "?",
+                name : "ddd",
+                price : "123",
+            },
+            {
+                image : "?",
+                name : "ccc",
+                price : "321",
+            }
+        ],
 
-}
+    };
+  },
+
+  methods: {
+    goItemDetail(itemNo) {
+      this.$router.push({
+        name: 'itemDetail',
+        params: { itemNo: itemNo }
+      })
+    },
+    imageOutput() {
+
+    },
+    addCart(item, i) {
+        if(this.myCartlist)
+        this.myCartlist[i].id = item.itemNo;
+        this.myCartlist[i].image = item.image;
+        this.myCartlist[i].price = item.price;
+        this.myCartlist[i].count++;
+    },
+    disCart(item, i) {
+        localStorage
+        if(this.myCartlist[i].count == 0)
+            this.myCartlist.slice(i);
+        else if(this.myCartlist[i].count > 0) {
+            this.myCartlist[i].count--;
+        }
+    }
+  },
+};
 </script>
 
 <style scoped>

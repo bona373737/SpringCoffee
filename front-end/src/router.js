@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from 'vue-router';
+import { createWebHashHistory, createRouter } from 'vue-router';
 import Content from '@/components/user/Content.vue'
 
 const routes = [
@@ -93,26 +93,36 @@ const routes = [
   },
   {
     path: '/shop',
-    name: 'Shop',
+    name: 'ShopLayout',
     component: () => import('@/components/user/shop/ShopLayout.vue')
   },
   {
-    path: '/admin',
+    path: '/admin/:',
     name: 'AdminPage',
-    component: () => import('@/components/admin/AdminPage.vue')
+    component: () => import('@/components/admin/AdminPage.vue'),
+    children: [
+      {
+        path: "userlist",
+        component: () => import('@/components/admin/UserList.vue'),
+      },
+      {
+        path: "itemAdd",
+        component: () => import('@/components/admin/ItemAdd.vue'),
+      },
+    ]
   },
-  // {
-  //   path: '/:pathMatch(.*)*',
-  //   redirect: "/404"
-  // },
-  // {
-  //   path: '/404',
-  //   name: 'NotFoundPage',
-  //   component: () => import('@/components/user/NotFoundPage.vue')
-  // },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: "/404"
+  },
+  {
+    path: '/404',
+    name: 'NotFoundPage',
+    component: () => import('@/components/user/NotFoundPage.vue')
+  },
 ];
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 });
