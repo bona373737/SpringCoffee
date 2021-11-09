@@ -24,6 +24,10 @@ public interface QnaBoardService {
 
     List<QnaBoardDTO> getAllWithWriter(String writerEmail); // 작성자 조회
 
+    PageResultDTO<QnaBoardDTO, QnaBoard> searchKeyword(KeywordPageRequestDTO requestDTO); // 키워드 검색
+
+    PageResultDTO<QnaBoardDTO, QnaBoard> searchEmail(EmailPageRequestDTO requestDTO); // 작성자 검색
+
     void modify(QnaBoardDTO qnaBoardDTO);
 
     void modifyIsAnswered(Long qnaBoardNo, Boolean isAnswered);

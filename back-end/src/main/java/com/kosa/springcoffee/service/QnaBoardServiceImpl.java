@@ -94,6 +94,28 @@ public class QnaBoardServiceImpl implements QnaBoardService{
     }
 
     @Override
+    public PageResultDTO<QnaBoardDTO, QnaBoard> searchKeyword(KeywordPageRequestDTO requestDTO) {
+        Pageable pageable = requestDTO.getPageable(Sort.by("qnaBoardNo").descending());
+
+        Page<QnaBoard> result = qnaBoardRepository.findByTitleContaining(requestDTO.getKeyword(), pageable);
+
+        Function<QnaBoard, QnaBoardDTO> fn = (entity -> entityToDto(entity));
+
+        return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public PageResultDTO<QnaBoardDTO, QnaBoard> searchEmail(EmailPageRequestDTO requestDTO) {
+        Pageable pageable = requestDTO.getPageable(Sort.by("qnaBoardNo").descending());
+
+        Page<QnaBoard> result = qnaBoardRepository.findByWriterEmailContaining(requestDTO.getEmail(), pageable);
+
+        Function<QnaBoard, QnaBoardDTO> fn = (entity -> entityToDto(entity));
+
+        return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
     public void modify(QnaBoardDTO qnaBoardDTO) {
         Long qnaBoardNo = qnaBoardDTO.getQnaBoardNo();
         Optional<QnaBoard> result = qnaBoardRepository.findById(qnaBoardNo);
