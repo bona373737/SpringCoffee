@@ -14,7 +14,7 @@
            <option value=0>답변대기</option>
            <option value=1>답변완료</option>
          </select>
-         <button @click="qnaFilterList(this.category,this.isAnswered)"> 조회하기 </button>
+         <button @click="qnaFilterBoard()"> 조회하기 </button>
        </div>
 
       <div class="btnWrap text-end">
@@ -72,7 +72,7 @@ export default {
   data(){
     return{
       category:'',
-      isAnswered:Boolean,
+      isAnswered:0,
     }
   },
   methods: {
@@ -82,9 +82,8 @@ export default {
         params: { qnaBoardNo: qnaBoardNo }
       })
     },
-    qnaFilterList(category, isAnswered){
-      console.log(category)
-      this.$store.dispatch('fetchQnaBoardList',category, isAnswered)
+    qnaFilterBoard(){
+      this.$store.dispatch('fetchQnaBoardList')
     }
   },
 };

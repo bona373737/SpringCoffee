@@ -34,11 +34,29 @@ let store = createStore({
     }
   },
   actions: {
-    fetchNoticeBoardList(context){
-      axios.get(`/v1/list`)
-          .then(response => {
-            context.commit('setNoticeBoardList', response.data);
-          })
+    fetchNoticeBoardList(context,page){
+      /*
+      // GET , POST 정의
+      // axios 작성하면 어떻게 되는지
+
+      let param = {};
+      if(category){
+        param.category = 변수값;   // /list?category=변수값
+      }
+      if(isAnswered){
+        param.isAnswered = 변수값; // /list?category=변수값&isAnswered=변수값
+      }
+
+      /list -> category만 선택
+      params: data :  param
+       */
+      axios.get(`/v1/list`,{params:{
+          page:page,
+      }})
+      .then(response => {
+        context.commit('setNoticeBoardList', response.data);
+      })
+
     },
     fetchNoticeBoardDetail(context, boardNo){
       axios.get(`/v1/${boardNo}`)
@@ -46,8 +64,11 @@ let store = createStore({
             context.commit('setNoticeBoardDetail', response.data);
           })
     },
-    fetchQnaBoardList(context){
-      axios.get('/v3/list')
+    fetchQnaBoardList(context,category,isAnswered){
+      axios.get('/v3/list',{params:{
+          category:category,
+          isAnswered:isAnswered, a
+        }})
           .then(response =>{
             context.commit('setQnaBoardList', response.data.dtoList);
           })

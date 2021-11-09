@@ -37,8 +37,8 @@
 
        <button>이전</button>
 
-       <button class="pageNo" :class="{active: this.page === this.$store.state.noticeBoardList.page}"
-               v-for="page in this.$store.state.noticeBoardList.pageList" :key="page"
+       <button v-for="page in this.$store.state.noticeBoardList.pageList" :key="page"
+               :class="{pageNo : page === this.$store.state.noticeBoardList.page}"
                @click="movePage(page)">{{page}}</button>
        <button>다음</button>
 
@@ -54,9 +54,7 @@ export default {
     this.$store.dispatch('fetchNoticeBoardList');
   },
   data() {
-    return {
-
-    }
+    return {}
   },
   methods: {
     goNoticeDetail(boardNo) {
@@ -66,8 +64,7 @@ export default {
       })
     },
     movePage(page){
-      this.store.dispatch('fetchNoticeBoardList',page)
-
+      this.$store.dispatch('fetchNoticeBoardList',page)
     }
   }
 };

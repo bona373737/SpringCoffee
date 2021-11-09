@@ -14,9 +14,7 @@
       </div>
 
       <div class="answer" >
-        <ul>
-          <li> 답변내역 <button>답변수정</button></li>
-        </ul>
+        <p>{{$store.state.qnaBoardDetail.replyList.content}}</p>
       </div>
     </div>
   </div>
