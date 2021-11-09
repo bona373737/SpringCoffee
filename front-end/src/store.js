@@ -39,6 +39,12 @@ let store = createStore({
         context.commit('setNoticeBoardList', response.data);
       })
     },
+    fetchNoticeBoardSearch(context,keyword){
+      axios.get('v1/search/keyword', {params:{keyword:keyword}})
+          .then( response =>{
+            context.commit('setNoticeBoardList',response.data)
+          })
+    },
     fetchNoticeBoardDetail(context, boardNo){
       axios.get(`/v1/${boardNo}`)
           .then(response =>{
@@ -53,22 +59,27 @@ let store = createStore({
           }}
       )
           .then(response =>{
-            context.commit('setQnaBoardList', response.data.dtoList);
+            context.commit('setQnaBoardList', response.data);
           })
     },
-    fetchQnaBoardList(context,){
-      axios.get('/v3/list')
+    fetchQnaBoardList(context,page){
+      axios.get('/v3/list',{params:{page:page}})
           .then(response =>{
-            context.commit('setQnaBoardList', response.data.dtoList);
+            context.commit('setQnaBoardList', response.data);
           })
     },
     fetchQnaBoardDetail(context,qnaBoardNo){
-      console.log(qnaBoardNo)
       axios.get(`/v3/${qnaBoardNo}`)
           .then(response => {
             context.commit('setQnaBoardDetail',response.data)
           })
     },
+    fetchQnaBoardSearch(context,keyword){
+        axios.get('v3/search/keyword',{params:{keyword:keyword}})
+            .then(response =>{
+                context.commit('setQnaBoardList', response.data)
+            })
+    }
   },
 })
 

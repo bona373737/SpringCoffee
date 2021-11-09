@@ -6,15 +6,15 @@
           <col width="10%" />
           <col width="*" />
         </colgroup>
-        <tr>
-          <th>카테고리</th>
-          <td>
-            <form>
-              <input type="radio" name="categoryOpt" value="notice"> notice
-              <input type="radio" name="categoryOpt" value="event"> event
-            </form>
-          </td>
-        </tr>
+<!--        <tr>-->
+<!--          <th>카테고리</th>-->
+<!--          <td>-->
+<!--            <form>-->
+<!--              <input type="radio" name="categoryOpt" value="notice"> notice-->
+<!--              <input type="radio" name="categoryOpt" value="event"> event-->
+<!--            </form>-->
+<!--          </td>-->
+<!--        </tr>-->
         <tr>
           <th>제목</th>
           <td class="table-title"><textarea class="text-area-title" v-model="title"> </textarea></td>

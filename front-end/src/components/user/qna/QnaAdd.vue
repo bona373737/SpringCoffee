@@ -29,7 +29,7 @@
       <br>
       <div class="BtnWrap">
         <button class="btn btn-success" @click="noticeAdd"> Q&A등록 </button>
-        <button class="btn btn-success" @click="$router.push('/qnaList')"> 목록으로 가기 </button>
+        <button class="btn btn-success" @click="$router.push('/qnaLayout')"> 목록 </button>
       </div>
 
     </div>
@@ -56,7 +56,7 @@ export default {
         title: this.title,
         content : this.content
       });
-      this.$router.push('/qnaList')
+      this.$router.push('/qnaLayout')
     }
   }
 };

@@ -15,12 +15,16 @@
            <option value=true>답변완료</option>
          </select>
          <button @click="qnaFilterBoard(category,isAnswered)"> 조회하기 </button>
-         <button @click="qnaBoardListRE"> 필터초기화 </button>
+         <button @click="qnaBoardFilterReset"> 필터초기화 </button>
        </div>
 
       <div class="btnWrap text-end">
-        <input type="text" class="me-2" placeholder="제목,작성자">
-        <button class="btn btn-success me-2" > 검색 </button>
+        <select class="me-2" v-model="searchOption">
+          <option> 제목 </option>
+          <option> 작성자 </option>
+        </select>
+        <input type="text" class="me-2" placeholder="제목,작성자" v-model="keyword">
+        <button class="btn btn-success me-2" @click="qnaBoardSearch(keyword)"> 검색 </button>
         <button class="btn btn-primary" @click="$router.push('/qnaAdd')"> 문의하기 </button>
       </div>
 
@@ -46,7 +50,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="tbody-th1" v-for="qnaBoard in this.$store.state.qnaBoardList" :key="qnaBoard.qnaBoardNo"
+          <tr class="tbody-th1" v-for="qnaBoard in this.$store.state.qnaBoardList.dtoList" :key="qnaBoard.qnaBoardNo"
               @click="goQnaDetail(qnaBoard.qnaBoardNo)" >
             <th>{{ qnaBoard.qnaBoardNo }}</th>
             <th>{{ qnaBoard.category }}</th>
@@ -60,6 +64,15 @@
           </tbody>
         </table>
       </div>
+
+       <div>
+         <button>이전</button>
+
+         <button v-for="page in this.$store.state.qnaBoardList.pageList" :key="page"
+                 :class="{pageNo : page === this.$store.state.qnaBoardList.page}"
+                 @click="movePage(page)">{{page}}</button>
+         <button>다음</button>
+       </div>
     </div>
   </div>
 </template>
@@ -74,6 +87,8 @@ export default {
     return{
       category:'',
       isAnswered:'',
+      searchOption:'',
+      keyword:'',
     }
   },
   methods: {
@@ -98,9 +113,15 @@ export default {
       this.$store.dispatch('fetchQnaFilterList',category,isAnswered)
 
     },
-    qnaBoardListRE(){
+    qnaBoardFilterReset(){
       this.$store.dispatch('fetchQnaBoardList')
-    }
+    },
+    qnaBoardSearch(keyword){
+      this.$store.dispatch('fetchQnaBoardSearch',keyword)
+    },
+    movePage(page){
+      this.$store.dispatch('fetchQnaBoardList',page)
+    },
   },
 };
 </script>
@@ -130,5 +151,8 @@ export default {
 th{
   border-left: 1px solid white;
   border-right: 1px solid white;
+}
+.pageNo{
+  background: tomato;
 }
 </style>

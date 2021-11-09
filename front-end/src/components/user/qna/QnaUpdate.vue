@@ -6,16 +6,20 @@
           <col width="15%" />
           <col width="*" />
         </colgroup>
+<!--        <tr>-->
+<!--          <th>카테고리</th>-->
+<!--          <td class="table-title">-->
+<!--            <form>-->
+<!--              <input type="radio" name="categoryOpt" v-model="category" value="상품문의"> 상품문의-->
+<!--              <input type="radio" name="categoryOpt" v-model="category" value="배송문의"> 배송문의-->
+<!--              <input type="radio" name="categoryOpt" v-model="category" value="교환 및 반품문의"> 교환 및 반품문의-->
+<!--              <input type="radio" name="categoryOpt" v-model="category" value="기타"> 기타-->
+<!--            </form>-->
+<!--          </td>-->
+<!--        </tr>-->
         <tr>
-          <th>카테고리</th>
-          <td class="table-title">
-            <form>
-              <input type="radio" name="categoryOpt" v-model="category" value="상품문의"> 상품문의
-              <input type="radio" name="categoryOpt" v-model="category" value="배송문의"> 배송문의
-              <input type="radio" name="categoryOpt" v-model="category" value="교환 및 반품문의"> 교환 및 반품문의
-              <input type="radio" name="categoryOpt" v-model="category" value="기타"> 기타
-            </form>
-          </td>
+          <th>문의유형</th>
+          <td class="table-title">{{this.$store.state.qnaBoardDetail.category}}</td>
         </tr>
         <tr>
           <th>제목</th>
@@ -41,7 +45,7 @@ export default {
   data(){
     return{
       qnaBoardNo: '',
-      category:'',
+      category:this.$store.state.qnaBoardDetail.category,
       title : this.$store.state.qnaBoardDetail.title,
       content: this.$store.state.qnaBoardDetail.content,
     }

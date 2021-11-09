@@ -2,8 +2,8 @@
   <div>
      <div class="outterDiv py-5">
       <div class="btnWrap text-end">
-        <input type="text" class="me-2">
-        <button class="btn btn-success me-2" > 검색 </button>
+        <input type="text" class="me-2" placeholder="제목" v-model="keyword">
+        <button class="btn btn-success me-2" @click="noticeBoardSearch(keyword)" > 검색 </button>
         <button class="btn btn-primary" @click="$router.push('/noticeAdd')"> 추가 </button>
       </div>
       <div>
@@ -54,7 +54,9 @@ export default {
     this.$store.dispatch('fetchNoticeBoardList');
   },
   data() {
-    return {}
+    return {
+      keyword:''
+    }
   },
   methods: {
     goNoticeDetail(boardNo) {
@@ -65,6 +67,9 @@ export default {
     },
     movePage(page){
       this.$store.dispatch('fetchNoticeBoardList',page)
+    },
+    noticeBoardSearch(keyword){
+      this.$store.dispatch('fetchNoticeBoardSearch',keyword)
     }
   }
 };
