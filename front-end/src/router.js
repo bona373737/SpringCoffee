@@ -93,13 +93,25 @@ const routes = [
   },
   {
     path: '/shop',
-    name: 'ShopLayout',
-    component: () => import('@/components/user/shop/ShopLayout.vue')
-  },
-  {
-    path: '/cart',
-    name: 'Cart',
-    component: () => import('@/components/user/shop/ShoppingCart.vue')
+    name: 'Shop',
+    component: () => import('@/components/user/shop/ShopLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'ShopLayout',
+        component: () => import('@/components/user/shop/ShopLayout.vue'),
+        props : true
+      },
+      {
+        path: '/order',
+        component: () => import('@/components/user/shop/Order.vue')
+      },
+      {
+        path: 'item/:itemNo',
+        name: 'itemDetail',
+        component: () => import('@/components/user/shop/ItemDetail.vue')
+      },
+    ]
   },
   {
     path: '/admin/:',

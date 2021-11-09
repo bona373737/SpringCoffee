@@ -57,7 +57,7 @@ public class MemberTests {
 
     @Test
     public void testRead(){
-        Optional<Member> result = memberRepository.findByEmail("user95@springCoffee.com" , false);
+        Optional<Member> result = memberRepository.findByEmail("user95@springCoffee.com");
         Member member = result.get();
 
         System.out.println(member);
