@@ -97,6 +97,11 @@ const routes = [
     component: () => import('@/components/user/shop/ShopLayout.vue')
   },
   {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('@/components/user/shop/ShoppingCart.vue')
+  },
+  {
     path: '/admin/:',
     name: 'AdminPage',
     component: () => import('@/components/admin/AdminPage.vue'),
