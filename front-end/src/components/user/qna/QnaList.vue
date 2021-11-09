@@ -11,10 +11,11 @@
            <option value="기타" >기타</option>
          </select>
          <select v-model="isAnswered">
-           <option value=0>답변대기</option>
-           <option value=1>답변완료</option>
+           <option value=false>답변대기</option>
+           <option value=true>답변완료</option>
          </select>
-         <button @click="qnaFilterBoard()"> 조회하기 </button>
+         <button @click="qnaFilterBoard(category,isAnswered)"> 조회하기 </button>
+         <button @click="qnaBoardListRE"> 필터초기화 </button>
        </div>
 
       <div class="btnWrap text-end">
@@ -72,7 +73,7 @@ export default {
   data(){
     return{
       category:'',
-      isAnswered:0,
+      isAnswered:'',
     }
   },
   methods: {
@@ -82,7 +83,22 @@ export default {
         params: { qnaBoardNo: qnaBoardNo }
       })
     },
-    qnaFilterBoard(){
+    qnaFilterBoard(category,isAnswered){
+      /*
+      if(){
+        this.$store.dispatch('fetchQnaFilterList1',category,isAnswered)
+      }
+      if else (isAnswered == null){
+        this.$store.dispatch('fetchQnaFilterList2',category)
+      }
+      if else ( category,isAnswered == null){
+        alert("필터조건을 선택해주세요")
+      }
+       */
+      this.$store.dispatch('fetchQnaFilterList',category,isAnswered)
+
+    },
+    qnaBoardListRE(){
       this.$store.dispatch('fetchQnaBoardList')
     }
   },
