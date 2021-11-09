@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity(name = "sc_board")
+@Entity(name = "sc_notice_board")
 @Getter
 @Builder
 @AllArgsConstructor

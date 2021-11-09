@@ -18,8 +18,11 @@ public interface BoardService {
     void modify(BoardDTO boardDTO);
 
     void remove(Long boardNo);
+
     List<BoardDTO> getAllWithWriter(String writerEmail);
+
     PageResultDTO<BoardDTO, Board> readAll(PageRequestDTO requestDTO); // 전체 조회
+
     PageResultDTO<BoardDTO, Board> getCategory(CategoryPageRequestDTO requestDTO); // 카테고리 조회
 
     default Board dtoToEntity(BoardDTO dto) {
