@@ -14,10 +14,10 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     Page<Board> findByCategory(String category, Pageable pageable);
 
     @EntityGraph(attributePaths = "writer", type = EntityGraph.EntityGraphType.LOAD)
-    @Query("select b from sc_board b where b.boardNo = :boardNo")
+    @Query("select b from sc_notice_board b where b.boardNo = :boardNo")
     Optional<Board> getWithWriter(Long boardNo);
 
     @EntityGraph(attributePaths = {"writer"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("select b from sc_board b where b.writer.email = :email")
+    @Query("select b from sc_notice_board b where b.writer.email = :email")
     List<Board> getList(String email);
 }
