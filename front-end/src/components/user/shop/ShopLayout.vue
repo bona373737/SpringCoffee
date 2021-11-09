@@ -17,11 +17,12 @@
               <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-              <tr v-for="cart in myCartlist" :key="cart">
+              <router-link to="/cart">주문하기</router-link>
+              <!-- <tr v-for="cart in myCartlist" :key="cart">
                 <td>{{ cart.image }}</td>
                 <td>{{ cart.title }}</td>
                 <td>{{ cart.price }}</td>
-              </tr>
+              </tr> -->
               <button type="button" class="btn btn-success"> 구매하기 </button>
             </div>
           </div>
