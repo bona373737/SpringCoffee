@@ -4,19 +4,21 @@ import axios from "axios";
 
 let store = createStore({
   state(){  // 데이터보관하고 싶으면 여기에 기재
-    return{
+    return {
       email: "user95@springCoffee.com",
+      cartNo: '',
       boardList: [],  // Map 형식으로 하면 boardNo 가능
       boardDetail: {},
       itemList: [],
       itemDetail: {},
-      userList: [],
-      userDetail: {},
       cartList: [],
       cartDetail: {},
     }
   },
   mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
+    setMember(state, email) {
+      state.email = email;
+    },
     setBoard(state, board) {
       state.boardList = board;
     },
@@ -29,17 +31,9 @@ let store = createStore({
     setItemDetail(state, itemDetail){
       state.itemDetail = itemDetail;
     },
-    setUser(state, user) {
-      state.userList = user;
-    },
-    setUserDetail(state, userDetail){
-      state.userDetail = userDetail;
-    },
     setCart(state, cart) {
       state.cartList = cart;
-    },
-    setCartDetail(state, cartDetail){
-      state.cartDetail = cartDetail;
+      // state.cartNo = cart.cartItemNo;
     },
   },
   actions: { // ajax 넣는곳, 오래 걸리는 작업들 넣는곳
@@ -67,30 +61,18 @@ let store = createStore({
           context.commit('setItemDetail', response.data);
         })
     },
-    fetchUser(context) {
-      axios.get(`/v0/list`)
-        .then(response => {
-          context.commit('setUser', response.data.dtoList);
-        })
-    },
-    fetchUserDetail(context, userEmail){
-      axios.get(`/v0/${userEmail}`)      // axios dynamic URL,
-        .then(response =>{
-          context.commit('setUserDetail', response.data);
-        })
-    },
     fetchCart(context, email) {
       axios.get(`/v4/cart/${email}`)
         .then(response => {
-          context.commit('setCart', response.data.dtoList);
+          context.commit('setCart', response.dat.dtoList);
         })
     },
-    fetchCartDetail(context, cartNo){
-      axios.get(`/v4/${cartNo}`)      // axios dynamic URL,
-        .then(response =>{
-          context.commit('setCartDetail', response.data);
-        })
-    },  
+    // patchCart(context, cartItemNo, count) {
+    //   axios.get(`/v4/${cartItemNo}/${count}`)
+    //     .then(response => {
+    //       context.commit('setCart', response.data);
+    //     })
+    // },
   },
 })
 

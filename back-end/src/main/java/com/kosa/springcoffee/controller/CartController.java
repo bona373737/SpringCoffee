@@ -57,9 +57,8 @@ public class CartController {
         dto.setItemNo(cartItemDTO.getItemNo());
         Member member = memberRepository.findByEmail(cartItemDTO.getEmail());
         System.out.println("logloglog" + member + " " + cartItemDTO.getItemNo()  + cartItemDTO.getCount());
-        cartItemNo = cartService.create(dto,member.getEmail());
+        cartItemNo = cartService.create(dto, member.getEmail());
         return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
-
     }
 
 
