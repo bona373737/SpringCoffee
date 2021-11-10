@@ -31,7 +31,7 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public Long create(CartItemDTO cartItemDTO, String email) {
-        Optional<Member> member = memberRepository.findByEmail(email);
+        Optional<Member> member = memberRepository.findByEmailOptional(email);
         Cart cart = cartRepository.findByMemberEmail(member.get().getName());
         if (cart == null){
             cart = Cart.createCart(member.get());
@@ -55,7 +55,7 @@ public class CartServiceImpl implements CartService{
     public List<CartDetailDTO> getCartList(String email) {
         List<CartDetailDTO> cartDetailDTOList =new ArrayList<>();
 
-        Optional<Member> member = memberRepository.findByEmail(email);
+        Optional<Member> member = memberRepository.findByEmailOptional(email);
         Cart cart = cartRepository.findByMemberEmail(member.get().getEmail());
         if(cart == null)
             return cartDetailDTOList;
@@ -66,7 +66,7 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public boolean validateCartItem(Long cartItemNo, String email) {
-        Optional<Member> curMember = memberRepository.findByEmail(email);
+        Optional<Member> curMember = memberRepository.findByEmailOptional(email);
         CartItem cartItem = cartItemRepository.findByCartItemNo(cartItemNo);
         Member savedMember = cartItem.getCart().getMember();
 

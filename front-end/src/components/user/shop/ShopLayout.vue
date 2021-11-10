@@ -8,7 +8,7 @@
         <div class="py-2"><br>
         </div>
         <div class="align-items-center justify-content-center justify-content-lg-end">
-          <span @change="loadCart" class="bag" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span class="bag "><i class="bi bi-bag-check-fill"></i></span><br></span><br>
+          <span class="bag" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span class="bag "><i class="bi bi-bag-check-fill"></i></span><br></span><br>
           <span style="font-size: 11pt;">장바구니에 담아서 결제하세요!</span>
         <div class="text-end">
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -17,12 +17,18 @@
               <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-            
-              <tr v-for="cart in myCartlist" :key="cart">
+              <tr class="product-item" v-for="cart in this.$store.state.cartList" v-bind:key="cart.cartItemNo">
+                <td> {{cart.cartItemNo}}</td>
+                <td> {{cart.itemName}}</td>
+                <td> {{cart.price}}</td>
+                <td> {{cart.count}}</td>
+                <td>ddd</td>
+            </tr>
+              <!-- <tr v-for="cart in myCartlist" :key="cart">
                 <td>{{ cart.image }}</td>
                 <td>{{ cart.name }}</td>
                 <td>{{ cart.price }}</td>
-              </tr>
+              </tr> -->
               <router-link to="/cart">주문하기</router-link>
               <button type="button" class="btn btn-success"> 구매하기 </button>
             </div>
@@ -47,10 +53,10 @@
 
         <table class="table">
             <colgroup>
-                <col width="15%" />
-                <col width="20%" />
                 <col width="10%" />
-                <col width="20%" />
+                <col width="10%" />
+                <col width="5%" />
+                <col width="10%" />
             </colgroup>
             <!-- <tr class="product-item">
                 <td> <img src="" alt="상품img"></td>
@@ -63,14 +69,14 @@
                    </div>
                 </td>
             </tr> -->
-            <tr class="product-item" v-for="item in this.$store.state.itemList" v-bind:key="item.itemId">
+            <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" v-bind:key="item.itemId">
                 <td> <img width="120" height="80" ref="imageOutput" :src="item.image"> </td>
                 <td @click="goItemDetail(item.itemNo)" > {{item.name}}</td>
                 <td> {{item.price}}</td>
                 <td>
                    <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-success" @click="disCart(item.itemNo, item.count)"> - </button>
-                    <button type="button" class="btn btn-success" @click="addCart(item.itemNo, item.count)"> + </button>
+                     <td class="me-2"> <input type="number" min='0' style="border: 1px solid #333; border-radius: 5px; width:50px; height:100%" v-model="count[i]"></td>
+                    <button type="button" class="btn btn-success" @click="goCart">장바구니에 담기</button>
                    </div>
                 </td>
             </tr>
@@ -86,10 +92,12 @@ export default {
   name:'shop',
   created() {
     this.$store.dispatch('fetchItem');
+    this.$store.dispatch('fetchCart');
   },
   data() {
     return {
-        count: 0,
+        email: "user95@springCoffee.com",
+        count: [Number],
         myCartlist: [
             {
                 image : "?",
@@ -116,33 +124,22 @@ export default {
     //   })
     // },
 
+    goCart(item) {
+      axios.post(`/v4/cart`),
+      {itemName : item.itemName, tel:this.tel, address:this.address }
+      .then(res => {
+        console.log('success', res)
+      }).catch(err => {
+        console.log('failed', err)
+      })
+    },
+
     goItemDetail(itemNo) {
       this.$router.push({
         name: 'itemDetail',
         params: { itemNo: itemNo }
       })
     },
-    imageOutput() {
-
-    },
-    addCart(itemNo, count) {
-      count++;
-      axios.patch(`/v4/cartItem/${itemNo}/${count}`)
-      .then(res => {
-        console.log('success', res)
-      }).catch(err => {
-        console.log('failed', err)
-      })
-    },
-    disCart(itemNo, count) {
-      count--;
-      axios.patch('/v4/cartItem/' + {itemNo} + "/" + {count})
-      .then(res => {
-        console.log('success', res)
-      }).catch(err => {
-        console.log('failed', err)
-      })
-    }
   },
 };
 </script>

@@ -5,6 +5,7 @@ import axios from "axios";
 let store = createStore({
   state(){  // 데이터보관하고 싶으면 여기에 기재
     return{
+      email: "user95@springCoffee.com",
       boardList: [],  // Map 형식으로 하면 boardNo 가능
       boardDetail: {},
       itemList: [],
@@ -16,9 +17,6 @@ let store = createStore({
     }
   },
   mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
-    checkShow(state) {
-      state.isShow = !this.state.isShow;
-    },
     setBoard(state, board) {
       state.boardList = board;
     },
@@ -81,8 +79,8 @@ let store = createStore({
           context.commit('setUserDetail', response.data);
         })
     },
-    fetchCart(context) {
-      axios.get(`/v4/cart`)
+    fetchCart(context, email) {
+      axios.get(`/v4/cart/${email}`)
         .then(response => {
           context.commit('setCart', response.data.dtoList);
         })
@@ -90,9 +88,9 @@ let store = createStore({
     fetchCartDetail(context, cartNo){
       axios.get(`/v4/${cartNo}`)      // axios dynamic URL,
         .then(response =>{
-          context.commit('setItemDetail', response.data);
+          context.commit('setCartDetail', response.data);
         })
-    },
+    },  
   },
 })
 

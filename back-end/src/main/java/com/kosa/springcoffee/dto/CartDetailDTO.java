@@ -10,7 +10,6 @@ public class CartDetailDTO {
     private String itemName;
     private int price;
     private int count;
-//    private String imgUrl;
 
     public CartDetailDTO(Long cartItemNo, String itemName, int price, int count) {
         this.cartItemNo = cartItemNo;

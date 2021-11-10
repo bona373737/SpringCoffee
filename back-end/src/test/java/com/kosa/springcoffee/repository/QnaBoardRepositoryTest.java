@@ -22,7 +22,7 @@ public class QnaBoardRepositoryTest {
     @Test
     public void insertDummies() {
         IntStream.rangeClosed(1,25).forEach(i -> {
-            Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com");
+            Optional<Member> result = memberRepository.findByEmailOptional("user"+i+"@springCoffee.com");
             Member member = result.get();
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)
@@ -34,7 +34,7 @@ public class QnaBoardRepositoryTest {
         });
 
         IntStream.rangeClosed(26,50).forEach(i -> {
-            Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com");
+            Optional<Member> result = memberRepository.findByEmailOptional("user"+i+"@springCoffee.com");
             Member member = result.get();
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)
@@ -46,7 +46,7 @@ public class QnaBoardRepositoryTest {
         });
 
         IntStream.rangeClosed(51,75).forEach(i -> {
-            Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com");
+            Optional<Member> result = memberRepository.findByEmailOptional("user"+i+"@springCoffee.com");
             Member member = result.get();
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)
@@ -58,7 +58,7 @@ public class QnaBoardRepositoryTest {
         });
 
         IntStream.rangeClosed(76,100).forEach(i -> {
-            Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com");
+            Optional<Member> result = memberRepository.findByEmailOptional("user"+i+"@springCoffee.com");
             Member member = result.get();
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)

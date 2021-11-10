@@ -21,7 +21,7 @@ public class BoardRepositoryTest {
     @Test
     public void insertDummies() {
         IntStream.rangeClosed(1,100).forEach(i -> {
-            Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com");
+            Optional<Member> result = memberRepository.findByEmailOptional("user"+i+"@springCoffee.com");
             Member member = result.get();
             Board noticeBoard = Board.builder()
                     .title("Title"+ i)
@@ -32,7 +32,7 @@ public class BoardRepositoryTest {
             System.out.println(boardRepository.save(noticeBoard));
         });
         IntStream.rangeClosed(101,200).forEach(i -> {
-            Optional<Member> result = memberRepository.findByEmail("user"+(i-100)+"@springCoffee.com");
+            Optional<Member> result = memberRepository.findByEmailOptional("user"+(i-100)+"@springCoffee.com");
             Member member = result.get();
             Board noticeBoard = Board.builder()
                     .title("Title"+ i)
@@ -43,7 +43,7 @@ public class BoardRepositoryTest {
             System.out.println(boardRepository.save(noticeBoard));
         });
         IntStream.rangeClosed(201,300).forEach(i -> {
-            Optional<Member> result = memberRepository.findByEmail("user"+(i-200)+"@springCoffee.com");
+            Optional<Member> result = memberRepository.findByEmailOptional("user"+(i-200)+"@springCoffee.com");
             Member member = result.get();
             Board noticeBoard = Board.builder()
                     .title("Title"+ i)
