@@ -4,13 +4,19 @@ import com.kosa.springcoffee.dto.LoginRequestDTO;
 import com.kosa.springcoffee.dto.LoginResponseDTO;
 import com.kosa.springcoffee.dto.SignUpDTO;
 import com.kosa.springcoffee.entity.Member;
+import com.kosa.springcoffee.repository.MemberRepository;
 import com.kosa.springcoffee.service.SignService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 import static com.kosa.springcoffee.entity.MemberRole.ROLE_ADMIN;
 import static com.kosa.springcoffee.entity.MemberRole.ROLE_USER;
@@ -22,7 +28,8 @@ import static com.kosa.springcoffee.entity.MemberRole.ROLE_USER;
 public class SignController {
 
     private final SignService signService;
-
+    private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
     @PostMapping("/email-check")
     public Boolean checkEmail(@RequestBody String email){
         return signService.checkEmail(email);
@@ -45,10 +52,18 @@ public class SignController {
     }
 
     @PostMapping("/login")
-    public LoginResponseDTO login(@RequestBody LoginRequestDTO loginDTO) throws Exception {
+    public ResponseEntity login(@RequestBody LoginRequestDTO loginDTO) throws Exception {
+        LoginResponseDTO dto = signService.login(loginDTO);
+        Optional<Member> member = memberRepository.findByEmail(loginDTO.getEmail(), false);
+        Member m = member.get();
+        if (m == null){
+            return new ResponseEntity<String>("아이디가 존재하지 않습니다.", HttpStatus.FORBIDDEN);
+        }
+        if (!passwordEncoder.matches(loginDTO.getPassword(), m.getPassword())){
+            return new ResponseEntity<String>("비밀번호가 틀립니다.", HttpStatus.FORBIDDEN);
+        }
 
-        log.info(loginDTO.getEmail() + " 로그인");
-        return signService.login(loginDTO);
+        return new ResponseEntity<LoginResponseDTO>(dto, HttpStatus.OK);
     }
 
 }
