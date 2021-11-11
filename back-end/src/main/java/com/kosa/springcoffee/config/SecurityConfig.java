@@ -1,57 +1,39 @@
 package com.kosa.springcoffee.config;
 
-import com.kosa.springcoffee.security.filter.ApiCheckFilter;
-import com.kosa.springcoffee.security.filter.ApiLoginFilter;
-import com.kosa.springcoffee.security.handler.ApiLoginFailHandler;
-import com.kosa.springcoffee.security.util.JWTUtil;
+import com.kosa.springcoffee.security.filter.JwtAuthenticationFilter;
+import com.kosa.springcoffee.security.util.JwtTokenProvider;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configuration
 @Log4j2
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
-    public ApiCheckFilter apiCheckFilter(){
-        return new ApiCheckFilter("/boards/**/*", jwtUtil());
-    }
-
-    @Bean
-    public JWTUtil jwtUtil(){
-        return new JWTUtil();
-    }
-
-    @Bean
-    public ApiLoginFilter apiLoginFilter() throws Exception{
-        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/login", jwtUtil());
-        apiLoginFilter.setAuthenticationManager(authenticationManager());
-
-        apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
-        return apiLoginFilter;
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/sample/all", "/signUp").permitAll();
 
-        http.formLogin();
-        http.csrf().disable();
-        http.logout();
+        http.httpBasic().disable()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
-        http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(apiLoginFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
 }
