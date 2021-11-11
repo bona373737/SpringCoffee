@@ -5,10 +5,12 @@
        <div class="filter">
          <span>filter</span>
          <select v-model="category">
-           <option value="상품문의" >상품문의</option>
+           <option v-for="option in categoryOption" :value="option.value" :key="option.value">{{option.title}}</option>
+<!--           <option value="상품문의" >상품문의</option>
            <option value="배송문의" >배송문의</option>
            <option value="교환 및 반품문의" >교환및반품문의</option>
            <option value="기타" >기타</option>
+           -->
          </select>
          <select v-model="isAnswered">
            <option value=false>답변대기</option>
@@ -20,10 +22,10 @@
 
       <div class="btnWrap text-end">
         <select class="me-2" v-model="searchOption">
-          <option> 제목 </option>
+          <option selected> 제목 </option>
           <option> 작성자 </option>
         </select>
-        <input type="text" class="me-2" placeholder="제목,작성자" v-model="keyword">
+        <input type="text" class="me-2"  v-model="keyword">
         <button class="btn btn-success me-2" @click="qnaBoardSearch(keyword)"> 검색 </button>
         <button class="btn btn-primary" @click="$router.push('/qnaAdd')"> 문의하기 </button>
       </div>
@@ -64,14 +66,12 @@
           </tbody>
         </table>
       </div>
-
        <div>
-         <button>이전</button>
-
+         <button @click="movePrevPage()">이전</button>
          <button v-for="page in this.$store.state.qnaBoardList.pageList" :key="page"
                  :class="{pageNo : page === this.$store.state.qnaBoardList.page}"
                  @click="movePage(page)">{{page}}</button>
-         <button>다음</button>
+         <button @click="moveNextPage()">다음</button>
        </div>
     </div>
   </div>
@@ -89,6 +89,15 @@ export default {
       isAnswered:'',
       searchOption:'',
       keyword:'',
+
+      categoryOption: [
+        {value: '', title: '전체'},
+        {value: '상품문의', title: '상품문의'},
+        {value: '배송문의', title: '배송문의'},
+        {value: '교환 및 반품문의', title: '교환및반품문의'},
+        {value: '기타', title: '기타'},
+      ],
+
     }
   },
   methods: {
@@ -98,20 +107,8 @@ export default {
         params: { qnaBoardNo: qnaBoardNo }
       })
     },
-    qnaFilterBoard(category,isAnswered){
-      /*
-      if(){
-        this.$store.dispatch('fetchQnaFilterList1',category,isAnswered)
-      }
-      if else (isAnswered == null){
-        this.$store.dispatch('fetchQnaFilterList2',category)
-      }
-      if else ( category,isAnswered == null){
-        alert("필터조건을 선택해주세요")
-      }
-       */
-      this.$store.dispatch('fetchQnaFilterList',category,isAnswered)
-
+    qnaFilterBoard(){
+      this.qnaBoardList();
     },
     qnaBoardFilterReset(){
       this.$store.dispatch('fetchQnaBoardList')
@@ -119,9 +116,46 @@ export default {
     qnaBoardSearch(keyword){
       this.$store.dispatch('fetchQnaBoardSearch',keyword)
     },
+    moveNextPage(){
+      const nextPage = this.$store.state.qnaBoardList.end +1
+      this.$store.dispatch('fetchQnaBoardList',nextPage)
+    },
     movePage(page){
       this.$store.dispatch('fetchQnaBoardList',page)
     },
+    movePrevPage(){
+      const prevPage = this.$store.state.qnaBoardList.end -1
+      this.$store.dispatch('fetchQnaBoardList',prevPage)
+    }
+
+
+    // qnaBoardList(){
+      /*
+      const category = this.category;
+      const isAnswered = this.isAnswered;
+
+      const paramObj = {
+        category : category,
+        isAnswered: isAnswered
+      };
+
+      if(카테고리){
+        this.$store.dispatch('fetchQnaFilterList', paramObj)
+        this.$store.dispatch('fetchQnaFilterList1',category,isAnswered)
+      }
+      if else (답변상태 isAnswered == null){
+        this.$store.dispatch('fetchQnaFilterList2',category)
+      }
+      if else (카테고리&답변상태 category,isAnswered == null){
+        alert("필터조건을 선택해주세요")
+      }
+      else{
+        this.$store.dispatch('fetchQnaBoardList',page); // 전체 조회
+      }
+       */
+    // }
+
+
   },
 };
 </script>

@@ -79,7 +79,35 @@ let store = createStore({
             .then(response =>{
                 context.commit('setQnaBoardList', response.data)
             })
-    }
+    },
+
+    // fetchQna(paramObj){
+    //     const category = paramObj.category;
+    //     const isAnswered = paramObj.isAnswered;
+    //
+    //     /*
+    //     /list?cat=카테고리&isAns=상태
+    //     /list/카테고리/상태
+    //     */
+    //     const url = '/list';
+    //     let param = {};
+    //
+    //     if(category){
+    //         param.category = category;
+    //     }
+    //     else if(isAnswered){
+    //         param.isAnswered = isAnswered;
+    //     }
+    //     else if(category && isAnswered){
+    //         param.category = category;
+    //         param.isAnswered = isAnswered;
+    //     }
+    //
+    //     axios.get(url, param)
+    //         .then(response =>{
+    //             context.commit('setQnaBoardList', response.data)
+    //         })
+    // }
   },
 })
 

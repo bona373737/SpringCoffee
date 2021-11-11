@@ -53,6 +53,7 @@ export default {
         title: this.title,
         content : this.content,
       });
+      this.$router.push('/noticeLayout')
     }
   }
 };

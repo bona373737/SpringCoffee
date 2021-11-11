@@ -10,7 +10,7 @@
       <div class="BtnWrap">
         <button class="btn btn-success" @click="noticeDelete(this.$route.params.boardNo)"> 삭제 </button>
         <button class="btn btn-success" @click="goNoticeUpdate(this.$route.params.boardNo)"> 수정 </button>
-        <button class="btn btn-success" @click="$router.push({name : 'noticeList'})"> 목록으로 가기 </button>
+        <button class="btn btn-success" @click="$router.push('/noticeLayout')"> 목록 </button>
       </div>
       <br>
       <table class="updown-page">
@@ -98,4 +98,8 @@ export default {
   border-bottom: 1px solid  #ddd;
   text-align: left;
 }
+button{
+  margin-right: 5px;
+}
+
 </style>

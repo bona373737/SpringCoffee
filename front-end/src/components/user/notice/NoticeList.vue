@@ -34,14 +34,11 @@
           </tbody>
         </table>
       </div>
-
-       <button>이전</button>
-
+       <button @click="movePrevPage()">이전</button>
        <button v-for="page in this.$store.state.noticeBoardList.pageList" :key="page"
                :class="{pageNo : page === this.$store.state.noticeBoardList.page}"
                @click="movePage(page)">{{page}}</button>
-       <button>다음</button>
-
+       <button @click="moveNextPage()">다음</button>
     </div>
   </div>
 </template>
@@ -55,7 +52,7 @@ export default {
   },
   data() {
     return {
-      keyword:''
+      keyword:'',
     }
   },
   methods: {
@@ -67,6 +64,15 @@ export default {
     },
     movePage(page){
       this.$store.dispatch('fetchNoticeBoardList',page)
+    },
+    movePrevPage(){
+      console.log(this.$store.state.noticeBoardList.start)
+      const prevPage = this.$store.state.noticeBoardList.start -1
+      this.$store.dispatch('fetchNoticeBoardList',prevPage)
+    },
+    moveNextPage(){
+      const nextPage = this.$store.state.noticeBoardList.end +1
+      this.$store.dispatch('fetchNoticeBoardList',nextPage)
     },
     noticeBoardSearch(keyword){
       this.$store.dispatch('fetchNoticeBoardSearch',keyword)
