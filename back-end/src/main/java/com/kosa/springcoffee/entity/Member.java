@@ -10,9 +10,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity(name = "sc_member")
@@ -34,7 +32,7 @@ public class Member extends BaseEntity implements UserDetails {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
-    private List<MemberRole> roles = new ArrayList<>();
+    private Set<MemberRole> roles = new HashSet<>();
 
     //@OneToMany(mappedBy = "member")
     //private List<Order> orders = new ArrayList<>();
