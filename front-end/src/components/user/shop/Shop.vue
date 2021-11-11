@@ -8,7 +8,7 @@
         <div class="py-2"><br>
         </div>
         <div class="align-items-center justify-content-center justify-content-lg-end">
-          <span class="bag" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span class="bag "><i class="bi bi-bag-check-fill"></i></span><br></span><br>
+          <span class="bag" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span class="bag "><i @click="this.$store.dispatch('fetchCart', 'user95@springCoffee.com')" class="bi bi-bag-check-fill"></i></span><br></span><br>
           <span style="font-size: 11pt;">장바구니에 담아서 결제하세요!</span>
         <div class="text-end">
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -19,23 +19,27 @@
             <div class="offcanvas-body border-top">
               <colgroup>
                 <col width="15%" />
-                <col width="5%" />
-                <col width="15%" />
-                <col width="15%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
               </colgroup>
-              <tr>
+              <tr class="text-center">
                 <td> 이름</td>
                 <td> 가격</td>
                 <td> 개수</td>
                 <td> 총 가격 </td>
               </tr>
-            <tr class="product-item" v-for="cart in this.$store.state.cartList" v-bind:key="cart.cartItemNo" >
+            <tr class="product-item text-center" v-for="cart in this.$store.state.cartList" v-bind:key="cart.cartItemNo" >
                 <td> {{cart.itemName}}</td>
                 <td> {{cart.price}}</td>
-                <td> {{cart.count}}</td>
-                <td> {{sum(cart)}}</td>
+                <td>
+                  <span class="plus" ><i @click="setCountP(cart), patchCart(cart)" class="bi bi-plus-circle"></i></span>
+                  {{cart.count}}
+                  <span class="minus"><i @click="setCountP(cart), patchCart(cart)" class="bi bi-dash-circle"></i></span>
+                </td>
+                <td v-bind="sumPrice(cart.price, cart.count)"> {{sum}}</td>
             </tr>
-            <span style="font-weight: 800; font-size: 16pt;" v-bind="pricing(cart)"> {{price}} 원</span>
+            <span style="font-weight: 800; font-size: 16pt;"> {{price}} 원</span>
               <hr>
               <button type="button" class="btn btn-success"><router-link to="/cart" style="text-decoration: none; color: white">주문하기</router-link></button>
             </div>
@@ -82,8 +86,8 @@
                 <td> {{item.price}}</td>
                 <td>
                    <div class="btn-group" role="group" aria-label="Basic example">
-                     <td class="me-2"> <input placeholder="0" type="number" min='0' style="border: 1px solid #333; border-radius: 5px; width:50px; height:100%" v-model="count[i]"></td>
-                    <button type="button" class="btn btn-success" @click="goCart(d, i)">장바구니에 담기</button>
+                     <td class="me-2"> <input placeholder="0" type="number" min='0' max='999' style="border: 1px solid #333; border-radius: 5px; width:50px; height:100%" v-model="count[i]"></td>
+                    <button type="button" class="btn btn-success" @click="postCart(item, count[i])">장바구니에 담기</button>
                    </div>
                 </td>
             </tr>
@@ -93,7 +97,7 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 
 export default {
   name:'shop',
@@ -112,13 +116,37 @@ export default {
   },
 
   methods: {
-    sumPrice(cart) {
-      this.sum=cart.price*cart.count;
+    sumPrice(price, count) {
+      this.sum=price*count;
     },
-    pricing(sum) {
-      this.$data.price+=sum;
+    postCart(item, count) {
+      axios.post(`/v4/cart`,
+      {
+        itemNo : item.itemNo,
+        count : count,
+        email : this.email
+      })
+      .then(res => {
+        console.log('success', JSON.stringify(res, null, 2))
+      }).catch(err => {
+        console.log('failed', err)
+      })
+    },
+    patchCart(cart) {
+      axios.patch(`/cartItem/${cart.cartItemNo}/${cart.count}`, cart.cartItemNo, cart.count)
+      .then(res => {
+        console.log('success', JSON.stringify(res, null, 2))
+      }).catch(err => {
+        console.log('failed', err)
+      })
     },
 
+    setCountP(cart) {
+      cart.count++;
+    },
+    setCountM(cart) {
+      cart.count--;
+    },
     // loadCart() {
     //   axios.get('/v4/cart')
     //   .then(res => {
@@ -195,4 +223,15 @@ export default {
     text-decoration: none;
 }
 
+.plus:hover {
+  cursor: pointer;
+  color: green;
+  transition: 0.2s;
+}
+
+.minus:hover {
+  cursor: pointer;
+  color: red;
+  transition: 0.2s;
+}
 </style>
