@@ -66,9 +66,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional(readOnly = true)
     public ItemDTO findByItemNo(Long id) {
-        Item entity = itemRepository.findByItemNo(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-
+        Item entity = itemRepository.findByItemNo(id);
         return entityToDto(entity);
     }
 

@@ -58,7 +58,7 @@ public class CartController {
         Member member = memberRepository.findByEmail(cartItemDTO.getEmail());
         System.out.println("logloglog" + member + " " + cartItemDTO.getItemNo()  + cartItemDTO.getCount());
         cartItemNo = cartService.create(dto, member.getEmail());
-        return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
+        return new ResponseEntity<>(cartItemNo, HttpStatus.OK);
     }
 
 
@@ -75,7 +75,7 @@ public class CartController {
         Member member = memberRepository.findByEmail(email);
         List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(member.getEmail());
         model.addAttribute("cartItems", cartDetailDTOList);
-        return new ResponseEntity<List<CartDetailDTO>>(cartDetailDTOList, HttpStatus.OK);
+        return new ResponseEntity<>(cartDetailDTOList, HttpStatus.OK);
     }
 
 

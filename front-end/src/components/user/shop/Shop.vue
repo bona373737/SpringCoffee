@@ -23,11 +23,19 @@
                 <col width="15%" />
                 <col width="15%" />
               </colgroup>
-            <tr class="product-item" v-for="cart in this.$store.state.cartList" v-bind:key="cart.cartItemNo">
-                <td> {{cart.itemName}}dd</td>
+              <tr>
+                <td> 이름</td>
+                <td> 가격</td>
+                <td> 개수</td>
+                <td> 총 가격 </td>
+              </tr>
+            <tr class="product-item" v-for="cart in this.$store.state.cartList" v-bind:key="cart.cartItemNo" >
+                <td> {{cart.itemName}}</td>
                 <td> {{cart.price}}</td>
                 <td> {{cart.count}}</td>
+                <td> {{sum(cart)}}</td>
             </tr>
+            <span style="font-weight: 800; font-size: 16pt;" v-bind="pricing(cart)"> {{price}} 원</span>
               <hr>
               <button type="button" class="btn btn-success"><router-link to="/cart" style="text-decoration: none; color: white">주문하기</router-link></button>
             </div>
@@ -93,14 +101,24 @@ export default {
     this.$store.dispatch('fetchItem');
     this.$store.dispatch('fetchCart', "user95@springCoffee.com");
   },
+
   data() {
     return {
+        sum: 0,
+        price: 0,
         email: "user95@springCoffee.com",
-        count: [Number],
+        count: [],
     };
   },
 
   methods: {
+    sumPrice(cart) {
+      this.sum=cart.price*cart.count;
+    },
+    pricing(sum) {
+      this.$data.price+=sum;
+    },
+
     // loadCart() {
     //   axios.get('/v4/cart')
     //   .then(res => {

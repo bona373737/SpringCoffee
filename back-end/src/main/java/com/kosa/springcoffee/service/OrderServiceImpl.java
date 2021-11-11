@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Long create(OrderDTO orderDTO, String email) {
         Item item = itemRepository.findById(orderDTO.getItemNo()).orElseThrow(EntityNotFoundException::new);
-        Optional<Member> member = memberRepository.findByEmailOptional(email);
+        Member member = memberRepository.findByEmail(email);
 
         List<OrderItem> orderItemList = new ArrayList<>();
 
@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService{
         OrderItem orderItem = OrderItem.createOrderItem(item, orderDTO.getCount());
         orderItemList.add(orderItem);
 
-        Order order = Order.createOrder(member.get(), orderItemList);
+        Order order = Order.createOrder(member, orderItemList);
         order.setStatus(OrderStatus.ORDER);
         orderRepository.save(order);
 
@@ -110,15 +110,15 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Long cartOrder(List<OrderDTO> orderDTOList, String email) {
-        Optional<Member> member = memberRepository.findByEmailOptional(email);
+        Member member = memberRepository.findByEmail(email);
         List<OrderItem> orderItemList = new ArrayList<>();
         for(OrderDTO orderDTO : orderDTOList){
-            Optional<Item> item = itemRepository.findByItemNo(orderDTO.getItemNo());
-            OrderItem orderItem = OrderItem.createOrderItem(item.get(), orderDTO.getCount());
+            Item item = itemRepository.findByItemNo(orderDTO.getItemNo());
+            OrderItem orderItem = OrderItem.createOrderItem(item, orderDTO.getCount());
             orderItemList.add(orderItem);
         }
 
-        Order order = Order.createOrder(member.get(), orderItemList);
+        Order order = Order.createOrder(member, orderItemList);
         order.setStatus(OrderStatus.ORDER);
         orderRepository.save(order);
         return order.getOrderNo();

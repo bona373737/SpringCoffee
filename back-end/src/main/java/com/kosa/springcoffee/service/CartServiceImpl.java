@@ -31,14 +31,16 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public Long create(CartItemDTO cartItemDTO, String email) {
-        Optional<Member> member = memberRepository.findByEmailOptional(email);
-        Cart cart = cartRepository.findByMemberEmail(member.get().getName());
+        Member member = memberRepository.findByEmail(email);
+        Cart cart = cartRepository.findByMemberEmail(member.getEmail());
         if (cart == null){
-            cart = Cart.createCart(member.get());
+            cart = Cart.createCart(member);
             cartRepository.save(cart);
+
         }
 
-        Item item = itemRepository.findById(cartItemDTO.getItemNo()).orElseThrow(EntityNotFoundException::new);
+        Item item = itemRepository.findByItemNo(cartItemDTO.getItemNo());
+        //Item item = itemRepository.findById(cartItemDTO.getItemNo()).orElseThrow(EntityNotFoundException::new);
         CartItem cartItem = cartItemRepository.findByCartNoAndItemNo(cart.getCartNo(), item.getItemNo());
 
         if (cartItem == null){
@@ -47,6 +49,7 @@ public class CartServiceImpl implements CartService{
         }
         else{
             cartItem.addCount(cartItemDTO.getCount());
+            cartItemRepository.save(cartItem);
         }
         return cartItem.getCartItemNo();
     }
@@ -55,8 +58,8 @@ public class CartServiceImpl implements CartService{
     public List<CartDetailDTO> getCartList(String email) {
         List<CartDetailDTO> cartDetailDTOList =new ArrayList<>();
 
-        Optional<Member> member = memberRepository.findByEmailOptional(email);
-        Cart cart = cartRepository.findByMemberEmail(member.get().getEmail());
+        Member member = memberRepository.findByEmail(email);
+        Cart cart = cartRepository.findByMemberEmail(member.getEmail());
         if(cart == null)
             return cartDetailDTOList;
 
@@ -66,11 +69,11 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public boolean validateCartItem(Long cartItemNo, String email) {
-        Optional<Member> curMember = memberRepository.findByEmailOptional(email);
+        Member curMember = memberRepository.findByEmail(email);
         CartItem cartItem = cartItemRepository.findByCartItemNo(cartItemNo);
         Member savedMember = cartItem.getCart().getMember();
 
-        if (!StringUtils.equals(curMember.get().getEmail(), savedMember.getEmail())){
+        if (!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())){
             return true;
         }
         return false;
