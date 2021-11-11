@@ -1,5 +1,6 @@
 package com.kosa.springcoffee.security.util;
 
+import com.kosa.springcoffee.entity.MemberRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -39,7 +40,7 @@ public class JwtTokenProvider {
     }
 
     // JWT 토큰 생성
-    public String generateToken(String userEmail, List<String> roles) throws UnsupportedEncodingException {
+    public String generateToken(String userEmail, Set<MemberRole> roles) throws UnsupportedEncodingException {
         Claims claims = Jwts.claims().setSubject(userEmail);
         claims.put("roles", roles);
         Date curDate = new Date();
