@@ -39,7 +39,7 @@ public class OrderItem{
 
 
     //비즈니스로직 주문 취소
-    public void cancel(int count) {
+    public void cancel() {
         this.getItem().changeStockQuantity(this.getItem().getStockQuantity() + this.getCount());
     }
     //조회 로직 주문상품 전체 가격조회

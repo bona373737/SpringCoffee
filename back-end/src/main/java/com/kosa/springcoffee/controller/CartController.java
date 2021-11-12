@@ -12,6 +12,7 @@ import com.kosa.springcoffee.service.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,21 +33,20 @@ public class CartController {
 
 //    @PostMapping("/cart")
 //    @ResponseBody
-//    public ResponseEntity cart(@RequestBody CartItemDTO cartItemDTO, Principal principal){
+//    public ResponseEntity cart(@RequestBody CartItemDTO cartItemDTO,Principal principal){
 //        Long cartItemNo;
 //
-////        try{
-////            cartItemNo = cartService.create(cartItemDTO, principal.getName());
-////        }catch (Exception e){
-////            e.printStackTrace();
-////            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-////        }
+//        try{
+//            cartItemNo = cartService.create(cartItemDTO, principal.getName());
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
 //        System.out.println("logloglog" + principal.getName() + " " + cartItemDTO.getItemNo()  + cartItemDTO.getCount());
 //        cartItemNo = cartService.create(cartItemDTO,principal.getName());
 //        return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
 //
 //    }
-
 
     @PostMapping("/cart")
     @ResponseBody
@@ -57,25 +57,18 @@ public class CartController {
         dto.setItemNo(cartItemDTO.getItemNo());
         Member member = memberRepository.findByEmail(cartItemDTO.getEmail());
         System.out.println("logloglog" + member + " " + cartItemDTO.getItemNo()  + cartItemDTO.getCount());
-        cartItemNo = cartService.create(dto, member.getEmail());
-        return new ResponseEntity<>(cartItemNo, HttpStatus.OK);
+        cartItemNo = cartService.create(dto,member.getEmail());
+        return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
+
     }
 
 
-//    @GetMapping(value = "/cart")
-//    public String cartList(Principal principal, Model model) {
-//
-//        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(principal.getName());
-//        model.addAttribute("cartItems", cartDetailDTOList);
-//        return "cart/cartList";
-//    }
+    @GetMapping(value = "/cart")
+    public ResponseEntity cartList(Principal principal, Model model) {
 
-    @GetMapping(value = "/cart/{email}")
-    public ResponseEntity cartList(@PathVariable String email, Model model) {
-        Member member = memberRepository.findByEmail(email);
-        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(member.getEmail());
+        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(principal.getName());
         model.addAttribute("cartItems", cartDetailDTOList);
-        return new ResponseEntity<>(cartDetailDTOList, HttpStatus.OK);
+        return new ResponseEntity<List<CartDetailDTO>>(cartDetailDTOList, HttpStatus.OK);
     }
 
 

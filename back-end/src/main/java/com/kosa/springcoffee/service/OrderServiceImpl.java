@@ -6,6 +6,7 @@ import com.kosa.springcoffee.dto.OrderItemDTO;
 import com.kosa.springcoffee.entity.*;
 import com.kosa.springcoffee.repository.ItemRepository;
 import com.kosa.springcoffee.repository.MemberRepository;
+import com.kosa.springcoffee.repository.OrderItemRepository;
 import com.kosa.springcoffee.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,7 +19,6 @@ import org.thymeleaf.util.StringUtils;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

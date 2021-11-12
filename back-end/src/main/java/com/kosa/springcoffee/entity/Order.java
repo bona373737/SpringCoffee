@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order extends BaseEntity {
+public class Order extends BaseEntityOrder{
 
     @Id @GeneratedValue
     private Long orderNo;
@@ -45,7 +45,7 @@ public class Order extends BaseEntity {
 
         this.setStatus(OrderStatus.CANCEL);
         for (OrderItem orderItem : orderItems) {
-            orderItem.cancel(orderItem.getCount());
+            orderItem.cancel();
         }
     }
 
@@ -57,7 +57,5 @@ public class Order extends BaseEntity {
         }
         return totalPrice;
     }
-
-
 
 }

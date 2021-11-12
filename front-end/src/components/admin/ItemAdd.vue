@@ -4,7 +4,7 @@
       <table class="notice-context text-start col-5 m-auto">
         <tr>
           <th>제목</th>
-          <td class="table-title"><input type="text" v-model="title"></td>
+          <td class="table-title"><input type="text" v-model="name"></td>
         </tr>
         <tr>
           <th>내용</th>
@@ -45,7 +45,7 @@ export default {
     name: 'ItemAdd',
     data() {
     return {
-      title : '',
+      name : '',
       content : '',
       image: '',
       stockQuantity: '',
@@ -55,25 +55,27 @@ export default {
   },
   methods:{
     onSubmit() {
-      const formData = new FormData;
-      
-      formData.append('title', this.title);
-      formData.append('content', this.content);
-      formData.append('image', this.image);
-      formData.append('stockQuantity', this.stockQuantity);
-      formData.append('price', this.price);
-      formData.append('category', this.category)
+      const input = new FormData;
+      input.append('name', this.name);
+      input.append('content', this.content);
+      input.append('image', this.image);
+      input.append('stockQuantity', this.stockQuantity);
+      input.append('price', this.price);
+      input.append('category', this.category)
 
-      for(let key of formData.entries()) {
+      const itemImgFile = new FormData;
+      itemImgFile.append('image', this.image);
+
+      for(let key of input.entries()) {
         console.log(`${key}`);
       }
 
-      axios.post( '/v2/register', formData, {
+      axios.post( '/v2/new', input, itemImgFile, {
           headers: {
               'Content-Type': 'multipart/form-data'
           }
         }).then(function(){
-          console.log('SUCCESS!!');
+          console.log('SUCCESS!!', input, itemImgFile);
         })
         .catch(function(){
           console.log('FAILURE!!');
@@ -81,7 +83,7 @@ export default {
     },
 
     onInputImage() {
-      this.image = this.$refs.serveyImage.files[0];
+      this.image = this.$refs.serveyImage.files;
       console.log(this.image);
       // var image = this.$refs.serveyImage.files[0];
       // const url = URL.createObjectURL(image)

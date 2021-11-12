@@ -31,6 +31,11 @@ public class Member extends BaseEntity{
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
 
+
+    //@OneToMany(mappedBy = "member")
+    //private List<Order> orders = new ArrayList<>();
+
+
     public void addMemberRole(MemberRole memberRole){
         roleSet.add(memberRole);
     }

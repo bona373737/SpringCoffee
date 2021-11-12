@@ -1,5 +1,6 @@
 package com.kosa.springcoffee.entity;
 
+import com.kosa.springcoffee.dto.ItemFormDTO;
 import com.kosa.springcoffee.exception.NoStockException;
 import lombok.*;
 
@@ -10,8 +11,8 @@ import javax.persistence.Id;
 
 @Entity(name = "sc_item")
 @Getter
-@Setter
 @Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {
@@ -22,7 +23,6 @@ public class Item {
 
     private String content;
 
-    private String image;
 
     private int stockQuantity;
 
@@ -38,9 +38,6 @@ public class Item {
         this.content = content;
     }
 
-    public void changeImage(String image) {
-        this.image=image;
-    }
     public void changeStockQuantity(int stockQuantity){
         this.stockQuantity=stockQuantity;
     }
@@ -51,7 +48,13 @@ public class Item {
         this.category=category;
     }
 
-
+    public void updateItem(ItemFormDTO itemFormDTO) {
+        this.name = itemFormDTO.getName();
+        this.content = itemFormDTO.getContent();
+        this.stockQuantity = itemFormDTO.getStockQuantity();
+        this.price = itemFormDTO.getPrice();
+        this.category = itemFormDTO.getCategory();
+    }
 
     public void removeStock(int quantity) {
         int restStock = this.stockQuantity - quantity;
