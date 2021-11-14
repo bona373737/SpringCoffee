@@ -32,17 +32,17 @@ public class Order extends BaseEntityOrder{
         orderItem.setOrder(this);
     }
     //생성메서드
-    public static Order createOrder(Member member, OrderItem... orderItems) {
+    public static Order createOrder(Member member, List<OrderItem> orderItemList) {
         Order order = new Order();
         order.setMember(member);
-        for (OrderItem orderItem : orderItems) {
+        for (OrderItem orderItem : orderItemList) {
             order.addOrderItem(orderItem);
         }
-        order.setStatus(OrderStatus.ORDER);
         return order;
     }
     //비즈니스 로직 주문 취소
     public void cancel() {
+
         this.setStatus(OrderStatus.CANCEL);
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
@@ -57,7 +57,5 @@ public class Order extends BaseEntityOrder{
         }
         return totalPrice;
     }
-
-
 
 }

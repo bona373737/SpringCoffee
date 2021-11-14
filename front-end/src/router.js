@@ -1,5 +1,6 @@
-import { createWebHistory, createRouter } from 'vue-router';
+import { createWebHashHistory, createRouter } from 'vue-router';
 import Content from '@/components/user/Content.vue'
+import QnaLayout from '@/components/user/qna/QnaLayout'
 
 const routes = [
   {
@@ -49,7 +50,8 @@ const routes = [
   {
     path: '/qnaLayout',
     name: 'QnaLayout',
-    component: () => import('@/components/user/qna/QnaLayout.vue'),
+    component: QnaLayout,
+    // component: () => import('@/components/user/qna/QnaLayout.vue'),
     children :[
       {
         path: '',
@@ -58,18 +60,25 @@ const routes = [
         props : true
       },
       {
-        path: 'qnaDetail/:boardNo',
-        name: 'QnaDetail',
-        component: () => import('@/components/user/qna/QnaDetail.vue')
+        path: 'qnaDetail/:qnaBoardNo',
+        name: 'qnaDetail',
+        component: () => import('@/components/user/qna/QnaDetail.vue'),
+        children:[
+          {
+            path:'',
+            name: 'qnaReply',
+            component:() =>import('@/components/user/qna/QnaReply.vue'),
+          },
+        ]
       },
       {
         path: '/qnaAdd',
-        name: 'QnaAdd',
+        name: 'qnaAdd',
         component: () => import('@/components/user/qna/QnaAdd.vue')
       },
       {
-        path: '/qnaUpdate:boardNo',
-        name: 'QnaUpdate',
+        path: '/qnaUpdate/:qnaBoardNo',
+        name: 'qnaUpdate',
         component: () => import('@/components/user/qna/QnaUpdate.vue')
       },
     ]
@@ -94,25 +103,41 @@ const routes = [
   {
     path: '/shop',
     name: 'Shop',
-    component: () => import('@/components/user/shop/ShopLayout.vue')
+    component: () => import('@/components/user/shop/Shop.vue'),
+    children: [
+      {
+        path: '/order',
+        component: () => import('@/components/user/shop/Order.vue')
+      },
+    ]
   },
   {
-    path: '/admin',
+    path: '/admin/:',
     name: 'AdminPage',
-    component: () => import('@/components/admin/AdminPage.vue')
+    component: () => import('@/components/admin/AdminPage.vue'),
+    children: [
+      {
+        path: "userlist",
+        component: () => import('@/components/admin/UserList.vue'),
+      },
+      {
+        path: "itemAdd",
+        component: () => import('@/components/admin/ItemAdd.vue'),
+      },
+    ]
   },
-  // {
-  //   path: '/:pathMatch(.*)*',
-  //   redirect: "/404"
-  // },
-  // {
-  //   path: '/404',
-  //   name: 'NotFoundPage',
-  //   component: () => import('@/components/user/NotFoundPage.vue')
-  // },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: "/404"
+  },
+  {
+    path: '/404',
+    name: 'NotFoundPage',
+    component: () => import('@/components/user/NotFoundPage.vue')
+  },
 ];
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 });

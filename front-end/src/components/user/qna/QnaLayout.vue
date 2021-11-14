@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name:'NoticeForm',
+  name:'qnaLayout',
 };
 </script>
 
@@ -54,6 +54,10 @@ export default {
     color: green;
     font-size: 26pt;
     transition: 0.3s;
+}
+.filter{
+  margin-right:10%;
+  text-align: right;
 }
 
 </style>

@@ -37,6 +37,12 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.4.4</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -94,6 +100,8 @@
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
         </dependency>
+
+
     </dependencies>
 
     <build>

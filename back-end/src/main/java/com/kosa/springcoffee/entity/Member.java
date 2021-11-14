@@ -37,6 +37,11 @@ public class Member extends BaseEntity implements UserDetails {
     //@OneToMany(mappedBy = "member")
     //private List<Order> orders = new ArrayList<>();
 
+
+    //@OneToMany(mappedBy = "member")
+    //private List<Order> orders = new ArrayList<>();
+
+
     public void addMemberRole(MemberRole memberRole){
         roles.add(memberRole);
     }

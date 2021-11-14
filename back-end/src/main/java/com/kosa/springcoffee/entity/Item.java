@@ -1,28 +1,28 @@
 package com.kosa.springcoffee.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.kosa.springcoffee.dto.ItemFormDTO;
+import com.kosa.springcoffee.exception.NoStockException;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "sc_item")
 @Getter
 @Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long itemNo;
 
     private String name;
 
     private String content;
 
-    private String image;
 
     private int stockQuantity;
 
@@ -38,9 +38,6 @@ public class Item {
         this.content = content;
     }
 
-    public void changeImage(String image) {
-        this.image=image;
-    }
     public void changeStockQuantity(int stockQuantity){
         this.stockQuantity=stockQuantity;
     }
@@ -51,14 +48,18 @@ public class Item {
         this.category=category;
     }
 
-    //비즈니스 로직
-    public void addStock(int quantity) {
-        this.stockQuantity += quantity;
+    public void updateItem(ItemFormDTO itemFormDTO) {
+        this.name = itemFormDTO.getName();
+        this.content = itemFormDTO.getContent();
+        this.stockQuantity = itemFormDTO.getStockQuantity();
+        this.price = itemFormDTO.getPrice();
+        this.category = itemFormDTO.getCategory();
     }
+
     public void removeStock(int quantity) {
         int restStock = this.stockQuantity - quantity;
         if (restStock < 0) {
-            throw new RuntimeException("need more stock");
+            throw new NoStockException("상품 재고가 부족합니다.");
         }
         this.stockQuantity = restStock;
     }

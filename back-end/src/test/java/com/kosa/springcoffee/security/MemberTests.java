@@ -54,12 +54,12 @@ public class MemberTests {
     }
 
 
-
-    @Test
-    public void testRead(){
-        Optional<Member> result = memberRepository.findByEmail("user95@springCoffee.com" , false);
-        Member member = result.get();
-
-        System.out.println(member);
-    }
+//
+//    @Test
+//    public void testRead(){
+//        Optional<Member> result = memberRepository.findByEmailOptional("user95@springCoffee.com");
+//        Member member = result.get();
+//
+//        System.out.println(member);
+//    }
 }
