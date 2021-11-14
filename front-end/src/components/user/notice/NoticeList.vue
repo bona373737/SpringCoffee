@@ -2,11 +2,10 @@
   <div>
      <div class="outterDiv py-5">
       <div class="btnWrap text-end">
-        <input type="text" class="me-2">
-        <button class="btn btn-success me-2" > 검색 </button>
+        <input type="text" class="me-2" placeholder="제목" v-model="keyword">
+        <button class="btn btn-success me-2" @click="noticeBoardSearch(keyword)" > 검색 </button>
         <button class="btn btn-primary" @click="$router.push('/noticeAdd')"> 추가 </button>
       </div>
-
       <div>
         <table class="table table-bordered table-condensed">
           <colgroup>
@@ -21,11 +20,12 @@
             <th>제목</th>
             <th>작성자</th>
             <th>작성일</th>
-<!--            <th>조회수</th>-->
+<!--        <th>조회수</th>-->
           </tr>
           </thead>
           <tbody>
-          <tr class="tbody-th1" v-for="board in this.$store.state.boardList" v-bind:key="board.boardNo" @click="goNoticeDetail(board.boardNo)" >
+          <tr class="tbody-th1" v-for="board in this.$store.state.noticeBoardList.dtoList" v-bind:key="board.boardNo"
+              @click="goNoticeDetail(board.boardNo)">
             <th>{{ board.boardNo }}</th>
             <th>{{ board.title }}</th>
             <th>{{ board.writer }}</th>
@@ -34,24 +34,11 @@
           </tbody>
         </table>
       </div>
-    <ul v-if="pager.pages && pager.pages.length" class="pagination" :style="ulStyles">
-        <li class="page-item first" :class="{'disabled': pager.currentPage === 1}" :style="liStyles">
-            <a class="page-link" @click="setPage(1)" :style="aStyles">{{labels.first}}</a>
-        </li>
-        <li class="page-item previous" :class="{'disabled': pager.currentPage === 1}" :style="liStyles">
-            <a class="page-link" @click="setPage(pager.currentPage - 1)" :style="aStyles">{{labels.previous}}</a>
-        </li>
-        <li v-for="page in pager.pages" :key="page" class="page-item page-number" :class="{'active': pager.currentPage === page}" :style="liStyles">
-            <a class="page-link" @click="setPage(page)" :style="aStyles">{{page}}</a>
-        </li>
-        <li class="page-item next" :class="{'disabled': pager.currentPage === pager.totalPages}" :style="liStyles">
-            <a class="page-link" @click="setPage(pager.currentPage + 1)" :style="aStyles">{{labels.next}}</a>
-        </li>
-        <li class="page-item last" :class="{'disabled': pager.currentPage === pager.totalPages}" :style="liStyles">
-            <a class="page-link" @click="setPage(pager.totalPages)" :style="aStyles">{{labels.last}}</a>
-        </li>
-    </ul>
-
+       <button @click="movePrevPage()">이전</button>
+       <button v-for="page in this.$store.state.noticeBoardList.pageList" :key="page"
+               :class="{pageNo : page === this.$store.state.noticeBoardList.page}"
+               @click="movePage(page)">{{page}}</button>
+       <button @click="moveNextPage()">다음</button>
     </div>
   </div>
 </template>
@@ -59,36 +46,47 @@
 <script>
 
 export default {
-  name:'NoticeForm',
+  name:'NoticeList',
   created() {
-    this.$store.dispatch('fetchBoard', this.$route.params);
+    this.$store.dispatch('fetchNoticeBoardList');
   },
   data() {
-            return {
-                pager: {},
-                ulStyles: {},
-                liStyles: {},
-                aStyles: {}
-            }
+    return {
+      keyword:'',
+    }
   },
-
   methods: {
-    onChangePage(pageOfItems) {
-      this.pageOfItems = pageOfItems;
-    },
     goNoticeDetail(boardNo) {
       this.$router.push({
         name: 'noticeDetail',
         params: { boardNo: boardNo }
       })
     },
+    movePage(page){
+      this.$store.dispatch('fetchNoticeBoardList',page)
+    },
+    movePrevPage(){
+      if(this.$store.state.noticeBoardList.prev == true){
+        const prevPage = this.$store.state.noticeBoardList.start -1
+        this.$store.dispatch('fetchNoticeBoardList',prevPage)
+      }
+    },
+    moveNextPage(){
+      if(this.$store.state.noticeBoardList.next == true){
+      const nextPage = this.$store.state.noticeBoardList.end +1
+      this.$store.dispatch('fetchNoticeBoardList',nextPage)
+      }
+    },
+    noticeBoardSearch(keyword){
+      this.$store.dispatch('fetchNoticeBoardSearch',keyword)
+    }
   }
 };
 </script>
 
 <style scoped>
 .outterDiv{
-  width: 60%;
+  width: 80%;
   margin: auto;
 }
 .btnWrap{
@@ -111,5 +109,8 @@ export default {
 th{
   border-left: 1px solid white;
   border-right: 1px solid white;
+}
+.pageNo{
+  background: tomato;
 }
 </style>

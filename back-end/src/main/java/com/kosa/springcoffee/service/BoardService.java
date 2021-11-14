@@ -1,9 +1,6 @@
 package com.kosa.springcoffee.service;
 
-import com.kosa.springcoffee.dto.BoardDTO;
-import com.kosa.springcoffee.dto.CategoryPageRequestDTO;
-import com.kosa.springcoffee.dto.PageRequestDTO;
-import com.kosa.springcoffee.dto.PageResultDTO;
+import com.kosa.springcoffee.dto.*;
 import com.kosa.springcoffee.entity.Board;
 import com.kosa.springcoffee.entity.Member;
 import java.time.format.DateTimeFormatter;
@@ -25,6 +22,8 @@ public interface BoardService {
 
     PageResultDTO<BoardDTO, Board> getCategory(CategoryPageRequestDTO requestDTO); // 카테고리 조회
 
+    PageResultDTO<BoardDTO, Board> searchKeyword(KeywordPageRequestDTO requestDTO); // 키워드 검색
+    
     default Board dtoToEntity(BoardDTO dto) {
         Board entity = Board.builder()
                 .boardNo(dto.getBoardNo())
