@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div class="mypage">
+      <div class="adminpage">
         <div class="tab-bar">
             <div class="tab-my py-3" style="width:100%;">
                 <span class="tab-title">관리자 페이지</span>            
@@ -22,27 +22,29 @@
                   <li class="content">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
-                        <router-link to="/mypage/profile">
-                            <div class="bt-text">회원정보</div>
+                        <router-link to="/admin/userlist">
+                            <div class="bt-text">회원관리</div>
                         </router-link>
                       </div>
                   </li>
                   <li class="content">
                       <div class="con-card">
-                      <div class="bt-icon"><i class="bi bi-cart-check-fill"></i></div>
-                      <div class="bt-text">장바구니</div>
+                      <div class="bt-icon"><i class="bi bi-shop"></i></div>
+                      <router-link to="/admin/itemadd">
+                        <div class="bt-text">상품등록</div>
+                      </router-link>
                       </div>
                   </li>
                   <li class="content">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-question-circle"></i></div>
-                      <div class="bt-text">문의내역</div>
+                      <div class="bt-text">문의목록</div>
                       </div>
                   </li>
                   <li class="content">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-currency-dollar"></i></div>
-                      <div class="bt-text">결제내역</div>
+                      <div class="bt-text">주문관리</div>
                       </div>
                   </li>
               </ui>

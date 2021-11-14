@@ -12,4 +12,5 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     @Query("select m from sc_member m where m.fromSocial = :social and m.email=:email")
     Optional<Member> findByEmail(String email, boolean social);
 
+    Member findByEmail(String email);
 }

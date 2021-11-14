@@ -22,8 +22,7 @@ public class QnaBoardRepositoryTest {
     @Test
     public void insertDummies() {
         IntStream.rangeClosed(1,25).forEach(i -> {
-            Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com" , false);
-            Member member = result.get();
+            Member member = memberRepository.findByEmail("user"+i+"@springCoffee.com");
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)
                     .content("qna Content" + i)
@@ -34,8 +33,7 @@ public class QnaBoardRepositoryTest {
         });
 
         IntStream.rangeClosed(26,50).forEach(i -> {
-            Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com" , false);
-            Member member = result.get();
+            Member member = memberRepository.findByEmail("user"+i+"@springCoffee.com");
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)
                     .content("qna Content" + i)
@@ -46,8 +44,7 @@ public class QnaBoardRepositoryTest {
         });
 
         IntStream.rangeClosed(51,75).forEach(i -> {
-            Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com" , false);
-            Member member = result.get();
+            Member member = memberRepository.findByEmail("user"+i+"@springCoffee.com");
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)
                     .content("qna Content" + i)
@@ -58,8 +55,7 @@ public class QnaBoardRepositoryTest {
         });
 
         IntStream.rangeClosed(76,100).forEach(i -> {
-            Optional<Member> result = memberRepository.findByEmail("user"+i+"@springCoffee.com" , false);
-            Member member = result.get();
+            Member member = memberRepository.findByEmail("user"+i+"@springCoffee.com");
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)
                     .content("qna Content" + i)

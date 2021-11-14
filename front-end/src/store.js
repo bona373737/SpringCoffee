@@ -3,19 +3,23 @@ import axios from "axios";
 
 
 let store = createStore({
-  state(){
-    return{
-      isShow: true,
+  state(){  // 데이터보관하고 싶으면 여기에 기재
+    return {
+      email: "user95@springCoffee.com",
+      cartNo: '',
+      itemList: [],
+      itemDetail: {},
+      cartList: [],
+      cartDetail: {},
       noticeBoardList: [],
       noticeBoardDetail: {},
       qnaBoardList: [],
       qnaBoardDetail : {},
-      // QnaFilterList : []
     }
   },
-  mutations: {
-    checkShow(state) {
-      state.isShow = !this.state.isShow;
+  mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
+    setMember(state, email) {
+      state.email = email;
     },
     setNoticeBoardList(state, payload) {
       state.noticeBoardList = payload;
@@ -28,6 +32,15 @@ let store = createStore({
     },
     setQnaBoardDetail(state,payload){
       state.qnaBoardDetail = payload
+    },
+    setItem(state, item) {
+      state.itemList = item;
+    },
+    setItemDetail(state, itemDetail){
+      state.itemDetail = itemDetail;
+    },
+    setCart(state, cart) {
+      state.cartList = cart;
     },
   },
   actions: {
@@ -57,6 +70,30 @@ let store = createStore({
             context.commit('setQnaBoardList', response.data);
           })
     },
+    fetchItem(context) {
+      axios.get(`/v2/list`)
+        .then(response => {
+          context.commit('setItem', response.data.dtoList);
+        })
+    },
+    fetchItemDetail(context, itemNo){
+      axios.get(`/v2/list/${itemNo}`)      // axios dynamic URL,
+        .then(response =>{
+          context.commit('setItemDetail', response.data);
+        })
+    },
+    fetchCart(context, email) {
+      axios.get(`/v4/cart/${email}`)
+        .then(response => {
+          context.commit('setCart', response.data);
+        })
+    },
+    // patchCart(context, cartItemNo, count) {
+    //   axios.get(`/v4/${cartItemNo}/${count}`)
+    //     .then(response => {
+    //       context.commit('setCart', response.data);
+    //     })
+    // },
     fetchQnaBoardDetail(context,qnaBoardNo){
       axios.get(`/v3/${qnaBoardNo}`)
           .then(response => {
