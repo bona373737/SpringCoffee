@@ -25,7 +25,7 @@ public class MemberTests {
     private PasswordEncoder passwordEncoder;
 
     @Test
-    public void insert더미데이터(){
+    public void insertdummies(){
         //1~80 User
         //81~90 User,Manager
         //90~100 User,Manager, Admin
@@ -38,13 +38,13 @@ public class MemberTests {
                     .build();
 
             //default role
-            member.addMemberRole(MemberRole.USER);
+            member.addMemberRole(MemberRole.ROLE_USER);
 
             if(i>80){
-                member.addMemberRole(MemberRole.MANAGER);
+                member.addMemberRole(MemberRole.ROLE_MANAGER);
             }
             if(i>90){
-                member.addMemberRole(MemberRole.ADMIN);
+                member.addMemberRole(MemberRole.ROLE_ADMIN);
             }
             System.out.println(member.getEmail());
             System.out.println(member.getPassword());

@@ -54,7 +54,7 @@ public class SignController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequestDTO loginDTO) throws Exception {
         LoginResponseDTO dto = signService.login(loginDTO);
-        Optional<Member> member = memberRepository.findByEmail(loginDTO.getEmail(), false);
+        Optional<Member> member = memberRepository.getByEmail(loginDTO.getEmail(), false);
         Member m = member.get();
         if (m == null){
             return new ResponseEntity<String>("아이디가 존재하지 않습니다.", HttpStatus.FORBIDDEN);
