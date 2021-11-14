@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -22,7 +21,7 @@ public class QnaBoardRepositoryTest {
     @Test
     public void insertDummies() {
         IntStream.rangeClosed(1,25).forEach(i -> {
-            Member member = memberRepository.findByEmail("user"+i+"@springCoffee.com");
+            Member member = memberRepository.getByEmail("user"+i+"@springCoffee.com");
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)
                     .content("qna Content" + i)
@@ -33,7 +32,7 @@ public class QnaBoardRepositoryTest {
         });
 
         IntStream.rangeClosed(26,50).forEach(i -> {
-            Member member = memberRepository.findByEmail("user"+i+"@springCoffee.com");
+            Member member = memberRepository.getByEmail("user"+i+"@springCoffee.com");
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)
                     .content("qna Content" + i)
@@ -44,7 +43,7 @@ public class QnaBoardRepositoryTest {
         });
 
         IntStream.rangeClosed(51,75).forEach(i -> {
-            Member member = memberRepository.findByEmail("user"+i+"@springCoffee.com");
+            Member member = memberRepository.getByEmail("user"+i+"@springCoffee.com");
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)
                     .content("qna Content" + i)
@@ -55,7 +54,7 @@ public class QnaBoardRepositoryTest {
         });
 
         IntStream.rangeClosed(76,100).forEach(i -> {
-            Member member = memberRepository.findByEmail("user"+i+"@springCoffee.com");
+            Member member = memberRepository.getByEmail("user"+i+"@springCoffee.com");
             QnaBoard qnaBoard = QnaBoard.builder()
                     .title("qna Title"+ i)
                     .content("qna Content" + i)

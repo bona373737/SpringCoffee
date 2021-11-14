@@ -6,7 +6,6 @@ import com.kosa.springcoffee.dto.OrderItemDTO;
 import com.kosa.springcoffee.entity.*;
 import com.kosa.springcoffee.repository.ItemRepository;
 import com.kosa.springcoffee.repository.MemberRepository;
-import com.kosa.springcoffee.repository.OrderItemRepository;
 import com.kosa.springcoffee.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -45,7 +44,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Long create(OrderDTO orderDTO, String email) {
         Item item = itemRepository.findById(orderDTO.getItemNo()).orElseThrow(EntityNotFoundException::new);
-        Member member = memberRepository.findByEmail(email);
+        Member member = memberRepository.getByEmail(email);
 
         List<OrderItem> orderItemList = new ArrayList<>();
 
@@ -110,7 +109,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Long cartOrder(List<OrderDTO> orderDTOList, String email) {
-        Member member = memberRepository.findByEmail(email);
+        Member member = memberRepository.getByEmail(email);
         List<OrderItem> orderItemList = new ArrayList<>();
         for(OrderDTO orderDTO : orderDTOList){
             Item item = itemRepository.findByItemNo(orderDTO.getItemNo());

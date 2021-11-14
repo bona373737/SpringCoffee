@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Long create(CartItemDTO cartItemDTO, String email) {
-        Member member = memberRepository.findByEmail(email);
+        Member member = memberRepository.getByEmail(email);
         Cart cart = cartRepository.findByMemberEmail(member.getEmail());
         if (cart == null){
             cart = Cart.createCart(member);
@@ -57,7 +56,7 @@ public class CartServiceImpl implements CartService {
     public List<CartDetailDTO> getCartList(String email) {
         List<CartDetailDTO> cartDetailDTOList =new ArrayList<>();
 
-        Member member = memberRepository.findByEmail(email);
+        Member member = memberRepository.getByEmail(email);
         Cart cart = cartRepository.findByMemberEmail(member.getEmail());
         if(cart == null)
             return cartDetailDTOList;
@@ -68,7 +67,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public boolean validateCartItem(Long cartItemNo, String email) {
-        Member curMember = memberRepository.findByEmail(email);
+        Member curMember = memberRepository.getByEmail(email);
         CartItem cartItem = cartItemRepository.findByCartItemNo(cartItemNo);
         Member savedMember = cartItem.getCart().getMember();
 

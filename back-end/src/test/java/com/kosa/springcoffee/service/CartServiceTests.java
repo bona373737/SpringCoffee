@@ -54,7 +54,7 @@ public class CartServiceTests {
     }
 
     @Test
-    public void 장바구니담기테스트(){
+    public void saveCartItem(){ //장바구니담기테스트
         Item item =saveItem();
         Member member= saveMember();
 
