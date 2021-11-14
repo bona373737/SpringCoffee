@@ -4,6 +4,7 @@ import com.kosa.springcoffee.entity.Member;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
@@ -13,4 +14,9 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     Optional<Member> findByEmail(String email, boolean social);
 
     Member findByEmail(String email);
+    UserDetails findByEmail(String email);
+
+    @Query("select count(m.email) from sc_member m where m.email=:email")
+    int checkEmail(String email);
+
 }
