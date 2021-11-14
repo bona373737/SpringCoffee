@@ -19,10 +19,10 @@
         <router-link class="navbox" to="/shop">
           <p class="tooltip-text">SHOP</p>
         </router-link>
-        <router-link class="navbox" to="/noticelayout">
+        <router-link class="navbox" to="/noticeLayout">
           <p class="tooltip-text">NOTICE</p>
         </router-link>
-        <router-link class="navbox" to="/qnalayout">
+        <router-link class="navbox" to="/qnaLayout">
           <p class="tooltip-text">Q&A</p>
         </router-link>
         <router-link class="navbox" to="/offstore">

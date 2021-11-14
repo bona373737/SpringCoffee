@@ -1,9 +1,6 @@
 package com.kosa.springcoffee.controller;
 
-import com.kosa.springcoffee.dto.BoardDTO;
-import com.kosa.springcoffee.dto.CategoryPageRequestDTO;
-import com.kosa.springcoffee.dto.PageRequestDTO;
-import com.kosa.springcoffee.dto.PageResultDTO;
+import com.kosa.springcoffee.dto.*;
 import com.kosa.springcoffee.entity.Board;
 import com.kosa.springcoffee.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -66,6 +63,12 @@ public class BoardController {
     public PageResultDTO<BoardDTO, Board> getCategory(CategoryPageRequestDTO pageRequestDTO, @PathVariable String category) {
         log.info("게시글 "+category+" 조회");
         return boardService.getCategory(pageRequestDTO);
+    }
+
+    @GetMapping(value = "/search/keyword")
+    public PageResultDTO<BoardDTO, Board> searchKeyword(KeywordPageRequestDTO requestDTO) {
+        log.info(requestDTO.getKeyword() + " 검색");
+        return boardService.searchKeyword(requestDTO);
     }
 
 }

@@ -2,31 +2,31 @@
   <div>
     <div class="outterDiv py-5">
       <table class="notice-context">
-        <tr><td class="table-title">제목 {{$store.state.boardDetail.title}} </td></tr>
-        <tr><td class="table-context"> {{$store.state.boardDetail.content}} </td></tr>
+        <tr><td class="table-title"> {{$store.state.noticeBoardDetail.title}} </td></tr>
+        <tr><td class="table-context"> {{$store.state.noticeBoardDetail.content}} </td></tr>
         <tr><td class=""> 작성일 </td></tr>
       </table>
       <br>
       <div class="BtnWrap">
         <button class="btn btn-success" @click="noticeDelete(this.$route.params.boardNo)"> 삭제 </button>
         <button class="btn btn-success" @click="goNoticeUpdate(this.$route.params.boardNo)"> 수정 </button>
-        <button class="btn btn-success" @click="$router.push({name : 'noticeList'})"> 목록으로 가기 </button>
+        <button class="btn btn-success" @click="$router.push('/noticeLayout')"> 목록 </button>
       </div>
       <br>
-      <table class="updown-page">
-      <colgroup>
-        <col style="width: 25%" />
-        <col style="width: 85%" />
-      </colgroup>
-      <tr class="goToUpperList">
-        <th style="background-color:#a9a9a92e"> 윗글 </th>
-        <td style="padding: 8px" @click="$route.push('')" > 글 제목 </td>
-      </tr>
-      <tr>
-        <th style="background-color:#a9a9a92e">  아랫글 </th>
-        <td style="padding: 8px" > 글 제목 </td>
-      </tr>
-      </table>
+<!--      <table class="updown-page">-->
+<!--        <colgroup>-->
+<!--          <col style="width: 25%" />-->
+<!--          <col style="width: 85%" />-->
+<!--        </colgroup>-->
+<!--        <tr class="goToUpperList">-->
+<!--          <th style="background-color:#a9a9a92e"> 윗글 </th>-->
+<!--          <td style="padding: 8px" @click="$route.push('')" > 글 제목 </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <th style="background-color:#a9a9a92e">  아랫글 </th>-->
+<!--          <td style="padding: 8px" > 글 제목 </td>-->
+<!--        </tr>-->
+<!--      </table>-->
 
     </div>
   </div>
@@ -42,7 +42,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('fetchBoardDetail',this.$route.params.boardNo); // board_no -> 글번호에 해당하는 내용을 가져와라!
+    this.$store.dispatch('fetchNoticeBoardDetail',this.$route.params.boardNo); // board_no -> 글번호에 해당하는 내용을 가져와라!
   },
   methods:{
     goNoticeUpdate(boardNo){
@@ -53,11 +53,11 @@ export default {
     },
     noticeDelete(boardNo){
       axios.delete(`/v1/${boardNo}`)
-      .then( res => {
-        console.log(res.data)
-        alert("공지사항 게시글이 삭제 되었습니다.")
-        this.$router.push({name : 'noticeList'});
-      })
+          .then( res => {
+            console.log(res.data)
+            alert("공지사항 게시글이 삭제 되었습니다.")
+            this.$router.push({name : 'noticeList'});
+          })
     }
   }
 };
@@ -66,8 +66,8 @@ export default {
 
 <style scoped>
 .outterDiv{
-    width: 60%;
-    margin: auto;
+  width: 60%;
+  margin: auto;
 }
 .notice-context{
   width: 100%;
@@ -98,4 +98,8 @@ export default {
   border-bottom: 1px solid  #ddd;
   text-align: left;
 }
+button{
+  margin-right: 5px;
+}
+
 </style>

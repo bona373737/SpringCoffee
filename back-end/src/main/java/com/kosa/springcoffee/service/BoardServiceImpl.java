@@ -1,9 +1,6 @@
 package com.kosa.springcoffee.service;
 
-import com.kosa.springcoffee.dto.BoardDTO;
-import com.kosa.springcoffee.dto.CategoryPageRequestDTO;
-import com.kosa.springcoffee.dto.PageRequestDTO;
-import com.kosa.springcoffee.dto.PageResultDTO;
+import com.kosa.springcoffee.dto.*;
 import com.kosa.springcoffee.entity.Board;
 import com.kosa.springcoffee.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -88,6 +85,17 @@ public class BoardServiceImpl implements BoardService {
         Pageable pageable = requestDTO.getPageable(Sort.by("boardNo").descending());
 
         Page<Board> result = boardRepository.findByCategory(requestDTO.getCategory(), pageable);
+
+        Function<Board, BoardDTO> fn = (entity -> entityToDto(entity));
+
+        return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public PageResultDTO<BoardDTO, Board> searchKeyword(KeywordPageRequestDTO requestDTO) {
+        Pageable pageable = requestDTO.getPageable(Sort.by("boardNo").descending());
+
+        Page<Board> result = boardRepository.findByTitleContaining(requestDTO.getKeyword(), pageable);
 
         Function<Board, BoardDTO> fn = (entity -> entityToDto(entity));
 
