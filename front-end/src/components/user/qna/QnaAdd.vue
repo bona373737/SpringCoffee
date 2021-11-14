@@ -86,5 +86,8 @@ export default {
   margin-bottom: 5px;
   margin-top: 5px;
 }
+button{
+  margin-right: 5px;
+}
 
 </style>

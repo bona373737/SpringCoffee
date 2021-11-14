@@ -1,32 +1,28 @@
 <template>
   <div>
      <div class="outterDiv py-5">
-
-       <div class="filter">
-         <span>filter</span>
-         <select v-model="category">
+      <div class="btnWrap text-end">
+       <span class="filter">
+         <span>category</span>
+         <select v-model="category" @change="fetchQnaBoard()">
            <option v-for="option in categoryOption" :value="option.value" :key="option.value">{{option.title}}</option>
-<!--           <option value="상품문의" >상품문의</option>
-           <option value="배송문의" >배송문의</option>
-           <option value="교환 및 반품문의" >교환및반품문의</option>
-           <option value="기타" >기타</option>
-           -->
          </select>
-         <select v-model="isAnswered">
+          <span>Answered</span>
+         <select v-model="isAnswered" @change="fetchQnaBoard()">
+           <option value=""> 전체</option>
            <option value=false>답변대기</option>
            <option value=true>답변완료</option>
          </select>
-         <button @click="qnaFilterBoard(category,isAnswered)"> 조회하기 </button>
-         <button @click="qnaBoardFilterReset"> 필터초기화 </button>
-       </div>
-
-      <div class="btnWrap text-end">
-        <select class="me-2" v-model="searchOption">
-          <option selected> 제목 </option>
-          <option> 작성자 </option>
-        </select>
-        <input type="text" class="me-2"  v-model="keyword">
-        <button class="btn btn-success me-2" @click="qnaBoardSearch(keyword)"> 검색 </button>
+<!--         <button @click="fetchQnaBoard()"> 조회하기 </button>-->
+<!--         <button @click="qnaBoardFilterReset"> 필터초기화 </button>-->
+       </span>
+<!--        <select class="me-2" v-model="searchOption">-->
+<!--          <option selected> 제목 </option>-->
+<!--          <option> 작성자 </option>-->
+<!--        </select>-->
+<!--        <input type="text" class="me-2"  v-model="keyword">-->
+<!--        <button class="btn btn-success me-2" @click="qnaBoardSearch(keyword)"> 검색 </button>-->
+        <button class="btn success" @click="fetchMyQna(email)"> 내 Q&A만보기 </button>
         <button class="btn btn-primary" @click="$router.push('/qnaAdd')"> 문의하기 </button>
       </div>
 
@@ -53,7 +49,7 @@
           </thead>
           <tbody>
           <tr class="tbody-th1" v-for="qnaBoard in this.$store.state.qnaBoardList.dtoList" :key="qnaBoard.qnaBoardNo"
-              @click="goQnaDetail(qnaBoard.qnaBoardNo)" >
+              @click="goQnaDetail(qnaBoard.qnaBoardNo)">
             <th>{{ qnaBoard.qnaBoardNo }}</th>
             <th>{{ qnaBoard.category }}</th>
             <th>{{qnaBoard.title }}</th>
@@ -67,11 +63,11 @@
         </table>
       </div>
        <div>
-         <button @click="movePrevPage()">이전</button>
+         <button @click="movePage('prev')" :disabled="this.$store.state.qnaBoardList.prev">이전</button>
          <button v-for="page in this.$store.state.qnaBoardList.pageList" :key="page"
                  :class="{pageNo : page === this.$store.state.qnaBoardList.page}"
-                 @click="movePage(page)">{{page}}</button>
-         <button @click="moveNextPage()">다음</button>
+                 @click="fetchQnaBoard(page)">{{page}}</button>
+         <button @click="movePage('next')" :disabled="this.$store.state.qnaBoardList.next">다음</button>
        </div>
     </div>
   </div>
@@ -79,84 +75,56 @@
 
 <script>
 export default {
-  name:'QnaList',
+  name: 'QnaList',
   created() {
-    this.$store.dispatch('fetchQnaBoardList')
+    this.$store.dispatch('fetchQnaBoardList');
   },
-  data(){
-    return{
-      category:'',
-      isAnswered:'',
-      searchOption:'',
-      keyword:'',
-
+  data() {
+    return {
+      category: '',
+      isAnswered: '',
+      searchOption: '',
+      keyword: '',
       categoryOption: [
         {value: '', title: '전체'},
         {value: '상품문의', title: '상품문의'},
         {value: '배송문의', title: '배송문의'},
-        {value: '교환 및 반품문의', title: '교환및반품문의'},
+        {value: '교환및반품문의', title: '교환 및 반품문의'},
         {value: '기타', title: '기타'},
       ],
-
     }
   },
   methods: {
     goQnaDetail(qnaBoardNo) {
       this.$router.push({
         name: 'qnaDetail',
-        params: { qnaBoardNo: qnaBoardNo }
+        params: {qnaBoardNo: qnaBoardNo}
       })
     },
-    qnaFilterBoard(){
-      this.qnaBoardList();
+    qnaBoardSearch(keyword) {
+      this.$store.dispatch('fetchQnaBoardSearch', keyword);
     },
-    qnaBoardFilterReset(){
-      this.$store.dispatch('fetchQnaBoardList')
-    },
-    qnaBoardSearch(keyword){
-      this.$store.dispatch('fetchQnaBoardSearch',keyword)
-    },
-    moveNextPage(){
-      const nextPage = this.$store.state.qnaBoardList.end +1
-      this.$store.dispatch('fetchQnaBoardList',nextPage)
-    },
-    movePage(page){
-      this.$store.dispatch('fetchQnaBoardList',page)
-    },
-    movePrevPage(){
-      const prevPage = this.$store.state.qnaBoardList.end -1
-      this.$store.dispatch('fetchQnaBoardList',prevPage)
-    }
+    movePage(type){
+      // 이전, 다음 탭 눌렀을때 페이지 번호 계산용
+      const prevPageNo = this.$store.state.qnaBoardList.start - 1;
+      const nextPageNo = this.$store.state.qnaBoardList.end + 1;
 
+      const page = type === 'prev' ? prevPageNo : nextPageNo;
 
-    // qnaBoardList(){
-      /*
-      const category = this.category;
-      const isAnswered = this.isAnswered;
-
+      this.fetchQnaBoard(page);
+    },
+    fetchQnaBoard(page) {
       const paramObj = {
-        category : category,
-        isAnswered: isAnswered
+        page : page,
+        category: this.category,
+        isAnswered: this.isAnswered
       };
-
-      if(카테고리){
-        this.$store.dispatch('fetchQnaFilterList', paramObj)
-        this.$store.dispatch('fetchQnaFilterList1',category,isAnswered)
-      }
-      if else (답변상태 isAnswered == null){
-        this.$store.dispatch('fetchQnaFilterList2',category)
-      }
-      if else (카테고리&답변상태 category,isAnswered == null){
-        alert("필터조건을 선택해주세요")
-      }
-      else{
-        this.$store.dispatch('fetchQnaBoardList',page); // 전체 조회
-      }
-       */
-    // }
-
-
-  },
+      this.$store.dispatch('fetchQnaBoard', paramObj);
+    },
+    fetchMyQna(email){
+      this.$store.dispatch('fetchMyQna', email);
+    }
+  }
 };
 </script>
 
@@ -188,5 +156,8 @@ th{
 }
 .pageNo{
   background: tomato;
+}
+.filter{
+  float: left;
 }
 </style>

@@ -13,20 +13,20 @@
         <button class="btn btn-success" @click="$router.push('/noticeLayout')"> 목록 </button>
       </div>
       <br>
-      <table class="updown-page">
-        <colgroup>
-          <col style="width: 25%" />
-          <col style="width: 85%" />
-        </colgroup>
-        <tr class="goToUpperList">
-          <th style="background-color:#a9a9a92e"> 윗글 </th>
-          <td style="padding: 8px" @click="$route.push('')" > 글 제목 </td>
-        </tr>
-        <tr>
-          <th style="background-color:#a9a9a92e">  아랫글 </th>
-          <td style="padding: 8px" > 글 제목 </td>
-        </tr>
-      </table>
+<!--      <table class="updown-page">-->
+<!--        <colgroup>-->
+<!--          <col style="width: 25%" />-->
+<!--          <col style="width: 85%" />-->
+<!--        </colgroup>-->
+<!--        <tr class="goToUpperList">-->
+<!--          <th style="background-color:#a9a9a92e"> 윗글 </th>-->
+<!--          <td style="padding: 8px" @click="$route.push('')" > 글 제목 </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <th style="background-color:#a9a9a92e">  아랫글 </th>-->
+<!--          <td style="padding: 8px" > 글 제목 </td>-->
+<!--        </tr>-->
+<!--      </table>-->
 
     </div>
   </div>

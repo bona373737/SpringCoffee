@@ -18,19 +18,7 @@
         <button class="btn btn-success" @click="$router.push('/qnaLayout')"> 목록 </button>
       </div>
       <hr>
-
-      <div class="answer">
-        <div class="answer-row">
-          <textarea style="width: 100%" v-model="content" ></textarea>
-          <button @click="replyAdd()">답변등록</button><hr>
-        </div>
-        <div class="answer-row">
-          <p>{{$store.state.qnaBoardDetail.replyList.content}}</p>
-          <button>답변수정</button>
-          <button @click="replyDelete(this.$store.state.qnaBoardDetail.replyList.qnaReplyNo)">답변삭제</button>
-        </div>
-      </div>
-    <button @click="test">test Btn</button>
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -46,7 +34,7 @@ export default {
   data(){
     return{
       content:'',
-      replyer:'user3@springCoffee.com',
+      replyer:'user3@springCoffee.com',  //로그인ID으로 대체
     }
   },
   created() {
@@ -71,25 +59,9 @@ export default {
     replyAdd(){
       axios.post('/v4/register',{
         content:this.content,
-        replyer:this.replyer,    //email정보들어가야 하는......
+        replyer:this.replyer,
       })
     },
-
-    replyDelete(qnaReplyNo){
-      console.log(qnaReplyNo)
-      axios.delete(`/v4/${qnaReplyNo}`)
-        .then(res =>{
-          console.log((res.data))
-          alert("문의글이 삭제되었습니다")
-          this.$router.go(-1)
-        })
-    },
-    test(){
-      console.log(this.$store.state.qnaBoardDetail.replyList[0].content)
-    }
-
-
-
   }
 };
 

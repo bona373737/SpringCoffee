@@ -10,7 +10,7 @@ let store = createStore({
       noticeBoardDetail: {},
       qnaBoardList: [],
       qnaBoardDetail : {},
-      QnaFilterList : []
+      // QnaFilterList : []
     }
   },
   mutations: {
@@ -51,17 +51,6 @@ let store = createStore({
             context.commit('setNoticeBoardDetail', response.data);
           })
     },
-    fetchQnaFilterList(context,category,isAnswered){
-      axios.get(`/v3/list/${category}`,
-          {params:{
-          category:category,
-          isAnswered:isAnswered,
-          }}
-      )
-          .then(response =>{
-            context.commit('setQnaBoardList', response.data);
-          })
-    },
     fetchQnaBoardList(context,page){
       axios.get('/v3/list',{params:{page:page}})
           .then(response =>{
@@ -80,34 +69,56 @@ let store = createStore({
                 context.commit('setQnaBoardList', response.data)
             })
     },
+    fetchQnaBoard(context, paramObj){
+        const page = paramObj.page;
+        const category = paramObj.category;     // ''
+        const isAnswered = paramObj.isAnswered; // ''
 
-    // fetchQna(paramObj){
-    //     const category = paramObj.category;
-    //     const isAnswered = paramObj.isAnswered;
-    //
-    //     /*
-    //     /list?cat=카테고리&isAns=상태
-    //     /list/카테고리/상태
-    //     */
-    //     const url = '/list';
-    //     let param = {};
-    //
-    //     if(category){
-    //         param.category = category;
-    //     }
-    //     else if(isAnswered){
-    //         param.isAnswered = isAnswered;
-    //     }
-    //     else if(category && isAnswered){
-    //         param.category = category;
-    //         param.isAnswered = isAnswered;
-    //     }
-    //
-    //     axios.get(url, param)
-    //         .then(response =>{
-    //             context.commit('setQnaBoardList', response.data)
-    //         })
-    // }
+        let url = '/v3/list';
+        let pageObj = {};   // {page:page}
+
+        if(category && isAnswered){
+            url = '/v3/list' + '/' + category + '/' + isAnswered;
+            pageObj = {
+                page : page
+            };
+            // /v3/list/상품문의/답변상태?page=1
+        }
+        else if(category){
+            console.log(`카테고리만 선택됨`);
+
+            url = '/v3/list' + '/' + category;  // '/v3/list/상품문의';
+            pageObj = {
+                page : page
+            };
+            // /v3/list/상품문의?page=1
+        }
+        else if(isAnswered){
+            url = '/v3/list/all' + '/' + isAnswered;
+            pageObj = {
+                page : page
+            };
+            // /v3/list/all/답변상태?page=1
+        }
+        else {
+            url = '/v3/list';
+            pageObj = {
+                page:page
+            }
+            // /v3/list?page=1
+        }
+        // console.log(pageObj);
+        axios.get(url, {params:pageObj})
+        .then(response =>{
+            context.commit('setQnaBoardList', response.data)
+        });
+    },
+    fetchMyQna(context,email){
+        axios.get('/v3/search/email',{params:{email:email}})
+            .then(response =>{
+                context.commit('setQnaBoardList', response.data);
+            })
+    }
   },
 })
 

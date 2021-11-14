@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from 'vue-router';
+import { createWebHashHistory, createRouter } from 'vue-router';
 import Content from '@/components/user/Content.vue'
 import QnaLayout from '@/components/user/qna/QnaLayout'
 
@@ -62,7 +62,14 @@ const routes = [
       {
         path: 'qnaDetail/:qnaBoardNo',
         name: 'qnaDetail',
-        component: () => import('@/components/user/qna/QnaDetail.vue')
+        component: () => import('@/components/user/qna/QnaDetail.vue'),
+        children:[
+          {
+            path:'',
+            name: 'qnaReply',
+            component:() =>import('@/components/user/qna/QnaReply.vue'),
+          },
+        ]
       },
       {
         path: '/qnaAdd',
@@ -115,6 +122,6 @@ const routes = [
 ];
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 });

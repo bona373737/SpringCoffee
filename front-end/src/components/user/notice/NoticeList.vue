@@ -66,13 +66,16 @@ export default {
       this.$store.dispatch('fetchNoticeBoardList',page)
     },
     movePrevPage(){
-      console.log(this.$store.state.noticeBoardList.start)
-      const prevPage = this.$store.state.noticeBoardList.start -1
-      this.$store.dispatch('fetchNoticeBoardList',prevPage)
+      if(this.$store.state.noticeBoardList.prev == true){
+        const prevPage = this.$store.state.noticeBoardList.start -1
+        this.$store.dispatch('fetchNoticeBoardList',prevPage)
+      }
     },
     moveNextPage(){
+      if(this.$store.state.noticeBoardList.next == true){
       const nextPage = this.$store.state.noticeBoardList.end +1
       this.$store.dispatch('fetchNoticeBoardList',nextPage)
+      }
     },
     noticeBoardSearch(keyword){
       this.$store.dispatch('fetchNoticeBoardSearch',keyword)

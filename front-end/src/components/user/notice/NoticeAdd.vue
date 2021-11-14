@@ -29,7 +29,6 @@
         <button class="btn btn-success" @click="noticeAdd"> 추가 </button>
         <button class="btn btn-success" @click="$router.push('/noticeLayout')"> 목록으로 가기 </button>
       </div>
-
     </div>
   </div>
 </template>
@@ -48,12 +47,23 @@ export default {
   },
   methods:{
     noticeAdd(){
-      axios.post('/v1/register', {
-        category: this.category,
-        writer:this.writer,
-        title: this.title,
-        content : this.content
-      });
+      if(!this.title){
+        alert("공지글 제목을 입력해주세요.")
+      }
+      else if(!this.content){
+        alert("공지글 내용을 입력해주세요.")
+      }
+      else if(!this.category){
+        alert("공지글 카테고리를 선택해주세요.")
+      }
+      else {
+        axios.post('/v1/register', {
+          category: this.category,
+          writer:this.writer,
+          title: this.title,
+          content : this.content
+        });
+      }
     }
   }
 };
