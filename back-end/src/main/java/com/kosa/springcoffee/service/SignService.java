@@ -28,9 +28,7 @@ public class SignService {
     }
 
     public Boolean checkEmail(String email) {
-        if(memberRepository.checkEmail(email)>0){
-            return false;
-        } else return true;
+        return !memberRepository.existsByEmail(email);
     }
 
 

@@ -17,7 +17,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
     UserDetails findByEmail(String email);
 
-    @Query("select count(m.email) from sc_member m where m.email=:email")
-    int checkEmail(String email);
+    Boolean existsByEmail(String email);
 
 }
