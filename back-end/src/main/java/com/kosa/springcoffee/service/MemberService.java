@@ -50,4 +50,17 @@ public class MemberService {
 
         return responseDTO;
     }
+
+    public void modify(ModifyMemberReqeustDTO dto) {
+        String email = dto.getEmail();
+        Optional<Member> result = memberRepository.getByEmail(email, false);
+
+        if (result.isPresent()){
+            Member member = result.get();
+            member.changePassword(passwordEncoder.encode(dto.getPassword()));
+            member.changeName(dto.getName());
+            member.changeAddress(dto.getAddress());
+            memberRepository.save(member);
+        }
+    }
 }

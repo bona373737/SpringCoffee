@@ -53,6 +53,18 @@ public class Member extends BaseEntity implements UserDetails {
         roles.add(memberRole);
     }
 
+    public void changePassword(String password) {
+        this.password = password;
+    }
+
+    public void changeName(String name) {
+        this.name = name;
+    }
+
+    public void changeAddress(String address){
+        this.address = address;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 

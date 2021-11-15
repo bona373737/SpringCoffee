@@ -66,4 +66,11 @@ public class MemberController {
         return new ResponseEntity<LoginResponseDTO>(dto, HttpStatus.OK);
     }
 
+    @PostMapping("/modify")
+    public ResponseEntity modifyUserInfo(@RequestBody ModifyMemberReqeustDTO dto) {
+        memberService.modify(dto);
+
+        return new ResponseEntity<String>("회원 정보가 수정되었습니다.", HttpStatus.OK);
+    }
+
 }
