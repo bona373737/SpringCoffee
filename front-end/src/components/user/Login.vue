@@ -1,96 +1,131 @@
 <template>
 <div>
-  <div class="tab-bar">
+  <div class="login">
+    <div class="tab-bar">
       <div class="tab-shop py-3" style="width:100%;">
-          <span class="tab-title">로그인</span>            
+        <span class="tab-title">로그인</span>
       </div>
-  </div>
-  <div class="py-2"><br></div>
-  <span class="qna"><i class="bi bi-person-fill"></i></span><br>
-  <span style="font-size: 11pt;">Spring Coffee 회원 시스템 로그인입니다!</span>
-  
-  <div class="outterborder">
-    <form>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="py-2"><br></div>
+    <span class="qna"><i class="bi bi-person-fill"></i></span><br>
+    <span style="font-size: 11pt;">Spring Coffee 회원 시스템 로그인입니다!</span>
+
+    <div class="wrapper py-5">
+      <div class="container">
+        <div class="login-form">
+          <div class="input">
+            <input class="form-input" type="text" placeholder="이메일" v-model="loginForm.email">
+            <div class="tips">
+                [ 이메일 형식 ]
+            </div>
+          </div>
+          <div class="input">
+            <input class="form-input" type="password" placeholder="패스워드" v-model="loginForm.password">
+            <div class="tips">
+                [ 영문 대소문자 및 숫자 포함 25자리 ]
+            </div>
+          </div>
+          <div class="btn-box">
+              <a href="javascript:;" class="btn" @click="login">로그인</a>
+          </div>
+          <div class="tips">
+              <div class="login" @click="register">회원이 아니신가요?<span> 회원가입</span></div>
+          </div>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
-      </div><br>
-    
-      <button type="submit" class="btn btn-outline-success" style="width:50%">Log In</button>
-    </form><br>
-    <div>
-    <router-link to="/register"><span class="text-success">회원가입</span></router-link>
     </div>
   </div>
 </div>
-
 </template>
-
-
 <script>
-import axios from 'axios'
-
 export default {
-  name: "LogIn",
+  name: 'login',
+  components: {
+  },
   data() {
     return {
-      email: '',
-      password: ''
+      loginForm: {
+          email: '',
+          password: '',
+      },
     }
   },
+  created() {
+    this.loginCheck()
+  },
   methods: {
-    onLogin: function() {
-      const frm = new FormData()
-      frm.append('user_mail', this.user_mail)
-      frm.append('user_pass', this.user_pass)
+    login() {
+      if (this.preCheck()) {
+        this.$store.dispatch('fetchLogin', this.loginForm);
+      }
+    },
+    preCheck() {
+      let email = this.loginForm.email;
+      let regEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      if (!regEmail.test(email)) {
+        alert('올바른 이메일 형식을 입력해주세요!')
+        return false;
+      }
 
-      axios.post('http://localhost:8080/restUser/login', frm)
-      .then( response => {
-        console.log('response', JSON.stringify(response, null, 2))
-      }).catch(error => {
-        console.log('failed', error)
-      })
+      let password = this.loginForm.password;
+      let regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,25}$/;
+      if (!regPass.test(password)) {
+        alert('패스워드를 확인하세요!')
+        return false;
+      }
+      return true;
+    },
+
+    loginCheck() {
+      if(this.$store.state.isLogin) {
+        alert("이미 로그인하였습니다.")
+        this.$router.replace("/")
+      }
     }
   }
 }
 </script>
-
-
-<style scoped>
+<style>
 .tab-bar {
   background-image: url('../.././assets/background.jpg');
   background-repeat : no-repeat;
   background-size : cover;
   position: relative;
 }
-
 .tab-shop {
   background-color: rgba(0, 0, 0, 0.5);
 }
-
 .tab-title {
     font-size: 22pt;
     color: white;
 }
-
 .qna {
     font-size: 26pt;
 }
-
 .qna:hover {
     color: green;
     font-size: 26pt;
     transition: 0.3s;
 }
-
 .outterborder{
   width: 40%;
   margin: auto;
   padding: 20px;
+}
+
+.tips {
+  font-size: 9pt;
+  color: #666;
+}
+
+.input {
+  padding: 10px;
+}
+
+.form-input {
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 </style>

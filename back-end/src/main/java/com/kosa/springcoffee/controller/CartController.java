@@ -57,9 +57,7 @@ public class CartController {
         System.out.println("logloglog" + member + " " + cartItemDTO.getItemNo()  + cartItemDTO.getCount());
         cartItemNo = cartService.create(dto,member.getEmail());
         return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
-
     }
-
 
     @GetMapping(value = "/cart")
     public ResponseEntity cartList(Principal principal, Model model) {

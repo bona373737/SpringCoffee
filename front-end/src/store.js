@@ -1,11 +1,14 @@
 import { createStore } from 'vuex'
-import axios from "axios";
-
+import axios from 'axios';
+import { router } from './router'
 
 let store = createStore({
   state(){  // 데이터보관하고 싶으면 여기에 기재
     return {
-      email: "user95@springCoffee.com",
+      email: '',
+      token: '',
+      role: '',
+      isLogin: false,
       cartNo: '',
       itemList: [],
       itemDetail: {},
@@ -18,9 +21,6 @@ let store = createStore({
     }
   },
   mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
-    setMember(state, email) {
-      state.email = email;
-    },
     setNoticeBoardList(state, payload) {
       state.noticeBoardList = payload;
     },
@@ -42,6 +42,12 @@ let store = createStore({
     setCart(state, cart) {
       state.cartList = cart;
     },
+    setEmail(state, email) {
+      state.email = email;
+    },
+    setToken(state, token) {
+      state.token = token;
+    }
   },
   actions: {
     fetchNoticeBoardList(context,page){
@@ -101,10 +107,10 @@ let store = createStore({
           })
     },
     fetchQnaBoardSearch(context,keyword){
-        axios.get('v3/search/keyword',{params:{keyword:keyword}})
-            .then(response =>{
-                context.commit('setQnaBoardList', response.data)
-            })
+      axios.get('v3/search/keyword',{params:{keyword:keyword}})
+        .then(response =>{
+            context.commit('setQnaBoardList', response.data)
+        })
     },
     fetchQnaBoard(context, paramObj){
         const page = paramObj.page;
@@ -151,11 +157,42 @@ let store = createStore({
         });
     },
     fetchMyQna(context,email){
-        axios.get('/v3/search/email',{params:{email:email}})
-            .then(response =>{
-                context.commit('setQnaBoardList', response.data);
-            })
-    }
+      axios.get('/v3/search/email',{params:{email:email}})
+        .then(response =>{
+            context.commit('setQnaBoardList', response.data);
+        })
+    },
+    fetchLogin({dispatch}, loginForm){
+      axios.post('/v5/login', loginForm)
+        .then(response => {
+          let token = response.data.token;
+          localStorage.setItem('access_token', token);
+          dispatch('getMemberInfo')
+          console.log('로그인 성공')
+          router.replace('/')
+        })
+        .catch(err => {
+          alert('로그인에 실패하였습니다.', err)
+        })
+        
+    },
+    getMemberInfo() {
+      if(localStorage.getItem('access_token')) {
+        let token = localStorage.getItem("access_token");
+        let base64Payload = token.split('.')[1];
+        let payload = Buffer.from(base64Payload, 'base64');
+        let result = JSON.parse(payload.toString())
+        this.state.email=result.sub;
+        this.state.role=result.roles[0];
+        this.state.isLogin = true;
+      }
+    },
+
+    logout() {
+      alert('로그아웃 완료');
+      localStorage.removeItem("access_token")
+      router.go('#')
+    },
   },
 })
 
