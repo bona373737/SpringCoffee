@@ -133,6 +133,15 @@ export default {
         axios.post(`/v5/email-check?email=${email}`)
         .then((res) => {
           if(res.data) {
+
+            let email = this.registerForm.email;
+            let regEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+
+            if (!regEmail.test(email)) {
+              alert('올바른 이메일 형식을 입력해주세요!')
+              return false;
+            }
+
             this.isEmail=true;
             this.dupEmail=this.registerForm.email;
             alert('사용가능한 이메일입니다.')

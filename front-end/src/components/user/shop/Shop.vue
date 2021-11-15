@@ -234,4 +234,8 @@ export default {
   color: red;
   transition: 0.2s;
 }
+
+.ProductListTechnologies {
+  justify-content: center;
+}
 </style>
