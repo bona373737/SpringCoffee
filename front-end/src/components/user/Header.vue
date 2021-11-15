@@ -8,8 +8,9 @@
         <div v-if="this.$store.state.role=='ROLE_ADMIN'">
           <router-link class="navset me-2" style="text-decoration: none; color: #666;" to="/admin">관리자페이지</router-link>
         </div>
-        <router-link class="navset me-2" style="text-decoration: none; color: #666;" to="/mypage">마이페이지</router-link>
-        <span class="navset me-2" style="text-decoration: none; color: #666; cursor: pointer;" @click="this.$store.dispatch('logout')"> 로그아웃 </span>
+        <router-link class="navset me-2" style="text-decoration: none; color: green; font-weight: 700" to="/cart">장바구니</router-link>
+        <router-link class="navset me-1" style="text-decoration: none; color: #333; font-weight: 700" to="/mypage">마이페이지</router-link>
+        <span class="navset me-5" style="text-decoration: none; color: #666; cursor: pointer;" @click="this.$store.dispatch('logout')"> 로그아웃 </span>
       </div>
 
       <div v-if="!this.$store.state.isLogin">

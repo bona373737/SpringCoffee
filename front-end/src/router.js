@@ -104,12 +104,21 @@ const routes = [
     path: '/shop',
     name: 'Shop',
     component: () => import('@/components/user/shop/Shop.vue'),
-    children: [
-      {
-        path: '/order',
-        component: () => import('@/components/user/shop/Order.vue')
-      },
-    ]
+  },
+  {
+    path: "/shop/item/:itemNo",
+    name: 'Item',
+    component: () => import('@/components/user/shop/Item.vue'),
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('@/components/user/shop/Cart.vue'),
+  },
+  {
+    path: '/order',
+    name: 'Order',
+    component: () => import('@/components/user/shop/Order.vue'),
   },
   {
     path: '/admin/:',

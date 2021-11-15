@@ -83,15 +83,15 @@ let store = createStore({
         })
     },
     fetchItemDetail(context, itemNo){
-      axios.get(`/v2/list/${itemNo}`)      // axios dynamic URL,
+      axios.get(`/v2/${itemNo}`)      // axios dynamic URL,
         .then(response =>{
           context.commit('setItemDetail', response.data);
         })
     },
-    fetchCart(context, email) {
-      axios.get(`/v4/cart/${email}`)
+    fetchCart(context) {
+      axios.get(`/v4/cart/${this.state.email}`)
         .then(response => {
-          context.commit('setCart', response.data);
+          context.commit('setCart', response.data.dtoList);
         })
     },
     // patchCart(context, cartItemNo, count) {
@@ -174,7 +174,6 @@ let store = createStore({
         .catch(err => {
           alert('로그인에 실패하였습니다.', err)
         })
-        
     },
     getMemberInfo() {
       if(localStorage.getItem('access_token')) {

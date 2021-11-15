@@ -54,15 +54,22 @@ public class CartController {
         dto.setCount(cartItemDTO.getCount());
         dto.setItemNo(cartItemDTO.getItemNo());
         Member member = memberRepository.getByEmail(cartItemDTO.getEmail());
-        System.out.println("logloglog" + member + " " + cartItemDTO.getItemNo()  + cartItemDTO.getCount());
         cartItemNo = cartService.create(dto,member.getEmail());
         return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/cart")
-    public ResponseEntity cartList(Principal principal, Model model) {
 
-        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(principal.getName());
+//    @GetMapping(value = "/cart")
+//    public ResponseEntity cartList(Principal principal, Model model) {
+//        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(principal.getName());
+//        model.addAttribute("cartItems", cartDetailDTOList);
+//        return new ResponseEntity<List<CartDetailDTO>>(cartDetailDTOList, HttpStatus.OK);
+//    }
+
+    @GetMapping(value = "/cart/{email}")
+    public ResponseEntity cartList(@PathVariable String email, Model model) {
+        Member member = memberRepository.getByEmail(email);
+        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(member.getEmail());
         model.addAttribute("cartItems", cartDetailDTOList);
         return new ResponseEntity<List<CartDetailDTO>>(cartDetailDTOList, HttpStatus.OK);
     }
@@ -70,7 +77,6 @@ public class CartController {
 
     @PatchMapping(value = "/cartItem/{cartItemNo}/{count}")
     public @ResponseBody ResponseEntity changeCartItemCount(@PathVariable("cartItemNo") Long cartItemNo,@PathVariable("count") int count, Principal principal){
-        System.out.println("logloglog" + " " + cartItemNo + " " + count);
         if (count < 0){
             return new ResponseEntity<String>("최소 1개 이상 담아야합니다.", HttpStatus.BAD_REQUEST);
         }
