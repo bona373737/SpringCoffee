@@ -1,6 +1,6 @@
 package com.kosa.springcoffee.service;
 
-import com.kosa.springcoffee.dto.LoginRequestDTO;
+import com.kosa.springcoffee.dto.MemberRequestDTO;
 import com.kosa.springcoffee.dto.LoginResponseDTO;
 import com.kosa.springcoffee.dto.ModifyMemberReqeustDTO;
 import com.kosa.springcoffee.dto.MyPageResponseDTO;
@@ -35,7 +35,7 @@ public class MemberService {
     }
 
 
-    public LoginResponseDTO login(LoginRequestDTO dto) throws Exception {
+    public LoginResponseDTO login(MemberRequestDTO dto) throws Exception {
         String email = dto.getEmail();
         String password = dto.getPassword();
 
@@ -52,7 +52,7 @@ public class MemberService {
         return responseDTO;
     }
 
-    public void modify(ModifyMemberReqeustDTO dto) {
+    public void modifyUserInfo(ModifyMemberReqeustDTO dto) {
         String email = dto.getEmail();
         Optional<Member> result = memberRepository.getByEmail(email, false);
 
@@ -61,6 +61,17 @@ public class MemberService {
             member.changePassword(passwordEncoder.encode(dto.getPassword()));
             member.changeName(dto.getName());
             member.changeAddress(dto.getAddress());
+            memberRepository.save(member);
+        }
+    }
+
+    public void modifyPassword(MemberRequestDTO dto) {
+        String email = dto.getEmail();
+        Optional<Member> result = memberRepository.getByEmail(email, false);
+
+        if (result.isPresent()) {
+            Member member = result.get();
+            member.changePassword(passwordEncoder.encode(dto.getPassword()));
             memberRepository.save(member);
         }
     }
@@ -81,13 +92,13 @@ public class MemberService {
         return null;
     }
 
-    public Boolean verifyUser(String email, String password) {
-        Member member = memberRepository.getById(email);
+    public Boolean verifyUser(MemberRequestDTO dto) {
+        Member member = memberRepository.getById(dto.getEmail());
 
-        if(passwordEncoder.matches(password, member.getPassword())){
+        if(passwordEncoder.matches(dto.getPassword(), member.getPassword())){
             return true;
         }
-        
+
         return false;
     }
 }

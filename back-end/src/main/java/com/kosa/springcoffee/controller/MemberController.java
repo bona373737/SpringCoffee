@@ -49,25 +49,32 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequestDTO loginDTO) throws Exception {
+    public ResponseEntity login(@RequestBody MemberRequestDTO loginDTO) throws Exception {
         LoginResponseDTO dto = memberService.login(loginDTO);
-        Optional<Member> member = memberRepository.getByEmail(loginDTO.getEmail(), false);
-        Member m = member.get();
-        if (m == null){
+        Optional<Member> result = memberRepository.getByEmail(loginDTO.getEmail(), false);
+        Member member = result.get();
+        if (member == null){
             return new ResponseEntity<String>("아이디가 존재하지 않습니다.", HttpStatus.FORBIDDEN);
         }
-        if (!passwordEncoder.matches(loginDTO.getPassword(), m.getPassword())){
+        if (!passwordEncoder.matches(loginDTO.getPassword(), member.getPassword())){
             return new ResponseEntity<String>("비밀번호가 틀립니다.", HttpStatus.FORBIDDEN);
         }
 
         return new ResponseEntity<LoginResponseDTO>(dto, HttpStatus.OK);
     }
 
-    @PostMapping("/modify")
+    @PostMapping("/update-userinfo")
     public ResponseEntity modifyUserInfo(@RequestBody ModifyMemberReqeustDTO dto) {
-        memberService.modify(dto);
+        memberService.modifyUserInfo(dto);
 
         return new ResponseEntity<String>("회원 정보가 수정되었습니다.", HttpStatus.OK);
+    }
+
+    @PostMapping("/update-password")
+    public ResponseEntity modifyPassword(@RequestBody MemberRequestDTO dto) {
+        memberService.modifyPassword(dto);
+
+        return new ResponseEntity<String>("비밀번호가 수정되었습니다.", HttpStatus.OK);
     }
 
     @GetMapping("/mypage")
@@ -77,9 +84,9 @@ public class MemberController {
         return new ResponseEntity<MyPageResponseDTO>(responseDTO, HttpStatus.OK);
     }
 
-    @GetMapping("verify")
-    public ResponseEntity verifyUser(@RequestParam String email,@RequestParam String password){
-        Boolean result = memberService.verifyUser(email, password);
+    @GetMapping("verifyuser")
+    public ResponseEntity verifyUser(@RequestBody MemberRequestDTO dto){
+        Boolean result = memberService.verifyUser(dto);
 
         return new ResponseEntity<Boolean>(result, HttpStatus.OK);
     }
