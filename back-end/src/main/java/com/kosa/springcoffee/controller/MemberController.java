@@ -1,9 +1,6 @@
 package com.kosa.springcoffee.controller;
 
-import com.kosa.springcoffee.dto.LoginRequestDTO;
-import com.kosa.springcoffee.dto.LoginResponseDTO;
-import com.kosa.springcoffee.dto.ModifyMemberReqeustDTO;
-import com.kosa.springcoffee.dto.SignUpDTO;
+import com.kosa.springcoffee.dto.*;
 import com.kosa.springcoffee.entity.Member;
 import com.kosa.springcoffee.repository.MemberRepository;
 import com.kosa.springcoffee.service.MemberService;
@@ -73,4 +70,17 @@ public class MemberController {
         return new ResponseEntity<String>("회원 정보가 수정되었습니다.", HttpStatus.OK);
     }
 
+    @GetMapping("/mypage")
+    public ResponseEntity getUserInfo(@RequestParam String email) {
+        MyPageResponseDTO responseDTO = memberService.getUserInfo(email);
+
+        return new ResponseEntity<MyPageResponseDTO>(responseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("verify")
+    public ResponseEntity verifyUser(@RequestParam String email,@RequestParam String password){
+        Boolean result = memberService.verifyUser(email, password);
+
+        return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+    }
 }
