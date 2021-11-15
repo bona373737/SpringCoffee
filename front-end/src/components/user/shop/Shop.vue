@@ -36,7 +36,7 @@
                 <td>
                   <span class="plus" ><i @click="setCountP(cart), patchCart(cart)" class="bi bi-plus-circle"></i></span>
                   {{cart.count}}
-                  <span class="minus"><i @click="setCountP(cart), patchCart(cart)" class="bi bi-dash-circle"></i></span>
+                  <span class="minus"><i @click="setCountM(cart), patchCart(cart)" class="bi bi-dash-circle"></i></span>
                 </td>
                 <td v-bind="sumPrice(cart.price, cart.count)"> {{sum}}</td>
               </tr>
