@@ -2,10 +2,11 @@ package com.kosa.springcoffee.controller;
 
 import com.kosa.springcoffee.dto.LoginRequestDTO;
 import com.kosa.springcoffee.dto.LoginResponseDTO;
+import com.kosa.springcoffee.dto.ModifyMemberReqeustDTO;
 import com.kosa.springcoffee.dto.SignUpDTO;
 import com.kosa.springcoffee.entity.Member;
 import com.kosa.springcoffee.repository.MemberRepository;
-import com.kosa.springcoffee.service.SignService;
+import com.kosa.springcoffee.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -22,14 +23,15 @@ import static com.kosa.springcoffee.entity.MemberRole.ROLE_USER;
 @Log4j2
 @RequiredArgsConstructor
 @RequestMapping("/v5")
-public class SignController {
+public class MemberController {
 
-    private final SignService signService;
+    private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    
     @PostMapping("/email-check")
     public Boolean checkEmail(@RequestParam String email){
-        return signService.checkEmail(email);
+        return memberService.checkEmail(email);
     }
 
     @PostMapping("/signup")
@@ -38,19 +40,20 @@ public class SignController {
                         .email(dto.getEmail())
                         .password(dto.getPassword())
                         .name(dto.getName())
+                        .address(dto.getAddress())
                         .fromSocial(dto.isFromSocial()).build();
 
         if(dto.getIsAdmin() == 1){
             member.addMemberRole(ROLE_ADMIN);
         }
         member.addMemberRole(ROLE_USER);
-        signService.joinMember(member);
+        memberService.joinMember(member);
         return "redirect:/login";
     }
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequestDTO loginDTO) throws Exception {
-        LoginResponseDTO dto = signService.login(loginDTO);
+        LoginResponseDTO dto = memberService.login(loginDTO);
         Optional<Member> member = memberRepository.getByEmail(loginDTO.getEmail(), false);
         Member m = member.get();
         if (m == null){

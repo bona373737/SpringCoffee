@@ -28,6 +28,8 @@ public class Member extends BaseEntity implements UserDetails {
 
     private String name;
 
+    private String address;
+
     private boolean fromSocial;
 
     @ElementCollection(fetch = FetchType.LAZY)
