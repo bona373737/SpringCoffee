@@ -15,7 +15,7 @@
                     <div class="input">
                       <input class="form-input" type="text" placeholder="이메일" v-model="registerForm.email">
                       <div class="tips">
-                          [ 이메일 형식에 맞춰 입력하세요 ]
+                          <span class="email-check" @click="emailCheck(registerForm.email)">이메일 중복 체크</span>
                       </div>
                     </div>
                     <div class="input">
@@ -31,7 +31,7 @@
                       </div>
                     </div>
                     <div class="input">
-                      <input class="form-input" type="password-check" placeholder="패스워드 확인" v-model="password2" @change="pwcheck">
+                      <input class="form-input" type="password" placeholder="패스워드 확인" v-model="password2" @change="pwcheck">
                       <br>
 
                       <div class="tips">
@@ -63,6 +63,8 @@ export default {
     data() {
         return {
           isPW: true,
+          isEmail: false,
+          dupEmail: 'temp',
           password2: '',
           registerForm: {
             email: '',
@@ -97,10 +99,17 @@ export default {
       preCheck() {
         let email = this.registerForm.email;
         let regEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+
         if (!regEmail.test(email)) {
           alert('올바른 이메일 형식을 입력해주세요!')
           return false;
         }
+
+        if (this.dupEmail !== email) {
+          alert('이메일 중복 체크를 해주세요!')
+          return false;
+        }
+
 
         let name = this.registerForm.name;
         if (name == null) {
@@ -118,7 +127,20 @@ export default {
         return true;
       },
       login() {
-          this.$router.push('/login');
+        this.$router.push('/login');
+      },
+      emailCheck(email) {
+        axios.post(`/v5/email-check?email=${email}`)
+        .then((res) => {
+          if(res.data) {
+            this.isEmail=true;
+            this.dupEmail=this.registerForm.email;
+            alert('사용가능한 이메일입니다.')
+          } else {
+            this.isEmail=false;
+            alert('중복된 이메일입니다.')
+          }
+        })
       }
     }
 }
