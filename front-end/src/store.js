@@ -73,8 +73,14 @@ let store = createStore({
     fetchItem(context) {
       axios.get(`/v2/list`)
         .then(response => {
-          context.commit('setItem', response.data.dtoList);
+          context.commit('setItem', response.data);
         })
+    },
+    fetchItemCategory(context,category) {
+        axios.get(`/v2/list/${category}`,{params:{category:category}})
+            .then(response => {
+                context.commit('setItem', response.data);
+            })
     },
     fetchItemDetail(context, itemNo){
       axios.get(`/v2/list/${itemNo}`)      // axios dynamic URL,
@@ -108,11 +114,11 @@ let store = createStore({
     },
     fetchQnaBoard(context, paramObj){
         const page = paramObj.page;
-        const category = paramObj.category;     // ''
-        const isAnswered = paramObj.isAnswered; // ''
+        const category = paramObj.category;
+        const isAnswered = paramObj.isAnswered;
 
         let url = '/v3/list';
-        let pageObj = {};   // {page:page}
+        let pageObj = {};
 
         if(category && isAnswered){
             url = '/v3/list' + '/' + category + '/' + isAnswered;

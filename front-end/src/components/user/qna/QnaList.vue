@@ -3,25 +3,19 @@
      <div class="outterDiv py-5">
       <div class="btnWrap text-end">
        <span class="filter">
-         <span>category</span>
+         <span>Q&A유형</span>
          <select v-model="category" @change="fetchQnaBoard()">
            <option v-for="option in categoryOption" :value="option.value" :key="option.value">{{option.title}}</option>
          </select>
-          <span>Answered</span>
+          <span>답변상태</span>
          <select v-model="isAnswered" @change="fetchQnaBoard()">
            <option value=""> 전체</option>
            <option value=false>답변대기</option>
            <option value=true>답변완료</option>
          </select>
-<!--         <button @click="fetchQnaBoard()"> 조회하기 </button>-->
 <!--         <button @click="qnaBoardFilterReset"> 필터초기화 </button>-->
        </span>
-<!--        <select class="me-2" v-model="searchOption">-->
-<!--          <option selected> 제목 </option>-->
-<!--          <option> 작성자 </option>-->
-<!--        </select>-->
-<!--        <input type="text" class="me-2"  v-model="keyword">-->
-<!--        <button class="btn btn-success me-2" @click="qnaBoardSearch(keyword)"> 검색 </button>-->
+
         <button class="btn success" @click="fetchMyQna(email)"> 내 Q&A만보기 </button>
         <button class="btn btn-primary" @click="$router.push('/qnaAdd')"> 문의하기 </button>
       </div>
@@ -72,6 +66,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 export default {

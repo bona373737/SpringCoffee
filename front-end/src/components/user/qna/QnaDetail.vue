@@ -4,11 +4,6 @@
       <table class="notice-context">
         <tr><td class="table-title"> {{$store.state.qnaBoardDetail.title}} </td></tr>
         <tr><td class="table-context"> {{$store.state.qnaBoardDetail.content}} </td></tr>
-        <tr>
-          <td class="table-context" v-for="content in this.$store.state.qnaBoardDetail.replyList" :key="content.qnaReplyNo">
-            {{content.content}}
-          </td>
-        </tr>
       </table>
       <br>
 
@@ -18,7 +13,30 @@
         <button class="btn btn-success" @click="$router.push('/qnaLayout')"> 목록 </button>
       </div>
       <hr>
-      <router-view></router-view>
+
+      <!-- 답변   -->
+      <div class="answer">
+        <h5 style="text-align: left"> 답변 </h5>
+        <table>
+          <tr>
+<!--            <td v-for="content in this.$store.state.qnaBoardDetail.replyList" :key="content.qnaReplyNo">-->
+<!--              {{content.content}}-->
+<!--            </td>-->
+            <td>
+              {{this.$store.state.qnaBoardDetail.replyList[0].content}}
+            </td>
+          </tr>
+        </table>
+        <div class="answer-row">
+          <textarea style="width: 100%" v-model="content"></textarea>
+          <button @click="replyAdd">답변등록</button><hr>
+        </div>
+        <div class="answer-row">
+          <button @click="replyupdate(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">답변수정</button>
+          <button @click="replyDelete(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">답변삭제</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -26,20 +44,16 @@
 <script>
 import axios from "axios";
 
-
 export default {
-  components: {
-
-  },
   data(){
     return{
       content:'',
-      replyer:'user3@springCoffee.com',  //로그인ID으로 대체
+      replyer:'user3@springCoffee.com',  // 로그인ID으로 대체
+      qnaBoardNo:this.$route.params.qnaBoardNo,
     }
   },
   created() {
     this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo);
-
   },
   methods:{
     goQnaUpdate(qnaBoardNo){
@@ -60,7 +74,23 @@ export default {
       axios.post('/v4/register',{
         content:this.content,
         replyer:this.replyer,
+        qnaBoardNo:this.qnaBoardNo
       })
+    },
+    replyupdate(qnaReplyNo){
+      axios.put(`/v4/${qnaReplyNo}`,{
+        content:this.content,
+        replyer:this.replyer,
+        qnaBoardNo:this.qnaBoardNo,
+      })
+    },
+    replyDelete(qnaReplyNo){
+      axios.delete(`/v4/${qnaReplyNo}`)
+          .then(res =>{
+            console.log((res.data))
+            alert("문의글이 삭제되었습니다")
+            this.$router.go(-1)
+          })
     },
   }
 };
@@ -90,14 +120,8 @@ export default {
   margin-bottom: 5px;
   margin-top: 5px;
 }
-.answer{
-  background: lightsteelblue;
-}
 button{
   margin-right: 5px;
   margin-bottom: 5px;
-}
-.answer-row{
-  margin: 10px;
 }
 </style>
