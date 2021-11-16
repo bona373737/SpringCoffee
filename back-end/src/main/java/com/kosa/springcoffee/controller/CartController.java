@@ -1,9 +1,6 @@
 package com.kosa.springcoffee.controller;
 
-import com.kosa.springcoffee.dto.CartDetailDTO;
-import com.kosa.springcoffee.dto.CartItemDTO;
-import com.kosa.springcoffee.dto.CartItemTestDTO;
-import com.kosa.springcoffee.dto.CartOrderDTO;
+import com.kosa.springcoffee.dto.*;
 import com.kosa.springcoffee.entity.CartItem;
 import com.kosa.springcoffee.entity.Member;
 import com.kosa.springcoffee.repository.CartItemRepository;
@@ -75,12 +72,16 @@ public class CartController {
     }
 
 
-    @PatchMapping(value = "/cartItem/{cartItemNo}/{count}")
-    public @ResponseBody ResponseEntity changeCartItemCount(@PathVariable("cartItemNo") Long cartItemNo,@PathVariable("count") int count, Principal principal){
+    @PatchMapping(value = "/cartItem")
+    public @ResponseBody ResponseEntity changeCartItemCount(@RequestBody CartPatchDTO cartPatchDTO){
+        int count = cartPatchDTO.getCount();
+        Long cartItemNo = cartPatchDTO.getCartItemNo();
+
+        Member member = memberRepository.getByEmail(cartPatchDTO.getEmail());
         if (count < 0){
             return new ResponseEntity<String>("최소 1개 이상 담아야합니다.", HttpStatus.BAD_REQUEST);
         }
-        else if(cartService.validateCartItem(cartItemNo, principal.getName()))
+        else if(cartService.validateCartItem(cartItemNo, member.getEmail()))
             return new ResponseEntity<String>("자신의 카트가 아닙니다.", HttpStatus.FORBIDDEN);
 
         cartService.changeCartItemCount(cartItemNo,count);
@@ -92,11 +93,12 @@ public class CartController {
         return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/cartItem/{cartItemNo}")
+    @DeleteMapping(value = "/cartItem")
     @ResponseBody
-    public ResponseEntity deleteCartItem(@PathVariable("cartItemNo") Long cartItemNo, Principal principal){
-
-        if(cartService.validateCartItem(cartItemNo, principal.getName()))
+    public ResponseEntity deleteCartItem(@RequestBody CartDeleteDTO cartDeleteDTO){
+        Long cartItemNo = cartDeleteDTO.getCartItemNo();
+        Member member = memberRepository.getByEmail(cartDeleteDTO.getEmail());
+        if(cartService.validateCartItem(cartItemNo, member.getEmail()))
             return new ResponseEntity<String>("자신의 카트가 아닙니다.", HttpStatus.FORBIDDEN);
 
         cartService.deleteCartItem(cartItemNo);
