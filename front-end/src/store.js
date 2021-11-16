@@ -91,7 +91,7 @@ let store = createStore({
     fetchCart(context) {
       axios.get(`/v4/cart/${this.state.email}`)
         .then(response => {
-          context.commit('setCart', response.data.dtoList);
+          context.commit('setCart', response.data);
         })
     },
     // patchCart(context, cartItemNo, count) {

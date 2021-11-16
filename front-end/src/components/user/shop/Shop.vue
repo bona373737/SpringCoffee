@@ -17,28 +17,33 @@
               <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body border-top">
+            <table style="table-layout: auto; width: 100%; table-layout: fixed;">
               <colgroup>
-                <col width="15%" />
                 <col width="10%" />
-                <col width="10%" />
-                <col width="10%" />
+                  <col width="10%" />
+                  <col width="10%" />
+                  <col width="10%" />
+                  <col width="10%" />
               </colgroup>
               <tr class="text-center">
+                <td> 이미지</td>
                 <td> 이름</td>
                 <td> 가격</td>
                 <td> 개수</td>
                 <td> 총 가격 </td>
               </tr>
-            <tr class="product-item text-center" v-for="cart in this.$store.state.cartList" v-bind:key="cart.cartItemNo" >
-                <td> {{cart.itemName}}</td>
-                <td> {{cart.price}}</td>
-                <td>
-                  <span class="plus" ><i @click="setCountP(cart), patchCart(cart)" class="bi bi-plus-circle"></i></span>
-                  {{cart.count}}
-                  <span class="minus"><i @click="setCountM(cart), patchCart(cart)" class="bi bi-dash-circle"></i></span>
-                </td>
-                <td v-bind="sumPrice(cart.price, cart.count)"> {{sum}}</td>
-            </tr>
+              <tr class="product-item text-center" v-for="cart in this.$store.state.cartList" :key="cart.cartItemNo" >
+                  <td> <img :src="cart.image" alt=""></td>
+                  <td> {{cart.itemName}}</td>
+                  <td> {{cart.price}}</td>
+                  <td>
+                    <span class="plus" ><i @click="setCountP(cart), patchCart(cart)" class="bi bi-plus-circle"></i></span>
+                    {{cart.count}}
+                    <span class="minus"><i @click="setCountM(cart), patchCart(cart)" class="bi bi-dash-circle"></i></span>
+                  </td>
+                  <td v-bind="sumPrice(cart.price, cart.count)"> {{sum}}</td>
+              </tr>
+            </table>
             <span style="font-weight: 800; font-size: 16pt;"> {{price}} 원</span>
               <hr>
               <button type="button" class="btn btn-success"><router-link to="/cart" style="text-decoration: none; color: white">주문하기</router-link></button>
@@ -69,24 +74,13 @@
                 <col width="5%" />
                 <col width="10%" />
             </colgroup>
-            <!-- <tr class="product-item">
-                <td> <img src="" alt="상품img"></td>
-                <td> 상품명 </td>
-                <td> 가격 </td>
-                <td>
-                   <div class="btn-group" role="group" aria-label="Basic example">
-                   <button type="button" class="btn btn-success"> - </button>
-                   <button type="button" class="btn btn-success"> + </button>
-                   </div>
-                </td>
-            </tr> -->
             <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" v-bind:key="item.itemId">
                 <td> <img width="120" height="80" ref="imageOutput" :src="item.image"> </td>
                 <td @click="goItemDetail(item.itemNo)" > {{item.name}}</td>
                 <td> {{item.price}}</td>
                 <td>
                    <div class="btn-group" role="group" aria-label="Basic example">
-                     <td class="me-2"> <input placeholder="0" type="number" min='0' max='999' style="border: 1px solid #333; border-radius: 5px; width:50px; height:100%" v-model="count[i]"></td>
+                     <td class="me-2"> <input placeholder="0" type="number" min='0' style="border: 1px solid #333; border-radius: 5px; width:50px; height:100%" v-model="count[i]"></td>
                     <button type="button" class="btn btn-success" @click="postCart(item, count[i])">장바구니에 담기</button>
                    </div>
                 </td>
@@ -103,14 +97,13 @@ export default {
   name:'shop',
   created() {
     this.$store.dispatch('fetchItem');
-    this.$store.dispatch('fetchCart', "user95@springCoffee.com");
+    this.$store.dispatch('fetchCart');
   },
 
   data() {
     return {
         sum: 0,
         price: 0,
-        email: "user95@springCoffee.com",
         count: [],
     };
   },
@@ -124,7 +117,7 @@ export default {
       {
         itemNo : item.itemNo,
         count : count,
-        email : this.email
+        email : this.$store.state.email
       })
       .then(res => {
         console.log('success', JSON.stringify(res, null, 2))
@@ -133,7 +126,7 @@ export default {
       })
     },
     patchCart(cart) {
-      axios.patch(`/cartItem/${cart.cartItemNo}/${cart.count}`, cart.cartItemNo, cart.count)
+      axios.patch(`v4/cartItem/${cart.cartItemNo}/${cart.count}`)
       .then(res => {
         console.log('success', JSON.stringify(res, null, 2))
       }).catch(err => {
@@ -147,28 +140,9 @@ export default {
     setCountM(cart) {
       cart.count--;
     },
-    // loadCart() {
-    //   axios.get('/v4/cart')
-    //   .then(res => {
-    //     console.log('success', JSON.stringify(res, null, 2))
-    //   }).catch(err => {
-    //     console.log('failed', err)
-    //   })
-    // },
-
-    // goCart(item) {
-    //   axios.post(`/v4/cart`),
-    //   {itemName : item.itemName, tel:this.tel, address:this.address }
-    //   .then(res => {
-    //     console.log('success', res)
-    //   }).catch(err => {
-    //     console.log('failed', err)
-    //   })
-    // },
-
     goItemDetail(itemNo) {
       this.$router.push({
-        name: 'itemDetail',
+        name: 'Item',
         params: { itemNo: itemNo }
       })
     },

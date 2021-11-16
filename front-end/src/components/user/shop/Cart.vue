@@ -2,7 +2,7 @@
   <div class="outterDiv">
     <div class="tab-bar">
         <div class="tab-shop py-3" style="width:100%;">
-            <span class="tab-title">장바구니</span>            
+            <span @click="this.$store.dispatch('fetchCart')" class="tab-title">장바구니</span>            
         </div>
     </div>
     <div class="py-2"><br></div>
@@ -11,14 +11,17 @@
         <span style="font-size: 11pt;">장바구니에 담아서 결제하세요!</span>
     </div><br><br>
 
+
+    <div class=" wrapper border-bottom py-3">{{this.$store.state.email}} 님의 장바구니</div>
     <div class="wrapper border-top">
         <div class="temp">
 
                 <!-- <span class="non-cart"> 장바구니가 비어있습니다.</span><br>
                 <button class="go-shop btn btn-primary" @click="this.$router.replace('/shop')">쇼핑하러 가기</button> -->
-
+            
                 <table style="table-layout: auto; width: 100%; table-layout: fixed;">
                     <colgroup>
+                    <col width="10%" />
                         <col width="10%" />
                         <col width="10%" />
                         <col width="10%" />
@@ -26,13 +29,26 @@
                     </colgroup>
 
                     <tr>
+                        <td> 이미지</td>
                         <td> 이름</td>
                         <td> 가격</td>
                         <td> 개수</td>
                         <td> 총 가격 </td>
                     </tr>
 
-                    <tr class="product-item" v-for="cart in this.$store.state.cartList" v-bind:key="cart.cartItemNo">
+                    <tr class="product-item" v-for="cart in this.$store.state.cartList" :key="cart.cartItemNo">
+                        <td> <img :src="cart.image" alt=""></td>
+                        <td @click="goItemDetail(cart)">{{cart.itemName}}</td>
+                        <td>{{cart.price}}</td>
+                        <td>
+                            <span class="plus" ><i @click="setCountP(cart), patchCart(cart)" class="bi bi-plus-circle"></i></span>
+                            {{cart.count}}
+                            <span class="minus"><i @click="setCountM(cart), patchCart(cart)" class="bi bi-dash-circle"></i></span>
+                        </td>
+                        <td> {{sum}}</td>
+                    </tr>
+
+                    <!-- <tr class="product-item" v-for="cart in this.$store.state.cartList" :key="cart">
                         <td @click="goItemDetail(cart)"> {{cart.itemName}}</td>
                         <td> {{cart.price}}</td>
                         <td>
@@ -41,7 +57,7 @@
                             <span class="minus"><i @click="setCountM(cart), patchCart(cart)" class="bi bi-dash-circle"></i></span>
                         </td>
                         <td v-bind="sumPrice(cart.price, cart.count)"> {{sum}}</td>
-                    </tr>
+                    </tr> -->
                 </table>
                 <span style="font-weight: 800; font-size: 16pt;"> {{price}} 원</span><br>
 
@@ -54,17 +70,58 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name : 'Cart',
   data() {
-      return {
-          
-      }
+    return {
+        sum: 0,
+        price: 0,
+        count: [],
+    };
   },
   created() {
-      this.$store.dispatch('fetchCart', this.$store.state.email);
+      this.$store.dispatch('fetchCart');
   },
   methods: {
+    sumPrice(price, count) {
+      this.sum=price*count;
+    },
+
+    patchCart(cart) {
+      axios.patch(`v4/cartItem/${cart.cartItemNo}/${cart.count}`)
+      .then(res => {
+        console.log('success', res)
+      }).catch(err => {
+        console.log('failed', err)
+      })
+    },
+
+    setCountP(cart) {
+      cart.count++;
+    },
+    setCountM(cart) {
+      cart.count--;
+      if(cart.count == 0) {
+          this.deleteCart(cart)
+      }
+    },
+
+    deleteCart(cart) {
+        axios.delete(`v4/cartItem/${cart.cartItemNo}`, cart.cartItemNo)
+        .then(res => {
+            console.log('success', res)
+        }).catch(err => {
+            console.log('failed', err)
+        })
+    },
+    goItemDetail(itemNo) {
+      this.$router.push({
+        name: 'Item',
+        params: { itemNo: itemNo }
+      })
+    },
   }
 }
 </script>
@@ -98,7 +155,6 @@ export default {
 
 .product-item {
     border: 0;
-    
 }
 .product-item:hover{
     background-color: beige;
