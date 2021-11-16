@@ -192,6 +192,15 @@ let store = createStore({
       localStorage.removeItem("access_token")
       router.go('#')
     },
+
+    getItemCartegory(context, category) {
+      axios.get(`v2/list/${category}`)
+        .then(res => {
+          context.commit("setItem", res.data.dtoList);
+        }).catch(err => {
+            console.log('failed', err)
+        })
+    }
   },
 })
 
