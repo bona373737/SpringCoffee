@@ -18,6 +18,7 @@ let store = createStore({
       noticeBoardDetail: {},
       qnaBoardList: [],
       qnaBoardDetail : {},
+      memberProfile: {},
     }
   },
   mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
@@ -47,7 +48,11 @@ let store = createStore({
     },
     setToken(state, token) {
       state.token = token;
+    },
+    setMemberProfile(state, member) {
+      state.memberProfile = member;
     }
+
   },
   actions: {
     fetchNoticeBoardList(context,page){
@@ -185,6 +190,14 @@ let store = createStore({
         this.state.role=result.roles[0];
         this.state.isLogin = true;
       }
+    },
+
+    fetchMemberProfile(context) {
+      axios.get('v5/mypage', {params:
+      {email: this.state.email}})
+        .then(response => {
+          context.commit('setMemberProfile', response.data)
+        })
     },
 
     logout() {

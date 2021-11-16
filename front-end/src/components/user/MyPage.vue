@@ -19,7 +19,7 @@
 
           <div class="bt-menu">
               <ui class="bt-info py-3">
-                  <li class="content" @click="this.$router.replace('/mypage/prifile')">
+                  <li class="content" @click="this.$router.replace('/mypage/profile')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
                         <div class="bt-text">회원정보</div>

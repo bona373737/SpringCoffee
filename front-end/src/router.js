@@ -89,7 +89,7 @@ const routes = [
     component: () => import('@/components/user/OffStore.vue')
   },
   {
-    path: '/mypage/:',
+    path: '/mypage',
     redirect: '/mypage/profile',
     name: 'MyPage',
     component: () => import('@/components/user/MyPage.vue'),

@@ -84,7 +84,7 @@ public class MemberController {
         return new ResponseEntity<MyPageResponseDTO>(responseDTO, HttpStatus.OK);
     }
 
-    @GetMapping("verifyuser")
+    @PostMapping("/verifyuser")
     public ResponseEntity verifyUser(@RequestBody MemberRequestDTO dto){
         Boolean result = memberService.verifyUser(dto);
 

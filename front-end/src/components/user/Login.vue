@@ -67,6 +67,7 @@ export default {
         alert('올바른 이메일 형식을 입력해주세요!')
         return false;
       }
+      return true;
     },
 
     loginCheck() {
