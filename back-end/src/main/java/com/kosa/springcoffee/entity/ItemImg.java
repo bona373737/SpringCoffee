@@ -1,27 +1,42 @@
 package com.kosa.springcoffee.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity(name = "sc_item_img")
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter @Setter
 public class ItemImg {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long itemImgNo;
-    private String imgName;
-    private String originName;
-    private String imgUrl;
-    private String repImg;
+    @Column(nullable = false)
+    private String origFileName;  // 파일 원본명
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(nullable = false)
+    private String filePath;  // 파일 저장 경로
+
+    private Long fileSize;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Item item;
 
-    public void updateItemImg(String originName, String imgName, String imgUrl){
-        this.originName = originName;
-        this.imgName = imgName;
-        this.imgUrl = imgUrl;
+
+    @Builder
+    public ItemImg(String origFileName, String filePath, Long fileSize) {
+        this.origFileName = origFileName;
+        this.filePath = filePath;
+        this.fileSize = fileSize;
+    }
+
+    public void setItem(Item item){
+        this.item = item;
+
+        if(!item.getItemImg().contains(this)){
+            item.getItemImg().add(this);
+        }
     }
 }

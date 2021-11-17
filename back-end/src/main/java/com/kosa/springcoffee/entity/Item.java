@@ -1,13 +1,12 @@
 package com.kosa.springcoffee.entity;
 
-import com.kosa.springcoffee.dto.ItemFormDTO;
+import com.kosa.springcoffee.dto.ItemDTO;
 import com.kosa.springcoffee.exception.NoStockException;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "sc_item")
 @Getter
@@ -23,21 +22,30 @@ public class Item {
 
     private String content;
 
-
     private int stockQuantity;
 
     private int price;
 
     private String category;
 
+    @OneToMany(mappedBy = "item", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<ItemImg> itemImg = new ArrayList<>();
+
+    @Builder
+    public Item(String name, String content, int stockQuantity, int price, String category) {
+        this.name = name;
+        this.content = content;
+        this.stockQuantity = stockQuantity;
+        this.price = price;
+        this.category = category;
+    }
+
     public void changeName(String name) {
         this.name = name;
     }
-
     public void changeContent(String content) {
         this.content = content;
     }
-
     public void changeStockQuantity(int stockQuantity){
         this.stockQuantity=stockQuantity;
     }
@@ -48,12 +56,12 @@ public class Item {
         this.category=category;
     }
 
-    public void updateItem(ItemFormDTO itemFormDTO) {
-        this.name = itemFormDTO.getName();
-        this.content = itemFormDTO.getContent();
-        this.stockQuantity = itemFormDTO.getStockQuantity();
-        this.price = itemFormDTO.getPrice();
-        this.category = itemFormDTO.getCategory();
+    public void updateItem(ItemDTO itemDTO) {
+        this.name = itemDTO.getName();
+        this.content = itemDTO.getContent();
+        this.stockQuantity = itemDTO.getStockQuantity();
+        this.price = itemDTO.getPrice();
+        this.category = itemDTO.getCategory();
     }
 
     public void removeStock(int quantity) {
@@ -62,6 +70,14 @@ public class Item {
             throw new NoStockException("상품 재고가 부족합니다.");
         }
         this.stockQuantity = restStock;
+    }
+
+
+    public void addImg(ItemImg itemImg){
+        this.itemImg.add(itemImg);
+
+        if(itemImg.getItem() != this)
+            itemImg.setItem(this);
     }
 
 }
