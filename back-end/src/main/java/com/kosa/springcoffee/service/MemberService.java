@@ -1,9 +1,6 @@
 package com.kosa.springcoffee.service;
 
-import com.kosa.springcoffee.dto.MemberRequestDTO;
-import com.kosa.springcoffee.dto.LoginResponseDTO;
-import com.kosa.springcoffee.dto.ModifyMemberReqeustDTO;
-import com.kosa.springcoffee.dto.MyPageResponseDTO;
+import com.kosa.springcoffee.dto.*;
 import com.kosa.springcoffee.entity.Member;
 import com.kosa.springcoffee.repository.MemberRepository;
 import com.kosa.springcoffee.security.util.JwtTokenProvider;
@@ -58,20 +55,22 @@ public class MemberService {
 
         if (result.isPresent()){
             Member member = result.get();
-            member.changePassword(passwordEncoder.encode(dto.getPassword()));
+            if (dto.getNewPassword().length()>0) {
+                member.changePassword(passwordEncoder.encode(dto.getNewPassword()));
+            }
             member.changeName(dto.getName());
             member.changeAddress(dto.getAddress());
             memberRepository.save(member);
         }
     }
 
-    public void modifyPassword(MemberRequestDTO dto) {
+    public void modifyPassword(ModifyPasswordRequestDTO dto) {
         String email = dto.getEmail();
         Optional<Member> result = memberRepository.getByEmail(email, false);
 
         if (result.isPresent()) {
             Member member = result.get();
-            member.changePassword(passwordEncoder.encode(dto.getPassword()));
+            member.changePassword(passwordEncoder.encode(dto.getNewPassword()));
             memberRepository.save(member);
         }
     }

@@ -51,12 +51,14 @@ public class MemberController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody MemberRequestDTO loginDTO) throws Exception {
         LoginResponseDTO dto = memberService.login(loginDTO);
+
         Optional<Member> result = memberRepository.getByEmail(loginDTO.getEmail(), false);
         Member member = result.get();
+
         if (member == null){
             return new ResponseEntity<String>("아이디가 존재하지 않습니다.", HttpStatus.FORBIDDEN);
         }
-        if (!passwordEncoder.matches(loginDTO.getPassword(), member.getPassword())){
+        if (!memberService.verifyUser(loginDTO)){
             return new ResponseEntity<String>("비밀번호가 틀립니다.", HttpStatus.FORBIDDEN);
         }
 
@@ -64,17 +66,30 @@ public class MemberController {
     }
 
     @PostMapping("/update-userinfo")
-    public ResponseEntity modifyUserInfo(@RequestBody ModifyMemberReqeustDTO dto) {
-        memberService.modifyUserInfo(dto);
+    public ResponseEntity modifyUserInfo(@RequestBody ModifyMemberInfoReqeustDTO dto) {
 
-        return new ResponseEntity<String>("회원 정보가 수정되었습니다.", HttpStatus.OK);
+        MemberRequestDTO verifyPassword = MemberRequestDTO.builder()
+                .email(dto.getEmail()).password(dto.getCurPassword()).build();
+
+        if (memberService.verifyUser(verifyPassword)) {
+            memberService.modifyUserInfo(dto);
+            return new ResponseEntity<String>("회원 정보가 수정되었습니다.", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<String>("비밀번호가 일치하지 않습니다.", HttpStatus.OK);
     }
 
     @PostMapping("/update-password")
-    public ResponseEntity modifyPassword(@RequestBody MemberRequestDTO dto) {
-        memberService.modifyPassword(dto);
+    public ResponseEntity modifyPassword(@RequestBody ModifyPasswordRequestDTO dto) {
 
-        return new ResponseEntity<String>("비밀번호가 수정되었습니다.", HttpStatus.OK);
+        MemberRequestDTO verifyPassword = MemberRequestDTO.builder()
+                .email(dto.getEmail()).password(dto.getCurPassword()).build();
+
+        if (memberService.verifyUser(verifyPassword)) {
+            memberService.modifyPassword(dto);
+            return new ResponseEntity<String>("비밀번호가 수정되었습니다.", HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("비밀번호가 일치하지 않습니다", HttpStatus.OK);
     }
 
     @GetMapping("/mypage")
