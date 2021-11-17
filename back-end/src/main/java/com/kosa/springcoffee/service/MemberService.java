@@ -2,14 +2,20 @@ package com.kosa.springcoffee.service;
 
 import com.kosa.springcoffee.dto.*;
 import com.kosa.springcoffee.entity.Member;
+import com.kosa.springcoffee.entity.MemberRole;
 import com.kosa.springcoffee.repository.MemberRepository;
 import com.kosa.springcoffee.security.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Log4j2
@@ -89,6 +95,28 @@ public class MemberService {
             return responseDTO;
         }
         return null;
+    }
+
+    public PageResultDTO<MyPageResponseDTO, Member> getUserList(PageRequestDTO requestDTO) {
+
+        List<Member> memberList = memberRepository.findAll();
+
+        List<MyPageResponseDTO> dtoList = new ArrayList<>();
+
+        memberList.forEach(member -> {
+            if (member.getRoles().contains(MemberRole.ROLE_USER)){
+                dtoList.add(getUserInfo(member.getEmail()));
+            }
+        });
+
+        Pageable pageable = requestDTO.getPageable();
+
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
+
+        Page<MyPageResponseDTO> result = new PageImpl<>(dtoList.subList(start, end), pageable, dtoList.size());
+
+        return new PageResultDTO<>(result);
     }
 
     public Boolean verifyUser(MemberRequestDTO dto) {
