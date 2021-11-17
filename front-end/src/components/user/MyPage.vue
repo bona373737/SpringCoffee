@@ -8,7 +8,7 @@
         </div>
         <div class="py-2"><br></div>
         <span class="info"><i class="bi bi-gear-fill"></i></span><br>
-        <span style="font-size: 11pt;">??? 회원님 반갑습니다!</span>
+        <span style="font-size: 11pt;">{{this.$store.state.email}} 회원님 반갑습니다!</span>
         
 
           <!-- <div class="user-info py-3 border-top">

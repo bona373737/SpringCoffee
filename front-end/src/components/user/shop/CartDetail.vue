@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div v-if="this.$store.state.isLogin" class=" wrapper border-top border-bottom py-3">{{this.$store.state.email}} 님의 장바구니</div>
+  <div v-if="this.$store.state.isLogin" class=" wrapper border-top border-bottom py-3" style="font-weight:700; font-size:14pt">장바구니 목록</div>
     <div class="wrapper py-3">
         <div class="temp ">
 

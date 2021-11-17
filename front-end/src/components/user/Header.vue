@@ -21,7 +21,7 @@
 
     <div class="p-3 bg-light">
       <a href="/">
-        <img src="../.././assets/springlogo.png" alt="Img" style="width:150px">
+        <img src="../.././assets/sclogo.png" alt="Img" style="width:150px">
       </a>
     </div>
     <div class="bg-light border-top ">
@@ -78,8 +78,8 @@ header {
 }
 
 .navbox .tooltip-text:hover {
-  border-top: 2px green solid;
-  color: rgba(0, 200, 0, 0.7);
+  border-top: 2px brown solid;
+  color: rgba(255, 145, 0, 0.979);
   transition: 0.1s;
 }
 
@@ -90,7 +90,7 @@ header {
   padding: 8px;
   font-size: 13pt;
   font-weight: 600;
-  color: green;
+  color: #666;
   transition: all 0.1s;
 }
 

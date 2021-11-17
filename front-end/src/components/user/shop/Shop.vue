@@ -55,7 +55,7 @@
         <div class="ProductListTechnologies d-flex py-5">
             <router-link to="#">
                 <div class="ProductListTechnologies__element me-2">
-                    <img width="120" height="80" src="../../../assets/shop1.webp" role="presentation" class="" alt="">
+                    <img width="120" height="80" src="../../../assets/shop2.webp" role="presentation" class="" alt="">
                     <div class="ProductListTechnologies__name" @click="this.$store.dispatch('fetchItem')">전체보기</div>
                 </div>
             </router-link>
@@ -67,7 +67,7 @@
             </router-link>
             <router-link to="#">
                 <div class="ProductListTechnologies__element me-2">            
-                    <img width="120" height="80" src="../../../assets/shop2.webp" role="presentation" class="" alt="">
+                    <img width="120" height="80" src="../../../assets/tumbler.jpg" role="presentation" class="" alt="">
                     <div class="ProductListTechnologies__name" @click="this.$store.dispatch('getItemCartegory', 'tumbler')">텀블러</div>
                 </div>
             </router-link>
@@ -80,6 +80,12 @@
                 <col width="5%" />
                 <col width="10%" />
             </colgroup>
+              <tr class="text-center border-top border-bottom" style="height:50px">
+                <td>이미지</td>
+                <td>이름</td>
+                <td>가격</td>
+                <td> </td>
+              </tr>
             <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" v-bind:key="item.itemId">
                 <td> <img width="120" height="80" ref="imageOutput" :src="item.image"> </td>
                 <td @click="goItemDetail(item.itemNo)" > {{item.name}}</td>
