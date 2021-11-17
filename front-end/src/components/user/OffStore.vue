@@ -8,7 +8,7 @@
     <div class="py-2"><br></div>
       <span class="info"><i class="bi bi-signpost"></i></span><br>
       <span style="font-size: 11pt;">오프라인 스토어를 안내해드립니다!</span><br>
-      <img src="../.././assets/offstore.png" alt="" style="border-radius: 15px;"><br><br>
+      <img src="../.././assets/offstore.png" alt="" style="width: 400px;border-radius: 15px;"><br><br>
       <div class="details">
         <span class="det-text"><i class="bi bi-map-fill"></i> 주소: 서울특별시 송파구 가락동 중대로 135</span><br>
         <span><i class="bi bi-telephone-fill"></i> 연락처: 02-2188-6900</span>
@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 .tab-bar {
   background-image: url('../.././assets/background.jpg');

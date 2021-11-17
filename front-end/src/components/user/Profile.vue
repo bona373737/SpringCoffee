@@ -38,48 +38,44 @@
             <span class="tab-2">{{this.$store.state.memberProfile.email}}</span>
           </div>
           <div class="m-info d-flex">
+            <span class="tab-1 text-end">현재 비밀번호</span>
+            <span style="color:red;">*</span>
+            <span class="tab-2">
+              <input type="password" v-model="checkPW1">
+            </span>
+          </div>
+          <div class="m-info d-flex">
+            <span class="tab-1 text-end"><br><br>비밀번호 변경
+            </span>
+            
+            <span style="color:white;">*</span>
+            <span class="tab-2">
+                <input id="pw2" type="password" v-model="checkPW2" @change="preCheck()">
+                <br><span style="font-size:8pt;">영문 대소문자 및 숫자 포함 6~12자리</span>
+            </span>
+          </div>
+          <div class="m-info d-flex">
+              <span class="tab-1 text-end" style="font-size:10pt;"></span>
+              <span style="color:white;">*</span>
+              <span class="tab-2">
+                  <input id="pw3" type="password" v-model="checkPW3" @change="preCheck()"> 
+                  <br><span style="font-size:8pt; color: red" v-if="!eqPW">패스워드가 일치하지 않습니다.</span>
+                  <span style="font-size:8pt; color: green" v-if="eqPW">패스워드가 일치합니다 !</span>
+              </span>
+          </div>
+          </div>
+
+          <div class="m-info d-flex">
             <span class="tab-1 text-end"> 이름 </span>
             <span class="tab-2">{{this.$store.state.memberProfile.name}}</span>
           </div>
           <div class="m-info d-flex">
-            <span class="tab-1 text-end"> 주소지</span>
-            <span class="tab-2">
-               {{this.$store.state.memberProfile.address}}
-            </span>
-          </div>
-          <div class="m-info d-flex">
-            <span class="tab-1 text-end">주소지 변경</span>
+            <span class="tab-1 text-end">배송지</span>
+            <span style="color:white;">*</span>
             <span class="tab-2">
               <input type="text" v-model="address">
             </span>
           </div>
-          <div class="py-2">
-              <span style="font-weight: 700;"> 변경할 패스워드를 입력하세요 </span>
-            </div>
-            <div class="m-info d-flex">
-              <span class="tab-1 text-end" style="font-size:10pt;">현재 패스워드</span>
-              <span style="color:red;">*</span>
-              <span class="tab-2">
-                <input type="password" v-model="checkPW1">
-              </span>
-            </div>
-            <div class="m-info d-flex">
-              <span class="tab-1 text-end" style="font-size:10pt;">변경할 패스워드</span>
-              <span style="color:red;">*</span>
-              <span class="tab-2">
-                <input type="password" v-model="checkPW2" @change="preCheck()">
-                <p style="font-size:8pt;">영문 대소문자 및 숫자 포함 6~12자리</p>
-              </span>
-            </div>
-            <div class="m-info d-flex">
-              <span class="tab-1 text-end" style="font-size:10pt;">변경할 패스워드 재입력</span>
-              <span style="color:red;">*</span>
-              <span class="tab-2">
-                <input type="password" v-model="checkPW3" @change="preCheck()"> 
-                <p style="font-size:8pt; color: red" v-if="!eqPW">패스워드가 일치하지 않습니다.</p>
-                <p style="font-size:8pt; color: green" v-if="eqPW">패스워드가 일치합니다 !</p>
-              </span>
-            </div>
             <div class="m-info py-3">
               <span class="btn btn-primary me-2" @click="infoUpdate()">회원정보 수정</span>
               <span class="btn btn-secondary " @click="goBack()">뒤로가기</span>
@@ -87,7 +83,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -103,7 +98,7 @@ export default {
       checkPW1: '',
       checkPW2: '',
       checkPW3: '',
-      address: '',
+      address: this.$store.state.memberProfile.address,
     }
   },
   created() {
@@ -128,22 +123,24 @@ export default {
     infoUpdate() {
       if(this.password != this.checkPW1) {
         alert('현재 비밀번호를 확인해주세요!')
-        console.log('1')
         return false;
       } else if(this.checkPW2 != this.checkPW3) {
         alert('변경하실 비밀번호를 확인해주세요')
-        console.log('2')
         return false;
-      } else if(this.address == '') {
-        this.address=this.$store.state.memberProfile.address;
-        this.infoUpdate()
       } else {
-        console.log('5')
-        let password = this.checkPW2;
-        let regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,25}$/;
-        if (!regPass.test(password)) {
-          alert('패스워드 입력 조건을 확인하세요!')
-          return false;
+
+        if(this.checkPW2 != '') {
+          let password = this.checkPW2;
+          let regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,25}$/;
+          if (!regPass.test(password)) {
+            alert('패스워드 입력 조건을 확인하세요!')
+            return false;
+          }
+
+          axios.post('/v5/update-password', {
+            email: this.$store.state.email,
+            password: this.checkPW2,
+          })
         }
 
         axios.post('/v5/update-userinfo', {
@@ -152,23 +149,15 @@ export default {
           name: this.$store.state.memberProfile.name,
           address: this.address
         }).then(res => {
-          this.checkPw1='';
-          console.log('success', res)
-        })
-
-        axios.post('/v5/update-password', {
-          email: this.$store.state.email,
-          password: this.checkPW2,
-        }).then(res => {
           alert('회원정보가 변경되었습니다.')
           this.isCorrect=false;
-          this.address='';
           this.checkPW1='';
           this.checkPW2='';
           this.checkPW3='';
           this.password='';
-          console.log('success', res)
-          this.$router.go('/mypage')
+          this.$store.dispatch('fetchMemberProfile')
+          this.$router.replace('/mypage')
+          console.log('success',res)
         })
       }
     },
@@ -187,7 +176,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .form {
   width: 100%;
 }

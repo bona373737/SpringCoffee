@@ -8,6 +8,7 @@ let store = createStore({
       email: '',
       token: '',
       role: '',
+      exp: 0,
       isLogin: false,
       cartNo: '',
       itemList: [],
@@ -189,6 +190,7 @@ let store = createStore({
         this.state.email=result.sub;
         this.state.role=result.roles[0];
         this.state.isLogin = true;
+        this.state.exp=result.exp;
       }
     },
 

@@ -119,7 +119,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .product-item {
     border: 0;
 }
