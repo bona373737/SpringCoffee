@@ -13,7 +13,6 @@ public class ItemDTO {
     private Long itemNo;
     private String name;
     private String content;
-    private String image;
     private int stockQuantity;
     private int price;
     private String category;

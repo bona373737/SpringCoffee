@@ -10,6 +10,5 @@ public class ItemImage {
     private String uuid;
     private Long itemNo;
     private String fileName;
-
     private String Path;
 }

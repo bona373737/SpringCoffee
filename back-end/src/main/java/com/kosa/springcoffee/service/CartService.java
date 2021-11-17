@@ -2,7 +2,6 @@ package com.kosa.springcoffee.service;
 
 import com.kosa.springcoffee.dto.CartDetailDTO;
 import com.kosa.springcoffee.dto.CartItemDTO;
-import com.kosa.springcoffee.dto.CartListDTO;
 import com.kosa.springcoffee.dto.CartOrderDTO;
 import org.springframework.stereotype.Service;
 

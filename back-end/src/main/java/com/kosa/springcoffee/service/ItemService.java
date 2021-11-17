@@ -10,14 +10,15 @@ import java.util.List;
 
 public interface ItemService {
     Long create(ItemDTO dto);
-    Long createWithImg(ItemFormDTO itemFormDTO, List<MultipartFile> itemImgFileList) throws Exception;
-    ItemFormDTO getItemDetail(Long itemNo);
+    Long createWithImg(ItemDTO itemDTO, List<MultipartFile> itemImgFileList) throws Exception;
     void modify(ItemDTO dto);
-    Long modifyWithImg(ItemFormDTO itemFormDTO, List<MultipartFile> itemImgFileList) throws Exception;
+    void modifyWithImg(Long itemNo,ItemDTO itemDTO, List<MultipartFile> itemImgFileList) throws Exception;
     void remove(Long itemNo);
     PageResultDTO<ItemDTO, Item> readAll(PageRequestDTO requestDTO);
+    List<ItemReadDTO> readAllItem();
     PageResultDTO<ItemDTO, Item> getCategory(CategoryPageRequestDTO requestDTO);
-
+    ItemResponseDTO searchById(Long id, List<Long> fileId);
+    List<Item> searchAll();
     default Item dtoToEntity(ItemDTO dto){
         Item entity= Item.builder()
                 .itemNo(dto.getItemNo())
