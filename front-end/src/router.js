@@ -63,13 +63,6 @@ const routes = [
         path: 'qnaDetail/:qnaBoardNo',
         name: 'qnaDetail',
         component: () => import('@/components/user/qna/QnaDetail.vue'),
-        children:[
-          {
-            path:'',
-            name: 'qnaReply',
-            component:() =>import('@/components/user/qna/QnaReply.vue'),
-          },
-        ]
       },
       {
         path: '/qnaAdd',
@@ -102,6 +95,10 @@ const routes = [
         path: '/cart',
         name: 'Cart',
         component: () => import('@/components/user/shop/Cart.vue'),
+      },
+      {
+        path: "/myQna",
+        component: () => import('@/components/user/MyQna.vue'),
       },
     ]
   },

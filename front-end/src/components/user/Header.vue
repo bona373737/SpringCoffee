@@ -4,10 +4,10 @@
 
     <div class="border-top border-bottom text-end">
       <div v-if="this.$store.state.isLogin">
-        <span class="navset me-2" style="text-decoration: none; color: #333;"> {{this.$store.state.email}}</span>
         <div v-if="this.$store.state.role=='ROLE_ADMIN'">
-          <router-link class="navset me-2" style="text-decoration: none; color: #666;" to="/admin">관리자페이지</router-link>
+          <router-link class="navset me-5" style="text-decoration: none; color: #666;" to="/admin"> <i class="bi bi-gear-fill"></i> 관리자페이지</router-link>
         </div>
+        <span class="navset me-2" style="text-decoration: none; color: #333;"> {{this.$store.state.email}}</span>
         <router-link class="navset me-2" style="text-decoration: none; color: green; font-weight: 700" to="/cart">장바구니</router-link>
         <router-link class="navset me-1" style="text-decoration: none; color: #333; font-weight: 700" to="/mypage">마이페이지</router-link>
         <span class="navset me-5" style="text-decoration: none; color: #666; cursor: pointer;" @click="this.$store.dispatch('logout')"> 로그아웃 </span>
@@ -78,7 +78,8 @@ header {
 }
 
 .navbox .tooltip-text:hover {
-  border-top: 2px brown solid;
+  /* border-top: 2px brown solid; */
+  transform:scale(1.1);
   color: rgba(255, 145, 0, 0.979);
   transition: 0.1s;
 }

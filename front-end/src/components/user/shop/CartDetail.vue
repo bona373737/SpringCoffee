@@ -14,6 +14,7 @@
                     <col width="10%" />
                     <col width="10%" />
                     <col width="10%" />
+                    <col width="3%" />
                 </colgroup>
 
                 <tr>
@@ -22,6 +23,7 @@
                     <td> 가격</td>
                     <td> 개수</td>
                     <td> 총 가격 </td>
+                    <td></td>
                 </tr>
 
                 <tr class="product-item" v-for="cart in this.$store.state.cartList" :key="cart.cartItemNo">
@@ -34,6 +36,7 @@
                         <span class="minus"><i @click="setCountM(cart), patchCart(cart)" class="bi bi-dash-circle"></i></span>
                     </td>
                     <td> {{cart.count*cart.price}}</td>
+                    <td> <i style="cursor:pointer;" @click="deleteCart(cart)" class="bi bi-trash-fill"></i></td>
                 </tr>
 
                 <!-- <tr class="product-item" v-for="cart in this.$store.state.cartList" :key="cart">
@@ -75,6 +78,10 @@ export default {
   methods: {
 
     patchCart(cart) {
+      if(cart.count<1) {
+        this.deleteCart(cart);
+        return false;
+      }
       axios.patch('v4/cartItem', {
         cartItemNo : cart.cartItemNo,
         count : cart.count,
@@ -98,14 +105,12 @@ export default {
     },
 
     deleteCart(cart) {
-        axios.delete(`v4/cartItem`, {
-            cartItemNo : cart.cartItemNo,
-            email : this.$store.state.email
-        })
+        axios.delete(`v4/${cart.cartItemNo}/${this.$store.state.email}`)
         .then(res => {
-            console.log('success', res)
+          this.$store.dispatch('fetchCart');
+          console.log('success', res)
         }).catch(err => {
-            console.log('failed', err)
+          console.log('failed', err)
         })
     },
 

@@ -7,7 +7,7 @@
           <div class="m-info d-flex">
             <span class="tab-1 text-end"> 이메일</span>
             <span class="tab-2 content">
-              <span class="form-input text-start me-3" style="background-color: #999;" disabled>{{this.$store.state.email}}</span>
+              <input class="form-input me-3" style="background-color: #999" disabled v-model="this.$store.state.email">
             </span>
           </div>
           <div class="m-info d-flex">

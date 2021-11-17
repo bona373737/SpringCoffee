@@ -61,6 +61,7 @@ export default {
         title: this.title,
         content : this.content,
       });
+      alert("문의사항이 수정되었습니다");
       this.$router.push('/qnaLayout');
     }
   }

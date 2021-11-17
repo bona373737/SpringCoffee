@@ -93,18 +93,13 @@ public class CartController {
         return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/cartItem")
-    @ResponseBody
-    public ResponseEntity deleteCartItem(@RequestBody CartDeleteDTO cartDeleteDTO){
-        Long cartItemNo = cartDeleteDTO.getCartItemNo();
-        Member member = memberRepository.getByEmail(cartDeleteDTO.getEmail());
+    @DeleteMapping(value = "/{cartItemNo}/{email}")
+    public ResponseEntity deleteCartItem(@PathVariable("email")String email, @PathVariable("cartItemNo") Long cartItemNo){
+        Member member = memberRepository.getByEmail(email);
         if(cartService.validateCartItem(cartItemNo, member.getEmail()))
             return new ResponseEntity<String>("자신의 카트가 아닙니다.", HttpStatus.FORBIDDEN);
-
         cartService.deleteCartItem(cartItemNo);
-
         return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
-
     }
 
     @PostMapping(value = "/cart/cartOrder")
