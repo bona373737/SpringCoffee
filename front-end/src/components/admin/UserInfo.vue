@@ -1,6 +1,7 @@
 <template>
   <div>
-    <button> 관리자 </button><button> 고객 </button>
+    <button @click="adminList"> 관리자 </button>
+    <button @click="userList"> 고객 </button>
     <table class="table table-bordered table-condensed">
       <colgroup>
         <col width="5%" />
@@ -35,15 +36,17 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name:'myQna',
   data(){
     return{
     }
   },
-  created() {
-    this.$store.dispatch('fetchAdminQna', '0')
-  },
+  // created() {
+  //   this.$store.dispatch('fetchAdminQna', '0')
+  // },
   methods:{
     goQnaDetail(qnaBoardNo) {
       console.log(qnaBoardNo)
@@ -52,6 +55,12 @@ export default {
         params: {qnaBoardNo: qnaBoardNo}
       })
     },
+    adminList(){
+
+    },
+    userList(){
+
+    }
 
   }
 }
