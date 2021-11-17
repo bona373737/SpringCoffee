@@ -92,6 +92,22 @@ public class MemberController {
         return new ResponseEntity<String>("비밀번호가 일치하지 않습니다", HttpStatus.OK);
     }
 
+    @PostMapping("/grant-role")
+    public ResponseEntity grantUserToAdmin(@RequestParam String email) {
+
+        memberService.grantUserToAdmin(email);
+
+        return new ResponseEntity(email + " 관리자 권한 부여", HttpStatus.OK);
+    }
+
+    @PostMapping("/remove-role")
+    public ResponseEntity removeAdmin(@RequestParam String email) {
+
+        memberService.removeAdmin(email);
+
+        return new ResponseEntity(email + " 관리자 권한 삭제", HttpStatus.OK);
+    }
+
     @GetMapping("/mypage")
     public ResponseEntity getUserInfo(@RequestParam String email) {
         MyPageResponseDTO responseDTO = memberService.getUserInfo(email);

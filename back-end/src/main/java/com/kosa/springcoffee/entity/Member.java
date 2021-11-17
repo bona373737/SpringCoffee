@@ -53,6 +53,8 @@ public class Member extends BaseEntity implements UserDetails {
         roles.add(memberRole);
     }
 
+    public void removeMemberRole() {roles.clear();}
+
     public void changePassword(String password) {
         this.password = password;
     }

@@ -55,7 +55,7 @@ public class MemberService {
         return responseDTO;
     }
 
-    public void modifyUserInfo(ModifyMemberReqeustDTO dto) {
+    public void modifyUserInfo(ModifyMemberInfoReqeustDTO dto) {
         String email = dto.getEmail();
         Optional<Member> result = memberRepository.getByEmail(email, false);
 
@@ -77,6 +77,28 @@ public class MemberService {
         if (result.isPresent()) {
             Member member = result.get();
             member.changePassword(passwordEncoder.encode(dto.getNewPassword()));
+            memberRepository.save(member);
+        }
+    }
+
+    public void grantUserToAdmin(String email) {
+        Optional<Member> result = memberRepository.getByEmail(email, false);
+
+        if (result.isPresent()) {
+            Member member = result.get();
+            member.removeMemberRole();
+            member.addMemberRole(MemberRole.ROLE_ADMIN);
+            memberRepository.save(member);
+        }
+    }
+
+    public void removeAdmin(String email) {
+        Optional<Member> result = memberRepository.getByEmail(email, false);
+
+        if (result.isPresent()) {
+            Member member = result.get();
+            member.removeMemberRole();
+            member.addMemberRole(MemberRole.ROLE_USER);
             memberRepository.save(member);
         }
     }
