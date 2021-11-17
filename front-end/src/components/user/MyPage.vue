@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div class="mypage">
+      <div class="mypage" v-if="this.$store.state.isLogin">
         <div class="tab-bar">
             <div class="tab-my py-3" style="width:100%;">
                 <span class="tab-title">My Page</span>            
@@ -8,7 +8,7 @@
         </div>
         <div class="py-2"><br></div>
         <span class="info"><i class="bi bi-gear-fill"></i></span><br>
-        <span style="font-size: 11pt;">??? 회원님 반갑습니다!</span>
+        <span style="font-size: 11pt;">{{this.$store.state.email}} 회원님 반갑습니다!</span>
         
 
           <!-- <div class="user-info py-3 border-top">
@@ -19,18 +19,16 @@
 
           <div class="bt-menu">
               <ui class="bt-info py-3">
-                  <li class="content">
+                  <li class="content" @click="this.$router.replace('/mypage/profile')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
-                        <router-link to="/mypage/profile">
-                            <div class="bt-text">회원정보</div>
-                        </router-link>
+                        <div class="bt-text">회원정보</div>
                       </div>
                   </li>
-                  <li class="content">
+                  <li class="content" @click="cartView()">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-cart-check-fill"></i></div>
-                      <div class="bt-text">장바구니</div>
+                            <div class="bt-text">장바구니</div>
                       </div>
                   </li>
                   <li class="content" @click="$router.push('/myQna')">
@@ -48,7 +46,6 @@
               </ui>
               <div class="rout border-top border-dark">
                 <router-view></router-view>
-
               </div>
 
                 <!-- <div class="content py-5">
@@ -67,7 +64,7 @@
                 </div> -->
           </div>
       </div>
-
+    <div v-if="!this.$store.state.isLogin" v-on="this.$router.replace('NotfoundPage')"></div>
   </div>
 </template>
 
@@ -158,6 +155,6 @@ export default {
 .content .con-card:hover {
     cursor: pointer;
     color: green;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 </style>

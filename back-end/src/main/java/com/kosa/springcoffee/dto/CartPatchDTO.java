@@ -1,14 +1,13 @@
 package com.kosa.springcoffee.dto;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Getter @Setter
-public class OrderDTO {
-    @NotNull
-    private Long itemNo;
+public class CartPatchDTO {
+
+    private Long cartItemNo;
     private int count;
     private String email;
-
 }

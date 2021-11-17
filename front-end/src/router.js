@@ -82,7 +82,7 @@ const routes = [
     component: () => import('@/components/user/OffStore.vue')
   },
   {
-    path: '/mypage/:',
+    path: '/mypage',
     redirect: '/mypage/profile',
     name: 'MyPage',
     component: () => import('@/components/user/MyPage.vue'),
@@ -90,6 +90,11 @@ const routes = [
       {
         path: "profile",
         component: () => import('@/components/user/Profile.vue'),
+      },
+      {
+        path: '/cart',
+        name: 'Cart',
+        component: () => import('@/components/user/shop/Cart.vue'),
       },
       {
         path: "/myQna",
@@ -102,12 +107,21 @@ const routes = [
     path: '/shop',
     name: 'Shop',
     component: () => import('@/components/user/shop/Shop.vue'),
-    children: [
-      {
-        path: '/order',
-        component: () => import('@/components/user/shop/Order.vue')
-      },
-    ]
+  },
+  {
+    path: "/shop/item/:itemNo",
+    name: 'Item',
+    component: () => import('@/components/user/shop/Item.vue'),
+  },
+  // {
+  //   path: '/cart',
+  //   name: 'Cart',
+  //   component: () => import('@/components/user/shop/Cart.vue'),
+  // },
+  {
+    path: '/order',
+    name: 'Order',
+    component: () => import('@/components/user/shop/Order.vue'),
   },
   {
     path: '/admin/:',

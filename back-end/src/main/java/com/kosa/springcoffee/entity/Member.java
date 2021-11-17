@@ -28,6 +28,8 @@ public class Member extends BaseEntity implements UserDetails {
 
     private String name;
 
+    private String address;
+
     private boolean fromSocial;
 
     @ElementCollection(fetch = FetchType.LAZY)
@@ -49,6 +51,18 @@ public class Member extends BaseEntity implements UserDetails {
 
     public void addMemberRole(MemberRole memberRole){
         roles.add(memberRole);
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
+
+    public void changeName(String name) {
+        this.name = name;
+    }
+
+    public void changeAddress(String address){
+        this.address = address;
     }
 
     @Override

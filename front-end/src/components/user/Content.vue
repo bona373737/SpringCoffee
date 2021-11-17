@@ -12,7 +12,6 @@
 
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <!-- <img src="../.././assets/content1.jpg" style="width: 100%" alt="" /> -->
               <div class="container-fluid py-5 content-wrap">
                 <div class="text-white">
                   <h1 class="display-5 fw-bold">Spring Coffee</h1>
@@ -91,7 +90,6 @@ export default {
 
 .carousel-item img {
   height: 600px;
-  /* overflow: hidden; */
 }
 
 .content-wrap {

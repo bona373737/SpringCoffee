@@ -7,15 +7,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class SignUpDTO {
-    // member
+@NoArgsConstructor
+public class MyPageResponseDTO {
     private String email;
-    private String password;
     private String name;
     private String address;
-    private boolean fromSocial;
-    // isAdmin
-    private Long isAdmin;
 }

@@ -18,6 +18,7 @@ let store = createStore({
       noticeBoardDetail: {},
       qnaBoardList: [],
       qnaBoardDetail : {},
+      memberProfile: {},
     }
   },
   mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
@@ -47,7 +48,11 @@ let store = createStore({
     },
     setToken(state, token) {
       state.token = token;
+    },
+    setMemberProfile(state, member) {
+      state.memberProfile = member;
     }
+
   },
   actions: {
     fetchNoticeBoardList(context,page){
@@ -92,13 +97,13 @@ let store = createStore({
             })
     },
     fetchItemDetail(context, itemNo){
-      axios.get(`/v2/list/${itemNo}`)      // axios dynamic URL,
+      axios.get(`/v2/${itemNo}`)      // axios dynamic URL,
         .then(response =>{
           context.commit('setItemDetail', response.data);
         })
     },
-    fetchCart(context, email) {
-      axios.get(`/v4/cart/${email}`)
+    fetchCart(context) {
+      axios.get(`/v4/cart/${this.state.email}`)
         .then(response => {
           context.commit('setCart', response.data);
         })
@@ -183,7 +188,6 @@ let store = createStore({
         .catch(err => {
           alert('로그인에 실패하였습니다.', err)
         })
-        
     },
     getMemberInfo() {
       if(localStorage.getItem('access_token')) {
@@ -197,11 +201,28 @@ let store = createStore({
       }
     },
 
+    fetchMemberProfile(context) {
+      axios.get('v5/mypage', {params:
+      {email: this.state.email}})
+        .then(response => {
+          context.commit('setMemberProfile', response.data)
+        })
+    },
+
     logout() {
       alert('로그아웃 완료');
       localStorage.removeItem("access_token")
       router.go('#')
     },
+
+    getItemCartegory(context, category) {
+      axios.get(`v2/list/${category}`)
+        .then(res => {
+          context.commit("setItem", res.data.dtoList);
+        }).catch(err => {
+            console.log('failed', err)
+        })
+    }
   },
 })
 

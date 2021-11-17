@@ -1,9 +1,6 @@
 package com.kosa.springcoffee.controller;
 
-import com.kosa.springcoffee.dto.CartDetailDTO;
-import com.kosa.springcoffee.dto.CartItemDTO;
-import com.kosa.springcoffee.dto.CartItemTestDTO;
-import com.kosa.springcoffee.dto.CartOrderDTO;
+import com.kosa.springcoffee.dto.*;
 import com.kosa.springcoffee.entity.CartItem;
 import com.kosa.springcoffee.entity.Member;
 import com.kosa.springcoffee.repository.CartItemRepository;
@@ -54,27 +51,37 @@ public class CartController {
         dto.setCount(cartItemDTO.getCount());
         dto.setItemNo(cartItemDTO.getItemNo());
         Member member = memberRepository.getByEmail(cartItemDTO.getEmail());
-        System.out.println("logloglog" + member + " " + cartItemDTO.getItemNo()  + cartItemDTO.getCount());
         cartItemNo = cartService.create(dto,member.getEmail());
         return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/cart")
-    public ResponseEntity cartList(Principal principal, Model model) {
 
-        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(principal.getName());
+//    @GetMapping(value = "/cart")
+//    public ResponseEntity cartList(Principal principal, Model model) {
+//        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(principal.getName());
+//        model.addAttribute("cartItems", cartDetailDTOList);
+//        return new ResponseEntity<List<CartDetailDTO>>(cartDetailDTOList, HttpStatus.OK);
+//    }
+
+    @GetMapping(value = "/cart/{email}")
+    public ResponseEntity cartList(@PathVariable String email, Model model) {
+        Member member = memberRepository.getByEmail(email);
+        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(member.getEmail());
         model.addAttribute("cartItems", cartDetailDTOList);
         return new ResponseEntity<List<CartDetailDTO>>(cartDetailDTOList, HttpStatus.OK);
     }
 
 
-    @PatchMapping(value = "/cartItem/{cartItemNo}/{count}")
-    public @ResponseBody ResponseEntity changeCartItemCount(@PathVariable("cartItemNo") Long cartItemNo,@PathVariable("count") int count, Principal principal){
-        System.out.println("logloglog" + " " + cartItemNo + " " + count);
+    @PatchMapping(value = "/cartItem")
+    public @ResponseBody ResponseEntity changeCartItemCount(@RequestBody CartPatchDTO cartPatchDTO){
+        int count = cartPatchDTO.getCount();
+        Long cartItemNo = cartPatchDTO.getCartItemNo();
+
+        Member member = memberRepository.getByEmail(cartPatchDTO.getEmail());
         if (count < 0){
             return new ResponseEntity<String>("최소 1개 이상 담아야합니다.", HttpStatus.BAD_REQUEST);
         }
-        else if(cartService.validateCartItem(cartItemNo, principal.getName()))
+        else if(cartService.validateCartItem(cartItemNo, member.getEmail()))
             return new ResponseEntity<String>("자신의 카트가 아닙니다.", HttpStatus.FORBIDDEN);
 
         cartService.changeCartItemCount(cartItemNo,count);
@@ -86,11 +93,12 @@ public class CartController {
         return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/cartItem/{cartItemNo}")
+    @DeleteMapping(value = "/cartItem")
     @ResponseBody
-    public ResponseEntity deleteCartItem(@PathVariable("cartItemNo") Long cartItemNo, Principal principal){
-
-        if(cartService.validateCartItem(cartItemNo, principal.getName()))
+    public ResponseEntity deleteCartItem(@RequestBody CartDeleteDTO cartDeleteDTO){
+        Long cartItemNo = cartDeleteDTO.getCartItemNo();
+        Member member = memberRepository.getByEmail(cartDeleteDTO.getEmail());
+        if(cartService.validateCartItem(cartItemNo, member.getEmail()))
             return new ResponseEntity<String>("자신의 카트가 아닙니다.", HttpStatus.FORBIDDEN);
 
         cartService.deleteCartItem(cartItemNo);

@@ -1,7 +1,6 @@
 package com.kosa.springcoffee.repository;
 
 import com.kosa.springcoffee.entity.Member;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +16,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
     UserDetails findByEmail(String email);
 
-    @Query("select count(m.email) from sc_member m where m.email=:email")
-    int checkEmail(String email);
+    Boolean existsByEmail(String email);
 
 }

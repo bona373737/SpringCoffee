@@ -1,29 +1,57 @@
 <template>
 <div>
-    <div class="outterDiv py-5">
-      <table class="notice-context">
-        <tr><td class="table-title">제목 {{$store.state.cartDetail.title}} </td></tr>
-        <tr><td class="table-context"> {{$store.state.cartDetail.content}} </td></tr>
-        <tr><td class=""> 작성일 </td></tr>
-      </table>
-      <br>
-      <div class="BtnWrap">
-        <button class="btn btn-success" @click="cartDelete(this.$route.params.cartNo)"> 삭제 </button>
-        <button class="btn btn-success" @click="goCartUpdate(this.$route.params.cartNo)"> 수정 </button>
-        <button class="btn btn-success" @click="$router.push({name : 'noticeList'})"> 목록으로 가기 </button>
-      </div>
-      <br>
+  <div class="outterDiv" v-if="this.$store.state.isLogin">
+    <div class="tab-bar">
+        <div class="tab-shop py-3" style="width:100%;">
+            <span @click="this.$store.dispatch('fetchCart')" class="tab-title">주문하기</span>            
+        </div>
     </div>
-    <button type="button" class="btn btn-success"> 구매하기 </button>
+    <div class="py-2"><br></div>
+    <div class="align-items-center justify-content-center justify-content-lg-end">
+        <span class="buy"><span class="bag"><i class="bi bi-currency-dollar"></i></span><br></span><br>
+        <span style="font-size: 11pt;">결제하기</span>
+    </div><br><br>
+
+    <CartDetail></CartDetail>
+  </div>
+  <div v-if="!this.$store.state.isLogin" v-on="this.$router.replace('NotfoundPage')"></div>
 </div>
 </template>
 
 <script>
-export default {
+import CartDetail from './CartDetail.vue';
 
+export default {
+  name: 'Order',
+  components: {
+    CartDetail,
+  }
 }
 </script>
 
 <style>
+.tab-bar {
+  background-image: url('../../../assets/background.jpg');
+  background-repeat : no-repeat;
+  background-size : cover;
+  position: relative;
+}
 
+.tab-shop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.buy {
+    font-size: 26pt;
+}
+
+.tab-title {
+    font-size: 22pt;
+    color: white;
+}
+
+.outterDiv {
+    width: 100%;
+    height: 100%;
+}
 </style>
