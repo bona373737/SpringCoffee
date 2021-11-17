@@ -13,11 +13,16 @@
         <span class="det-text"><i class="bi bi-map-fill"></i> 주소: 서울특별시 송파구 가락동 중대로 135</span><br>
         <span><i class="bi bi-telephone-fill"></i> 연락처: 02-2188-6900</span>
       </div>
+
+
+
+
   </div>
 </template>
 
 <script>
 export default {
+
 
 }
 </script>

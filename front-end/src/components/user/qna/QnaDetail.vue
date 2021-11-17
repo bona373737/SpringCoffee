@@ -26,11 +26,11 @@
           </table><br>
 
           <section v-show="this.$store.state.email == 'dp@test.com'">
-            <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length < 1">
+            <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList == ''">
               <textarea style="width: 100%" v-model="content"></textarea>
               <button class="btn btn-outline-success btn-sm" @click="replyAdd">답변등록</button>
             </span>
-            <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length > 0 ">
+            <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length !== '' ">
               <div v-if="!isReply">
                 <button class="btn btn-outline-success btn-sm" @click="updateReply()"> 수정하기</button>
               </div>
@@ -58,7 +58,6 @@ export default {
       content:'',
       qnaBoardNo:this.$route.params.qnaBoardNo,
       replyer:this.$store.state.email,
-
     }
   },
   created() {
@@ -97,15 +96,8 @@ export default {
         console.log(res.data)
         alert("답변이 추가되었습니다.")
         this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo)
-        // this.$router.go(-1)
-        // location.reload()
-        // this.$router.reload()
-        // this.$router.go(this.$router.currentRoute)
-        // this.$router.replace({path:'/qnaDetail/' , query: { qnaBoardNo: this.qnaBoardNo} })
       })
-      // this.$router.replace('qnaDetail/'+ this.qnaBoardNo)
     },
-
     replyupdate(qnaReplyNo){
       axios.put(`/v4/${qnaReplyNo}`,{
         content:this.content,
@@ -119,7 +111,6 @@ export default {
         alert("답변이 수정되었습니다.")
         this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo)
       })
-
     },
     replyDelete(qnaReplyNo){
       axios.delete(`/v4/${qnaReplyNo}`)
@@ -133,7 +124,6 @@ export default {
     },
   }
 };
-
 </script>
 
 <style scoped>

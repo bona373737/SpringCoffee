@@ -84,7 +84,7 @@ let store = createStore({
     fetchItem(context) {
       axios.get(`/v2/list`)
         .then(response => {
-          context.commit('setItem', response.data);
+          context.commit('setItem', response.data.dtoList);
         })
     },
     fetchItemCategory(context,paramObj) {

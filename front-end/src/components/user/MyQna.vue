@@ -40,7 +40,7 @@ export default {
     return{
     }
   },
-  mounted() {
+  created() {
     this.$store.dispatch('fetchMyQna', this.$store.state.email)
   },
   methods:{
