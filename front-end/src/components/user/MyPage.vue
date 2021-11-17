@@ -33,7 +33,7 @@
                       <div class="bt-text">장바구니</div>
                       </div>
                   </li>
-                  <li class="content">
+                  <li class="content" @click="$router.push('/myQna')">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-question-circle"></i></div>
                       <div class="bt-text">문의내역</div>

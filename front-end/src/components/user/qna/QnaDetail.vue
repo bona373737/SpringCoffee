@@ -8,8 +8,10 @@
       <br>
 
       <div class="BtnWrap">
-        <button class="btn btn-success" @click="qnaDelete(this.$route.params.qnaBoardNo)"> 삭제 </button>
-        <button class="btn btn-success" @click="goQnaUpdate(this.$route.params.qnaBoardNo)"> 수정 </button>
+        <button class="btn btn-success" @click="qnaDelete(this.$route.params.qnaBoardNo)"
+                v-show="this.$store.state.qnaBoardDetail.writer === this.$store.state.email"> 삭제 </button>
+        <button class="btn btn-success" @click="goQnaUpdate(this.$route.params.qnaBoardNo)"
+                v-show="this.$store.state.qnaBoardDetail.writer === this.$store.state.email"> 수정 </button>
         <button class="btn btn-success" @click="$router.push('/qnaLayout')"> 목록 </button>
       </div>
       <hr>
@@ -17,28 +19,33 @@
       <!-- 답변   -->
       <div class="answer">
         <h5 style="text-align: left"> 답변 </h5>
-        <table>
-          <tr>
-<!--            <td v-for="content in this.$store.state.qnaBoardDetail.replyList" :key="content.qnaReplyNo">-->
-<!--              {{content.content}}-->
-<!--            </td>-->
-            <td>
-              {{this.$store.state.qnaBoardDetail.replyList[0].content}}
-            </td>
-          </tr>
-        </table>
-        <div class="answer-row">
-          <textarea style="width: 100%" v-model="content"></textarea>
-          <button @click="replyAdd">답변등록</button><hr>
-        </div>
-        <div class="answer-row">
-          <button @click="replyupdate(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">답변수정</button>
-          <button @click="replyDelete(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">답변삭제</button>
+          <table>
+            <tr v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">
+              {{answer.content}}
+            </tr>
+          </table><br>
+
+          <section v-show="this.$store.state.email == 'dp@test.com'">
+            <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length < 1">
+              <textarea style="width: 100%" v-model="content"></textarea>
+              <button class="btn btn-outline-success btn-sm" @click="replyAdd">답변등록</button>
+            </span>
+            <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length > 0 ">
+              <div v-if="!isReply">
+                <button class="btn btn-outline-success btn-sm" @click="updateReply()"> 수정하기</button>
+              </div>
+              <div v-if="isReply">
+                <textarea style="width: 100%" v-model="content"></textarea>
+                <button class="btn btn-outline-success btn-sm" @click="replyupdate(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">답변수정</button>
+                <button class="btn btn-outline-success btn-sm" @click="replyDelete(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">답변삭제</button>
+              </div>
+            </span>
+          </section>
+
         </div>
       </div>
 
     </div>
-  </div>
 </template>
 
 <script>
@@ -47,15 +54,20 @@ import axios from "axios";
 export default {
   data(){
     return{
+      isReply: false,
       content:'',
-      replyer:'user3@springCoffee.com',  // 로그인ID으로 대체
       qnaBoardNo:this.$route.params.qnaBoardNo,
+      replyer:this.$store.state.email,
+
     }
   },
   created() {
     this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo);
   },
   methods:{
+    updateReply() {
+      this.isReply=true;
+    },
     goQnaUpdate(qnaBoardNo){
       this.$router.push({
         name: 'qnaUpdate',
@@ -67,30 +79,57 @@ export default {
           .then( res => {
             console.log(res.data)
             alert("문의글이 삭제 되었습니다.")
-            this.$router.push({name : 'qnaList'});
+            // const status =
+            //     JSON.parse(res.data.response.status);
+            // if (status == '200') {
+            //   this.$router.push('/qnaLayout');
+            // }
+            this.$router.push('/qnaLayout');
           })
     },
     replyAdd(){
       axios.post('/v4/register',{
         content:this.content,
+        qnaBoardNo:this.qnaBoardNo,
         replyer:this.replyer,
-        qnaBoardNo:this.qnaBoardNo
       })
+      .then(res =>{
+        console.log(res.data)
+        alert("답변이 추가되었습니다.")
+        this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo)
+        // this.$router.go(-1)
+        // location.reload()
+        // this.$router.reload()
+        // this.$router.go(this.$router.currentRoute)
+        // this.$router.replace({path:'/qnaDetail/' , query: { qnaBoardNo: this.qnaBoardNo} })
+      })
+      // this.$router.replace('qnaDetail/'+ this.qnaBoardNo)
     },
+
     replyupdate(qnaReplyNo){
       axios.put(`/v4/${qnaReplyNo}`,{
         content:this.content,
         replyer:this.replyer,
         qnaBoardNo:this.qnaBoardNo,
+        qnaReplyNo:qnaReplyNo
       })
+      .then(res =>{
+        console.log(res.data)
+        this.isReply=false;
+        alert("답변이 수정되었습니다.")
+        this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo)
+      })
+
     },
     replyDelete(qnaReplyNo){
       axios.delete(`/v4/${qnaReplyNo}`)
           .then(res =>{
             console.log((res.data))
-            alert("문의글이 삭제되었습니다")
-            this.$router.go(-1)
+            alert("답변이 삭제되었습니다")
           })
+      .then(
+        this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo)
+      )
     },
   }
 };

@@ -82,8 +82,11 @@ let store = createStore({
           context.commit('setItem', response.data);
         })
     },
-    fetchItemCategory(context,category) {
-        axios.get(`/v2/list/${category}`,{params:{category:category}})
+    fetchItemCategory(context,paramObj) {
+        const category = paramObj.category
+        const page = paramObj.page
+
+        axios.get(`/v2/list/${category}`,{params:{page:page}})
             .then(response => {
                 context.commit('setItem', response.data);
             })

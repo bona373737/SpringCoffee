@@ -13,11 +13,9 @@
            <option value=false>답변대기</option>
            <option value=true>답변완료</option>
          </select>
-<!--         <button @click="qnaBoardFilterReset"> 필터초기화 </button>-->
        </span>
-
-        <button class="btn success" @click="fetchMyQna(email)"> 내 Q&A만보기 </button>
-        <button class="btn btn-primary" @click="$router.push('/qnaAdd')"> 문의하기 </button>
+        <button class="btn success" @click="fetchMyQna(this.$store.state.email)"> 내 Q&A만보기 </button>
+        <button class="btn btn-success" @click="addBtn()"> 문의하기 </button>
       </div>
 
       <div>
@@ -38,7 +36,6 @@
             <th>작성자</th>
             <th>작성일</th>
             <th>답변상태</th>
-<!--<th>조회수</th>-->
           </tr>
           </thead>
           <tbody>
@@ -57,11 +54,11 @@
         </table>
       </div>
        <div>
-         <button @click="movePage('prev')" :disabled="this.$store.state.qnaBoardList.prev">이전</button>
-         <button v-for="page in this.$store.state.qnaBoardList.pageList" :key="page"
+         <button class="btn btn-outline-secondary btn-sm" @click="movePage('prev')" :disabled="!this.$store.state.qnaBoardList.prev">이전</button>
+         <button class="btn btn-outline-secondary btn-sm" v-for="page in this.$store.state.qnaBoardList.pageList" :key="page"
                  :class="{pageNo : page === this.$store.state.qnaBoardList.page}"
                  @click="fetchQnaBoard(page)">{{page}}</button>
-         <button @click="movePage('next')" :disabled="this.$store.state.qnaBoardList.next">다음</button>
+         <button class="btn btn-outline-secondary btn-sm" @click="movePage('next')" :disabled="!this.$store.state.qnaBoardList.next">다음</button>
        </div>
     </div>
   </div>
@@ -71,7 +68,7 @@
 <script>
 export default {
   name: 'QnaList',
-  created() {
+  mounted() {
     this.$store.dispatch('fetchQnaBoardList');
   },
   data() {
@@ -117,7 +114,21 @@ export default {
       this.$store.dispatch('fetchQnaBoard', paramObj);
     },
     fetchMyQna(email){
-      this.$store.dispatch('fetchMyQna', email);
+      if(this.$store.state.isLogin){
+        this.$store.dispatch('fetchMyQna', email);
+      }
+      else{
+        alert("로그인 해주세요");
+      }
+    },
+    addBtn(){
+      if(this.$store.state.isLogin){
+        this.$router.push('/qnaAdd')
+      }
+      else{
+        alert("로그인 후 문의등록이 가능합니다");
+        this.$router.push('/login')
+      }
     }
   }
 };
@@ -150,7 +161,7 @@ th{
   border-right: 1px solid white;
 }
 .pageNo{
-  background: tomato;
+  background: darkgreen;
 }
 .filter{
   float: left;

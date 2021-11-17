@@ -51,11 +51,11 @@
 
     <div class="outter-border">
         <div class="ProductListTechnologies d-flex py-5">
-                <div class="ProductListTechnologies__element me-2" @click="getTumblrList('tumbler')">
+                <div class="ProductListTechnologies__element me-2" id="Tumblr" @click="setCategory('tumbler')">
                     <img width="120" height="80" src="../../../assets/shop1.webp" role="presentation" class="" alt="">
-                    <div class="ProductListTechnologies__name">Tumblr</div>
+                    <div class="ProductListTechnologies__name" >Tumblr</div>
                 </div>
-                <div class="ProductListTechnologies__element me-2" @click="getCoffeeList('Coffee')">
+                <div class="ProductListTechnologies__element me-2" id="Coffee" @click="setCategory('coffee')">
                     <img width="120" height="80" src="../../../assets/shop2.webp" role="presentation" class="" alt="">
                     <div class="ProductListTechnologies__name">Coffee</div>
                 </div>
@@ -81,11 +81,11 @@
             </tr>
         </table>
 
-        <button @click="movePrevPage()">이전</button>
-        <button v-for="page in this.$store.state.itemList.pageList" :key="page"
+        <button class="btn btn-outline-secondary btn-sm" @click="movePage('prev')" :disabled="!this.$store.state.itemList.prev">이전</button>
+        <button class="btn btn-outline-secondary btn-sm" v-for="page in this.$store.state.itemList.pageList" :key="page"
                 :class="{pageNo : page === this.$store.state.itemList.page}"
-                @click="movePage(page)">{{page}}</button>
-        <button @click="moveNextPage()">다음</button>
+                @click="getCategoryList(page)">{{page}}</button>
+        <button class="btn btn-outline-secondary btn-sm" @click="movePage('next')" :disabled="!this.$store.state.itemList.next">다음</button>
 
     </div>
   </div>
@@ -98,14 +98,15 @@ export default {
   name: 'shop',
   created() {
     this.$store.dispatch('fetchItemCategory','tumbler')
-    // this.$store.dispatch('fetchCart', "user95@springCoffee.com")
+    this.$store.dispatch('fetchCart', this.$store.state.email)
   },
   data() {
     return {
       sum: 0,
       price: 0,
-      email: "user95@springCoffee.com",
+      email: this.$store.state.email,
       count: [],
+      category: ''
     };
   },
   methods: {
@@ -145,12 +146,28 @@ export default {
         params: {itemNo: itemNo}
       })
     },
-    getCoffeeList(category){
-      this.$store.dispatch('fetchItemCategory',category)
+    setCategory(category){
+      this.category = category;
+      this.getCategoryList();
     },
-    getTumblrList(category){
-      this.$store.dispatch('fetchItemCategory',category)
-    }
+    getCategoryList(page){
+      const paramObj ={
+        page : page,
+        category : this.category
+      }
+      this.$store.dispatch('fetchItemCategory',paramObj);
+    },
+    movePage(type){
+      const prevPageNo = this.$store.state.qnaBoardList.start - 1;
+      const nextPageNo = this.$store.state.qnaBoardList.end + 1;
+
+      const page = type === 'prev' ? prevPageNo : nextPageNo;
+
+      this.getCategoryList(page);
+
+      // const category = this.category;
+      // this.getCategoryList({category,page})
+    },
   }
 };
 </script>
@@ -205,7 +222,7 @@ export default {
   transition: 0.2s;
 }
 .pageNo{
-  background: tomato;
+  background: darkgreen;
 }
 .ProductListTechnologies__element:hover{
   background: tomato;

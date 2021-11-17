@@ -27,7 +27,7 @@
       <br>
       <div class="BtnWrap">
         <button class="btn btn-success" @click="noticeAdd"> 추가 </button>
-        <button class="btn btn-success" @click="$router.push('/noticeLayout')"> 목록으로 가기 </button>
+        <button class="btn btn-success" @click="$router.push('/noticeLayout')"> 목록 </button>
       </div>
     </div>
   </div>
@@ -40,7 +40,7 @@ export default {
   data(){
     return{
       category:'',
-      writer: 'user91@springCoffee.com',  // TODO 로그인한 사용자 이메일로 대체하기
+      writer: this.$store.state.email,    // 로그인한 사용자 이메일
       title : '',
       content : '',
     }
@@ -63,6 +63,8 @@ export default {
           title: this.title,
           content : this.content
         });
+        alert("공지글이 추가되었습니다")
+        this.$router.push('/noticeLayout')
       }
     }
   }
@@ -90,6 +92,9 @@ export default {
 .BtnWrap{
   margin-bottom: 5px;
   margin-top: 5px;
+}
+button{
+  margin-right: 5px;
 }
 .text-area-title{
   width: 100%;

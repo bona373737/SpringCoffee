@@ -4,7 +4,7 @@
       <div class="btnWrap text-end">
         <input type="text" class="me-2" placeholder="제목" v-model="keyword">
         <button class="btn btn-success me-2" @click="noticeBoardSearch(keyword)" > 검색 </button>
-        <button class="btn btn-primary" @click="$router.push('/noticeAdd')"> 추가 </button>
+        <button class="btn btn-primary" @click="$router.push('/noticeAdd')" v-show="this.$store.state.email == 'dp@test.com'"> 추가 </button>
       </div>
       <div>
         <table class="table table-bordered table-condensed">
@@ -34,11 +34,11 @@
           </tbody>
         </table>
       </div>
-       <button @click="movePrevPage()">이전</button>
-       <button v-for="page in this.$store.state.noticeBoardList.pageList" :key="page"
+       <button class="btn btn-outline-secondary btn-sm" @click="movePrevPage()">이전</button>
+       <button class="btn btn-outline-secondary btn-sm" v-for="page in this.$store.state.noticeBoardList.pageList" :key="page"
                :class="{pageNo : page === this.$store.state.noticeBoardList.page}"
                @click="movePage(page)">{{page}}</button>
-       <button @click="moveNextPage()">다음</button>
+       <button class="btn btn-outline-secondary btn-sm" @click="moveNextPage()">다음</button>
     </div>
   </div>
 </template>
@@ -79,7 +79,7 @@ export default {
     },
     noticeBoardSearch(keyword){
       this.$store.dispatch('fetchNoticeBoardSearch',keyword)
-    }
+    },
   }
 };
 </script>
@@ -111,6 +111,6 @@ th{
   border-right: 1px solid white;
 }
 .pageNo{
-  background: tomato;
+  background: darkgreen;
 }
 </style>

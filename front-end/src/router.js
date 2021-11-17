@@ -91,6 +91,11 @@ const routes = [
         path: "profile",
         component: () => import('@/components/user/Profile.vue'),
       },
+      {
+        path: "/myQna",
+        component: () => import('@/components/user/MyQna.vue'),
+      },
+
     ]
   },
   {
