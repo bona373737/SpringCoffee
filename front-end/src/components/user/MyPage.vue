@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div class="mypage">
+      <div class="mypage" v-if="this.$store.state.isLogin">
         <div class="tab-bar">
             <div class="tab-my py-3" style="width:100%;">
                 <span class="tab-title">My Page</span>            
@@ -25,7 +25,7 @@
                         <div class="bt-text">회원정보</div>
                       </div>
                   </li>
-                  <li class="content" @click="this.$router.replace('/cart')">
+                  <li class="content" @click="cartView()">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-cart-check-fill"></i></div>
                             <div class="bt-text">장바구니</div>
@@ -46,7 +46,6 @@
               </ui>
               <div class="rout border-top border-dark">
                 <router-view></router-view>
-
               </div>
 
                 <!-- <div class="content py-5">
@@ -65,7 +64,7 @@
                 </div> -->
           </div>
       </div>
-
+    <div v-if="!this.$store.state.isLogin" v-on="this.$router.replace('NotfoundPage')"></div>
   </div>
 </template>
 

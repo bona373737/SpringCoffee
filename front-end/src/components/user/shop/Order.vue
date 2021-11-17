@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="outterDiv">
+  <div class="outterDiv" v-if="this.$store.state.isLogin">
     <div class="tab-bar">
         <div class="tab-shop py-3" style="width:100%;">
             <span @click="this.$store.dispatch('fetchCart')" class="tab-title">주문하기</span>            
@@ -14,6 +14,7 @@
 
     <CartDetail></CartDetail>
   </div>
+  <div v-if="!this.$store.state.isLogin" v-on="this.$router.replace('NotfoundPage')"></div>
 </div>
 </template>
 

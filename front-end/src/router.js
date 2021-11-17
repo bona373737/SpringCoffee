@@ -98,6 +98,11 @@ const routes = [
         path: "profile",
         component: () => import('@/components/user/Profile.vue'),
       },
+      {
+        path: '/cart',
+        name: 'Cart',
+        component: () => import('@/components/user/shop/Cart.vue'),
+      },
     ]
   },
   {
@@ -110,11 +115,11 @@ const routes = [
     name: 'Item',
     component: () => import('@/components/user/shop/Item.vue'),
   },
-  {
-    path: '/cart',
-    name: 'Cart',
-    component: () => import('@/components/user/shop/Cart.vue'),
-  },
+  // {
+  //   path: '/cart',
+  //   name: 'Cart',
+  //   component: () => import('@/components/user/shop/Cart.vue'),
+  // },
   {
     path: '/order',
     name: 'Order',

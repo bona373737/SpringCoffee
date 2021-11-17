@@ -1,8 +1,8 @@
 <template>
 <div>
-  <div class=" wrapper border-bottom py-3">{{this.$store.state.email}} 님의 장바구니</div>
-    <div class="wrapper border-top">
-        <div class="temp">
+  <div v-if="this.$store.state.isLogin" class=" wrapper border-top border-bottom py-3">{{this.$store.state.email}} 님의 장바구니</div>
+    <div class="wrapper py-3">
+        <div class="temp ">
 
             <!-- <span class="non-cart"> 장바구니가 비어있습니다.</span><br>
             <button class="go-shop btn btn-primary" @click="this.$router.replace('/shop')">쇼핑하러 가기</button> -->
@@ -47,13 +47,14 @@
                     <td v-bind="sumPrice(cart.price, cart.count)"> {{sum}}</td>
                 </tr> -->
             </table>
-            <span style="font-weight: 800; font-size: 16pt;">총: {{price}} 원</span><br>
+            <div class="py-3" style="font-weight: 800; font-size: 16pt;">총: {{price}} 원</div><br>
 
             <div class="border-top py-3">
                 <button type="button" class="btn btn-success"><router-link to="/order" style="text-decoration: none; color: white" >결제하기</router-link></button>
             </div>
         </div>
     </div>
+    <div v-if="!this.$store.state.isLogin" v-on="this.$router.replace('NotfoundPage')"></div>
 </div>
 </template>
 
@@ -140,9 +141,8 @@ export default {
 }
 
 .wrapper {
-    border: 1px solid #333;
     margin: auto;
-    width: 60%;
+    width: 500px;
 }
 
 .outterDiv {
@@ -158,4 +158,5 @@ export default {
     margin-top: 50px;
     font-size: 28pt;
 }
+
 </style>

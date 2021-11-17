@@ -1,4 +1,6 @@
 <template>
+<div>
+  <div v-if="this.$store.state.isLogin" v-on="this.$router.replace('NotfoundPage')"></div>
     <div class="register">
       <div class="tab-bar">
         <div class="tab-shop py-3" style="width:100%;">
@@ -52,6 +54,7 @@
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>

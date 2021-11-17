@@ -7,11 +7,12 @@
                 <img src="" alt="">
             </div>
             <div class="grid-box">
-                <div class="title d-flex border-bottom"> <span class="itemdata">{{this.$store.state.itemDetail.name}}</span></div>
+              <div>{{$store.state.itemDetail.name}}</div>
+                <div class="title d-flex border-bottom"> <span class="itemdata">{{name}}</span></div>
                  <div class="price text-center py-5"> <span class="itemdata">{{this.$store.state.itemDetail.content}}</span></div>
                 <div class="price text-end border-top"> <span class="itemdata">{{this.$store.state.itemDetail.price}}원</span></div>
                 <div class="order border-top py-4 text-end">
-                    <button @click="postCart" class="btn btn-success me-2"> 장바구니</button> 
+                    <button @click="postCart()" class="btn btn-success me-2"> 장바구니</button> 
                     <button class="btn btn-primary"> 구매하기</button>
                 </div>
             
@@ -26,8 +27,13 @@ import axios from 'axios';
 
 export default {
   name: 'Item',
+  data() {
+    return {
+      name : this.$store.state.itemDetail.name
+    }
+  },
   created() {
-    this.$store.dispatch('fetchItemDetail', this.$route.params.itemNo)
+    // this.$store.dispatch('fetchItemDetail', this.$route.params.itemNo)
   },
   methods: {
     postCart() {
