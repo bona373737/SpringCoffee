@@ -12,7 +12,7 @@
         </tr>
         <tr>
           <th>이미지</th>
-          <input v-on:change="onInputImage" accept="image/*" ref="serveyImage" type="file">
+          <input v-on:change="onInputImage" multiple accept="image/*" ref="serveyImage" type="file">
         </tr>
         <tr>
           <th>재고량</th>
@@ -47,7 +47,7 @@ export default {
     return {
       name : '',
       content : '',
-      image: '',
+      image: {},
       stockQuantity: '',
       price: '',
       category: '',
@@ -55,7 +55,7 @@ export default {
   },
   methods:{
     onSubmit() {
-      const input = new FormData;
+      const input = new FormData();
       input.append('name', this.name);
       input.append('content', this.content);
       input.append('image', this.image);
@@ -63,23 +63,17 @@ export default {
       input.append('price', this.price);
       input.append('category', this.category)
 
-      const itemImgFile = new FormData;
-      itemImgFile.append('image', this.image);
-
       for(let key of input.entries()) {
         console.log(`${key}`);
       }
 
-      axios.post( '/v2/new', input, itemImgFile, {
+      axios.post( '/v2/create', input, {
           headers: {
               'Content-Type': 'multipart/form-data'
           }
-        }).then(function(){
-          console.log('SUCCESS!!', input, itemImgFile);
+        }).then(res => {
+          console.log('SUCCESS!!', res);
         })
-        .catch(function(){
-          console.log('FAILURE!!');
-      });
     },
 
     onInputImage() {

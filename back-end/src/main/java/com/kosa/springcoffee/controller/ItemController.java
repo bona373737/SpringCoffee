@@ -46,7 +46,7 @@ public class ItemController {
 
     @PostMapping(value = "/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity create(@RequestParam(value="image") List<MultipartFile> files,
+    public ResponseEntity create(@RequestParam(value="image", required = false) List<MultipartFile> files,
                        @RequestParam(value="name") String name,
                        @RequestParam(value="content") String content,
                        @RequestParam(value = "stockQuantity") int stockQuantity,
