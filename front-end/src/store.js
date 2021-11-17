@@ -5,6 +5,7 @@ import { router } from './router'
 let store = createStore({
   state(){  // 데이터보관하고 싶으면 여기에 기재
     return {
+      admin: 'dp@test.com',
       email: '',
       token: '',
       role: '',
@@ -175,6 +176,12 @@ let store = createStore({
         .then(response =>{
             context.commit('setQnaBoardList', response.data);
         })
+    },
+    fetchAdminQna(context,isAnswered){
+        axios.get(`/v3/list/all/${isAnswered}`,{params:{page:this.page}})
+            .then(response =>{
+                context.commit('setQnaBoardList', response.data)
+            });
     },
     fetchLogin({dispatch}, loginForm){
       axios.post('/v5/login', loginForm)
