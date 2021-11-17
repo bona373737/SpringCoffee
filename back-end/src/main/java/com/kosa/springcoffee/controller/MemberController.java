@@ -122,6 +122,13 @@ public class MemberController {
         return memberService.getUserList(pageRequestDTO);
     }
 
+    @GetMapping("/adminlist")
+    public PageResultDTO<MyPageResponseDTO, Member> getAdminList(PageRequestDTO pageRequestDTO) {
+        log.info("관리자 리스트 조회");
+
+        return memberService.getAdminList(pageRequestDTO);
+    }
+
     @PostMapping("verifyuser")
     public ResponseEntity verifyUser(@RequestBody MemberRequestDTO dto){
         Boolean result = memberService.verifyUser(dto);

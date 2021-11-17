@@ -135,7 +135,27 @@ public class MemberService {
 
         int start = (int)pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), dtoList.size());
+        Page<MyPageResponseDTO> result = new PageImpl<>(dtoList.subList(start, end), pageable, dtoList.size());
 
+        return new PageResultDTO<>(result);
+    }
+
+    public PageResultDTO<MyPageResponseDTO, Member> getAdminList(PageRequestDTO requestDTO) {
+
+        List<Member> memberList = memberRepository.findAll();
+
+        List<MyPageResponseDTO> dtoList = new ArrayList<>();
+
+        memberList.forEach(member -> {
+            if (member.getRoles().contains(MemberRole.ROLE_ADMIN)){
+                dtoList.add(getUserInfo(member.getEmail()));
+            }
+        });
+
+        Pageable pageable = requestDTO.getPageable();
+
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
         Page<MyPageResponseDTO> result = new PageImpl<>(dtoList.subList(start, end), pageable, dtoList.size());
 
         return new PageResultDTO<>(result);
