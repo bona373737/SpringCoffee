@@ -70,6 +70,18 @@ public class MemberService {
         }
     }
 
+    public void modifyUserInfoAdmin(ModifyMemberInfoAdminDTO dto) {
+        String email = dto.getEmail();
+        Optional<Member> result = memberRepository.getByEmail(email, false);
+
+        if (result.isPresent()) {
+            Member member = result.get();
+            member.changeName(dto.getName());
+            member.changeAddress(dto.getAddress());
+            memberRepository.save(member);
+        }
+    }
+
     public void modifyPassword(ModifyPasswordRequestDTO dto) {
         String email = dto.getEmail();
         Optional<Member> result = memberRepository.getByEmail(email, false);

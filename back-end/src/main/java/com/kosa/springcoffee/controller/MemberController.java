@@ -79,6 +79,14 @@ public class MemberController {
         return new ResponseEntity<String>("비밀번호가 일치하지 않습니다.", HttpStatus.OK);
     }
 
+    @PostMapping("/admin/update-userinfo")
+    public ResponseEntity modifyUserInfoAdmin(@RequestBody ModifyMemberInfoAdminDTO dto) {
+
+        memberService.modifyUserInfoAdmin(dto);
+
+        return new ResponseEntity("이메일 " + " 회원 정보가 수정되었습니다.", HttpStatus.OK);
+    }
+
     @PostMapping("/update-password")
     public ResponseEntity modifyPassword(@RequestBody ModifyPasswordRequestDTO dto) {
 
