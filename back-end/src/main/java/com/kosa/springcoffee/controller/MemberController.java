@@ -128,4 +128,12 @@ public class MemberController {
 
         return new ResponseEntity<Boolean>(result, HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity deleteUser(@RequestParam String email) {
+
+        memberService.deleteUser(email);
+
+        return new ResponseEntity(email + " 계정 삭제", HttpStatus.OK);
+    }
 }

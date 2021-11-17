@@ -150,4 +150,13 @@ public class MemberService {
 
         return false;
     }
+
+    public void deleteUser(String email) {
+        Optional<Member> result = memberRepository.getByEmail(email, false);
+
+        if (result.isPresent()) {
+            Member member = result.get();
+            memberRepository.delete(member);
+        }
+    }
 }
