@@ -16,6 +16,13 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select o from sc_order o " + "where o.member.email = :email " )
     List<Order> findOrders(@Param("email") String email, Pageable pageable);
 
+    @Query("select o from sc_order o")
+    List<Order> findOrdersforAdmin(Pageable pageable);
+
+
+    @Query("select count(o) from sc_order o")
+    Long countAllOrder();
+
     @Query("select count(o) from sc_order o where o.member.email = :email")
     Long countOrder(@Param("email")String email);
 

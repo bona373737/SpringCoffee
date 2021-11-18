@@ -6,10 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,27 +25,31 @@ public class Member extends BaseEntity implements UserDetails {
 
     private String name;
 
+    private String address;
+
     private boolean fromSocial;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MemberRole> roles = new HashSet<>();
 
-    //@OneToMany(mappedBy = "member")
-    //private List<Order> orders = new ArrayList<>();
-
-
-    //@OneToMany(mappedBy = "member")
-    //private List<Order> orders = new ArrayList<>();
-
-
-
-    //@OneToMany(mappedBy = "member")
-    //private List<Order> orders = new ArrayList<>();
-
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
 
     public void addMemberRole(MemberRole memberRole){
         roles.add(memberRole);
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
+
+    public void changeName(String name) {
+        this.name = name;
+    }
+
+    public void changeAddress(String address){
+        this.address = address;
     }
 
     @Override

@@ -37,6 +37,7 @@
   </div>
 </div>
 </template>
+
 <script>
 export default {
   name: 'login',
@@ -64,13 +65,6 @@ export default {
       let regEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
       if (!regEmail.test(email)) {
         alert('올바른 이메일 형식을 입력해주세요!')
-        return false;
-      }
-
-      let password = this.loginForm.password;
-      let regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,25}$/;
-      if (!regPass.test(password)) {
-        alert('패스워드를 확인하세요!')
         return false;
       }
       return true;

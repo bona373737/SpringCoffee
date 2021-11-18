@@ -1,7 +1,6 @@
 package com.kosa.springcoffee.repository;
 
 import com.kosa.springcoffee.dto.CartDetailDTO;
-import com.kosa.springcoffee.dto.CartListDTO;
 import com.kosa.springcoffee.entity.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

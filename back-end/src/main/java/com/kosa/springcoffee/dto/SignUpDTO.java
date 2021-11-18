@@ -14,6 +14,7 @@ public class SignUpDTO {
     private String email;
     private String password;
     private String name;
+    private String address;
     private boolean fromSocial;
     // isAdmin
     private Long isAdmin;

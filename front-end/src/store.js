@@ -3,13 +3,15 @@ import axios from 'axios';
 import { router } from './router'
 
 let store = createStore({
-  state(){  // 데이터보관하고 싶으면 여기에 기재
+  state() {  // 데이터보관하고 싶으면 여기에 기재
     return {
       email: '',
       token: '',
       role: '',
+      exp: 0,
       isLogin: false,
       cartNo: '',
+      thumbnail: [],
       itemList: [],
       itemDetail: {},
       cartList: [],
@@ -18,6 +20,7 @@ let store = createStore({
       noticeBoardDetail: {},
       qnaBoardList: [],
       qnaBoardDetail : {},
+      memberProfile: {},
     }
   },
   mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
@@ -47,7 +50,10 @@ let store = createStore({
     },
     setToken(state, token) {
       state.token = token;
-    }
+    },
+    setMemberProfile(state, member) {
+      state.memberProfile = member;
+    },
   },
   actions: {
     fetchNoticeBoardList(context,page){
@@ -79,17 +85,21 @@ let store = createStore({
     fetchItem(context) {
       axios.get(`/v2/list`)
         .then(response => {
-          context.commit('setItem', response.data.dtoList);
+          context.commit('setItem', response.data);
+          console.log('성공', response)
+          // context.commit('setItem', response.data);
+        }).catch(err => {
+          console.log('error', err)
         })
     },
     fetchItemDetail(context, itemNo){
-      axios.get(`/v2/list/${itemNo}`)      // axios dynamic URL,
+      axios.get(`/v2/${itemNo}`)      // axios dynamic URL,
         .then(response =>{
           context.commit('setItemDetail', response.data);
         })
     },
-    fetchCart(context, email) {
-      axios.get(`/v4/cart/${email}`)
+    fetchCart(context) {
+      axios.get(`/v4/cart/${this.state.email}`)
         .then(response => {
           context.commit('setCart', response.data);
         })
@@ -114,11 +124,11 @@ let store = createStore({
     },
     fetchQnaBoard(context, paramObj){
         const page = paramObj.page;
-        const category = paramObj.category;     // ''
-        const isAnswered = paramObj.isAnswered; // ''
+        const category = paramObj.category;
+        const isAnswered = paramObj.isAnswered;
 
         let url = '/v3/list';
-        let pageObj = {};   // {page:page}
+        let pageObj = {};
 
         if(category && isAnswered){
             url = '/v3/list' + '/' + category + '/' + isAnswered;
@@ -174,7 +184,6 @@ let store = createStore({
         .catch(err => {
           alert('로그인에 실패하였습니다.', err)
         })
-        
     },
     getMemberInfo() {
       if(localStorage.getItem('access_token')) {
@@ -185,7 +194,16 @@ let store = createStore({
         this.state.email=result.sub;
         this.state.role=result.roles[0];
         this.state.isLogin = true;
+        this.state.exp=result.exp;
       }
+    },
+
+    fetchMemberProfile(context) {
+      axios.get('v5/mypage', {params:
+      {email: this.state.email}})
+        .then(response => {
+          context.commit('setMemberProfile', response.data)
+        })
     },
 
     logout() {
@@ -193,6 +211,32 @@ let store = createStore({
       localStorage.removeItem("access_token")
       router.go('#')
     },
+
+    getItemCategory(context, category) {
+      axios.get(`v2/list/${category}`)
+      .then(res => {
+        console.log(category)
+        console.log(res)
+        context.commit('setItem', res.data.dtoList);
+      }).catch(err => {
+          console.log('failed', err)
+      })
+    },
+    // fetchThumbnail(context) {
+    // console.log('스타트')
+    //   for(let i=0; i<this.$store.state.itemList.length ; i++) {
+    //     console.log('반복')
+    //     axios.get(`/v2-2/thumbnail/${this.$store.state.itemList[i].fileId}`, {
+    //       responseType: 'blob'
+    //     }).then(res => {
+    //       console.log('끝')
+    //       context.state()
+    //       this.state.thumbnail[i] = window.URL.createObjectURL(new Blob([res.data]));
+    //     }).catch(res => {
+    //       console.log(res);
+    //     })
+    //   }
+    // },
   },
 })
 

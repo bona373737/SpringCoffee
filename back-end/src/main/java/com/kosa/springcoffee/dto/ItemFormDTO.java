@@ -21,15 +21,11 @@ public class ItemFormDTO {
     private List<Long> itemImgNo = new ArrayList<>();
 
     private static ModelMapper modelMapper = new ModelMapper();
-
     public Item dtoToEntity(){
         return modelMapper.map(this, Item.class);
     }
-
-
     public static ItemFormDTO entityToDto(Item item){
         return modelMapper.map(item,ItemFormDTO.class);
     }
-
 
 }

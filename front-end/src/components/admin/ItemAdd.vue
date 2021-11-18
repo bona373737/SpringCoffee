@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div v-if="this.$store.state.role!='ROLE_ADMIN'" v-on="this.$router.replace('NotfoundPage')"></div>
     <div class="outterDiv py-5">
       <table class="notice-context text-start col-5 m-auto">
         <tr>
@@ -12,7 +13,7 @@
         </tr>
         <tr>
           <th>이미지</th>
-          <input v-on:change="onInputImage" accept="image/*" ref="serveyImage" type="file">
+          <input v-on:change="onInputImage" multiple accept="image/*" ref="serveyImage" type="file">
         </tr>
         <tr>
           <th>재고량</th>
@@ -55,31 +56,31 @@ export default {
   },
   methods:{
     onSubmit() {
-      const input = new FormData;
-      input.append('name', this.name);
-      input.append('content', this.content);
-      input.append('image', this.image);
-      input.append('stockQuantity', this.stockQuantity);
-      input.append('price', this.price);
-      input.append('category', this.category)
+      const formData = new FormData();
+      formData.append('name', this.name);
+      formData.append('content', this.content);
+      formData.append('image', this.image[0]);
+      formData.append('stockQuantity', this.stockQuantity);
+      formData.append('price', this.price);
+      formData.append('category', this.category)
 
-      const itemImgFile = new FormData;
-      itemImgFile.append('image', this.image);
-
-      for(let key of input.entries()) {
+      for(let key of formData.entries()) {
         console.log(`${key}`);
       }
+      
+      if(confirm("등록하시겠습니까?") == true) {
+        alert('등록되었습니다.')
+      } else {
+        return false;
+      }
 
-      axios.post( '/v2/new', input, itemImgFile, {
+      axios.post( '/v2/create', formData, {
           headers: {
-              'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data'
           }
-        }).then(function(){
-          console.log('SUCCESS!!', input, itemImgFile);
+        }).then(res => {
+          console.log('SUCCESS!!', res);
         })
-        .catch(function(){
-          console.log('FAILURE!!');
-      });
     },
 
     onInputImage() {
