@@ -19,6 +19,8 @@ let store = createStore({
       qnaBoardList: [],
       qnaBoardDetail : {},
       memberProfile: {},
+      memberList:[],
+      memberDetail:{},
     }
   },
   mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
@@ -51,7 +53,14 @@ let store = createStore({
     },
     setMemberProfile(state, member) {
       state.memberProfile = member;
+    },
+    setMemberList(state,payload){
+        state.memberList = payload;
+    },
+    setMemberDetail(state,payload){
+        state.memberDetail = payload;
     }
+
 
   },
   actions: {
@@ -195,6 +204,12 @@ let store = createStore({
             context.commit('setQnaBoardList', response.data);
         })
     },
+    fetchAdminQna(context,isAnswered){
+        axios.get(`/v3/list/all/${isAnswered}`,{params:{page:this.page}})
+            .then(response =>{
+                context.commit('setQnaBoardList', response.data)
+            });
+    },
     fetchLogin({dispatch}, loginForm){
       axios.post('/v5/login', loginForm)
         .then(response => {
@@ -219,7 +234,6 @@ let store = createStore({
         this.state.isLogin = true;
       }
     },
-
     fetchMemberProfile(context) {
       axios.get('v5/mypage', {params:
       {email: this.state.email}})
@@ -241,6 +255,24 @@ let store = createStore({
         }).catch(err => {
             console.log('failed', err)
         })
+    },
+    fetchUserList(context){
+        axios.get('/v5/userlist')
+            .then(response => {
+                context.commit('setMemberList',response.data)
+            })
+    },
+    fetchAdminList(context){
+        axios.get('/v5/adminlist')
+            .then(response => {
+                context.commit('setMemberList',response.data)
+            })
+    },
+    fetchMemberDetail(context,email)  {
+        axios.get('/v5/mypage',{params:{email:email}})
+            .then(response =>{
+                context.commit('setMemberDetail',response.data)
+            })
     }
   },
 })

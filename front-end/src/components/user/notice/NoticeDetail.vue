@@ -25,8 +25,10 @@
       <br>
 
       <div class="BtnWrap">
-        <button class="btn btn-success" @click="noticeDelete(this.$route.params.boardNo)"> 삭제 </button>
-        <button class="btn btn-success" @click="goNoticeUpdate(this.$route.params.boardNo)"> 수정 </button>
+        <button class="btn btn-success" v-show="this.$store.state.role ==='ROLE_ADMIN'"
+                @click="noticeDelete(this.$route.params.boardNo)"> 삭제 </button>
+        <button class="btn btn-success" v-show="this.$store.state.role ==='ROLE_ADMIN'"
+                @click="goNoticeUpdate(this.$route.params.boardNo)"> 수정 </button>
         <button class="btn btn-success" @click="$router.push('/noticeLayout')"> 목록 </button>
       </div>
 

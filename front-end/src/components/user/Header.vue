@@ -5,7 +5,7 @@
     <div class="border-top border-bottom text-end">
       <div v-if="this.$store.state.isLogin">
         <span class="navset me-2" style="text-decoration: none; color: #333;"> {{this.$store.state.email}}</span>
-        <div v-if="this.$store.state.role=='ROLE_ADMIN'">
+        <div v-if="this.$store.state.role==='ROLE_ADMIN'">
           <router-link class="navset me-2" style="text-decoration: none; color: #666;" to="/admin">관리자페이지</router-link>
         </div>
         <router-link class="navset me-2" style="text-decoration: none; color: green; font-weight: 700" to="/cart">장바구니</router-link>

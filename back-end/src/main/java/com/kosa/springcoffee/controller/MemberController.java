@@ -24,8 +24,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
-    
+
     @PostMapping("/email-check")
     public Boolean checkEmail(@RequestParam String email){
         return memberService.checkEmail(email);
@@ -42,8 +41,9 @@ public class MemberController {
 
         if(dto.getIsAdmin() == 1){
             member.addMemberRole(ROLE_ADMIN);
+        } else {
+            member.addMemberRole(ROLE_USER);
         }
-        member.addMemberRole(ROLE_USER);
         memberService.joinMember(member);
         return "redirect:/login";
     }
@@ -51,12 +51,14 @@ public class MemberController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody MemberRequestDTO loginDTO) throws Exception {
         LoginResponseDTO dto = memberService.login(loginDTO);
+
         Optional<Member> result = memberRepository.getByEmail(loginDTO.getEmail(), false);
         Member member = result.get();
+
         if (member == null){
             return new ResponseEntity<String>("아이디가 존재하지 않습니다.", HttpStatus.FORBIDDEN);
         }
-        if (!passwordEncoder.matches(loginDTO.getPassword(), member.getPassword())){
+        if (!memberService.verifyUser(loginDTO)){
             return new ResponseEntity<String>("비밀번호가 틀립니다.", HttpStatus.FORBIDDEN);
         }
 
@@ -64,17 +66,54 @@ public class MemberController {
     }
 
     @PostMapping("/update-userinfo")
-    public ResponseEntity modifyUserInfo(@RequestBody ModifyMemberReqeustDTO dto) {
-        memberService.modifyUserInfo(dto);
+    public ResponseEntity modifyUserInfo(@RequestBody ModifyMemberInfoReqeustDTO dto) {
 
-        return new ResponseEntity<String>("회원 정보가 수정되었습니다.", HttpStatus.OK);
+        MemberRequestDTO verifyPassword = MemberRequestDTO.builder()
+                .email(dto.getEmail()).password(dto.getCurPassword()).build();
+
+        if (memberService.verifyUser(verifyPassword)) {
+            memberService.modifyUserInfo(dto);
+            return new ResponseEntity<String>("회원 정보가 수정되었습니다.", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<String>("비밀번호가 일치하지 않습니다.", HttpStatus.OK);
+    }
+
+    @PostMapping("/admin/update-userinfo")
+    public ResponseEntity modifyUserInfoAdmin(@RequestBody ModifyMemberInfoAdminDTO dto) {
+
+        memberService.modifyUserInfoAdmin(dto);
+
+        return new ResponseEntity("이메일 " + " 회원 정보가 수정되었습니다.", HttpStatus.OK);
     }
 
     @PostMapping("/update-password")
-    public ResponseEntity modifyPassword(@RequestBody MemberRequestDTO dto) {
-        memberService.modifyPassword(dto);
+    public ResponseEntity modifyPassword(@RequestBody ModifyPasswordRequestDTO dto) {
 
-        return new ResponseEntity<String>("비밀번호가 수정되었습니다.", HttpStatus.OK);
+        MemberRequestDTO verifyPassword = MemberRequestDTO.builder()
+                .email(dto.getEmail()).password(dto.getCurPassword()).build();
+
+        if (memberService.verifyUser(verifyPassword)) {
+            memberService.modifyPassword(dto);
+            return new ResponseEntity<String>("비밀번호가 수정되었습니다.", HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("비밀번호가 일치하지 않습니다", HttpStatus.OK);
+    }
+
+    @PostMapping("/grant-role")
+    public ResponseEntity grantUserToAdmin(@RequestParam String email) {
+
+        memberService.grantUserToAdmin(email);
+
+        return new ResponseEntity(email + " 관리자 권한 부여", HttpStatus.OK);
+    }
+
+    @PostMapping("/remove-role")
+    public ResponseEntity removeAdmin(@RequestParam String email) {
+
+        memberService.removeAdmin(email);
+
+        return new ResponseEntity(email + " 관리자 권한 삭제", HttpStatus.OK);
     }
 
     @GetMapping("/mypage")
@@ -84,10 +123,32 @@ public class MemberController {
         return new ResponseEntity<MyPageResponseDTO>(responseDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/verifyuser")
+    @GetMapping("/userlist")
+    public PageResultDTO<MyPageResponseDTO, Member> getUserList(PageRequestDTO pageRequestDTO) {
+        log.info("회원 리스트 조회");
+
+        return memberService.getUserList(pageRequestDTO);
+    }
+
+    @GetMapping("/adminlist")
+    public PageResultDTO<MyPageResponseDTO, Member> getAdminList(PageRequestDTO pageRequestDTO) {
+        log.info("관리자 리스트 조회");
+
+        return memberService.getAdminList(pageRequestDTO);
+    }
+
+    @PostMapping("verifyuser")
     public ResponseEntity verifyUser(@RequestBody MemberRequestDTO dto){
         Boolean result = memberService.verifyUser(dto);
 
         return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity deleteUser(@RequestParam String email) {
+
+        memberService.deleteUser(email);
+
+        return new ResponseEntity(email + " 계정 삭제", HttpStatus.OK);
     }
 }
