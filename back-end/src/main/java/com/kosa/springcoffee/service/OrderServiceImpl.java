@@ -27,19 +27,6 @@ public class OrderServiceImpl implements OrderService{
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
-//    @Override
-//    public Long create(OrderDTO orderDTO) {
-//        Order entity = dtoToEntity(orderDTO);
-//        List<OrderItem> getListOrderItem = entity.getOrderItems();
-//        Iterator<OrderItem> iter = getListOrderItem.stream().iterator();
-//        while(iter.hasNext()){
-//            orderItemRepository.deleteById(iter.next().getOrderItemNo());
-//            iter.next().getItem().removeStock(iter.next().getCount());
-    //         replyRepo.deleteByReplyNo(iter.next);
-    //         iter.next()
-//        }
-//        return entity.getOrderNo();
-//    }
 
     @Override
     public Long create(OrderDTO orderDTO, String email) {
@@ -60,22 +47,15 @@ public class OrderServiceImpl implements OrderService{
         return order.getOrderNo();
     }
 
-//    @Override
-//    public void orderCancel(Long orderNo) {
-//        Order order = orderRepository.findByOrderNo(orderNo);
-//        List<OrderItem> getListOrderItem = order.getOrderItems();
-//        Iterator<OrderItem> iter = getListOrderItem.stream().iterator();
-//        while(iter.hasNext()) {
-//            iter.next().getItem().addStock(iter.next().getCount());
-//        }
-//        order.cancel();
-//    }
-
     @Override
-    public Page<OrderHistDTO> getOrderList(String email, Pageable pageable) {
-        List<Order> orders = orderRepository.findOrders(email, pageable);
-        Long totalCount = orderRepository.countOrder(email);
+    public Page<OrderHistDTO> getOrderListForAdmin(Pageable pageable) {
+        List<Order> orders = orderRepository.findOrdersforAdmin(pageable);
+        Long totalCount = orderRepository.countAllOrder();
 
+        return getOrderHistDTOPage(pageable, orders, totalCount);
+    }
+
+    private Page<OrderHistDTO> getOrderHistDTOPage(Pageable pageable, List<Order> orders, Long totalCount) {
         List<OrderHistDTO> orderHistDtos = new ArrayList<>();
 
         for (Order order : orders) {
@@ -89,6 +69,17 @@ public class OrderServiceImpl implements OrderService{
         }
         return new PageImpl<>(orderHistDtos, pageable, totalCount);
     }
+
+
+    @Override
+    public Page<OrderHistDTO> getOrderList(String email, Pageable pageable) {
+        List<Order> orders = orderRepository.findOrders(email, pageable);
+        Long totalCount = orderRepository.countOrder(email);
+
+        return getOrderHistDTOPage(pageable, orders, totalCount);
+    }
+
+
 
     @Override
     @Transactional(readOnly = true)

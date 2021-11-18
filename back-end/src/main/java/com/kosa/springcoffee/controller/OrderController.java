@@ -63,7 +63,16 @@ public class OrderController {
         return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
     }
 
-    @PostMapping("/cancel")
+
+    @GetMapping(value = {"/orders", "/orders/{page}"})
+    public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page) {
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
+
+        Page<OrderHistDTO> orderHistDtos = orderService.getOrderListForAdmin(pageable);
+        return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
+    }
+    
+    @PostMapping("/{orderNo}/{email}/cancel")
     @ResponseBody
     public ResponseEntity cancel(@RequestBody OrderCancelDTO dto){
         Member member = memberRepository.getByEmail(dto.getEmail());
