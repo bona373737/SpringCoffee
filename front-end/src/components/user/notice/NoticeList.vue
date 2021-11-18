@@ -14,7 +14,7 @@
          </select>
        </span>
        <span class="search">
-        <input class="me-2" type="text" placeholder="제목" v-model="keyword">
+        <input class="me-4" type="text" placeholder="제목" v-model="keyword">
         <button class="btn success" @click="noticeBoardSearch(keyword)" > 검색 </button>
         <button class="btn btn-success" @click="$router.push('/noticeAdd')" v-show="this.$store.state.role == 'ROLE_ADMIN'"> 추가 </button>
        </span>
@@ -171,7 +171,7 @@ export default {
   margin-right: 15px;
 }
 
-.search .me-2 {
+.search .me-4 {
   height: 30px;
   padding: 3px 5px 3px;
   margin: 5px 10px 2px;
