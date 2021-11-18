@@ -5,7 +5,6 @@ import { router } from './router'
 let store = createStore({
   state(){  // 데이터보관하고 싶으면 여기에 기재
     return {
-      admin: 'dp@test.com',
       email: '',
       token: '',
       role: '',
@@ -20,6 +19,8 @@ let store = createStore({
       qnaBoardList: [],
       qnaBoardDetail : {},
       memberProfile: {},
+      memberList:[],
+
     }
   },
   mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
@@ -52,7 +53,11 @@ let store = createStore({
     },
     setMemberProfile(state, member) {
       state.memberProfile = member;
-    }
+    },
+    setMemberList(state,payload){
+        state.memberList = payload;
+    },
+
 
   },
   actions: {
@@ -229,6 +234,18 @@ let store = createStore({
         }).catch(err => {
             console.log('failed', err)
         })
+    },
+    fetchUserList(context){
+        axios.get('/v5/userlist')
+            .then(response => {
+                context.commit('setMemberList',response.data)
+            })
+    },
+    fetchAdminList(context){
+        axios.get('/v5/adminlist')
+            .then(response => {
+                context.commit('setMemberList',response.data)
+            })
     }
   },
 })

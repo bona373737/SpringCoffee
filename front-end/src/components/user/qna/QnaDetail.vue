@@ -25,7 +25,7 @@
             </tr>
           </table><br>
 
-          <section v-show="this.$store.state.email == 'dp@test.com'">
+          <section v-show="this.$store.state.role ==='ROLE_ADMIN'">
             <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList == ''">
               <textarea style="width: 100%" v-model="content"></textarea>
               <button class="btn btn-outline-success btn-sm" @click="replyAdd">답변등록</button>

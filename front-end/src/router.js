@@ -100,15 +100,6 @@ const routes = [
         path: "/myQna",
         component: () => import('@/components/user/MyQna.vue'),
       },
-      {
-        path: "/adminQna",
-        component: () => import('@/components/admin/AdminQna.vue'),
-      },
-      {
-        path: "/userInfo",
-        component: () => import('@/components/admin/UserInfo.vue'),
-      },
-
     ]
   },
   {
@@ -138,11 +129,19 @@ const routes = [
     children: [
       {
         path: "userlist",
-        component: () => import('@/components/admin/UserList.vue'),
+        component: () => import('@/components/admin/MemberList.vue'),
       },
       {
         path: "itemAdd",
         component: () => import('@/components/admin/ItemAdd.vue'),
+      },
+      {
+        path: "/adminQna",
+        component: () => import('@/components/admin/AdminQna.vue'),
+      },
+      {
+        path: "/memberList",
+        component: () => import('@/components/admin/MemberList.vue'),
       },
     ]
   },

@@ -14,7 +14,7 @@
            <option value=true>답변완료</option>
          </select>
        </span>
-        <button class="btn success" @click="fetchMyQna(this.$store.state.email)"> 내 Q&A만보기 </button>
+        <button class="btn success" v-show="this.$store.state.isLogin === true" @click="fetchMyQna(this.$store.state.email)"> 내 Q&A만보기 </button>
         <button class="btn btn-success" @click="addBtn()"> 문의하기 </button>
       </div>
 

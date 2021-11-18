@@ -4,7 +4,7 @@
       <div class="btnWrap text-end">
         <input type="text" class="me-2" placeholder="제목" v-model="keyword">
         <button class="btn btn-success me-2" @click="noticeBoardSearch(keyword)" > 검색 </button>
-        <button class="btn btn-primary" @click="$router.push('/noticeAdd')" v-show="this.$store.state.email == 'dp@test.com'"> 추가 </button>
+        <button class="btn btn-primary" @click="$router.push('/noticeAdd')" v-show="this.$store.state.role ==='ROLE_ADMIN'"> 추가 </button>
       </div>
       <div>
         <table class="table table-bordered table-condensed">

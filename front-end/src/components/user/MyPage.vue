@@ -19,17 +19,11 @@
 
           <div class="bt-menu">
               <ui class="bt-info py-3">
-                  <li class="content" v-show="this.$store.state.email !== $store.state.admin" @click="this.$router.replace('/mypage/profile')">
+                  <li class="content"  @click="this.$router.replace('/mypage/profile')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
                         <div class="bt-text">회원정보</div>
                       </div>
-                  </li>
-                  <li class="content" v-show="this.$store.state.email === $store.state.admin" @click="this.$router.replace('/userInfo')">
-                    <div class="con-card">
-                      <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
-                      <div class="bt-text">회원관리</div>
-                    </div>
                   </li>
                   <li class="content" @click="cartView()">
                       <div class="con-card">
