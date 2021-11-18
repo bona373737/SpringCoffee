@@ -1,8 +1,7 @@
 <template>
   <!-- header type1 -->
   <header>
-
-    <div class="border-top border-bottom text-end">
+    <div class="border-top border-bottom text-end py-2">
       <div v-if="this.$store.state.isLogin">
         <div v-if="this.$store.state.role=='ROLE_ADMIN'">
           <router-link class="navset me-5" style="text-decoration: none; color: #666;" to="/admin"> <i class="bi bi-gear-fill"></i> 관리자페이지</router-link>
@@ -15,17 +14,17 @@
 
       <div v-if="!this.$store.state.isLogin">
         <router-link class="navset me-2" style="text-decoration: none; color: #666;" to="/login">로그인</router-link>
-      <router-link class="navset me-5" style="text-decoration: none;" to="/register">회원가입</router-link>
+        <router-link class="navset me-5" style="text-decoration: none;" to="/register">회원가입</router-link>
       </div>
     </div>
 
-    <div class="p-3 bg-light">
+    <div class="p-5">
       <a href="/">
         <img src="../.././assets/sclogo.png" alt="Img" style="width:150px">
       </a>
     </div>
-    <div class="bg-light border-top ">
-      <div class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+    <div class="border-top ">
+      <div class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 py-1">
         <router-link class="navbox" to="/shop">
           <p class="tooltip-text">SHOP</p>
         </router-link>
@@ -96,6 +95,6 @@ header {
 }
 
 .navset {
-  font-size: 10pt;
+  font-size: 11pt;
 }
 </style> 
