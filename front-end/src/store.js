@@ -21,6 +21,8 @@ let store = createStore({
       qnaBoardList: [],
       qnaBoardDetail : {},
       memberProfile: {},
+      memberList:[],
+      memberDetail:{},
     }
   },
   mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
@@ -54,6 +56,14 @@ let store = createStore({
     setMemberProfile(state, member) {
       state.memberProfile = member;
     },
+    setMemberList(state,payload){
+        state.memberList = payload;
+    },
+    setMemberDetail(state,payload){
+        state.memberDetail = payload;
+    }
+
+
   },
   actions: {
     fetchNoticeBoardList(context,page){
@@ -69,6 +79,25 @@ let store = createStore({
           .then( response =>{
             context.commit('setNoticeBoardList',response.data)
           })
+    },
+    fetchNoticeBoardCategory(context, paramObj){
+      const page = paramObj.page;
+      const category = paramObj.category;
+
+      let url = '/v1/list';
+      let pageObj = {};
+
+      console.log(`카테고리 조회`);
+      
+      url = '/v2/list/' + category; // 'v1/list/notice'
+      pageObj = {
+        page: page
+      };
+      
+      axios.get(url, {params:pageObj})
+      .then(response =>{
+          context.commit('setNoticeBoardList', response.data)
+      });
     },
     fetchNoticeBoardDetail(context, boardNo){
       axios.get(`/v1/${boardNo}`)
@@ -172,6 +201,12 @@ let store = createStore({
             context.commit('setQnaBoardList', response.data);
         })
     },
+    fetchAdminQna(context,isAnswered){
+        axios.get(`/v3/list/all/${isAnswered}`,{params:{page:this.page}})
+            .then(response =>{
+                context.commit('setQnaBoardList', response.data)
+            });
+    },
     fetchLogin({dispatch}, loginForm){
       axios.post('/v5/login', loginForm)
         .then(response => {
@@ -197,7 +232,6 @@ let store = createStore({
         this.state.exp=result.exp;
       }
     },
-
     fetchMemberProfile(context) {
       axios.get('v5/mypage', {params:
       {email: this.state.email}})
@@ -214,29 +248,30 @@ let store = createStore({
 
     getItemCategory(context, category) {
       axios.get(`v2/list/${category}`)
-      .then(res => {
-        console.log(category)
-        console.log(res)
-        context.commit('setItem', res.data.dtoList);
-      }).catch(err => {
-          console.log('failed', err)
-      })
+        .then(res => {
+          context.commit("setItem", res.data.dtoList);
+        }).catch(err => {
+            console.log('failed', err)
+        })
     },
-    // fetchThumbnail(context) {
-    // console.log('스타트')
-    //   for(let i=0; i<this.$store.state.itemList.length ; i++) {
-    //     console.log('반복')
-    //     axios.get(`/v2-2/thumbnail/${this.$store.state.itemList[i].fileId}`, {
-    //       responseType: 'blob'
-    //     }).then(res => {
-    //       console.log('끝')
-    //       context.state()
-    //       this.state.thumbnail[i] = window.URL.createObjectURL(new Blob([res.data]));
-    //     }).catch(res => {
-    //       console.log(res);
-    //     })
-    //   }
-    // },
+    fetchUserList(context){
+        axios.get('/v5/userlist')
+            .then(response => {
+                context.commit('setMemberList',response.data)
+            })
+    },
+    fetchAdminList(context){
+        axios.get('/v5/adminlist')
+            .then(response => {
+                context.commit('setMemberList',response.data)
+            })
+    },
+    fetchMemberDetail(context,email)  {
+        axios.get('/v5/mypage',{params:{email:email}})
+            .then(response =>{
+                context.commit('setMemberDetail',response.data)
+            })
+    }
   },
 })
 

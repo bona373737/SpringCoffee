@@ -3,8 +3,14 @@
   <header>
     <div class="border-top border-bottom text-end py-2">
       <div v-if="this.$store.state.isLogin">
+<<<<<<< HEAD
         <div v-if="this.$store.state.role=='ROLE_ADMIN'">
           <router-link class="navset me-5" style="text-decoration: none; color: #666;" to="/admin"> <i class="bi bi-gear-fill"></i> 관리자페이지</router-link>
+=======
+        <span class="navset me-2" style="text-decoration: none; color: #333;"> {{this.$store.state.email}}</span>
+        <div v-if="this.$store.state.role==='ROLE_ADMIN'">
+          <router-link class="navset me-2" style="text-decoration: none; color: #666;" to="/admin">관리자페이지</router-link>
+>>>>>>> front-myqna-board
         </div>
         <span class="navset me-2" style="text-decoration: none; color: #333;"> {{this.$store.state.email}}</span>
         <router-link class="navset me-2" style="text-decoration: none; color: green; font-weight: 700" to="/cart">장바구니</router-link>

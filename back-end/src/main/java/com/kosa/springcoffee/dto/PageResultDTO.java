@@ -20,6 +20,12 @@ public class PageResultDTO<DTO, EN> {
     private boolean prev, next;
     private List<Integer> pageList;
 
+    public PageResultDTO(Page<DTO> result) {
+        dtoList = result.stream().collect(Collectors.toList());
+        totalPage = result.getTotalPages();
+        makePageList(result.getPageable());
+    }
+
     public PageResultDTO(Page<EN> result, Function<EN, DTO> fn) {
 
         dtoList = result.stream().map(fn).collect(Collectors.toList());
