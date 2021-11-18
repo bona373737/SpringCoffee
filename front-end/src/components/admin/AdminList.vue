@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="$router.push('/adminList')"> 관리자계정관리 </button>
+    <button @click="$router.push('/memberList')"> 사용자계정관리 </button>
     <table class="table table-bordered table-condensed">
       <colgroup>
 <!--        <col width="5%" />-->
@@ -27,7 +27,7 @@
         <th>
           <button class="btn btn-outline-success btn-sm">수정</button>
           <button class="btn btn-outline-success btn-sm" @click="deleteMember(member.email)">삭제</button>
-          <button class="btn btn-outline-success btn-sm" @click="grantUserToAdmin(member.email)">관리자전환</button>
+          <button class="btn btn-outline-success btn-sm" @click="removeAdmin">권한박탈</button>
         </th>
       </tr>
       </tbody>
@@ -40,7 +40,7 @@ import axios from "axios";
 export default {
   name: 'memberList',
   mounted() {
-    this.$store.dispatch('fetchUserList')
+    this.$store.dispatch('fetchAdminList')
   },
   methods: {
     // goMemberDetail() {
@@ -61,15 +61,12 @@ export default {
         alert("삭제가 취소되었습니다.")
       }
     },
-    grantUserToAdmin(email) {
-      axios.post('/v5/grant-role', {
-        email: email
-      })
-          .then(res => {
-            console.log(res.data)
-            alert("관리자 계정으로 변경되었습니다")
-          })
+    removeAdmin(){
+      // console.log(email)
+      axios.post('/v5/remove-role',{email:this.email})
+
     }
+
   }
 }
 </script>

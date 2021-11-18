@@ -128,8 +128,8 @@ const routes = [
     component: () => import('@/components/admin/AdminPage.vue'),
     children: [
       {
-        path: "userlist",
-        component: () => import('@/components/admin/MemberList.vue'),
+        path: "/adminList",
+        component: () => import('@/components/admin/AdminList.vue'),
       },
       {
         path: "itemAdd",
