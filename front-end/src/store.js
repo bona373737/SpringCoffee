@@ -20,7 +20,7 @@ let store = createStore({
       qnaBoardDetail : {},
       memberProfile: {},
       memberList:[],
-
+      memberDetail:{},
     }
   },
   mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
@@ -57,6 +57,9 @@ let store = createStore({
     setMemberList(state,payload){
         state.memberList = payload;
     },
+    setMemberDetail(state,payload){
+        state.memberDetail = payload;
+    }
 
 
   },
@@ -212,7 +215,6 @@ let store = createStore({
         this.state.isLogin = true;
       }
     },
-
     fetchMemberProfile(context) {
       axios.get('v5/mypage', {params:
       {email: this.state.email}})
@@ -245,6 +247,12 @@ let store = createStore({
         axios.get('/v5/adminlist')
             .then(response => {
                 context.commit('setMemberList',response.data)
+            })
+    },
+    fetchMemberDetail(context,email)  {
+        axios.get('/v5/mypage',{params:{email:email}})
+            .then(response =>{
+                context.commit('setMemberDetail',response.data)
             })
     }
   },

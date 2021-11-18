@@ -140,8 +140,13 @@ const routes = [
         component: () => import('@/components/admin/AdminQna.vue'),
       },
       {
-        path: "/memberList",
-        component: () => import('@/components/admin/MemberList.vue'),
+        path: "/userList",
+        component: () => import('@/components/admin/UserList.vue'),
+      },
+      {
+        path: "/memberDetail/:email",
+        name: 'memberDetail',
+        component: () => import('@/components/admin/MemberDetail.vue'),
       },
     ]
   },

@@ -26,11 +26,11 @@
           </table><br>
 
           <section v-show="this.$store.state.role ==='ROLE_ADMIN'">
-            <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList == ''">
+            <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length < 1">
               <textarea style="width: 100%" v-model="content"></textarea>
               <button class="btn btn-outline-success btn-sm" @click="replyAdd">답변등록</button>
             </span>
-            <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length !== '' ">
+            <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length > 0">
               <div v-if="!isReply">
                 <button class="btn btn-outline-success btn-sm" @click="updateReply()"> 수정하기</button>
               </div>
@@ -117,10 +117,8 @@ export default {
           .then(res =>{
             console.log((res.data))
             alert("답변이 삭제되었습니다")
+            this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo)
           })
-      .then(
-        this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo)
-      )
     },
   }
 };

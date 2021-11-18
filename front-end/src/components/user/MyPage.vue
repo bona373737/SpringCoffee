@@ -31,17 +31,11 @@
                             <div class="bt-text">장바구니</div>
                       </div>
                   </li>
-                  <li class="content" v-show="this.$store.state.email !== $store.state.admin" @click="$router.push('/myQna')">
+                  <li class="content" @click="$router.push('/myQna')">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-question-circle"></i></div>
                       <div class="bt-text">문의내역</div>
                       </div>
-                  </li>
-                  <li class="content" v-show="this.$store.state.email === $store.state.admin"  @click="$router.push('/adminQna')">
-                    <div class="con-card">
-                      <div class="bt-icon"><i class="bi bi-question-circle"></i></div>
-                      <div class="bt-text">Q&A관리</div>
-                    </div>
                   </li>
                   <li class="content">
                       <div class="con-card">

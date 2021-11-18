@@ -20,7 +20,7 @@
 
           <div class="bt-menu">
               <ui class="bt-info py-3">
-                  <li class="content" @click="$router.push('/memberList')">
+                  <li class="content" @click="$router.push('/userList')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
                             <div class="bt-text">회원관리</div>
@@ -101,8 +101,9 @@ export default {
 }
 
 .tab-title {
-    font-size: 22pt;
+    font-size: 25pt;
     color: white;
+    font-weight: bold;
 }
 
 .info {
