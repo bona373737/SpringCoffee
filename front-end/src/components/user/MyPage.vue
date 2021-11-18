@@ -37,7 +37,7 @@
                       <div class="bt-text">문의내역</div>
                       </div>
                   </li>
-                  <li class="content">
+                  <li class="content" @click="$router.push('/myorder')">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-currency-dollar"></i></div>
                       <div class="bt-text">결제내역</div>

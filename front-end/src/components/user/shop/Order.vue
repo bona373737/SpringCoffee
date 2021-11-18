@@ -122,8 +122,8 @@ export default {
         this.address=this.$state.store.memberProfile.address;
       }
 
-      if(confirm("등록하시겠습니까?") == true) {
-        alert('등록되었습니다.')
+      if(confirm("결제하시겠습니까?") == true) {
+        alert('결제되었습니다.')
       } else {
         return false;
       }
