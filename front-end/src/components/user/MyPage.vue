@@ -55,7 +55,19 @@
 
 <script>
 export default {
-
+    name : 'MyPage',
+    data() {
+        return {
+            cartOpen: false,
+        }
+    },
+    methods: {
+        cartInfo() {
+            if(this.cartOpen) {
+                this.cartOpen=false;
+            }
+        }
+    }
 }
 </script>
 
