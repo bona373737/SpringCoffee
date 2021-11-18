@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/v3")
+@RequestMapping("/v6")
 @Log4j2
 @RequiredArgsConstructor
 public class OrderController {
@@ -33,7 +33,7 @@ public class OrderController {
     private final OrderService orderService;
     private final MemberRepository memberRepository;
     private final OrderRepository orderRepository;
-    @PostMapping(value = "/")
+    @PostMapping(value = "/submit")
     @ResponseBody
     public ResponseEntity order(@RequestBody OrderDTO orderDTO){
         Long orderNo;

@@ -34,8 +34,8 @@
                 <td> 총 가격 </td>
                 <td></td>
               </tr>
-              <tr class="product-item text-center" v-for="cart in this.$store.state.cartList" :key="cart.cartItemNo">
-                  <!-- <td> <img :src="cart.image" alt=""></td> -->
+              <tr class="product-item" v-for="cart in this.$store.state.cartList" :key="cart.cartItemNo">
+                  <td></td><!-- <td> <img :src="cart.image" alt=""></td> -->
                   <td> {{cart.itemName}}</td>
                   <td> {{cart.price}}</td>
                   <td>
@@ -49,7 +49,7 @@
             </table>
             <span style="font-weight: 800; font-size: 16pt;"> {{price}} 원</span>
               <hr>
-              <button type="button" class="btn btn-success"><router-link to="/cart" style="text-decoration: none; color: white">주문하기</router-link></button>
+              <button type="button" class="btn btn-success text-reset" data-bs-dismiss="offcanvas" aria-label="Close"><router-link to="/cart" style="text-decoration: none; color: white">주문하기</router-link></button>
             </div>
           </div>
         </div>
@@ -110,6 +110,7 @@ export default {
   name:'shop',
   created() {
     this.$store.dispatch('fetchItem');
+    this.$store.dispatch('fetchCart');
   },
 
   data() {
@@ -126,14 +127,13 @@ export default {
       this.sum=price*count;
     },
     postCart(item, count) {
-      axios.post(`/v4/cart`,
+      axios.post(`/v5/cart`,
       {
         itemNo : item.itemNo,
         count : count,
         email : this.$store.state.email
       })
       .then(res => {
-        this.$store.dispatch('fetchCart');
         console.log('success', JSON.stringify(res, null, 2))
       }).catch(err => {
         console.log('failed', err)
@@ -145,7 +145,7 @@ export default {
         return false;
       }
 
-      axios.patch('v4/cartItem', {
+      axios.patch('v5/cartItem', {
         cartItemNo : cart.cartItemNo,
         count : cart.count,
         email : this.$store.state.email
@@ -176,7 +176,7 @@ export default {
       }
     },
     deleteCart(cart) {
-        axios.delete(`v4/${cart.cartItemNo}/${this.$store.state.email}`)
+        axios.delete(`v5/${cart.cartItemNo}/${this.$store.state.email}`)
         .then(res => {
           this.$store.dispatch('fetchCart');
           console.log('success', res)
