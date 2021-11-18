@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -102,21 +103,48 @@ public class CartController {
         return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/cart/cartOrder")
-    @ResponseBody
-    public ResponseEntity orderCartItem(@RequestBody CartOrderDTO cartOrderDTO, Principal principal){
-        List<CartOrderDTO> cartOrderDTOList = cartOrderDTO.getCartOrderDTOList();
-        if (cartOrderDTOList == null || cartOrderDTOList.size() == 0){
-            return new ResponseEntity<String>("상품이 없습니다.", HttpStatus.BAD_REQUEST);
-        }
+//    @PostMapping(value = "/cartOrder")
+//    @ResponseBody
+//    public ResponseEntity orderCartItem(@RequestBody CartOrderDTO requestDTO){
+//        Member member= memberRepository.getByEmail(requestDTO.getEmail());
+//        String address = requestDTO.getAddress();
+//        System.out.println("이메일 : " + requestDTO.getEmail() + "  주소 : " + requestDTO.getAddress());
+//
+//        System.out.println(requestDTO.getCartOrderDTOList());
+//        List<CartOrderDTO> cartOrderDTOList = requestDTO.getCartOrderDTOList();
+//
+//        if (cartOrderDTOList == null || cartOrderDTOList.size() == 0){
+//            return new ResponseEntity<String>("상품이 없습니다.", HttpStatus.BAD_REQUEST);
+//        }
+//
+//
+//        for (CartOrderDTO dto : cartOrderDTOList){
+//            if(cartService.validateCartItem(dto.getCartItemNo(), member.getEmail()))
+//                return new ResponseEntity<String>("자신의 카트가 아닙니다.", HttpStatus.FORBIDDEN);
+//        }
+//        Long orderNo = cartService.orderCartItem(cartOrderDTOList, member.getEmail(), address);
+//        return new ResponseEntity<Long>(orderNo, HttpStatus.OK);
+//    }
+@PostMapping(value = "/cartOrder")
+@ResponseBody
+public ResponseEntity orderCartItem(@RequestBody CartOrderRequestDTO requestDTO){
+    Member member= memberRepository.getByEmail(requestDTO.getEmail());
+    String address = requestDTO.getAddress();
+    System.out.println("이메일 : " + requestDTO.getEmail() + "  주소 : " + requestDTO.getAddress());
 
 
-        for (CartOrderDTO dto : cartOrderDTOList){
-            if(cartService.validateCartItem(dto.getCartItemNo(), principal.getName()))
-                return new ResponseEntity<String>("자신의 카트가 아닙니다.", HttpStatus.FORBIDDEN);
-        }
-        Long orderNo = cartService.orderCartItem(cartOrderDTOList, principal.getName());
-        return new ResponseEntity<Long>(orderNo, HttpStatus.OK);
+    List<Long> cartOrderDTOList = requestDTO.getCartItemNo();
+
+    if (cartOrderDTOList == null || cartOrderDTOList.size() == 0){
+        return new ResponseEntity<String>("상품이 없습니다.", HttpStatus.BAD_REQUEST);
     }
 
+
+    for (Long num : cartOrderDTOList){
+        if(cartService.validateCartItem(num , member.getEmail()))
+            return new ResponseEntity<String>("자신의 카트가 아닙니다.", HttpStatus.FORBIDDEN);
+    }
+    Long orderNo = cartService.orderCartItem(cartOrderDTOList, member.getEmail(), address);
+    return new ResponseEntity<Long>(orderNo, HttpStatus.OK);
+}
 }

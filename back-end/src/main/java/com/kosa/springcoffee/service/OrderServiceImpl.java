@@ -54,6 +54,7 @@ public class OrderServiceImpl implements OrderService{
 
         Order order = Order.createOrder(member, orderItemList);
         order.setStatus(OrderStatus.ORDER);
+        order.setOrderAddress(orderDTO.getOrderAddress());
         orderRepository.save(order);
 
         return order.getOrderNo();
@@ -108,7 +109,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Long cartOrder(List<OrderDTO> orderDTOList, String email) {
+    public Long cartOrder(List<OrderDTO> orderDTOList, String email,String address) {
         Member member = memberRepository.getByEmail(email);
         List<OrderItem> orderItemList = new ArrayList<>();
         for(OrderDTO orderDTO : orderDTOList){
@@ -119,6 +120,7 @@ public class OrderServiceImpl implements OrderService{
 
         Order order = Order.createOrder(member, orderItemList);
         order.setStatus(OrderStatus.ORDER);
+        order.setOrderAddress(address);
         orderRepository.save(order);
         return order.getOrderNo();
     }

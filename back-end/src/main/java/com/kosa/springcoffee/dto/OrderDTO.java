@@ -10,5 +10,6 @@ public class OrderDTO {
     private Long itemNo;
     private int count;
     private String email;
+    private String orderAddress;
 
 }

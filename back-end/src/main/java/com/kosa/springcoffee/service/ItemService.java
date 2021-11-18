@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ItemService {
-    Long create(ItemDTO dto);
+
     Long createWithImg(ItemDTO itemDTO, List<MultipartFile> itemImgFileList) throws Exception;
-    void modify(ItemDTO dto);
+
     void modifyWithImg(Long itemNo,ItemDTO itemDTO, List<MultipartFile> itemImgFileList) throws Exception;
     void remove(Long itemNo);
     PageResultDTO<ItemDTO, Item> readAll(PageRequestDTO requestDTO);
