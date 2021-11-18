@@ -12,7 +12,7 @@
           <col width="*" />
         </colgroup>
         <tr class="table-category">
-          <th>문의내용</th>
+          <th>문의종류</th>
           <td>
             <form>
               <input type="radio" name="categoryOpt" v-model="category" id="상품문의" value="상품문의"> 상품문의

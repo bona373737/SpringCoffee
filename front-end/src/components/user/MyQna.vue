@@ -11,7 +11,7 @@
       <thead>
       <tr>
         <th>No.</th>
-        <th>문의내용</th>
+        <th>문의종류</th>
         <th>제목</th>
         <th>작성일</th>
         <th>답변상태</th>

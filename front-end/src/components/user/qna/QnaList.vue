@@ -9,7 +9,7 @@
 
       <div class="btnWrap text-end">
        <span class="filter">
-         <span>문의내용</span>
+         <span>문의종류</span>
          <select v-model="category" @change="fetchQnaBoard()">
            <option v-for="option in categoryOption" :value="option.value" :key="option.value">{{option.title}}</option>
          </select>
@@ -39,7 +39,7 @@
           <thead>
           <tr>
             <th>No.</th>
-            <th>문의내용</th>
+            <th>문의종류</th>
             <th>제목</th>
             <th>작성자</th>
             <th>작성일</th>
