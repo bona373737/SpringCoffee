@@ -17,8 +17,8 @@
           <th>카테고리</th>
           <td >
             <form>
-              <input type="radio" name="categoryOpt" v-model="category"> 공지
-              <input type="radio" name="categoryOpt" v-model="category"> 이벤트
+              <input type="radio" name="categoryOpt" v-model="category" value="공지"> 공지
+              <input type="radio" name="categoryOpt" v-model="category" value="이벤트"> 이벤트
             </form>
           </td>
         </tr>
