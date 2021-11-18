@@ -21,7 +21,7 @@
          </select>
        </span>
        <span class="btns">
-        <button class="btn success" @click="fetchMyQna(this.$store.state.email)" v-show="this.$store.state.isLogin == true"> 내 Q&A만보기 </button>
+        <button class="btn success" @click="fetchMyQna(this.$store.state.email)" v-show="this.$store.state.isLogin === true"> 내 Q&A만보기 </button>
         <button class="btn btn-success" @click="addBtn()"> 문의하기 </button>
         </span>
       </div>
@@ -150,9 +150,11 @@ export default {
   margin: auto;
   background-color: white;
 }
+
 .btnWrap{
   margin: 6px;
 }
+
 .outterDiv notice-head{
   margin-right: 80%;
 }
@@ -212,7 +214,7 @@ th{
 }
 
 .filter span {
-  margin-right: 5x auto;
+  margin-right: 5px auto;
 }
 
 .filter select {

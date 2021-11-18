@@ -1,6 +1,9 @@
 <template>
-  <div>
+  <div class="outterDiv">
+    <div class="btns">
     <button class="btn btn-success" @click="$router.push('/adminList')"> 관리자계정관리 </button>
+    </div>
+
     <table class="table table-bordered table-condensed">
       <colgroup>
 <!--        <col width="5%" />-->
@@ -81,6 +84,34 @@ export default {
 </script>
 
 <style scoped>
+.outterDiv{
+  width: 80%;
+  margin: auto;
+  background-color: white;
+}
+
+.btns{
+  margin-bottom: 20px;
+}
+
+.btns .btn-success {
+  background: #663C2A;
+  border: 2px #663C2A;
+  margin:30px 0px 0px;
+  height: 40px;
+}
+
+.btn-outline-success{
+  margin-right: 5px;
+  color: #4F2E20;
+  border: 2px solid #4F2E20;
+}
+
+.btn-outline-success:hover{
+  border: 2px solid #A36043;
+  background: #A36043;
+}
+
 button{
   margin: 3px;
 }
