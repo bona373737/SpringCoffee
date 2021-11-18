@@ -1,9 +1,13 @@
 package com.kosa.springcoffee.controller;
 
+import com.kosa.springcoffee.dto.OrderCancelDTO;
 import com.kosa.springcoffee.dto.OrderDTO;
 import com.kosa.springcoffee.dto.OrderHistDTO;
+import com.kosa.springcoffee.dto.OrderResponseDTO;
 import com.kosa.springcoffee.entity.Member;
+import com.kosa.springcoffee.entity.Order;
 import com.kosa.springcoffee.repository.MemberRepository;
+import com.kosa.springcoffee.repository.OrderRepository;
 import com.kosa.springcoffee.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -28,19 +32,23 @@ public class OrderController {
 
     private final OrderService orderService;
     private final MemberRepository memberRepository;
-
+    private final OrderRepository orderRepository;
     @PostMapping(value = "/")
     @ResponseBody
     public ResponseEntity order(@RequestBody OrderDTO orderDTO){
         Long orderNo;
         try {
             orderNo = orderService.create(orderDTO, orderDTO.getEmail());
+
+
         } catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+        Order order = orderRepository.findByOrderNo(orderNo);
+        OrderResponseDTO dto = OrderResponseDTO.builder().orderNo(orderNo).total(order.getTotalPrice()).build();
 
-        return new ResponseEntity<Long>(orderNo, HttpStatus.OK);
+        return new ResponseEntity<OrderResponseDTO>(dto, HttpStatus.OK);
     }
 
     @GetMapping(value = {"/orders/{email}", "/orders/{page}/{email}"})
@@ -55,16 +63,16 @@ public class OrderController {
         return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
     }
 
-    @PostMapping("/{orderNo}/{email}/cancel")
+    @PostMapping("/cancel")
     @ResponseBody
-    public ResponseEntity cancel(@PathVariable("orderNo") Long orderNo, @PathVariable("email") String email){
-        Member member = memberRepository.getByEmail(email);
-        if(!orderService.validateOrder(orderNo, member.getEmail())){
+    public ResponseEntity cancel(@RequestBody OrderCancelDTO dto){
+        Member member = memberRepository.getByEmail(dto.getEmail());
+        if(!orderService.validateOrder(dto.getOrderNo(), member.getEmail())){
             return new ResponseEntity<String>("주문취소권한이 없습니다", HttpStatus.FORBIDDEN);
         }
 
-        orderService.cancelOrder(orderNo);
-        return new ResponseEntity<Long>(orderNo, HttpStatus.OK);
+        orderService.cancelOrder(dto.getOrderNo());
+        return new ResponseEntity<Long>(dto.getOrderNo(), HttpStatus.OK);
     }
 
 }

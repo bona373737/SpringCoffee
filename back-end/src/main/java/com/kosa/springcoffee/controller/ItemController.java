@@ -151,10 +151,18 @@ public class ItemController {
     }
 
     @GetMapping("/list/{category}")
-    public ResponseEntity getCategory(CategoryPageRequestDTO p, @PathVariable String category) {
-        log.info("상품 "+category+" 조회");
-        return new ResponseEntity<>(itemService.getCategory(pageRequestDTO), HttpStatus.OK);
+    public ResponseEntity getCategory(@PathVariable String category) {
+        log.info("카테고리별 상품 전체 조회");
+        return new ResponseEntity(itemService.readAllItemByCategory(category), HttpStatus.OK);
     }
+
+
+
+//    @GetMapping("/list/{category}")
+//    public PageResultDTO<ItemDTO, Item> getCategory(CategoryPageRequestDTO pageRequestDTO, @PathVariable String category) {
+//        log.info("상품 "+category+" 조회");
+//        return itemService.getCategory(pageRequestDTO);
+//    }
 
     @GetMapping("/{itemNo}")
     public ResponseEntity getItemDetail(@PathVariable("itemNo") Long itemNo){

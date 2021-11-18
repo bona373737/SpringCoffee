@@ -91,21 +91,21 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Long orderCartItem(List<CartOrderDTO> cartOrderDtoList, String email) {
+    public Long orderCartItem(List<Long> cartOrderDtoList, String email,String address) {
         List<OrderDTO> orderDTOList = new ArrayList<>();
 
-        for (CartOrderDTO cartOrderDTO : cartOrderDtoList){
-            CartItem cartItem = cartItemRepository.findByCartItemNo(cartOrderDTO.getCartItemNo());
+        for (Long cartItemNo : cartOrderDtoList){
+            CartItem cartItem = cartItemRepository.findByCartItemNo(cartItemNo);
             OrderDTO orderDTO = new OrderDTO();
             orderDTO.setItemNo(cartItem.getItem().getItemNo());
             orderDTO.setCount(cartItem.getCount());
             orderDTOList.add(orderDTO);
         }
 
-        Long orderNo = orderService.cartOrder(orderDTOList, email);
+        Long orderNo = orderService.cartOrder(orderDTOList, email,address);
 
-        for (CartOrderDTO cartOrderDTO : cartOrderDtoList){
-            CartItem cartItem = cartItemRepository.findByCartItemNo(cartOrderDTO.getCartItemNo());
+        for (Long cartItemNo : cartOrderDtoList){
+            CartItem cartItem = cartItemRepository.findByCartItemNo(cartItemNo);
             cartItemRepository.delete(cartItem);
         }
         return orderNo;
