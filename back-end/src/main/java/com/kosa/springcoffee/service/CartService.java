@@ -2,8 +2,6 @@ package com.kosa.springcoffee.service;
 
 import com.kosa.springcoffee.dto.CartDetailDTO;
 import com.kosa.springcoffee.dto.CartItemDTO;
-import com.kosa.springcoffee.dto.CartListDTO;
-import com.kosa.springcoffee.dto.CartOrderDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,5 +13,5 @@ public interface CartService {
     boolean validateCartItem(Long cartItemNo, String email);
     void changeCartItemCount(Long cartItemNo, int count);
     void deleteCartItem(Long cartItemNo);
-    Long orderCartItem(List<CartOrderDTO> cartOrderDtoList, String email);
+    Long orderCartItem(List<Long> cartOrderDtoList, String email, String address);
 }

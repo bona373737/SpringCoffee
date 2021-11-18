@@ -1,32 +1,38 @@
 <template>
   <div>
+    <div class="py-2">
+            <div style="height: 48px;"/>
+            <span class="info"><i class="bi bi-info-circle-fill"></i></span><br>
+            <span class="info-text">Spring Coffee의 새로운 소식을 접해보세요!</span>
+    </div>
+
     <div class="outterDiv py-5">
       <table class="notice-context">
-        <tr><td class="table-title"> {{$store.state.noticeBoardDetail.title}} </td></tr>
-        <tr><td class="table-context"> {{$store.state.noticeBoardDetail.content}} </td></tr>
-        <tr><td class=""> 작성일 </td></tr>
+        <colgroup>
+            <col width="20%" />
+            <col width="80%" />
+          </colgroup>
+        <tr class="table-title">
+          <td>제목</td>
+          <td> {{$store.state.noticeBoardDetail.title}} </td>
+        </tr>
+        <tr class="table-context">
+          <td>내용</td>
+          <td> {{$store.state.noticeBoardDetail.content}} </td>
+        </tr>
       </table>
+      
       <br>
+
       <div class="BtnWrap">
-        <button class="btn btn-success" @click="noticeDelete(this.$route.params.boardNo)"> 삭제 </button>
-        <button class="btn btn-success" @click="goNoticeUpdate(this.$route.params.boardNo)"> 수정 </button>
+        <button class="btn btn-success" v-show="this.$store.state.role ==='ROLE_ADMIN'"
+                @click="noticeDelete(this.$route.params.boardNo)"> 삭제 </button>
+        <button class="btn btn-success" v-show="this.$store.state.role ==='ROLE_ADMIN'"
+                @click="goNoticeUpdate(this.$route.params.boardNo)"> 수정 </button>
         <button class="btn btn-success" @click="$router.push('/noticeLayout')"> 목록 </button>
       </div>
+
       <br>
-<!--      <table class="updown-page">-->
-<!--        <colgroup>-->
-<!--          <col style="width: 25%" />-->
-<!--          <col style="width: 85%" />-->
-<!--        </colgroup>-->
-<!--        <tr class="goToUpperList">-->
-<!--          <th style="background-color:#a9a9a92e"> 윗글 </th>-->
-<!--          <td style="padding: 8px" @click="$route.push('')" > 글 제목 </td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th style="background-color:#a9a9a92e">  아랫글 </th>-->
-<!--          <td style="padding: 8px" > 글 제목 </td>-->
-<!--        </tr>-->
-<!--      </table>-->
 
     </div>
   </div>
@@ -67,39 +73,83 @@ export default {
 <style scoped>
 .outterDiv{
   width: 60%;
-  margin: auto;
+  margin: auto;  
+  background-color: white;
+  padding: 0px 20px;
 }
+
+.py-2 {
+    width: 60%;
+    margin: auto;
+    background-color: white;
+}
+
+.info {
+    font-size: 30pt;
+    color: #663C2A;
+}
+
+.info:hover {
+    color: #A36043;
+    transition: 0.3s;
+}
+
+.info-text {
+  color: #4F2E20;
+  font-size: 12pt;
+  display: block;
+}
+
+.info i{
+  margin-top: 48px;
+}
+
 .notice-context{
   width: 100%;
   text-align: left;
 }
+
 .table-title{
-  padding: 15px;
-  border-top: 2px solid #444444 ;
-  border-bottom: 2px solid #444444 ;
+  border-top: 2px solid #4F2E20 ;
+  border-bottom: 2px solid #4F2E20 ;
 }
+
+.table-title td, .table-context td {
+  padding: 20px;
+}
+
+.table-title :first-child, .table-context :first-child{
+  font-weight: bold;
+  color: #4F2E20;
+  border-right: 1px solid #ddd;
+  text-align: center;
+}
+
 .table-context{
   padding: 10px;
   height: 300px;
   border-bottom: 1px solid  #ddd;;
 }
-.BtnWrap{
-  margin-bottom: 5px;
-  margin-top: 5px;
-}
-.updown-page{
-  width: 100%;
-  border-top: 1px solid #444444;
-  border-bottom: 1px solid #444444 ;
-  text-align: left;
 
+.table-context{
+  padding: 10px;
+  height: 300px;
+  border-bottom: 1px solid  #ddd;;
 }
-.goToUpperList{
-  border-bottom: 1px solid  #ddd;
-  text-align: left;
+
+.BtnWrap{
+  margin: 5px 0px;
 }
-button{
+
+.BtnWrap button{
   margin-right: 5px;
+  background-color: #663C2A;
+  border-color: #663C2A;
+}
+
+.BtnWrap button:hover{
+  background-color: #A36043;
+  border-color: #A36043;
 }
 
 </style>

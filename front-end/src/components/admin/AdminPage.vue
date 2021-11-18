@@ -1,6 +1,7 @@
 <template>
   <div>
-      <div class="adminpage">
+      <div v-if="this.$store.state.role!='ROLE_ADMIN'" v-on="this.$router.replace('NotfoundPage')"></div>
+      <div class="adminpage" v-if="this.$store.state.role=='ROLE_ADMIN'">
         <div class="tab-bar">
             <div class="tab-my py-3" style="width:100%;">
                 <span class="tab-title">관리자 페이지</span>            
@@ -19,12 +20,10 @@
 
           <div class="bt-menu">
               <ui class="bt-info py-3">
-                  <li class="content">
+                  <li class="content" @click="$router.push('/userList')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
-                        <router-link to="/admin/userlist">
                             <div class="bt-text">회원관리</div>
-                        </router-link>
                       </div>
                   </li>
                   <li class="content">
@@ -35,7 +34,7 @@
                       </router-link>
                       </div>
                   </li>
-                  <li class="content">
+                  <li class="content" @click="$router.push('/adminQna')">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-question-circle"></i></div>
                       <div class="bt-text">문의목록</div>
@@ -69,13 +68,17 @@
                 </div> -->
           </div>
       </div>
-
   </div>
 </template>
 
 <script>
 export default {
-
+    name: 'AdminPage',
+    data() {
+        return {
+            
+        }
+    },
 }
 </script>
 
@@ -98,8 +101,9 @@ export default {
 }
 
 .tab-title {
-    font-size: 22pt;
+    font-size: 25pt;
     color: white;
+    font-weight: bold;
 }
 
 .info {

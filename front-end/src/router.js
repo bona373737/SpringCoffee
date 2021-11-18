@@ -63,13 +63,6 @@ const routes = [
         path: 'qnaDetail/:qnaBoardNo',
         name: 'qnaDetail',
         component: () => import('@/components/user/qna/QnaDetail.vue'),
-        children:[
-          {
-            path:'',
-            name: 'qnaReply',
-            component:() =>import('@/components/user/qna/QnaReply.vue'),
-          },
-        ]
       },
       {
         path: '/qnaAdd',
@@ -89,7 +82,7 @@ const routes = [
     component: () => import('@/components/user/OffStore.vue')
   },
   {
-    path: '/mypage/:',
+    path: '/mypage',
     redirect: '/mypage/profile',
     name: 'MyPage',
     component: () => import('@/components/user/MyPage.vue'),
@@ -98,18 +91,36 @@ const routes = [
         path: "profile",
         component: () => import('@/components/user/Profile.vue'),
       },
+      {
+        path: '/cart',
+        name: 'Cart',
+        component: () => import('@/components/user/shop/Cart.vue'),
+      },
+      {
+        path: "/myQna",
+        component: () => import('@/components/user/MyQna.vue'),
+      },
     ]
   },
   {
     path: '/shop',
     name: 'Shop',
     component: () => import('@/components/user/shop/Shop.vue'),
-    children: [
-      {
-        path: '/order',
-        component: () => import('@/components/user/shop/Order.vue')
-      },
-    ]
+  },
+  {
+    path: "/shop/item/:itemNo",
+    name: 'Item',
+    component: () => import('@/components/user/shop/Item.vue'),
+  },
+  // {
+  //   path: '/cart',
+  //   name: 'Cart',
+  //   component: () => import('@/components/user/shop/Cart.vue'),
+  // },
+  {
+    path: '/order',
+    name: 'Order',
+    component: () => import('@/components/user/shop/Order.vue'),
   },
   {
     path: '/admin/:',
@@ -117,12 +128,25 @@ const routes = [
     component: () => import('@/components/admin/AdminPage.vue'),
     children: [
       {
-        path: "userlist",
-        component: () => import('@/components/admin/UserList.vue'),
+        path: "/adminList",
+        component: () => import('@/components/admin/AdminList.vue'),
       },
       {
         path: "itemAdd",
         component: () => import('@/components/admin/ItemAdd.vue'),
+      },
+      {
+        path: "/adminQna",
+        component: () => import('@/components/admin/AdminQna.vue'),
+      },
+      {
+        path: "/userList",
+        component: () => import('@/components/admin/UserList.vue'),
+      },
+      {
+        path: "/memberDetail/:email",
+        name: 'memberDetail',
+        component: () => import('@/components/admin/MemberDetail.vue'),
       },
     ]
   },

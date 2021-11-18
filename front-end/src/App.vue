@@ -16,7 +16,19 @@ export default {
     Header,
     Footer
   },
-
+  created() {
+    this.$store.dispatch('getMemberInfo')
+    this.jwtCheck()
+  },
+  methods: {
+    jwtCheck() {
+      if(this.$store.state.isLogin==true) {
+        if(this.$store.state.exp < (new Date().getTime() + 1)/1000) {
+          this.$store.dispatch('logout')
+        }
+      }
+    }
+  }
 }
 </script>
 

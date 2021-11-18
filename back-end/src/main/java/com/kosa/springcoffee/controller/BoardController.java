@@ -62,6 +62,7 @@ public class BoardController {
     @GetMapping("/list/{category}")
     public PageResultDTO<BoardDTO, Board> getCategory(CategoryPageRequestDTO pageRequestDTO, @PathVariable String category) {
         log.info("게시글 "+category+" 조회");
+
         return boardService.getCategory(pageRequestDTO);
     }
 

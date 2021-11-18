@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -29,87 +31,47 @@ public class ItemServiceImpl implements ItemService{
     private final ItemRepository itemRepository;
     private final ItemImgRepository itemImgRepository;
     private final ItemImgService itemImgService;
+    private final FileHandler fileHandler;
 
     @Override
-    public Long create(ItemDTO dto) {
-        Item entity = dtoToEntity(dto);
-        itemRepository.save(entity);
+    public Long createWithImg(ItemDTO itemDTO, List<MultipartFile> itemImgFileList) throws Exception{
+        Item item = new Item(itemDTO.getName(),itemDTO.getContent(),itemDTO.getStockQuantity(),itemDTO.getPrice(),itemDTO.getCategory());
 
-        return entity.getItemNo();
-    }
+        List<ItemImg> imgList = new ArrayList<>();
+        imgList = fileHandler.parseFile(item,itemImgFileList);
 
-    @Override
-    public Long createWithImg(ItemFormDTO itemFormDTO, List<MultipartFile> itemImgFileList) throws Exception{
-        Item item = itemFormDTO.dtoToEntity();
-        itemRepository.save(item);
-
-        for (int i=0;i<itemImgFileList.size(); i++){
-            ItemImg itemImg = new ItemImg();
-            itemImg.setItem(item);
-            if(i==0){
-                itemImg.setRepImg("Y");
-            } else {
-                itemImg.setRepImg("N");
+        if (!imgList.isEmpty()){
+            for (ItemImg img : imgList) {
+                img.setItem(item);
+                itemImgRepository.save(img);
             }
-
-            itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
-
-
         }
-        return item.getItemNo();
+        Item getItem = itemRepository.save(item);
+        return getItem.getItemNo();
     }
+
     @Override
-    public ItemFormDTO getItemDetail(Long itemNo){
-        List<ItemImg> itemImgList = itemImgRepository.findByItemImgNoOrderByItemImgNoAsc(itemNo);
-        List<ItemImgDTO> itemImgDtoList = new ArrayList<>();
-
-        for (ItemImg itemImg : itemImgList) {
-            ItemImgDTO itemImgDto = ItemImgDTO.of(itemImg);
-            itemImgDtoList.add(itemImgDto);
-        }
-
-
+    public void modifyWithImg(Long itemNo, ItemDTO itemDTO, List<MultipartFile> files) throws Exception {
         Item item = itemRepository.findByItemNo(itemNo);
-        ItemFormDTO itemFormDto = ItemFormDTO.entityToDto(item);
-        itemFormDto.setItemImgDTOList(itemImgDtoList);
-        return itemFormDto;
-    }
 
-    @Override
-    public void modify(ItemDTO dto) {
-        Long itemNo = dto.getItemNo();
-        Optional<Item> result = itemRepository.findById(itemNo);
+        List<ItemImg> imgList = fileHandler.parseFile(item,files);
 
-        if(result.isPresent()){
-            Item item = result.get();
-            item.changeName(dto.getName());
-            item.changeContent(dto.getContent());
-            item.changeStockQuantity(dto.getStockQuantity());
-            item.changePrice(dto.getPrice());
-            item.changeCategory(dto.getCategory());
-            itemRepository.save(item);
+        if (!imgList.isEmpty()){
+            for (ItemImg img : imgList){
+                itemImgRepository.save(img);
+            }
         }
-    }
 
-    @Override
-    public Long modifyWithImg(ItemFormDTO itemFormDTO, List<MultipartFile> itemImgFileList) throws Exception {
-        Item item = itemRepository.findByItemNo(itemFormDTO.getItemNo());
-        item.updateItem(itemFormDTO);
+        item.updateItem(itemDTO);
 
-        List<Long> itemImgNo = itemFormDTO.getItemImgNo();
-
-        for (int i=0;i<itemImgFileList.size(); i++){
-            itemImgService.modifyItemImg(itemImgNo.get(i), itemImgFileList.get(i));
-
-
-        }
-        return item.getItemNo();
+        itemRepository.save(item);
     }
 
 
     @Override
     public void remove(Long itemNo) {
         itemRepository.deleteById(itemNo);
+        itemImgRepository.deleteAllByItemNo(itemNo);
     }
 
     @Override
@@ -124,6 +86,37 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
+    public List<ItemReadDTO> readAllItem() {
+        List<Item> itemList = itemRepository.findAll();
+        return getItemReadDtoBuild(itemList);
+    }
+
+    @Override
+    public List<ItemReadDTO> readAllItemByCategory(String category) {
+        List<Item> itemList = itemRepository.findAllByCategory(category);
+        return getItemReadDtoBuild(itemList);
+    }
+
+    private List<ItemReadDTO> getItemReadDtoBuild(List<Item> itemList) {
+        List<ItemReadDTO> dtoList = new ArrayList<>();
+        for (Item entity : itemList){
+            ItemReadDTO dto = ItemReadDTO.builder()
+                    .name(entity.getName())
+                    .content(entity.getContent())
+                    .itemNo(entity.getItemNo())
+                    .category(entity.getCategory())
+                    .price(entity.getPrice())
+                    .stockQuantity(entity.getStockQuantity())
+                    .fileId(entity.getItemImg().get(0).getItemImgNo())
+                    .build();
+            System.out.println(dto.getName());
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
+    @Override
     public PageResultDTO<ItemDTO, Item> getCategory(CategoryPageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("itemNo").descending());
 
@@ -133,4 +126,20 @@ public class ItemServiceImpl implements ItemService{
 
         return new PageResultDTO<>(result, fn);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ItemResponseDTO searchById(Long id, List<Long> fileId){
+        Item entity = itemRepository.findByItemNo(id);
+
+
+        return new ItemResponseDTO(entity, fileId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Item> searchAll() {
+        return itemRepository.findAll();
+    }
+
 }
