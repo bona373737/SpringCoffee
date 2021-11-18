@@ -74,21 +74,13 @@ public class FileHandler {
                 fileList.add(itemImg);
 
                 file = new File(absolutePath + path + File.separator +new_file_name);
+                System.out.println(file.getPath());
                 multipartFile.transferTo(file);
                 file.setWritable(true);
                 file.setReadable(true);
-
-
-
-
             }
-
-
         }
-
-
         return fileList;
-
     }
 
 

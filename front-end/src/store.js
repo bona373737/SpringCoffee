@@ -3,7 +3,7 @@ import axios from 'axios';
 import { router } from './router'
 
 let store = createStore({
-  state(){  // 데이터보관하고 싶으면 여기에 기재
+  state() {  // 데이터보관하고 싶으면 여기에 기재
     return {
       email: '',
       token: '',
@@ -11,6 +11,7 @@ let store = createStore({
       exp: 0,
       isLogin: false,
       cartNo: '',
+      thumbnail: [],
       itemList: [],
       itemDetail: {},
       cartList: [],
@@ -52,8 +53,7 @@ let store = createStore({
     },
     setMemberProfile(state, member) {
       state.memberProfile = member;
-    }
-
+    },
   },
   actions: {
     fetchNoticeBoardList(context,page){
@@ -85,7 +85,11 @@ let store = createStore({
     fetchItem(context) {
       axios.get(`/v2/list`)
         .then(response => {
-          context.commit('setItem', response.data.dtoList);
+          context.commit('setItem', response.data);
+          console.log('성공', response)
+          // context.commit('setItem', response.data);
+        }).catch(err => {
+          console.log('error', err)
         })
     },
     fetchItemDetail(context, itemNo){
@@ -208,14 +212,31 @@ let store = createStore({
       router.go('#')
     },
 
-    getItemCartegory(context, category) {
+    getItemCategory(context, category) {
       axios.get(`v2/list/${category}`)
-        .then(res => {
-          context.commit("setItem", res.data.dtoList);
-        }).catch(err => {
-            console.log('failed', err)
-        })
-    }
+      .then(res => {
+        console.log(category)
+        console.log(res)
+        context.commit('setItem', res.data.dtoList);
+      }).catch(err => {
+          console.log('failed', err)
+      })
+    },
+    // fetchThumbnail(context) {
+    // console.log('스타트')
+    //   for(let i=0; i<this.$store.state.itemList.length ; i++) {
+    //     console.log('반복')
+    //     axios.get(`/v2-2/thumbnail/${this.$store.state.itemList[i].fileId}`, {
+    //       responseType: 'blob'
+    //     }).then(res => {
+    //       console.log('끝')
+    //       context.state()
+    //       this.state.thumbnail[i] = window.URL.createObjectURL(new Blob([res.data]));
+    //     }).catch(res => {
+    //       console.log(res);
+    //     })
+    //   }
+    // },
   },
 })
 

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div v-if="this.$store.state.role!='ROLE_ADMIN'" v-on="this.$router.replace('NotfoundPage')"></div>
     <div class="outterDiv py-5">
       <table class="notice-context text-start col-5 m-auto">
         <tr>
@@ -47,7 +48,7 @@ export default {
     return {
       name : '',
       content : '',
-      image: {},
+      image: '',
       stockQuantity: '',
       price: '',
       category: '',
@@ -55,21 +56,27 @@ export default {
   },
   methods:{
     onSubmit() {
-      const input = new FormData();
-      input.append('name', this.name);
-      input.append('content', this.content);
-      input.append('image', this.image);
-      input.append('stockQuantity', this.stockQuantity);
-      input.append('price', this.price);
-      input.append('category', this.category)
+      const formData = new FormData();
+      formData.append('name', this.name);
+      formData.append('content', this.content);
+      formData.append('image', this.image[0]);
+      formData.append('stockQuantity', this.stockQuantity);
+      formData.append('price', this.price);
+      formData.append('category', this.category)
 
-      for(let key of input.entries()) {
+      for(let key of formData.entries()) {
         console.log(`${key}`);
       }
+      
+      if(confirm("등록하시겠습니까?") == true) {
+        alert('등록되었습니다.')
+      } else {
+        return false;
+      }
 
-      axios.post( '/v2/create', input, {
+      axios.post( '/v2/create', formData, {
           headers: {
-              'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data'
           }
         }).then(res => {
           console.log('SUCCESS!!', res);

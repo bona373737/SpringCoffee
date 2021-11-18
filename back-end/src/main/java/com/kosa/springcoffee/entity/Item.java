@@ -71,13 +71,4 @@ public class Item {
         }
         this.stockQuantity = restStock;
     }
-
-
-    public void addImg(ItemImg itemImg){
-        this.itemImg.add(itemImg);
-
-        if(itemImg.getItem() != this)
-            itemImg.setItem(this);
-    }
-
 }

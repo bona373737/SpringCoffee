@@ -31,7 +31,7 @@ public class ItemImgController {
 
     @CrossOrigin
     @GetMapping(value = "/thumbnail/{itemImgNo}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
-    public ResponseEntity getTumnail(@PathVariable Long itemImgNo) throws IOException{
+    public ResponseEntity getThumbnail(@PathVariable Long itemImgNo) throws IOException{
         String absolutePath = new File("").getAbsolutePath() + File.separator + File.separator;
         String path;
 
@@ -48,7 +48,6 @@ public class ItemImgController {
         imageStream.close();
 
         return new ResponseEntity<>(imageByteArray, HttpStatus.OK);
-
     }
     @CrossOrigin
     @GetMapping(

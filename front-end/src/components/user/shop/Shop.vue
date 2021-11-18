@@ -34,8 +34,8 @@
                 <td> 총 가격 </td>
                 <td></td>
               </tr>
-              <tr class="product-item text-center" v-for="cart in this.$store.state.cartList" :key="cart.cartItemNo" >
-                  <td> <img :src="cart.image" alt=""></td>
+              <tr class="product-item text-center" v-for="cart in this.$store.state.cartList" :key="cart.cartItemNo">
+                  <!-- <td> <img :src="cart.image" alt=""></td> -->
                   <td> {{cart.itemName}}</td>
                   <td> {{cart.price}}</td>
                   <td>
@@ -60,11 +60,11 @@
               <img width="120" height="80" src="../../../assets/shop2.webp" role="presentation" class="" alt="">
               <div class="ProductListTechnologies__name" style="color: brown">전체보기</div>
           </div>
-          <div class="ProductListTechnologies__element me-2" @click="this.$store.dispatch('getItemCartegory', 'coffee')">
+          <div class="ProductListTechnologies__element me-2" @click="this.$store.dispatch('getItemCategory', 'coffee')">
               <img width="120" height="80" src="../../../assets/shop1.webp" role="presentation" class="" alt="">
               <div class="ProductListTechnologies__name">커피</div>
           </div>
-          <div class="ProductListTechnologies__element me-2" @click="this.$store.dispatch('getItemCartegory', 'tumbler')">            
+          <div class="ProductListTechnologies__element me-2" @click="this.$store.dispatch('getItemCategory', 'tumbler')">            
               <img width="120" height="80" src="../../../assets/tumbler.jpg" role="presentation" class="" alt="">
               <div class="ProductListTechnologies__name">텀블러</div>
           </div>
@@ -83,8 +83,10 @@
                 <td>가격</td>
                 <td> </td>
               </tr>
-            <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" v-bind:key="item.itemId">
-                <td> <img width="120" height="80" ref="imageOutput" :src="item.image"> </td>
+            <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" :key="i">
+                <td>
+                  <img width="100" height="100" alt="상품이미지" :src="thumbnail[i]">
+                </td>
                 <td @click="goItemDetail(item.itemNo)" > {{item.name}}</td>
                 <td> {{item.price}}</td>
                 <td>
@@ -108,13 +110,13 @@ export default {
   name:'shop',
   created() {
     this.$store.dispatch('fetchItem');
-    this.$store.dispatch('fetchCart');
   },
   data() {
     return {
         sum: 0,
         price: 0,
         count: [],
+        thumbnail: [],
     };
   },
   methods: {
@@ -157,6 +159,18 @@ export default {
     },
     setCountM(cart) {
       cart.count--;
+    },
+    fetchThumbnail() {
+      console.log('스타트')
+      for(let i=0; i<this.$store.state.itemList.length ; i++) {
+        console.log('반복')
+        axios.get(`/v2-2/thumbnail/${this.$store.state.itemList[i].fileId}`, {
+          responseType: 'blob'
+        }).then(res => {
+          console.log('끝')
+          this.thumbnail[i] = window.URL.createObjectURL(new Blob([res.data]))
+        })
+      }
     },
     deleteCart(cart) {
         axios.delete(`v4/${cart.cartItemNo}/${this.$store.state.email}`)

@@ -64,11 +64,10 @@ public class CartController {
 //    }
 
     @GetMapping(value = "/cart/{email}")
-    public ResponseEntity cartList(@PathVariable String email, Model model) {
+    public ResponseEntity cartList(@PathVariable String email) {
         Member member = memberRepository.getByEmail(email);
         List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(member.getEmail());
-        model.addAttribute("cartItems", cartDetailDTOList);
-        return new ResponseEntity<List<CartDetailDTO>>(cartDetailDTOList, HttpStatus.OK);
+        return new ResponseEntity<>(cartDetailDTOList, HttpStatus.OK);
     }
 
 

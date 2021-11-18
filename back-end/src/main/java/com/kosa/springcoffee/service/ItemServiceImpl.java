@@ -49,9 +49,9 @@ public class ItemServiceImpl implements ItemService{
 
         if (!imgList.isEmpty()){
             for (ItemImg img : imgList) {
-//                img.setItem(item);
-//                item.getItemImg().add(itemImgRepository.save(img));
-                item.addImg(itemImgRepository.save(img));
+                img.setItem(item);
+
+                itemImgRepository.save(img);
             }
         }
         Item getItem = itemRepository.save(item);
