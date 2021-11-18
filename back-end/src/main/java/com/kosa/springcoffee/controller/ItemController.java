@@ -150,11 +150,7 @@ public class ItemController {
         return new ResponseEntity<List<ItemReadDTO>>(getItems,HttpStatus.OK);
     }
 
-    @GetMapping("/list/{category}")
-    public ResponseEntity getCategory(CategoryPageRequestDTO p, @PathVariable String category) {
-        log.info("상품 "+category+" 조회");
-        return new ResponseEntity<>(itemService.getCategory(pageRequestDTO), HttpStatus.OK);
-    }
+
 
     @GetMapping("/{itemNo}")
     public ResponseEntity getItemDetail(@PathVariable("itemNo") Long itemNo){
