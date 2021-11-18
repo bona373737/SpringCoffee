@@ -78,7 +78,6 @@
           </div>
             <div class="m-info py-3">
               <span class="btn btn-primary me-2" @click="infoUpdate()">회원정보 수정</span>
-              <span class="btn btn-secondary " @click="goBack()">뒤로가기</span>
             </div>
         </div>
       </div>
