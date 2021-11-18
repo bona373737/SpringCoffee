@@ -24,8 +24,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
-    
+
     @PostMapping("/email-check")
     public Boolean checkEmail(@RequestParam String email){
         return memberService.checkEmail(email);
@@ -42,8 +41,9 @@ public class MemberController {
 
         if(dto.getIsAdmin() == 1){
             member.addMemberRole(ROLE_ADMIN);
+        } else {
+            member.addMemberRole(ROLE_USER);
         }
-        member.addMemberRole(ROLE_USER);
         memberService.joinMember(member);
         return "redirect:/login";
     }
