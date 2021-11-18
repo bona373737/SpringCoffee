@@ -214,7 +214,8 @@ th{
 }
 
 .filter span {
-  margin-right: 5px auto;
+  margin-right: 5px;
+  margin: auto;
 }
 
 .filter select {

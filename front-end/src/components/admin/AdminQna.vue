@@ -34,9 +34,9 @@
     </table>
 
     <div>
-      <div>
+      <div class="page-btn">
         <button class="btn btn-outline-secondary btn-sm" @click="movePage('prev')" :disabled="!this.$store.state.qnaBoardList.prev">이전</button>
-        <button class="btn btn-outline-secondary btn-sm" v-for="page in this.$store.state.qnaBoardList.pageList" :key="page"
+        <button class="btn btn-outline-secondary btn-sm btn-page" v-for="page in this.$store.state.qnaBoardList.pageList" :key="page"
                 :class="{pageNo : page === this.$store.state.qnaBoardList.page}"
                 @click="fetchQnaBoard(page)">{{page}}</button>
         <button class="btn btn-outline-secondary btn-sm" @click="movePage('next')" :disabled="!this.$store.state.qnaBoardList.next">다음</button>
@@ -84,8 +84,42 @@ export default {
 </script>
 
 <style scoped>
+.page-btn{
+  padding: 20px;
+}
+
+.page-btn .btn-sm {
+  width: 40px;
+  height: 35px;
+}
+
+.page-btn :first-child, .page-btn :last-child{
+  width: 50px;
+  border: 2px solid #663C2A;
+  color: #663C2A;
+  font-weight: bold;
+  margin: 5px 5px;
+}
+
+.page-btn :first-child:hover, .page-btn :last-child:hover{
+  border: 2px solid #663C2A;
+  background-color: #663C2A;
+  color: white;
+}
+
+.page-btn .btn-page{
+  border: none;
+}
+
+.page-btn .btn-page:hover{
+  background: #A36043;
+  color: white;
+}
+
 .pageNo{
-  background : darkgreen;
+  background: #663C2A;
+  color: white;
+  font-weight: bold;
 }
 
 

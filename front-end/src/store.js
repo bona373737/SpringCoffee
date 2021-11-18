@@ -89,7 +89,7 @@ let store = createStore({
 
       console.log(`카테고리 조회`);
       
-      url = '/v2/list/' + category; // 'v1/list/notice'
+      url = '/v1/list/' + category; // 'v1/list/notice'
       pageObj = {
         page: page
       };
