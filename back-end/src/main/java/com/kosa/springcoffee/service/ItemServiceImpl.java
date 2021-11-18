@@ -88,6 +88,16 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public List<ItemReadDTO> readAllItem() {
         List<Item> itemList = itemRepository.findAll();
+        return getItemReadDtoBuild(itemList);
+    }
+
+    @Override
+    public List<ItemReadDTO> readAllItemByCategory(String category) {
+        List<Item> itemList = itemRepository.findAllByCategory(category);
+        return getItemReadDtoBuild(itemList);
+    }
+
+    private List<ItemReadDTO> getItemReadDtoBuild(List<Item> itemList) {
         List<ItemReadDTO> dtoList = new ArrayList<>();
         for (Item entity : itemList){
             ItemReadDTO dto = ItemReadDTO.builder()

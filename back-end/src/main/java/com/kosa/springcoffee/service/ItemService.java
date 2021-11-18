@@ -16,6 +16,7 @@ public interface ItemService {
     void remove(Long itemNo);
     PageResultDTO<ItemDTO, Item> readAll(PageRequestDTO requestDTO);
     List<ItemReadDTO> readAllItem();
+    List<ItemReadDTO> readAllItemByCategory(String Category);
     PageResultDTO<ItemDTO, Item> getCategory(CategoryPageRequestDTO requestDTO);
     ItemResponseDTO searchById(Long id, List<Long> fileId);
     List<Item> searchAll();
