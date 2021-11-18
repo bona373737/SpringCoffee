@@ -4,7 +4,7 @@
 
         <div class="py-2">
             <span class="info"><i class="bi bi-question-circle-fill"></i></span><br>
-            <span class="info-text" style="font-size: 11pt; color: #4F2E20;">궁금한 것이 있으면 언제든 문의해주세요!</span>
+            <span class="info-text">궁금한 것이 있으면 언제든 문의해주세요!</span>
         </div>
 
       <div class="btnWrap text-end">
@@ -174,9 +174,14 @@ export default {
 }
 
 .info-text {
+  color: #4F2E20;
   font-size: 12pt;
   display: block;
   padding-bottom: 50px;
+}
+
+.qna-list{
+  margin: 5px 10px;
 }
 
 .qna-list thead, .qna-list tbody {

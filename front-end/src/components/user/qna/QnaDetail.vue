@@ -3,7 +3,7 @@
     <div class="py-2">
         <div style="height: 48px;"/>
         <span class="info"><i class="bi bi-question-circle-fill"></i></span><br>
-        <span class="info-text" style="font-size: 11pt; color: #4F2E20;">궁금한 것이 있으면 언제든 문의해주세요!</span>
+        <span class="info-text">궁금한 것이 있으면 언제든 문의해주세요!</span>
     </div>
     <div class="outterDiv py-5">
       <table class="qna-context">
@@ -28,6 +28,7 @@
                 v-show="this.$store.state.qnaBoardDetail.writer === this.$store.state.email"> 수정 </button>
         <button class="btn btn-success" @click="$router.push('/qnaLayout')"> 목록 </button>
       </div>
+      
       <hr>
 
       <!-- 답변   -->
@@ -169,6 +170,7 @@ export default {
 }
 
 .info-text {
+  color: #4F2E20;
   font-size: 12pt;
   display: block;
 }
@@ -224,7 +226,7 @@ export default {
   font-weight: bold;
   color: #4F2E20;
 }
-
+/* 여긴 수정필요 */
 button{
   margin-right: 5px;
   margin-bottom: 5px;

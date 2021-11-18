@@ -3,7 +3,7 @@
     <div class="py-2">
         <div style="height: 48px;"/>
         <span class="info"><i class="bi bi-question-circle-fill"></i></span><br>
-        <span class="info-text" style="font-size: 11pt; color: #4F2E20;">궁금한 것이 있으면 언제든 문의해주세요!</span>
+        <span class="info-text">궁금한 것이 있으면 언제든 문의해주세요!</span>
     </div>
     <div class="outterDiv py-5">
       <table class="notice-context">
@@ -102,6 +102,7 @@ export default {
 
 .info-text {
   font-size: 12pt;
+  color: #4F2E20;
   display: block;
 }
 
