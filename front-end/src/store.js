@@ -69,6 +69,25 @@ let store = createStore({
             context.commit('setNoticeBoardList',response.data)
           })
     },
+    fetchNoticeBoardCategory(context, paramObj){
+      const page = paramObj.page;
+      const category = paramObj.category;
+
+      let url = '/v1/list';
+      let pageObj = {};
+
+      console.log(`카테고리 조회`);
+      
+      url = '/v2/list/' + category; // 'v1/list/notice'
+      pageObj = {
+        page: page
+      };
+      
+      axios.get(url, {params:pageObj})
+      .then(response =>{
+          context.commit('setNoticeBoardList', response.data)
+      });
+    },
     fetchNoticeBoardDetail(context, boardNo){
       axios.get(`/v1/${boardNo}`)
           .then(response =>{

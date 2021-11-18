@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="tab-bar">
-            <div class="tab-shop py-3" style="width:100%;">
+            <div class="tab-shop py-3">
                 <span class="tab-title">상품목록</span>            
             </div>
         </div>
@@ -189,6 +189,17 @@ export default {
 
 .tab-shop {
   background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 150px;
+  display: table;
+  }
+
+.tab-title {
+    font-weight: bold;
+    font-size: 25pt;
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .bag {
@@ -199,11 +210,6 @@ export default {
     color: green;
     font-size: 26pt;
     transition: 0.3s;
-}
-
-.tab-title {
-    font-size: 22pt;
-    color: white;
 }
 
 .outter-border{

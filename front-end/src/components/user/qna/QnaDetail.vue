@@ -1,9 +1,23 @@
 <template>
-  <div>
+  <div class="outer">
+    <div class="py-2">
+        <div style="height: 48px;"/>
+        <span class="info"><i class="bi bi-question-circle-fill"></i></span><br>
+        <span class="info-text" style="font-size: 11pt; color: #4F2E20;">궁금한 것이 있으면 언제든 문의해주세요!</span>
+    </div>
     <div class="outterDiv py-5">
-      <table class="notice-context">
-        <tr><td class="table-title"> {{$store.state.qnaBoardDetail.title}} </td></tr>
-        <tr><td class="table-context"> {{$store.state.qnaBoardDetail.content}} </td></tr>
+      <table class="qna-context">
+        <colgroup>
+            <col width="20%" />
+            <col width="80%" />
+          </colgroup>
+        <tr class="table-title">
+          <td>제목</td>
+          <td>{{$store.state.qnaBoardDetail.title}} </td></tr>
+        <tr class="table-context">
+          <td>문의내용</td>
+          <td> {{$store.state.qnaBoardDetail.content}} </td>
+        </tr>
       </table>
       <br>
 
@@ -18,7 +32,7 @@
 
       <!-- 답변   -->
       <div class="answer">
-        <h5 style="text-align: left"> 답변 </h5>
+        <h5>&gt; 답변</h5>
           <table>
             <tr v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">
               {{answer.content}}
@@ -127,28 +141,90 @@ export default {
 </script>
 
 <style scoped>
+.outer {
+  background-color: #f7f7f7;
+}
+
 .outterDiv{
   width: 60%;
   margin: auto;
+  background-color: white;
+  padding: 0px 20px;
 }
-.notice-context{
+
+.py-2 {
+    width: 60%;
+    margin: auto;
+    background-color: white;
+}
+
+.info {
+    font-size: 30pt;
+    color: #663C2A;
+}
+
+.info:hover {
+    color: #A36043;
+    transition: 0.3s;
+}
+
+.info-text {
+  font-size: 12pt;
+  display: block;
+}
+
+.info i{
+  margin-top: 48px;
+}
+
+.qna-context{
   width: 100%;
   text-align: left;
-}
+ }
+ 
 .table-title{
-  padding: 15px;
-  border-top: 2px solid #444444 ;
-  border-bottom: 2px solid #444444 ;
+  border-top: 2px solid #4F2E20 ;
+  border-bottom: 2px solid #4F2E20 ;
 }
+
+.table-title td, .table-context td {
+  padding: 20px;
+}
+
+.table-title :first-child, .table-context :first-child{
+  font-weight: bold;
+  color: #4F2E20;
+  border-right: 1px solid #ddd;
+  text-align: center;
+}
+
 .table-context{
   padding: 10px;
   height: 300px;
   border-bottom: 1px solid  #ddd;;
 }
+
 .BtnWrap{
-  margin-bottom: 5px;
-  margin-top: 5px;
+  margin: 5px 0px;
 }
+
+.BtnWrap button{
+  background-color: #663C2A;
+  border-color: #663C2A;
+}
+
+.BtnWrap button:hover{
+  background-color: #A36043;
+  border-color: #A36043;
+}
+
+.answer h5 {
+  margin-left: 10px;
+  text-align: left;
+  font-weight: bold;
+  color: #4F2E20;
+}
+
 button{
   margin-right: 5px;
   margin-bottom: 5px;

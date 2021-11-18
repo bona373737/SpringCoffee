@@ -2,9 +2,16 @@
   <div>
      <div class="outterDiv py-5">
       <div class="btnWrap text-end">
+        <span class="filter">
+         <select v-model="category" @change="movePage()">
+           <option v-for="option in categoryOption" :value="option.value" :key="option.value">{{option.title}}</option>
+         </select>
+       </span>
+       <span class="search">
         <input type="text" class="me-2" placeholder="제목" v-model="keyword">
         <button class="btn btn-success me-2" @click="noticeBoardSearch(keyword)" > 검색 </button>
-        <button class="btn btn-primary" @click="$router.push('/noticeAdd')" v-show="this.$store.state.email == 'dp@test.com'"> 추가 </button>
+        <button class="btn btn-primary" @click="$router.push('/noticeAdd')" v-show="this.$store.state.role == 'ROLE_ADMIN'"> 추가 </button>
+       </span>
       </div>
       <div>
         <table class="table table-bordered table-condensed">
@@ -52,7 +59,13 @@ export default {
   },
   data() {
     return {
+      category:'',
       keyword:'',
+      categoryOption: [
+        {value: '', title: '전체'},
+        {value: '공지', title: '공지'},
+        {value: '이벤트', title: '이벤트'},
+      ],
     }
   },
   methods: {
@@ -79,6 +92,13 @@ export default {
     },
     noticeBoardSearch(keyword){
       this.$store.dispatch('fetchNoticeBoardSearch',keyword)
+    },
+    noticeBoardCategory(page) {
+      const paramObj = {
+        page : page,
+        category: this.category
+      };
+      this.$store.dispatch('fetchNoticeBoardCategory', paramObj);
     },
   }
 };
@@ -112,5 +132,20 @@ th{
 }
 .pageNo{
   background: darkgreen;
+}
+
+.filter{
+  float: left;
+  padding-top: 3px;
+  margin-left: 20px;
+}
+
+.filter select {
+  margin-top: 2px auto;
+  height: 30px;
+}
+
+.search {
+  margin-right: 15px;
 }
 </style>
