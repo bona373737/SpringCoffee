@@ -78,7 +78,6 @@
           </div>
             <div class="m-info py-3">
               <span class="btn btn-primary me-2" @click="infoUpdate()">회원정보 수정</span>
-              <span class="btn btn-secondary " @click="goBack()">뒤로가기</span>
             </div>
         </div>
       </div>
@@ -127,8 +126,8 @@ export default {
       } else if(this.checkPW2 != this.checkPW3) {
         alert('변경하실 비밀번호를 확인해주세요')
         return false;
-      } else {
-
+      
+      }else {
         if(this.checkPW2 != '') {
           let password = this.checkPW2;
           let regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,25}$/;
@@ -145,7 +144,8 @@ export default {
 
         axios.post('/v5/update-userinfo', {
           email: this.$store.state.email,
-          password: this.checkPW1,
+          curPassword: this.checkPW1,
+          newPassword: this.checkPW2,
           name: this.$store.state.memberProfile.name,
           address: this.address
         }).then(res => {

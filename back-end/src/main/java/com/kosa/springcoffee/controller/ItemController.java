@@ -1,36 +1,24 @@
 package com.kosa.springcoffee.controller;
 
-import com.kosa.springcoffee.dto.*;
+import com.kosa.springcoffee.dto.ItemDTO;
+import com.kosa.springcoffee.dto.ItemReadDTO;
+import com.kosa.springcoffee.dto.ItemResponseDTO;
 import com.kosa.springcoffee.entity.Item;
 import com.kosa.springcoffee.entity.ItemImg;
 import com.kosa.springcoffee.repository.ItemImgRepository;
 import com.kosa.springcoffee.repository.ItemRepository;
-import com.kosa.springcoffee.service.ItemImgService;
 import com.kosa.springcoffee.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.file.Files;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -155,8 +143,6 @@ public class ItemController {
         log.info("카테고리별 상품 전체 조회");
         return new ResponseEntity(itemService.readAllItemByCategory(category), HttpStatus.OK);
     }
-
-
 
 //    @GetMapping("/list/{category}")
 //    public PageResultDTO<ItemDTO, Item> getCategory(CategoryPageRequestDTO pageRequestDTO, @PathVariable String category) {

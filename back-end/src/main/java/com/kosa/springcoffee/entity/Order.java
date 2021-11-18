@@ -42,16 +42,24 @@ public class Order extends BaseEntityOrder{
         }
         return order;
     }
-    //비즈니스 로직 주문 취소
+
     public void cancel() {
 
-        this.setStatus(OrderStatus.CANCEL);
+        this.setStatus(OrderStatus.주문취소);
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
         }
     }
+    public void shipping() {
+        this.setStatus(OrderStatus.배송중);
+    }
+    public void done() {
+        this.setStatus(OrderStatus.배송완료);
+    }
+    public void prepare() {
+        this.setStatus(OrderStatus.배송준비중);
+    }
 
-    //조회 로직 전체주문 가격 조회
     public int getTotalPrice() {
         int totalPrice = 0;
         for (OrderItem orderItem : orderItems) {
