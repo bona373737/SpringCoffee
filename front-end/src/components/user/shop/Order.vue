@@ -19,11 +19,7 @@
         </div>
       </div>
     </div>
-    <div class="border-top py-3">
-      <button type="button" class="btn me-3" @click="onSubmit()">결제하기</button>
-    </div>
     <div class="py-5"></div>
-    
     <CartDetail></CartDetail>
   </div>
   <div v-if="!this.$store.state.isLogin" v-on="this.$router.replace('NotfoundPage')"></div>
@@ -32,7 +28,6 @@
 
 <script>
 import CartDetail from './CartDetail.vue';
-import axios from 'axios';
 
 export default {
   name: 'Order',
@@ -42,33 +37,12 @@ export default {
   data() {
     return {
       isUpdate: false,
-      address: '',
-      cartItemNo: [],
     }
   },
+  mounted() {
+    this.$store.dispatch('fetchCart');
+  },
   methods: {
-    onSubmit() {
-    if(!this.isUpdate) {
-      this.address=this.$store.state.memberProfile.address;
-    }
-    for(let i=0; i<this.$store.state.cart.length; i++) {
-      this.cartItemNo[i]=this.$store.state.cart.cartItemNo;
-    }
-
-    if(confirm("등록하시겠습니까?") == true) {
-      alert('등록되었습니다.')
-    } else {
-      return false;
-    }
-
-    axios.post('/v5/cartOrder', 
-      {
-        cartItemNo : this.cartItemNo,
-        email : this.$store.state.email,
-        address : this.address
-      })
-    },
-
     updateAddress() {
       if(this.isUpdate==false)
         this.isUpdate=true;
@@ -139,15 +113,6 @@ export default {
   font-size: 14pt;
   font-weight: 700;
   color: #A36043;
-}
-
-.btn {
-  background-color: #663C2A;
-  color: white;
-}
-
-.btn:hover {
-  background-color: #A36043;
 }
 
 .bt-change:hover {

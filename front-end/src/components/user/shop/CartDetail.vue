@@ -14,19 +14,22 @@
                     <col width="10%" />
                     <col width="10%" />
                     <col width="10%" />
+                    <col width="10%" />
                     <col width="3%" />
                 </colgroup>
 
                 <tr>
-                    <td> 이미지</td>
-                    <td> 이름</td>
-                    <td> 가격</td>
-                    <td> 개수</td>
-                    <td> 합 </td>
-                    <td></td>
+                  <td> 구매</td>
+                  <td> 이미지</td>
+                  <td> 이름</td>
+                  <td> 가격</td>
+                  <td> 개수</td>
+                  <td> 합 </td>
+                  <td></td>
                 </tr>
 
-                <tr class="product-item" v-for="cart in this.$store.state.cartList" :key="cart.cartItemNo">
+                <tr class="product-item" v-for="(cart, i) in this.$store.state.cartList" :key="cart.cartItemNo">
+                    <td><input type="checkbox" @click="onCart(cart, i)"></td>
                     <td><img :src="cart.image" alt=""></td>
                     <td @click="goItemDetail(cart)">{{cart.itemName}}</td>
                     <td>{{cart.price}}</td>
@@ -51,7 +54,12 @@
                 </tr> -->
             </table>
             <div class="py-3"></div><br>
+            
             <Order></Order>
+
+            <div >
+              <button type="button" class="btn me-3" @click="onSubmit()">결제하기</button>
+            </div>
         </div>
     </div>
     <div v-if="!this.$store.state.isLogin" v-on="this.$router.replace('NotfoundPage')"></div>
@@ -66,8 +74,10 @@ export default {
   name : 'CartDetail',
   data() {
     return {
-        sum: 0,
-        price: 0,
+      sum: 0,
+      price: 0,
+      buyItem: [],
+      myCart: [],
     };
   },
   components: {
@@ -77,7 +87,45 @@ export default {
       this.$store.dispatch('fetchCart');
   },
   methods: {
+    onCart(cart, index) {
+      if(this.buyItem[index] == '') {
+        this.buyItem[index]=true;
+        this.myCart[index]=cart.cartItemNo
+        console.log(this.myCart)
+      } 
+      else if(this.buyItem[index] != true) {
+        this.buyItem[index]=true
+        this.myCart[index]=cart.cartItemNo
+        console.log(this.myCart)
+      } else if(this.buyItem[index] === true) {
+        this.buyItem[index]=false;
+        //delete 
+        this.myCart.splice(index,1)
+        console.log(this.myCart)
+        console.log("논체크로직")
+      }
+      console.log(this.myCart)
 
+    },
+    onSubmit() {
+      if(confirm("등록하시겠습니까?") == true) {
+        alert('등록되었습니다.')
+      } else {
+        return false;
+      }
+
+      axios.post('/v5/cartOrder', 
+      {
+        cartItemNo : this.myCart,
+        email : this.$store.state.email,
+        address : "병원병원"
+      })
+      .then(res => {
+        alert('등록 되었습니다.')
+        this.$router.redirect('/order')
+        console.log(res)
+      })
+    },
     patchCart(cart) {
       if(cart.count<1) {
         this.deleteCart(cart);
@@ -164,4 +212,14 @@ export default {
     margin-top: 50px;
     font-size: 28pt;
 }
+
+.btn {
+  background-color: #663C2A;
+  color: white;
+}
+
+.btn:hover {
+  background-color: #A36043;
+}
+
 </style>
