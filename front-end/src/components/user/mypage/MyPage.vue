@@ -147,13 +147,13 @@ export default {
     text-align: center;
     margin: auto;
 }
+
 .bt-menu .bt-info .bt-icon {
     font-size: 38pt;
 }
 
 .content {
     display: flex;
-    /* justify-content: center; */
     text-align: center;
 }
 
@@ -161,13 +161,15 @@ export default {
     width: 100px;
     height: 100px;
     background-color: white;
-    box-shadow: 1px 1px 10px #333;
+    border: 1px solid #4F2E20;
     border-radius: 10px;
-    /* margin-right: 20px; */
 }
+
 .content .con-card:hover {
     cursor: pointer;
     color: #A36043;
+    border: none;
+    box-shadow: 1px 1px 10px #333;
     transition: 0.2s;
 }
 
