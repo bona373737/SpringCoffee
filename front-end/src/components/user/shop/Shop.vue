@@ -39,12 +39,12 @@
                   <td> {{cart.itemName}}</td>
                   <td> {{cart.price}}</td>
                   <td>
-                    <span class="plus" ><i @click="setCountP(cart), patchCart(cart)" class="bi bi-plus-circle"></i></span>
+                    <span class="plus" ><i @click="setCountP(cart), patchCart(cart)" class="bi bi-caret-up-fill"></i></span>
                     {{cart.count}}
-                    <span class="minus"><i @click="setCountM(cart), patchCart(cart)" class="bi bi-dash-circle"></i></span>
+                    <span class="minus"><i @click="setCountM(cart), patchCart(cart)" class="bi bi-caret-down-fill"></i></span>
                   </td>
                   <td v-bind="sumPrice(cart.price, cart.count)"> {{sum}}</td>
-                  <td> <i style="cursor:pointer;" @click="deleteCart(cart)" class="bi bi-trash-fill"></i></td>
+                  <td> <i style="cursor:pointer;" @click="deleteCart(cart)" class="bi bi-x-lg"></i></td>
               </tr>
             </table>
             <span style="font-weight: 800; font-size: 16pt;"> {{price}} 원</span>
@@ -68,7 +68,7 @@
             <img width="100" height="100" src="../../../assets/tumbler.jpg" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top">텀블러</div>
           </div>
-          <div class="ProductListTechnologies__element" @click="this.$store.dispatch('getItemCategory', 'tumbler')">            
+          <div class="ProductListTechnologies__element" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" @click="this.$store.dispatch('fetchCart')">            
             <img width="100" height="100" src="../../../assets/shoppingcart.png" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top">장바구니</div>
           </div>
@@ -250,6 +250,15 @@ export default {
 .nav-link {
     text-decoration: none;
 }
+
+.plus {
+  color: #999;
+}
+
+.minus {
+  color: #999;
+}
+
 
 .plus:hover {
   cursor: pointer;
