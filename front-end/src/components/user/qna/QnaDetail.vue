@@ -35,24 +35,31 @@
       <div class="answer">
         <h5>&gt; 답변</h5>
           <table>
-            <tr v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">
+            <tr style="text-indent: 2em" v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">
               {{answer.content}}
             </tr>
           </table><br>
 
           <section v-show="this.$store.state.role ==='ROLE_ADMIN'">
-            <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length < 1">
-              <textarea style="width: 100%" v-model="content"></textarea>
+            <div v-show="this.$store.state.qnaBoardDetail.replyList.length < 1">
+              <div class="answer-row" >
+                <textarea readonly="true" v-model="content" ></textarea>
+              </div>
               <button class="btn btn-outline-success btn-sm" @click="replyAdd">답변등록</button>
-            </span>
+
+            </div>
+
+
             <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length > 0">
               <div v-if="!isReply">
                 <button class="btn btn-outline-success btn-sm" @click="updateReply()"> 수정하기</button>
               </div>
               <div v-if="isReply">
-                <textarea style="width: 100%" v-model="content"></textarea>
-                <button class="btn btn-outline-success btn-sm" @click="replyupdate(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">답변수정</button>
-                <button class="btn btn-outline-success btn-sm" @click="replyDelete(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">답변삭제</button>
+                <textarea v-model="content"></textarea>
+                <div>
+                  <button class="btn btn-outline-success btn-sm" @click="replyupdate(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">수정</button>
+                  <button class="btn btn-outline-success btn-sm" @click="replyDelete(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">삭제</button>
+                </div>
               </div>
             </span>
           </section>
@@ -140,6 +147,11 @@ export default {
 </script>
 
 <style scoped>
+textarea{
+  width: 95%;
+  min-height: 100px;
+}
+
 .outer {
   background-color: #f7f7f7;
 }
@@ -228,5 +240,16 @@ export default {
 button{
   margin-right: 5px;
   margin-bottom: 5px;
+}
+
+.btn-outline-success{
+  margin-right: 5px;
+  color: #4F2E20;
+  border: 2px solid #4F2E20;
+}
+
+.btn-outline-success:hover{
+  border: 2px solid #A36043;
+  background: #A36043;
 }
 </style>

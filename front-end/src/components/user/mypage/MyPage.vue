@@ -16,19 +16,19 @@
         
         <div class="bt-menu">
             <ui class="bt-info py-2">
-                <li class="content" @click="this.$router.replace('/mypage')">
+                <li class="content" style="margin-right: 5px" @click="this.$router.replace('/mypage')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
                         <div class="bt-text">회원정보</div>
                       </div>
                 </li>
-                <li class="content" @click="this.$router.replace('/cart')">
+                <li class="content" style="margin-right: 5px" @click="this.$router.replace('/cart')">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-cart-check-fill"></i></div>
                             <div class="bt-text">장바구니</div>
                       </div>
                 </li>
-                <li class="content" @click="$router.push('/myQna')">
+                <li class="content" style="margin-right: 5px" @click="$router.push('/myQna')">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-question-circle"></i></div>
                       <div class="bt-text">문의내역</div>
@@ -104,7 +104,7 @@ export default {
 }
 
 .py-2 {
-    width: 60%;
+    width: 80%;
     margin: auto;
     background-color: white;
 }
@@ -126,7 +126,7 @@ export default {
 }
 
 .bt-menu {
-    width: 60%;
+    width: 80%;
     padding: 30px;
     margin: auto;
     border-bottom: 1px solid #4F2E20;

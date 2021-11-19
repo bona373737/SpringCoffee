@@ -6,15 +6,13 @@
 
     <table class="table table-bordered table-condensed">
       <colgroup>
-<!--        <col width="5%" />-->
         <col width="10%" />
-        <col width="25%" />
-        <col width="35%" />
+        <col width="20%" />
+        <col width="30%" />
         <col width="40%" />
       </colgroup>
       <thead>
       <tr>
-<!--        <th>No.</th>-->
         <th>email</th>
         <th>이름</th>
         <th>주소</th>
@@ -27,9 +25,11 @@
         <th>{{ member.name }}</th>
         <th>{{ member.address }}</th>
         <th>
-          <button class="btn btn-outline-success btn-sm" @click="goMemberDetail(member.email)">수정</button>
-          <button class="btn btn-outline-success btn-sm" @click="deleteMember(member.email)">삭제</button>
-          <button class="btn btn-outline-success btn-sm" @click="grantUserToAdmin(member.email)">관리자전환</button>
+          <div>
+            <button class="btn btn-outline-success btn-sm" @click="goMemberDetail(member.email)">수정</button>
+            <button class="btn btn-outline-success btn-sm" @click="deleteMember(member.email)">삭제</button>
+            <button class="btn btn-outline-success btn-sm" @click="grantUserToAdmin(member.email)">관리자전환</button>
+          </div>
         </th>
       </tr>
       </tbody>
@@ -85,9 +85,12 @@ export default {
 
 <style scoped>
 .outterDiv{
-  width: 80%;
   margin: auto;
   background-color: white;
+}
+
+button{
+  margin: 3px;
 }
 
 .btns{
@@ -112,7 +115,4 @@ export default {
   background: #A36043;
 }
 
-button{
-  margin: 3px;
-}
 </style>

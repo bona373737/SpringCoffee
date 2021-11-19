@@ -1,17 +1,17 @@
 <template>
   <div class="outterDiv">
-    <span class="btns">
+    <div class="btns">
     <button class="btn btn-success" @click="$router.push('/userList')"> 사용자계정관리 </button>
-    </span>
+    </div>
 
     <table class="table table-bordered table-condensed">
       <colgroup>
         <col width="10%" />
-        <col width="25%" />
-        <col width="35%" />
+        <col width="20%" />
+        <col width="30%" />
         <col width="40%" />
       </colgroup>
-      <thead>
+      <thead class="table-thead">
       <tr>
         <th>email</th>
         <th>이름</th>
@@ -80,16 +80,28 @@ export default {
 
 <style scoped>
 .outterDiv{
-  width: 80%;
   margin: auto;
   background-color: white;
 }
+
+/*.table-thead  {*/
+/*  border-color: #4F2E20;*/
+/*}*/
 
 button{
   margin: 3px;
 }
 
+.btns{
+  margin-bottom: 20px;
+}
 
+.btns .btn-success {
+  background: #663C2A;
+  border: 2px #663C2A;
+  margin:30px 0px 0px;
+  height: 40px;
+}
 
 .btn-outline-success{
   margin-right: 5px;

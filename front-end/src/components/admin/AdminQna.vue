@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="outerDiv">
     <table class="table table-bordered table-condensed">
       <colgroup>
         <col width="5%" />
         <col width="15%" />
         <col width="40%" />
+        <col width="10%" />
         <col width="15%" />
         <col width="15%" />
       </colgroup>
@@ -84,6 +85,15 @@ export default {
 </script>
 
 <style scoped>
+.outerDiv{
+  margin-top: 50px;
+}
+
+.table{
+  width: 90%;
+  margin: auto;
+}
+
 .page-btn{
   padding: 20px;
 }
