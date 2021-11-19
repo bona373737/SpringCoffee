@@ -87,9 +87,11 @@
               <td>가격</td>
               <td> </td>
             </tr>
+            asdasd
+            <img src="http://localhost:8080/v2-2/thumbnail/245" alt="asdf">
           <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" :key="i">
               <td>
-                <img width="100" height="100" alt="상품이미지" :src="thumbnail[i]">
+                <img width="100" height="100" alt="상품이미지" :src="getThumbnail(item.fileId, i)">
               </td>
               <td @click="goItemDetail(item.itemNo)" > {{item.name}}</td>
               <td> {{item.price}}</td>
@@ -127,6 +129,9 @@ export default {
   },
 
   methods: {
+    getThumbnail(fileId, index) {
+      return this.thumbnail[index]="http://localhost:8080/v2-2/thumbnail/"+fileId
+    },
     sumPrice(price, count) {
       this.sum=price*count;
     },
@@ -169,13 +174,13 @@ export default {
     },
     fetchThumbnail() {
       console.log('스타트')
-      for(let i=0; i<this.$store.state.itemList.length ; i++) {
+      for(let i=0; i<Object.keys(this.$store.state.itemList).length ; i++) {
         console.log('반복')
-        axios.get(`/v2-2/thumbnail/${this.$store.state.itemList[i].fileId}`, {
-          responseType: 'blob'
-        }).then(res => {
+        axios.get(`/v2-2/thumbnail/${this.$store.state.itemList[i].fileId}`)
+        .then(res => {
+          console.log(res.data)
           console.log('끝')
-          this.thumbnail[i] = window.URL.createObjectURL(new Blob([res.data]))
+          this.thumbnail[i] = res.data
         })
       }
     },
