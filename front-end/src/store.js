@@ -61,9 +61,7 @@ let store = createStore({
     },
     setMemberDetail(state,payload){
         state.memberDetail = payload;
-    }
-
-
+    },
   },
   actions: {
     fetchNoticeBoardList(context,page){

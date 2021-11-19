@@ -100,6 +100,10 @@ const routes = [
         path: "/myQna",
         component: () => import('@/components/user/MyQna.vue'),
       },
+      {
+        path: "/myorder",
+        component: () => import('@/components/user/MyOrder.vue'),
+      },
     ]
   },
   {
@@ -111,16 +115,6 @@ const routes = [
     path: "/shop/item/:itemNo",
     name: 'Item',
     component: () => import('@/components/user/shop/Item.vue'),
-  },
-  // {
-  //   path: '/cart',
-  //   name: 'Cart',
-  //   component: () => import('@/components/user/shop/Cart.vue'),
-  // },
-  {
-    path: '/order',
-    name: 'Order',
-    component: () => import('@/components/user/shop/Order.vue'),
   },
   {
     path: '/admin/:',

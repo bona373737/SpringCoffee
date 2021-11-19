@@ -25,10 +25,10 @@
                 [ 영문 대소문자 및 숫자 포함 25자리 ]
             </div>
           </div>
-          <div class="btn-box">
-              <a href="javascript:;" class="btn" @click="login">로그인</a>
+          <div class="btn-box py-2">
+              <a class="btn" @click="login">로그인</a>
           </div>
-          <div class="tips">
+          <div class="tips py-2">
               <div class="login" @click="register">회원이 아니신가요?<span> 회원가입</span></div>
           </div>
         </div>
@@ -122,4 +122,13 @@ export default {
   padding: 5px;
 }
 
+.btn-box a {
+  background-color: #663C2A;
+  color: white;
+}
+
+.btn-box a:hover {
+  background-color: #A36043;
+  color: white;
+}
 </style>

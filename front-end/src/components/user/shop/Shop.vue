@@ -39,12 +39,12 @@
                   <td> {{cart.itemName}}</td>
                   <td> {{cart.price}}</td>
                   <td>
-                    <span class="plus" ><i @click="setCountP(cart), patchCart(cart)" class="bi bi-plus-circle"></i></span>
+                    <span class="plus" ><i @click="setCountP(cart), patchCart(cart)" class="bi bi-caret-up-fill"></i></span>
                     {{cart.count}}
-                    <span class="minus"><i @click="setCountM(cart), patchCart(cart)" class="bi bi-dash-circle"></i></span>
+                    <span class="minus"><i @click="setCountM(cart), patchCart(cart)" class="bi bi-caret-down-fill"></i></span>
                   </td>
                   <td v-bind="sumPrice(cart.price, cart.count)"> {{sum}}</td>
-                  <td> <i style="cursor:pointer;" @click="deleteCart(cart)" class="bi bi-trash-fill"></i></td>
+                  <td> <i style="cursor:pointer;" @click="deleteCart(cart)" class="bi bi-x-lg"></i></td>
               </tr>
             </table>
             <span style="font-weight: 800; font-size: 16pt;"> {{price}} 원</span>
@@ -56,51 +56,55 @@
       </div>
     <div class="outter-border">
         <div class="ProductListTechnologies d-flex py-5">
-          <div class="ProductListTechnologies__element me-2" @click="this.$store.dispatch('fetchItem')">
-              <img width="120" height="80" src="../../../assets/shop2.webp" role="presentation" class="" alt="">
-              <div class="ProductListTechnologies__name" style="color: brown">전체보기</div>
+          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('fetchItem')">
+            <img width="100" height="100" src="../../../assets/shop2.webp" role="presentation" class="" alt="">
+            <div class="ProductListTechnologies__name py-2 border-top" style="color: brown">전체보기</div>
           </div>
-          <div class="ProductListTechnologies__element me-2" @click="this.$store.dispatch('getItemCategory', 'coffee')">
-              <img width="120" height="80" src="../../../assets/shop1.webp" role="presentation" class="" alt="">
-              <div class="ProductListTechnologies__name">커피</div>
+          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'coffee')">
+            <img width="100" height="100" src="../../../assets/shop1.webp" role="presentation" class="" alt="">
+            <div class="ProductListTechnologies__name py-2 border-top">커피</div>
           </div>
-          <div class="ProductListTechnologies__element me-2" @click="this.$store.dispatch('getItemCategory', 'tumbler')">            
-              <img width="120" height="80" src="../../../assets/tumbler.jpg" role="presentation" class="" alt="">
-              <div class="ProductListTechnologies__name">텀블러</div>
+          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'tumbler')">            
+            <img width="100" height="100" src="../../../assets/tumbler.jpg" role="presentation" class="" alt="">
+            <div class="ProductListTechnologies__name py-2 border-top">텀블러</div>
+          </div>
+          <div class="ProductListTechnologies__element" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" @click="this.$store.dispatch('fetchCart')">            
+            <img width="100" height="100" src="../../../assets/shoppingcart.png" role="presentation" class="" alt="">
+            <div class="ProductListTechnologies__name py-2 border-top">장바구니</div>
           </div>
         </div>
 
         <table class="table">
-            <colgroup>
-                <col width="10%" />
-                <col width="10%" />
-                <col width="5%" />
-                <col width="10%" />
-            </colgroup>
-              <tr class="text-center border-top border-bottom" style="height:50px">
-                <td>이미지</td>
-                <td>이름</td>
-                <td>가격</td>
-                <td> </td>
-              </tr>
-            <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" :key="i">
-                <td>
-                  <img width="100" height="100" alt="상품이미지" :src="thumbnail[i]">
-                </td>
-                <td @click="goItemDetail(item.itemNo)" > {{item.name}}</td>
-                <td> {{item.price}}</td>
-                <td>
-                   <div class="btn-group" role="group" aria-label="Basic example">
-                     <td class="me-2"><input placeholder="0" type="number" min='0' style="border: none; width:40px; margin:auto; height:100%" v-model="count[i]"></td>
-                    <button type="button" class="btn btn-success" @click="postCart(item, count[i])">장바구니에 담기</button>
-                   </div>
-                </td>
+          <colgroup>
+            <col width="10%" />
+            <col width="10%" />
+            <col width="5%" />
+            <col width="10%" />
+          </colgroup>
+            <tr class="text-center border-top border-bottom" style="height:50px">
+              <td>이미지</td>
+              <td>이름</td>
+              <td>가격</td>
+              <td> </td>
             </tr>
+          <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" :key="i">
+              <td>
+                <img width="100" height="100" alt="상품이미지" :src="thumbnail[i]">
+              </td>
+              <td @click="goItemDetail(item.itemNo)" > {{item.name}}</td>
+              <td> {{item.price}}</td>
+              <td>
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    <td class="me-2"><input placeholder="0" type="number" min='0' style="border: none; width:40px; margin:auto; height:100%" v-model="count[i]"></td>
+                    <button type="button" class="btn btn-success" @click="postCart(item, count[i])">장바구니에 담기</button>
+                  </div>
+              </td>
+          </tr>
         </table>
     </div>
     <div class="cart-icon">
-      <span class="my-cart"><i style="font-size: 50pt" class="bi bi-cart-fill"></i></span>
     </div>
+    <div class="curtain"></div>
   </div>
 </template>
 
@@ -247,6 +251,15 @@ export default {
     text-decoration: none;
 }
 
+.plus {
+  color: #999;
+}
+
+.minus {
+  color: #999;
+}
+
+
 .plus:hover {
   cursor: pointer;
   color: green;
@@ -269,22 +282,30 @@ export default {
   transform:scale(1.1);
   transition: 0.2s;
 }
+
 .ProductListTechnologies__name {
   font-weight: 700;
   color: #333;
 }
 
 .cart-icon {
-  width: 100px;
-  height: 100px;
-  border-radius: 10px;
   position: fixed;
-  right: 20px;
-  bottom: 20px;
+  right: 40px;
+  top: 40%;
+  /* border: 2px solid #999; */
+  opacity: 1;
+  z-index: 1;
 }
 
-.my-cart {
-  cursor: pointer;
-  color: green;
+.curtain {
+  width: 10px;
+  height: 100%;
+  margin: auto;
+  position: fixed;
+  right: 0px;
+  bottom: 0%;
+  opacity: 0.2;
+  /* border: 2px solid #999; */
+  background-color: burlywood;
 }
 </style>
