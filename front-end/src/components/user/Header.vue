@@ -76,22 +76,21 @@ header {
   cursor: pointer;
 }
 
-.navbox .tooltip-text:hover {
-  /* border-top: 2px brown solid; */
-  transform:scale(1.1);
-  color: rgba(255, 145, 0, 0.979);
-  transition: 0.1s;
-}
-
 .tooltip-text {
   text-decoration: none;
   width: 100%;
   height: 100%;
   padding: 8px;
-  font-size: 13pt;
+  font-size: 14pt;
   font-weight: 600;
   color: #666;
   transition: all 0.1s;
+}
+
+.navbox .tooltip-text:hover {
+  transform:scale(1.2);
+  color: #A36043;
+  transition: 0.1s;
 }
 
 .navset {

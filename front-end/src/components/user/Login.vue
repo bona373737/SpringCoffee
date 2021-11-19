@@ -18,12 +18,13 @@
           <div class="login-form">
 
             <div class="input">
-              <input class="form-input" type="text" placeholder="이메일" v-model="loginForm.email" @waiting="emailCheck">
+              <input class="form-input" type="text" placeholder="이메일" v-model="loginForm.email" @change="emailCheck">
               <div class="tip-email" v-show="!isEmail">이메일 형식으로 입력해주세요.</div>
             </div>
 
             <div class="input">
               <input class="form-input" type="password" placeholder="비밀번호" v-model="loginForm.password">
+              <div class="tip-email">{{passwordTipMsg}}</div>
             </div>
 
             <button class="btn btn-success" @click="login">로그인</button>
@@ -42,15 +43,14 @@
 <script>
 export default {
   name: 'login',
-  components: {
-  },
   data() {
     return {
       loginForm: {
           email: '',
           password: '',
       },
-      isEmail: false,
+      isEmail: true,
+      passwordTipMsg:'',
     }
   },
   created() {
@@ -58,18 +58,16 @@ export default {
   },
   methods: {
     login() {
-      if (this.preCheck()) {
+      if (!this.emailCheck()) {
+        return false
+      } else if(!this.passwordCheck()) {
+        this.passwordTipMsg = '비밀번호를 입력해주세요.'
+        return false
+      } else {
+        this.passwordTipMsg = ''
         this.$store.dispatch('fetchLogin', this.loginForm);
+        return true
       }
-    },
-    preCheck() {
-      let email = this.loginForm.email;
-      let regEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-      if (!regEmail.test(email)) {
-        alert('올바른 이메일 형식을 입력해주세요!')
-        return false;
-      }
-      return true;
     },
 
     loginCheck() {
@@ -78,26 +76,30 @@ export default {
         this.$router.replace("/")
       }
     },
-    async emailCheck() {
-    let email = this.loginForm.email;
-    console.log(email)
-    console.log(this.isEmail)
+
+    emailCheck() {
+      let email = this.loginForm.email;
       let regEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
       if (!regEmail.test(email)) {
-        this.isEmail = false;
+        this.isEmail = false
+        return false
       } else{
-      this.isEmail = true;
+        this.isEmail = true
+        return true
       }
-    console.log(this.isEmail)
-
     },
+
+    passwordCheck() {
+      return this.loginForm.password
+    },
+
     register() {
       this.$router.replace("/register")
     }
   }
 }
 </script>
-<style>
+<style scoped>
 .outer {
   background-color: #f7f7f7;
 }
@@ -107,6 +109,7 @@ export default {
   background-repeat : no-repeat;
   background-size : cover;
   position: relative;
+  margin-top: 10px;
 }
 
 .tab-shop {
