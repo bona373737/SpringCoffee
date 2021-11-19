@@ -1,34 +1,33 @@
 <template>
-<div>
+<div class="outter">
   <div v-if="!this.$store.state.isLogin" v-on="this.$router.replace('NotfoundPage')"></div>
   <div class="wrapper text-start">
     <span style="font-size: 14pt; font-weight: 700;">배송 정보</span>
-    <div class="m-info border-top">
-      <div class="infoform">
-        <div class="info d-flex py-3">
-          <span class="info1 text-end me-4">이름</span>
-          <span class="info2 text-start">{{this.$store.state.memberProfile.name}}</span>
-        </div>
-        <div class="info d-flex py-3">
-          <span class="info1 text-end me-4">배송지</span>
-          <span v-if="!isUpdate" class="info2 text-start">{{this.$store.state.memberProfile.address}} <i @click="updateAddress()" class="bi bi-stickies onoff"></i></span>
-          <input v-model="address" v-if="isUpdate" class="info2 text-start me-2" type="text" style="height: 25px; width:300px;">
-        </div>
-        <div class="info d-flex">
-          <span class="info1 text-end me-4"></span>
-          <span v-if="isUpdate" class="info2 text-start" style="font-size:10pt; width:190px; padding-left:5px">변경하실 주소를 입력해주세요</span>
-          <span v-if="isUpdate" class="info2 onoff text-center" style="font-size:9pt; width:10px; height:20px;"><i @click="updateAddress()" class="bi bi-x-lg"></i></span>
+    <div class="border-top">
+      <div class="m-info">
+        <div class="infoform">
+          <div class="info d-flex py-3">
+            <span class="info1 text-end me-2">이름</span>
+            <span class="info2 text-start">{{this.$store.state.memberProfile.name}}</span>
+          </div>
+          <div class="info d-flex py-3">
+            <span class="info1 text-end me-2">배송지</span>
+            <span v-if="!isUpdate" class="info2 text-start">{{this.$store.state.memberProfile.address}} <i @click="updateAddress()" class="bi bi-stickies onoff"></i></span>
+            <input v-model="address" v-if="isUpdate" class="info2 text-start me-2" type="text" style="height: 25px; width:300px;">
+          </div>
+          <div class="info d-flex">
+            <span class="info1 text-end me-4"></span>
+            <span v-if="isUpdate" class="info2 text-start" style="font-size:10pt; width:190px; padding-left:5px">변경하실 주소를 입력해주세요</span>
+            <span v-if="isUpdate" class="info2 onoff text-center" style="font-size:9pt; width:10px; height:20px;"><i @click="updateAddress()" class="bi bi-x-lg"></i></span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="py-4"></div>
-  <div class=" wrapper border-bottom text-start" style="font-weight:700; font-size:14pt">장바구니</div>
-    <div class="wrapper py-3">
+  <div class=" py-4"></div>
+  <div class="wrapper border-bottom text-start" style="font-weight:700; font-size:14pt">장바구니</div>
+    <div class="wrapper">
       <div class="temp ">
-        <!-- <span class="non-cart"> 장바구니가 비어있습니다.</span><br>
-        <button class="go-shop btn btn-primary" @click="this.$router.replace('/shop')">쇼핑하러 가기</button> -->
-    
         <table style="table-layout: auto; width: 100%; table-layout: fixed;">
             <colgroup>
             <col width="10%" />
@@ -40,19 +39,19 @@
                 <col width="3%" />
             </colgroup>
 
-            <tr>
-              <td> 구매</td>
-              <td> 이미지</td>
-              <td> 이름</td>
-              <td> 가격</td>
-              <td> 개수</td>
-              <td> 합 </td>
-              <td></td>
+            <tr style="font-weight:700; height:40px;">
+              <td class="order-tab"> 구매</td>
+              <td class="order-tab"> 이미지</td>
+              <td class="order-tab"> 이름</td>
+              <td class="order-tab"> 가격</td>
+              <td class="order-tab"> 개수</td>
+              <td class="order-tab"> 합 </td>
+              <td class="order-tab"></td>
             </tr>
 
             <tr class="product-item" v-for="(cart, i) in this.$store.state.cartList" :key="cart.cartItemNo">
                 <td><input type="checkbox" @click="onCart(cart, i)"></td>
-                <td><img :src="cart.image" alt=""></td>
+                <!-- <td><img width="100" height="100" :src="getThumbnail(item.fileId, i)"></td> -->
                 <td @click="goItemDetail(cart)">{{cart.itemName}}</td>
                 <td>{{cart.price}}</td>
                 <td>
@@ -86,6 +85,7 @@ export default {
       price: 0,
       buyItem: [],
       myCart: [],
+      thumbnail: [],
     };
   },
   created() {
@@ -93,6 +93,10 @@ export default {
     this.$store.dispatch('fetchMemberProfile');
   },
   methods: {
+    // getThumbnail(fileId, index) {
+    //   return this.thumbnail[index]="http://localhost:8080/v2-2/thumbnail/"+fileId
+    // },
+
     updateAddress() {
       if(this.isUpdate==false)
         this.isUpdate=true;
@@ -118,9 +122,9 @@ export default {
     },
 
     onSubmit() {
-      if(this.isUpdate == false) {
-        this.address=this.$state.store.memberProfile.address;
-      }
+      // if(this.isUpdate == false) {
+      //   this.address=this.$state.store.memberProfile.address;
+      // }
 
       if(confirm("결제하시겠습니까?") == true) {
         alert('결제되었습니다.')
@@ -136,7 +140,7 @@ export default {
       })
       .then(res => {
         alert('등록 되었습니다.')
-        this.$router.redirect('/order')
+        this.$router.go('/myorder')
         console.log(res)
       })
     },
@@ -168,7 +172,7 @@ export default {
     },
 
     deleteCart(cart) {
-        axios.delete(`v4/${cart.cartItemNo}/${this.$store.state.email}`)
+        axios.delete(`v5/${cart.cartItemNo}/${this.$store.state.email}`)
         .then(res => {
           this.$store.dispatch('fetchCart');
           console.log('success', res)
@@ -194,6 +198,7 @@ export default {
 .product-item:hover{
     background-color: beige;
     border: 0;
+    transition: 0.1s;
 }
 
 .plus {
@@ -216,23 +221,22 @@ export default {
   transition: 0.2s;
 }
 
-.wrapper {
-    margin: auto;
-    width: 500px;
+.outter {
+  top: -100px;
+  background-color: white;
+  width: 700px;
+  height: 100%;
+  margin: auto;
 }
 
-.outterDiv {
-    width: 100%;
+.wrapper {
+    margin: auto;
+    width: 700px;
     height: 100%;
 }
 
 .non-cart {
     color: #333;
-}
-
-.go-shop {
-    margin-top: 50px;
-    font-size: 28pt;
 }
 
 .btn {

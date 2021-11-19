@@ -1,9 +1,6 @@
 package com.kosa.springcoffee.controller;
 
-import com.kosa.springcoffee.dto.OrderCancelDTO;
-import com.kosa.springcoffee.dto.OrderDTO;
-import com.kosa.springcoffee.dto.OrderHistDTO;
-import com.kosa.springcoffee.dto.OrderResponseDTO;
+import com.kosa.springcoffee.dto.*;
 import com.kosa.springcoffee.entity.Member;
 import com.kosa.springcoffee.entity.Order;
 import com.kosa.springcoffee.repository.MemberRepository;
@@ -53,17 +50,7 @@ public class OrderController {
         return new ResponseEntity<OrderResponseDTO>(dto, HttpStatus.OK);
     }
 
-//    @GetMapping(value = {"/orders/{email}", "/orders/{page}/{email}"})
-//    public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page,@PathVariable(name = "email") String email) {
-//        Member member = memberRepository.getByEmail(email);
-//        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
-//
-//        Page<OrderHistDTO> orderHistDtos = orderService.getOrderList(member.getEmail(), pageable);
-//
-//        return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
-//    }
-
-    @GetMapping(value = "/orders/{page}/{email}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    @GetMapping(value = {"/orders/{page}/{email}"})
     public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page,@PathVariable(name = "email") String email) {
         Member member = memberRepository.getByEmail(email);
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
@@ -73,17 +60,17 @@ public class OrderController {
         return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
     }
 
-
-    @GetMapping(value = {"/orders", "/orders/{page}"})
-    public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page) {
+    @GetMapping(value = {"/orders"})
+    public ResponseEntity orderHist(@RequestParam(name = "page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
 
         Page<OrderHistDTO> orderHistDtos = orderService.getOrderListForAdmin(pageable);
         return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
     }
+
     @PostMapping("/cancel")
     @ResponseBody
-    public ResponseEntity cancel(@RequestBody OrderCancelDTO dto){
+    public ResponseEntity cancel(@RequestBody OrderStatuslDTO dto){
         Member member = memberRepository.getByEmail(dto.getEmail());
         Order order = orderRepository.findByOrderNo(dto.getOrderNo());
 
@@ -91,6 +78,37 @@ public class OrderController {
         if(!orderService.validateOrder(order.getOrderNo(), member.getEmail())){
             return new ResponseEntity<String>("주문취소권한이 없습니다", HttpStatus.FORBIDDEN);
         }
+
+        orderService.cancelOrder(order.getOrderNo());
+        return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
+    }
+
+    @PostMapping("/prepare")
+    @ResponseBody
+    public ResponseEntity prepare(@RequestParam Long orderNo){
+        Order order = orderRepository.findByOrderNo(orderNo);
+
+        if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
+
+        orderService.cancelOrder(order.getOrderNo());
+        return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
+    }
+    @PostMapping("/shipping")
+    @ResponseBody
+    public ResponseEntity shipping(@RequestParam Long orderNo){
+        Order order = orderRepository.findByOrderNo(orderNo);
+
+        if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
+
+        orderService.cancelOrder(order.getOrderNo());
+        return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
+    }
+    @PostMapping("/done")
+    @ResponseBody
+    public ResponseEntity done(@RequestParam Long orderNo){
+        Order order = orderRepository.findByOrderNo(orderNo);
+
+        if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
 
         orderService.cancelOrder(order.getOrderNo());
         return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);

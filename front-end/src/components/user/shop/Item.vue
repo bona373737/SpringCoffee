@@ -1,23 +1,21 @@
 <template>
   <div>
     <div class="outterDiv py-5">
-
-        <div class="grid d-flex">
-            <div class="grid-box py-5">
-                <img src="" alt="">
-            </div>
-            <div class="grid-box">
-              <div>{{$store.state.itemDetail.name}}</div>
-                <div class="title d-flex border-bottom"> <span class="itemdata">{{name}}</span></div>
-                 <div class="price text-center py-5"> <span class="itemdata">{{this.$store.state.itemDetail.content}}</span></div>
-                <div class="price text-end border-top"> <span class="itemdata">{{this.$store.state.itemDetail.price}}원</span></div>
-                <div class="order border-top py-4 text-end">
-                    <button @click="postCart()" class="btn btn-success me-2"> 장바구니</button> 
-                    <button class="btn btn-primary"> 구매하기</button>
-                </div>
-            
-            </div>
+      <div class="grid d-flex">
+        <div class="grid-box py-5">
+          <img src="" alt="">
+            <!-- <img width="100" height="100" :src="getThumbnail(item.fileId, i)"> -->
         </div>
+        <div class="grid-box">
+            <div class="title d-flex border-bottom"> <span class="itemdata">{{this.$store.state.itemDetail.name}}</span></div>
+            <div class="con text-center py-5"><span class="itemdata">{{this.$store.state.itemDetail.content}}</span></div>
+            <div class="con text-end border-top"><span class="itemdata">{{this.$store.state.itemDetail.price}}원</span></div>
+            <div class="order border-top py-4 text-end">
+              <button @click="postCart()" class="btn btn-success me-2"> 장바구니</button> 
+              <button @click="this.$router.push('/shop')" class="btn btn-secondary"> 목록</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -33,7 +31,7 @@ export default {
     }
   },
   created() {
-    // this.$store.dispatch('fetchItemDetail', this.$route.params.itemNo)
+    this.$store.dispatch('fetchItemDetail', this.$route.params.itemNo)
   },
   methods: {
     postCart() {
@@ -42,13 +40,14 @@ export default {
         return false;
       }
 
-      axios.post(`/v4/cart`,
+      axios.post(`/v5/cart`,
       {
         itemNo : this.$store.state.itemDetail.itemNo,
         count : 1,
         email : this.$store.state.email
       })
       .then(res => {
+        this.$router.replace('/cart')
         console.log('success', JSON.stringify(res, null, 2))
       }).catch(err => {
         console.log('failed', err)
@@ -63,6 +62,7 @@ export default {
 .grid {
     margin: auto;
     width: 1000px;
+    height: 600px;
 }
 
 .grid-box {
@@ -77,12 +77,12 @@ export default {
 
 .title {
     font-size: 18pt;
-    font-weight: 300;
+    font-weight: 600;
 }
 
-.price {
+.con {
     font-size: 20pt;
-    font-weight: 600;
+    font-weight: 300;
 }
 
 .itemdata {

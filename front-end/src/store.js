@@ -246,17 +246,15 @@ let store = createStore({
           context.commit('setMemberProfile', response.data)
         })
     },
-
     logout() {
       alert('로그아웃 완료');
       localStorage.removeItem("access_token")
       router.go('#')
     },
-
     getItemCategory(context, category) {
       axios.get(`v2/list/${category}`)
         .then(res => {
-          context.commit("setItem", res.data.dtoList);
+          context.commit("setItem", res.data);
         }).catch(err => {
             console.log('failed', err)
         })

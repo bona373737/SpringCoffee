@@ -102,7 +102,7 @@ const routes = [
       },
       {
         path: "/myorder",
-        component: () => import('@/components/user/MyOrder.vue'),
+        component: () => import('@/components/user/mypage/MyOrder.vue'),
       },
     ]
   },
