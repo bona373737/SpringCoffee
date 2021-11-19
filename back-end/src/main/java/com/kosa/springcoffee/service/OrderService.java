@@ -18,7 +18,7 @@ public interface OrderService {
     void shippingOrder(Long orderNo);
     void doneOrder(Long orderNo);
     void prepareOrder(Long orderNo);
-    Long cartOrder(List<OrderDTO> orderDTOList, String email);
+    Long cartOrder(List<OrderDTO> orderDTOList, String email, String address);
 
 
 }
