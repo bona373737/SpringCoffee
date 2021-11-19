@@ -11,13 +11,18 @@ a<template>
             <div class="myorder text-start border-top" v-for="(order,i) in this.myOrder" :key="order.orderNo">
                 <a>주문번호 : </a> <a>{{order.orderNo}}</a><br>
                 <a>주문상태 : </a> <a>{{order.orderStatus}}</a><br>
-                <span class="me-5" style="">상품번호</span>
-                <span class="me-5">구매수량</span>
-                <span class="me-5">결제금액</span>
-                <div v-for="list in this.myOrder[i].orderItemDTOList" :key="list.itemNo">
-                    <span>{{list.itemNo}}</span>
-                    <span>{{list.count}}</span>
-                    <span>{{list.allPrice}}</span><br>
+                <div class="d-flex text-end border-bottom border-top">
+                    <span class="me-5" style="">상품</span>
+                    <span class="me-5" style="">상품번호</span>
+                    <span class="me-5" style="">구매수량</span>
+                    <span>결제금액</span>
+                </div>
+                
+                <div class="d-flex text-end" v-for="list in this.myOrder[i].orderItemDTOList" :key="list.itemNo">
+                    <span></span>
+                    <span class="me-5" style="">{{list.itemNo}}</span>
+                    <span class="me-5" style="">{{list.count}}</span>
+                    <span class="" style="">{{list.allPrice}}</span><br>
                 </div>
             </div>
             <div class="navi text-center border-top">
@@ -43,12 +48,24 @@ export default {
         myOrder: [],
         myOrderList: [],
         count: 0,
+        status: '',
+        thumbnail: Map,
     };
   },
   created() {
-      this.getMyOrderNo(this.count);
+    this.getMyOrderNo(this.count);
+    this.$store.dispatch('fetchItem');
+    this.getTest();
   },
   methods: {
+    getThumbnail(key) {
+        axios.get(`/v2-2/thumbnail/${key.fileId}`, {
+            responseType: 'blob'
+        }).then(res => {
+            console.log('적용')
+            this.thumbnail.set(item.itemNo, window.URL.createObjectURL(new Blob([res.data])))
+        })
+    },
     prevPage() {
       if(this.count <1) return false;
       this.count--;
@@ -70,14 +87,16 @@ export default {
                 this.count--;
             })
     },
-    deleteCart(order) {
+    cancelCart(order) {
         if(confirm("주문을 취소하시겠습니까?") == true) {
             alert('취소되었습니다.')
         } else {
             return false;
         }
-
-        axios.delete(`v6/${order.orderNo}/${this.$store.state.email}/cancel`)
+        axios.post(`v6/cancel`, {
+            orderNo : order.odrerNo,
+            email : this.$state.store.email
+        })
         .then(res => {
           console.log('success', res)
         }).catch(err => {

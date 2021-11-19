@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService{
         orderItemList.add(orderItem);
 
         Order order = Order.createOrder(member, orderItemList);
-        order.setStatus(OrderStatus.ORDER);
+        order.setStatus(OrderStatus.결제완료);
         order.setOrderAddress(orderDTO.getOrderAddress());
         orderRepository.save(order);
 
@@ -124,7 +124,7 @@ public class OrderServiceImpl implements OrderService{
         }
 
         Order order = Order.createOrder(member, orderItemList);
-        order.setStatus(OrderStatus.ORDER);
+        order.setStatus(OrderStatus.결제완료);
         order.setOrderAddress(address);
         orderRepository.save(order);
         return order.getOrderNo();

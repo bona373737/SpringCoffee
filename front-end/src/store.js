@@ -11,7 +11,6 @@ let store = createStore({
       exp: 0,
       isLogin: false,
       cartNo: '',
-      thumbnail: [],
       itemList: [],
       itemDetail: {},
       cartList: [],
@@ -269,7 +268,7 @@ let store = createStore({
             .then(response =>{
                 context.commit('setMemberDetail',response.data)
             })
-    }
+    },
   },
 })
 

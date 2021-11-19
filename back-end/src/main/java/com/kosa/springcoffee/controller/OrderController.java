@@ -33,6 +33,7 @@ public class OrderController {
     private final OrderService orderService;
     private final MemberRepository memberRepository;
     private final OrderRepository orderRepository;
+
     @PostMapping(value = "/submit")
     @ResponseBody
     public ResponseEntity order(@RequestBody OrderDTO orderDTO){
@@ -79,17 +80,19 @@ public class OrderController {
         Page<OrderHistDTO> orderHistDtos = orderService.getOrderListForAdmin(pageable);
         return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
     }
-    
-    @PostMapping("/{orderNo}/{email}/cancel")
+    @PostMapping("/cancel")
     @ResponseBody
     public ResponseEntity cancel(@RequestBody OrderCancelDTO dto){
         Member member = memberRepository.getByEmail(dto.getEmail());
-        if(!orderService.validateOrder(dto.getOrderNo(), member.getEmail())){
+        Order order = orderRepository.findByOrderNo(dto.getOrderNo());
+
+        if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
+        if(!orderService.validateOrder(order.getOrderNo(), member.getEmail())){
             return new ResponseEntity<String>("주문취소권한이 없습니다", HttpStatus.FORBIDDEN);
         }
 
-        orderService.cancelOrder(dto.getOrderNo());
-        return new ResponseEntity<Long>(dto.getOrderNo(), HttpStatus.OK);
+        orderService.cancelOrder(order.getOrderNo());
+        return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
     }
 
 }

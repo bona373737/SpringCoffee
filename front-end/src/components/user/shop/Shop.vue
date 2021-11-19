@@ -85,11 +85,11 @@
               <td>이미지</td>
               <td>이름</td>
               <td>가격</td>
-              <td> </td>
+              <td></td>
             </tr>
           <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" :key="i">
               <td>
-                <img width="100" height="100" alt="상품이미지" :src="thumbnail[i]">
+                  <img width="100" height="100" alt="상품이미지">
               </td>
               <td @click="goItemDetail(item.itemNo)" > {{item.name}}</td>
               <td> {{item.price}}</td>
@@ -122,7 +122,7 @@ export default {
         sum: 0,
         price: 0,
         count: [],
-        thumbnail: [],
+        thumbnail: Map,
     };
   },
 
@@ -194,6 +194,14 @@ export default {
         params: { itemNo: itemNo }
       })
     },
+    // getThumbnail(key) {
+    //   axios.get(`/v2-2/thumbnail/${key.fileId}`, {
+    //       responseType: 'blob'
+    //   }).then(res => {
+    //       console.log('적용')
+    //       this.thumbnail.set(key.itemNo, window.URL.createObjectURL(new Blob([res.data])))
+    //   })
+    // },
   },
 };
 </script>

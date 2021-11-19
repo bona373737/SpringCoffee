@@ -45,7 +45,7 @@ public class Order extends BaseEntityOrder{
     //비즈니스 로직 주문 취소
     public void cancel() {
 
-        this.setStatus(OrderStatus.CANCEL);
+        this.setStatus(OrderStatus.주문취소);
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
         }
