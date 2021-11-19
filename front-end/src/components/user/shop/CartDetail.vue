@@ -52,6 +52,22 @@
             </table>
             <div class="py-3" style="font-weight: 800; font-size: 16pt;">총: {{price}} 원</div><br>
 
+            <div class="wrap py-3">
+              <div class="point">배송 정보</div>
+              <div class="m-info border-top border-bottom">
+                <div class="infoform">
+                  <div class="info d-flex">
+                    <span class="info1 text-end me-3">이름</span>
+                    <span class="info2 text-start">asasd</span>
+                  </div>
+                  <div class="info d-flex">
+                    <span class="info1 text-end me-3">배송지</span>
+                    <span class="info2 text-start">asasd</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="border-top py-3">
                 <button type="button" class="btn btn-success"><router-link to="/order" style="text-decoration: none; color: white" >결제하기</router-link></button>
             </div>
@@ -164,4 +180,36 @@ export default {
     font-size: 28pt;
 }
 
+.m-info {
+  width:500px;
+  margin: auto;
+}
+
+.infoform {
+  width:100%;
+}
+
+.info {
+  height: 30px;
+}
+
+.info1 {
+  width: 300px;
+}
+
+.info2 {
+  width:100%;
+}
+
+.wrap {
+  width: 500px;
+}
+
+.point {
+  width: 100%;
+  border-top: 1px solid #663C2A;
+  font-size: 14pt;
+  font-weight: 700;
+  color: #A36043;
+}
 </style>

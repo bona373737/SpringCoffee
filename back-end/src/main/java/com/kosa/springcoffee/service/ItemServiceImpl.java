@@ -32,13 +32,6 @@ public class ItemServiceImpl implements ItemService{
     private final ItemImgRepository itemImgRepository;
     private final ItemImgService itemImgService;
     private final FileHandler fileHandler;
-    @Override
-    public Long create(ItemDTO dto) {
-        Item entity = dtoToEntity(dto);
-        itemRepository.save(entity);
-
-        return entity.getItemNo();
-    }
 
     @Override
     public Long createWithImg(ItemDTO itemDTO, List<MultipartFile> itemImgFileList) throws Exception{
@@ -50,32 +43,11 @@ public class ItemServiceImpl implements ItemService{
         if (!imgList.isEmpty()){
             for (ItemImg img : imgList) {
                 img.setItem(item);
-
                 itemImgRepository.save(img);
             }
         }
         Item getItem = itemRepository.save(item);
         return getItem.getItemNo();
-    }
-
-
-
-
-
-    @Override
-    public void modify(ItemDTO dto) {
-        Long itemNo = dto.getItemNo();
-        Optional<Item> result = itemRepository.findById(itemNo);
-
-        if(result.isPresent()){
-            Item item = result.get();
-            item.changeName(dto.getName());
-            item.changeContent(dto.getContent());
-            item.changeStockQuantity(dto.getStockQuantity());
-            item.changePrice(dto.getPrice());
-            item.changeCategory(dto.getCategory());
-            itemRepository.save(item);
-        }
     }
 
     @Override
@@ -116,6 +88,16 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public List<ItemReadDTO> readAllItem() {
         List<Item> itemList = itemRepository.findAll();
+        return getItemReadDtoBuild(itemList);
+    }
+
+    @Override
+    public List<ItemReadDTO> readAllItemByCategory(String category) {
+        List<Item> itemList = itemRepository.findAllByCategory(category);
+        return getItemReadDtoBuild(itemList);
+    }
+
+    private List<ItemReadDTO> getItemReadDtoBuild(List<Item> itemList) {
         List<ItemReadDTO> dtoList = new ArrayList<>();
         for (Item entity : itemList){
             ItemReadDTO dto = ItemReadDTO.builder()

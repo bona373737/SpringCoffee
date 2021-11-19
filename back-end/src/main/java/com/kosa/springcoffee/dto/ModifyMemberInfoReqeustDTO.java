@@ -6,9 +6,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ModifyMemberReqeustDTO {
+public class ModifyMemberInfoReqeustDTO {
     private String email;
-    private String password;
+    private String curPassword;
+    private String newPassword;
     private String name;
     private String address;
 }
