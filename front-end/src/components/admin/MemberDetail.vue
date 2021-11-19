@@ -3,22 +3,20 @@
     <table>
       <tr>
         <td>email</td>
-        <td>{{this.$store.state.memberDetail.name}} </td>
+        <td>{{memberInfo.email}} </td>
       </tr>
       <tr>
         <td>name</td>
-        <td> <input v-model="name"></td>
+        <td> <input v-model="memberInfo.name"></td>
       </tr>
       <tr>
         <td>address</td>
-        <td ><input v-model="address"> </td>
+        <td ><input v-model="memberInfo.address"> </td>
       </tr>
       <button @click="memberInfoUpdate(memberInfo)">회원정보 수정</button>
     </table>
 
-
   </div>
-
 </template>
 
 <script>
