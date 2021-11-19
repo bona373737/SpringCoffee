@@ -21,6 +21,9 @@ let store = createStore({
       qnaBoardList: [],
       qnaBoardDetail : {},
       memberProfile: {},
+      memberList:[],
+      memberDetail:{},
+      adminOrderList : []
     }
   },
   mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
@@ -54,6 +57,17 @@ let store = createStore({
     setMemberProfile(state, member) {
       state.memberProfile = member;
     },
+    setMemberList(state,payload){
+        state.memberList = payload;
+    },
+    setMemberDetail(state,payload){
+        state.memberDetail = payload;
+    },
+    setAdminOrderList(state,payload){
+        state.adminOrderList = payload;
+    }
+
+
   },
   actions: {
     fetchNoticeBoardList(context,page){
@@ -172,6 +186,12 @@ let store = createStore({
             context.commit('setQnaBoardList', response.data);
         })
     },
+    fetchAdminQna(context,isAnswered){
+        axios.get(`/v3/list/all/${isAnswered}`,{params:{page:this.page}})
+            .then(response =>{
+                context.commit('setQnaBoardList', response.data)
+            });
+    },
     fetchLogin({dispatch}, loginForm){
       axios.post('/v5/login', loginForm)
         .then(response => {
@@ -197,7 +217,6 @@ let store = createStore({
         this.state.exp=result.exp;
       }
     },
-
     fetchMemberProfile(context) {
       axios.get('v5/mypage', {params:
       {email: this.state.email}})
@@ -222,21 +241,30 @@ let store = createStore({
           console.log('failed', err)
       })
     },
-    // fetchThumbnail(context) {
-    // console.log('스타트')
-    //   for(let i=0; i<this.$store.state.itemList.length ; i++) {
-    //     console.log('반복')
-    //     axios.get(`/v2-2/thumbnail/${this.$store.state.itemList[i].fileId}`, {
-    //       responseType: 'blob'
-    //     }).then(res => {
-    //       console.log('끝')
-    //       context.state()
-    //       this.state.thumbnail[i] = window.URL.createObjectURL(new Blob([res.data]));
-    //     }).catch(res => {
-    //       console.log(res);
-    //     })
-    //   }
-    // },
+    fetchUserList(context){
+        axios.get('/v5/userlist')
+            .then(response => {
+                context.commit('setMemberList',response.data)
+            })
+    },
+    fetchAdminList(context){
+        axios.get('/v5/adminlist')
+            .then(response => {
+                context.commit('setMemberList',response.data)
+            })
+    },
+    fetchMemberDetail(context,email)  {
+        axios.get('/v5/mypage',{params:{email:email}})
+            .then(response =>{
+                context.commit('setMemberDetail',response.data)
+            })
+    },
+    fetchAdminOrderList(context){
+        axios.get(`/v6/orders`)
+            .then(response =>{
+                context.commit('setAdminOrderList', response.data)
+            })
+    }
   },
 })
 

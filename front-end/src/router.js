@@ -85,11 +85,11 @@ const routes = [
     path: '/mypage',
     redirect: '/mypage/profile',
     name: 'MyPage',
-    component: () => import('@/components/user/MyPage.vue'),
+    component: () => import('@/components/user/mypage/MyPage.vue'),
     children: [
       {
         path: "profile",
-        component: () => import('@/components/user/Profile.vue'),
+        component: () => import('@/components/user/mypage/Profile.vue'),
       },
       {
         path: '/cart',
@@ -98,7 +98,7 @@ const routes = [
       },
       {
         path: "/myQna",
-        component: () => import('@/components/user/MyQna.vue'),
+        component: () => import('@/components/user/mypage/MyQna.vue'),
       },
     ]
   },
@@ -128,13 +128,30 @@ const routes = [
     component: () => import('@/components/admin/AdminPage.vue'),
     children: [
       {
-        path: "userlist",
-        component: () => import('@/components/admin/UserList.vue'),
+        path: "/adminList",
+        component: () => import('@/components/admin/AdminList.vue'),
       },
       {
         path: "itemAdd",
         component: () => import('@/components/admin/ItemAdd.vue'),
       },
+      {
+        path: "/adminQna",
+        component: () => import('@/components/admin/AdminQna.vue'),
+      },
+      {
+        path: "/userList",
+        component: () => import('@/components/admin/UserList.vue'),
+      },
+      {
+        path: "/memberDetail/:email",
+        name: 'memberDetail',
+        component: () => import('@/components/admin/MemberDetail.vue'),
+      },
+      {
+        path :'/adminOrder',
+        component:() => import('@/components/admin/AdminOrder.vue')
+      }
     ]
   },
   {
