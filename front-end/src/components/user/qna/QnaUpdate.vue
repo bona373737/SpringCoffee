@@ -119,12 +119,6 @@ export default {
   border-bottom: 2px solid #4F2E20 ;
 }
 
-/* 
-.table-title{
-  padding: 5px 5px 0px 5px
-}
-*/
-
 .table-context{
   padding: 0px 5px 5px 5px;
   height: 300px;

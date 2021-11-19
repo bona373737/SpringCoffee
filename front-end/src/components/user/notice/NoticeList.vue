@@ -9,7 +9,7 @@
 
       <div class="btnWrap text-end">
         <span class="filter">
-         <select v-model="category" @change="movePage()">
+         <select v-model="category" @change="noticeBoardCategory()">
            <option v-for="option in categoryOption" :value="option.value" :key="option.value">{{option.title}}</option>
          </select>
        </span>

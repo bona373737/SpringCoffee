@@ -85,13 +85,17 @@
               <td>이미지</td>
               <td>이름</td>
               <td>가격</td>
-              <td> </td>
+              <td></td>
             </tr>
-            asdasd
             <img src="http://localhost:8080/v2-2/thumbnail/245" alt="asdf">
           <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" :key="i">
               <td>
                 <img width="100" height="100" alt="상품이미지" :src="getThumbnail(item.fileId, i)">
+          <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" :key="item.fileId">
+              <td>
+                <div v-on="getThumbnail(item.fileId)">
+                  {{thumbnail}}
+                </div>
               </td>
               <td @click="goItemDetail(item.itemNo)" > {{item.name}}</td>
               <td> {{item.price}}</td>
@@ -104,9 +108,6 @@
           </tr>
         </table>
     </div>
-    <div class="cart-icon">
-    </div>
-    <div class="curtain"></div>
   </div>
 </template>
 
@@ -124,7 +125,8 @@ export default {
         sum: 0,
         price: 0,
         count: [],
-        thumbnail: [],
+        image: '',
+        thumbnail: "",
     };
   },
 
@@ -171,18 +173,6 @@ export default {
     },
     setCountM(cart) {
       cart.count--;
-    },
-    fetchThumbnail() {
-      console.log('스타트')
-      for(let i=0; i<Object.keys(this.$store.state.itemList).length ; i++) {
-        console.log('반복')
-        axios.get(`/v2-2/thumbnail/${this.$store.state.itemList[i].fileId}`)
-        .then(res => {
-          console.log(res.data)
-          console.log('끝')
-          this.thumbnail[i] = res.data
-        })
-      }
     },
     deleteCart(cart) {
         axios.delete(`v5/${cart.cartItemNo}/${this.$store.state.email}`)
@@ -300,17 +290,5 @@ export default {
   /* border: 2px solid #999; */
   opacity: 1;
   z-index: 1;
-}
-
-.curtain {
-  width: 10px;
-  height: 100%;
-  margin: auto;
-  position: fixed;
-  right: 0px;
-  bottom: 0%;
-  opacity: 0.2;
-  /* border: 2px solid #999; */
-  background-color: burlywood;
 }
 </style>
