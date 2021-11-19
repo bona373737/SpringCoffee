@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -62,7 +63,7 @@ public class OrderController {
 //        return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
 //    }
 
-    @GetMapping(value = {"/orders/{page}/{email}"})
+    @GetMapping(value = "/orders/{page}/{email}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
     public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page,@PathVariable(name = "email") String email) {
         Member member = memberRepository.getByEmail(email);
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
