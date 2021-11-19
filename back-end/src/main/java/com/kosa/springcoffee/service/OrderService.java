@@ -15,6 +15,9 @@ public interface OrderService {
     boolean validateOrder(Long orderNo, String email);
 
     void cancelOrder(Long orderNo);
+    void shippingOrder(Long orderNo);
+    void doneOrder(Long orderNo);
+    void prepareOrder(Long orderNo);
     Long cartOrder(List<OrderDTO> orderDTOList, String email);
 
 

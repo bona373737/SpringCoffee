@@ -113,6 +113,27 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public void shippingOrder(Long orderNo) {
+        Order order = orderRepository.findByOrderNo(orderNo);
+        order.shipping();
+        orderRepository.save(order);
+    }
+
+    @Override
+    public void doneOrder(Long orderNo) {
+        Order order = orderRepository.findByOrderNo(orderNo);
+        order.done();
+        orderRepository.save(order);
+    }
+
+    @Override
+    public void prepareOrder(Long orderNo) {
+        Order order = orderRepository.findByOrderNo(orderNo);
+        order.prepare();
+        orderRepository.save(order);
+    }
+
+    @Override
     public Long cartOrder(List<OrderDTO> orderDTOList, String email) {
         Member member = memberRepository.getByEmail(email);
         List<OrderItem> orderItemList = new ArrayList<>();

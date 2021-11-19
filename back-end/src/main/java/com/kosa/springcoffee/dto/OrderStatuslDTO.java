@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class OrderCancelDTO {
+public class OrderStatuslDTO {
     private String email;
     private Long orderNo;
 }
