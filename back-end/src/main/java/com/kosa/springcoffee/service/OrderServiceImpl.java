@@ -72,11 +72,25 @@ public class OrderServiceImpl implements OrderService{
 
 
     @Override
+    @Transactional(readOnly = true)
     public Page<OrderHistDTO> getOrderList(String email, Pageable pageable) {
         List<Order> orders = orderRepository.findOrders(email, pageable);
         Long totalCount = orderRepository.countOrder(email);
 
-        return getOrderHistDTOPage(pageable, orders, totalCount);
+        List<OrderHistDTO> orderHistDtos = new ArrayList<>();
+
+        for (Order order : orders) {
+            OrderHistDTO orderHistDto = new OrderHistDTO(order);
+            List<OrderItem> orderItems = order.getOrderItems();
+            for (OrderItem orderItem : orderItems) {
+                OrderItemDTO orderItemDto = new OrderItemDTO(orderItem);
+                orderHistDto.addOrderItemDto(orderItemDto);
+            }
+            orderHistDtos.add(orderHistDto);
+        }
+
+
+        return new PageImpl<OrderHistDTO>(orderHistDtos, pageable, totalCount);
     }
 
 

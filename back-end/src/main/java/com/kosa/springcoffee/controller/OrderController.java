@@ -51,15 +51,23 @@ public class OrderController {
         return new ResponseEntity<OrderResponseDTO>(dto, HttpStatus.OK);
     }
 
-    @GetMapping(value = {"/orders/{email}", "/orders/{page}/{email}"})
-    public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page,@PathVariable(name = "email") String email, Model model) {
+//    @GetMapping(value = {"/orders/{email}", "/orders/{page}/{email}"})
+//    public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page,@PathVariable(name = "email") String email) {
+//        Member member = memberRepository.getByEmail(email);
+//        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
+//
+//        Page<OrderHistDTO> orderHistDtos = orderService.getOrderList(member.getEmail(), pageable);
+//
+//        return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
+//    }
+
+    @GetMapping(value = {"/orders/{page}/{email}"})
+    public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page,@PathVariable(name = "email") String email) {
         Member member = memberRepository.getByEmail(email);
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
 
         Page<OrderHistDTO> orderHistDtos = orderService.getOrderList(member.getEmail(), pageable);
-        model.addAttribute("orders", orderHistDtos);
-        model.addAttribute("page", pageable.getPageNumber());
-        model.addAttribute("maxPage", 5);
+
         return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
     }
 
