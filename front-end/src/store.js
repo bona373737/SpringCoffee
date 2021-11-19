@@ -86,7 +86,7 @@ let store = createStore({
 
       console.log(`카테고리 조회`);
       
-      url = '/v2/list/' + category; // 'v1/list/notice'
+      url = '/v1/list/' + category; // 'v1/list/notice'
       pageObj = {
         page: page
       };
@@ -111,13 +111,23 @@ let store = createStore({
     fetchItem(context) {
       axios.get(`/v2/list`)
         .then(response => {
-          context.commit('setItem', response.data);
+          console.log('ㅇㅇ')
+          console.log(response)
+          // for(let i=0; i<Object.keys(response.data).length; i++) {
+          //   axios.get(`v2-2/thumbnail/${response.data[i].fileId}`)
+          //   .then(res => {              
+          //     // response.data[i].image=getFile(res.data)
+          //     // response.data[i].image=window.URL.createObjectURL(new Blob([window.btoa(base64)]));
+          //     console.log(res)
+          //   })
+          context.commit('setItem', response.data)
           console.log('성공', response)
-          // context.commit('setItem', response.data);
+          // }
         }).catch(err => {
           console.log('error', err)
         })
     },
+    
     fetchItemDetail(context, itemNo){
       axios.get(`/v2/${itemNo}`)      // axios dynamic URL,
         .then(response =>{
@@ -265,9 +275,9 @@ let store = createStore({
     },
     fetchMemberDetail(context,email)  {
         axios.get('/v5/mypage',{params:{email:email}})
-            .then(response =>{
-                context.commit('setMemberDetail',response.data)
-            })
+          .then(response =>{
+            context.commit('setMemberDetail',response.data)
+          })
     },
   },
 })

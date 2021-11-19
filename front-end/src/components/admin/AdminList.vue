@@ -1,15 +1,17 @@
 <template>
-  <div>
+  <div class="outterDiv">
+    <div class="btns">
     <button class="btn btn-success" @click="$router.push('/userList')"> 사용자계정관리 </button>
+    </div>
 
     <table class="table table-bordered table-condensed">
       <colgroup>
         <col width="10%" />
-        <col width="25%" />
-        <col width="35%" />
+        <col width="20%" />
+        <col width="30%" />
         <col width="40%" />
       </colgroup>
-      <thead>
+      <thead class="table-thead">
       <tr>
         <th>email</th>
         <th>이름</th>
@@ -23,9 +25,11 @@
         <th>{{ member.name }}</th>
         <th>{{ member.address }}</th>
         <th>
-          <button class="btn btn-outline-success btn-sm" @click="goMemberDetail(member.email)">수정</button>
-          <button class="btn btn-outline-success btn-sm" @click="deleteAdmin(member.email)">삭제</button>
-          <button class="btn btn-outline-success btn-sm" @click="deleteAuthority(member.email)">권한박탈</button>
+          <div>
+            <button class="btn btn-outline-success btn-sm" @click="goMemberDetail(member.email)">수정</button>
+            <button class="btn btn-outline-success btn-sm" @click="deleteAdmin(member.email)">삭제</button>
+            <button class="btn btn-outline-success btn-sm" @click="deleteAuthority(member.email)">권한박탈</button>
+          </div>
         </th>
       </tr>
       </tbody>
@@ -75,7 +79,51 @@ export default {
 </script>
 
 <style scoped>
+.outterDiv{
+  margin: auto;
+  background-color: white;
+}
+
+/*.table-thead  {*/
+/*  border-color: #4F2E20;*/
+/*}*/
+
 button{
   margin: 3px;
 }
+
+.btns{
+  margin-bottom: 20px;
+}
+
+.btns .btn-success {
+  background: #663C2A;
+  border: 2px #663C2A;
+  margin:30px 0px 0px;
+  height: 40px;
+}
+
+.btn-outline-success{
+  margin-right: 5px;
+  color: #4F2E20;
+  border: 2px solid #4F2E20;
+}
+
+.btn-outline-success:hover{
+  border: 2px solid #A36043;
+  background: #A36043;
+}
+
+.btns .btn-success {
+  background: #663C2A;
+  border: 2px #663C2A;
+  height: 40px;
+}
+
+.btns .btn-success:hover{
+  background: #4F2E20;
+  border: 2px #4F2E20;
+  height: 40px;
+}
+
 </style>

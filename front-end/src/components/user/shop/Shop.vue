@@ -87,9 +87,11 @@
               <td>가격</td>
               <td></td>
             </tr>
-          <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" :key="i">
+          <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" :key="item.fileId">
               <td>
-                  <img width="100" height="100" alt="상품이미지">
+                <div v-on="getThumbnail(item.fileId)">
+                  {{thumbnail}}
+                </div>
               </td>
               <td @click="goItemDetail(item.itemNo)" > {{item.name}}</td>
               <td> {{item.price}}</td>
@@ -102,9 +104,6 @@
           </tr>
         </table>
     </div>
-    <div class="cart-icon">
-    </div>
-    <div class="curtain"></div>
   </div>
 </template>
 
@@ -122,11 +121,26 @@ export default {
         sum: 0,
         price: 0,
         count: [],
-        thumbnail: Map,
+        image: '',
+        thumbnail: "",
     };
   },
 
   methods: {
+    getThumbnail(id) {
+      axios.get(`v2-2/thumbnail/${id}`)
+        .then(res => {      
+          console.log(this.thumbnail)
+          var byte = res
+          console.log(byte)
+          var str = byte.toString();
+          console.log(str)
+          console.log(window.URL.createObjectURL(new Blob([window.btoa(str)], {type : 'image/png'})))
+          return window.URL.createObjectURL(new Blob(new ArrayBuffer[window.btoa(str)], {type : 'image/png'}));
+          // this.thumbnail[i]=window.URL.createObjectURL(new Blob([res.data]));
+          // this.$refs.thumbnail.src=window.URL.createObjectURL(new Blob([res.data]));
+        })
+    },
     sumPrice(price, count) {
       this.sum=price*count;
     },
@@ -167,18 +181,6 @@ export default {
     setCountM(cart) {
       cart.count--;
     },
-    fetchThumbnail() {
-      console.log('스타트')
-      for(let i=0; i<this.$store.state.itemList.length ; i++) {
-        console.log('반복')
-        axios.get(`/v2-2/thumbnail/${this.$store.state.itemList[i].fileId}`, {
-          responseType: 'blob'
-        }).then(res => {
-          console.log('끝')
-          this.thumbnail[i] = window.URL.createObjectURL(new Blob([res.data]))
-        })
-      }
-    },
     deleteCart(cart) {
         axios.delete(`v5/${cart.cartItemNo}/${this.$store.state.email}`)
         .then(res => {
@@ -194,14 +196,6 @@ export default {
         params: { itemNo: itemNo }
       })
     },
-    // getThumbnail(key) {
-    //   axios.get(`/v2-2/thumbnail/${key.fileId}`, {
-    //       responseType: 'blob'
-    //   }).then(res => {
-    //       console.log('적용')
-    //       this.thumbnail.set(key.itemNo, window.URL.createObjectURL(new Blob([res.data])))
-    //   })
-    // },
   },
 };
 </script>
@@ -303,17 +297,5 @@ export default {
   /* border: 2px solid #999; */
   opacity: 1;
   z-index: 1;
-}
-
-.curtain {
-  width: 10px;
-  height: 100%;
-  margin: auto;
-  position: fixed;
-  right: 0px;
-  bottom: 0%;
-  opacity: 0.2;
-  /* border: 2px solid #999; */
-  background-color: burlywood;
 }
 </style>

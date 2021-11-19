@@ -57,15 +57,16 @@ export default {
     this.$store.dispatch('fetchItem');
     this.getTest();
   },
+
   methods: {
-    getThumbnail(key) {
-        axios.get(`/v2-2/thumbnail/${key.fileId}`, {
-            responseType: 'blob'
-        }).then(res => {
-            console.log('적용')
-            this.thumbnail.set(item.itemNo, window.URL.createObjectURL(new Blob([res.data])))
-        })
-    },
+    // getThumbnail(key) {
+    //     axios.get(`/v2-2/thumbnail/${key.fileId}`, {
+    //         responseType: 'blob'
+    //     }).then(res => {
+    //         console.log('적용')
+    //         this.thumbnail.set(item.itemNo, window.URL.createObjectURL(new Blob([res.data])))
+    //     })
+    // },
     prevPage() {
       if(this.count <1) return false;
       this.count--;
