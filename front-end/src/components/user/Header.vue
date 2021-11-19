@@ -7,20 +7,20 @@
           <router-link class="navset me-5" style="text-decoration: none; color: #666;" to="/admin"> <i class="bi bi-gear-fill"></i> 관리자페이지</router-link>
         </div>
         <span class="navset me-2" style="text-decoration: none; color: #333;"> {{this.$store.state.email}}</span>
-        <router-link class="navset me-2" style="text-decoration: none; color: green; font-weight: 700" to="/cart">장바구니</router-link>
-        <router-link class="navset me-1" style="text-decoration: none; color: #333; font-weight: 700" to="/mypage">마이페이지</router-link>
+        <router-link class="navset me-2" style="text-decoration: none; color: #A36043; font-weight: 700" to="/cart">장바구니</router-link>
+        <router-link class="navset me-1" style="text-decoration: none; color: #663C2A; font-weight: 700" to="/mypage">마이페이지</router-link>
         <span class="navset me-5" style="text-decoration: none; color: #666; cursor: pointer;" @click="this.$store.dispatch('logout')"> 로그아웃 </span>
       </div>
 
       <div v-if="!this.$store.state.isLogin">
         <router-link class="navset me-2" style="text-decoration: none; color: #666;" to="/login">로그인</router-link>
-        <router-link class="navset me-5" style="text-decoration: none;" to="/register">회원가입</router-link>
+        <router-link class="navset me-5 routerlink" style="text-decoration: none; font-weight: 700; color: #663C2A;" to="/register">회원가입</router-link>
       </div>
     </div>
 
     <div class="p-5">
       <a href="/">
-        <img src="../.././assets/sclogo.png" alt="Img" style="width:150px">
+        <img src="../.././assets/sclogo.png" alt="Img" style="width:200px">
       </a>
     </div>
     <div class="border-top ">
@@ -65,6 +65,10 @@ header {
     /* margin-bottom: 10px; */
 }
 
+.routerlink:hover {
+  color: #A36043;
+}
+
 .navbox {
   text-decoration: none;
   width: 180px;
@@ -93,7 +97,4 @@ header {
   transition: 0.1s;
 }
 
-.navset {
-  font-size: 11pt;
-}
 </style> 
