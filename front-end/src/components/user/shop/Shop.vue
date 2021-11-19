@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="tab-bar">
-            <div class="tab-shop py-3" style="width:100%;">
+            <div class="tab-shop py-3">
                 <span class="tab-title">상품목록</span>            
             </div>
         </div>
@@ -49,7 +49,7 @@
             </table>
             <span style="font-weight: 800; font-size: 16pt;"> {{price}} 원</span>
               <hr>
-              <button type="button" class="btn btn-success"><router-link to="/cart" style="text-decoration: none; color: white">내 장바구니로 이동</router-link></button>
+              <button type="button" class="btn btn-success"><router-link to="/cart" style="text-decoration: none; color: white">주문하기</router-link></button>
             </div>
           </div>
         </div>
@@ -111,6 +111,7 @@ export default {
   created() {
     this.$store.dispatch('fetchItem');
   },
+
   data() {
     return {
         sum: 0,
@@ -119,6 +120,7 @@ export default {
         thumbnail: [],
     };
   },
+
   methods: {
     sumPrice(price, count) {
       this.sum=price*count;
@@ -154,6 +156,7 @@ export default {
         console.log('failed', err)
       })
     },
+
     setCountP(cart) {
       cart.count++;
     },
@@ -198,27 +201,39 @@ export default {
   background-size : cover;
   position: relative;
 }
+
 .tab-shop {
   background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 150px;
+  display: table;
+  }
+
+.tab-title {
+    font-weight: bold;
+    font-size: 25pt;
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
 }
+
 .bag {
     font-size: 26pt;
 }
+
 .bag:hover {
     color: green;
     font-size: 26pt;
     transition: 0.3s;
 }
-.tab-title {
-    font-size: 22pt;
-    color: white;
-}
+
 .outter-border{
     width: 60%;
     margin: auto;
 }
 .product-item {
     border: 0;
+
 }
 .product-item:hover{
     background-color: beige;
@@ -227,14 +242,17 @@ export default {
 .table{
     height: 60%;
 }
+
 .nav-link {
     text-decoration: none;
 }
+
 .plus:hover {
   cursor: pointer;
   color: green;
   transition: 0.2s;
 }
+
 .minus:hover {
   cursor: pointer;
   color: red;

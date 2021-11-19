@@ -26,6 +26,8 @@ public class Order extends BaseEntityOrder{
 
     private OrderStatus status;
 
+    private String orderAddress;
+
     //연관관계 메소드
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);

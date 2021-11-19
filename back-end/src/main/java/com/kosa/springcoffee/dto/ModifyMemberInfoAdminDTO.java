@@ -2,14 +2,15 @@ package com.kosa.springcoffee.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberRequestDTO {
+public class ModifyMemberInfoAdminDTO {
     private String email;
-    private String password;
+    private String name;
+    private String address;
 }

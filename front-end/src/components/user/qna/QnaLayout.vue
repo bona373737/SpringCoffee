@@ -1,14 +1,10 @@
 <template>
-    <div>
+    <div class="outer">
         <div class="tab-bar">
-            <div class="tab-shop py-3" style="width:100%;">
+            <div class="tab-shop py-3">
                 <span class="tab-title">Q & A</span>            
             </div>
         </div>
-        <div class="py-2"><br></div>
-        <span class="info"><i class="bi bi-question-circle-fill"></i></span><br>
-        <span style="font-size: 11pt;">궁금한 것이 있으면 언제든 문의해주세요!</span>
-
         <router-view></router-view>
 
     </div>
@@ -20,8 +16,11 @@ export default {
 };
 </script>
 
-
 <style scoped>
+.outer {
+  background-color: #f7f7f7;
+}
+
 .tab-bar {
   background-image: url('../../../assets/background.jpg');
   background-repeat : no-repeat;
@@ -31,30 +30,20 @@ export default {
 
 .tab-shop {
   background-color: rgba(0, 0, 0, 0.5);
-}
+  width: 100%;
+  height: 150px;
+  display: table;
+  }
 
 .tab-title {
-    font-size: 22pt;
+    font-weight: bold;
+    font-size: 25pt;
     color: white;
+    display: table-cell;
+    vertical-align: middle;
 }
 
-.outterDiv{
-    width: 60%;
-    margin: auto;
-}
-.outterDiv .notice-head{
-    margin-right: 80%;
-}
 
-.info {
-    font-size: 26pt;
-}
-
-.info:hover {
-    color: green;
-    font-size: 26pt;
-    transition: 0.3s;
-}
 .filter{
   margin-right:10%;
   text-align: right;

@@ -9,9 +9,25 @@
     <div class="py-2"><br></div>
     <div class="align-items-center justify-content-center justify-content-lg-end">
         <span class="buy"><span class="bag"><i class="bi bi-currency-dollar"></i></span><br></span><br>
-        <span style="font-size: 11pt;">결제하기</span>
+        <span style="font-size: 11pt;"></span>
     </div><br><br>
 
+    <div class="wrapper">
+      <span style="font-size: 14pt; font-weight: 700;">배송 정보</span>
+      <div class="m-info border-top border-bottom">
+        <div class="infoform">
+          <div class="info d-flex">
+            <span class="info1 text-end me-3">이름</span>
+            <span class="info2 text-start">asasd</span>
+          </div>
+          <div class="info d-flex">
+            <span class="info1 text-end me-3">배송지</span>
+            <span class="info2 text-start">asasd</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-5"></div>
     <CartDetail></CartDetail>
   </div>
   <div v-if="!this.$store.state.isLogin" v-on="this.$router.replace('NotfoundPage')"></div>
@@ -29,7 +45,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .tab-bar {
   background-image: url('../../../assets/background.jpg');
   background-repeat : no-repeat;
@@ -53,5 +69,30 @@ export default {
 .outterDiv {
     width: 100%;
     height: 100%;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+.m-info {
+  width:600px;
+  margin: auto;
+}
+
+.infoform {
+  width:100%;
+}
+
+.info {
+  height: 30px;
+}
+
+.info1 {
+  width: 300px;
+}
+
+.info2 {
+  width:100%;
 }
 </style>

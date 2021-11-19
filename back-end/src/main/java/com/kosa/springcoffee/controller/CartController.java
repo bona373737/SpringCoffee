@@ -2,8 +2,10 @@ package com.kosa.springcoffee.controller;
 
 import com.kosa.springcoffee.dto.*;
 import com.kosa.springcoffee.entity.CartItem;
+import com.kosa.springcoffee.entity.Item;
 import com.kosa.springcoffee.entity.Member;
 import com.kosa.springcoffee.repository.CartItemRepository;
+import com.kosa.springcoffee.repository.ItemRepository;
 import com.kosa.springcoffee.repository.MemberRepository;
 import com.kosa.springcoffee.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,24 +27,8 @@ public class CartController {
     private final CartService cartService;
     private final MemberRepository memberRepository;
     private final CartItemRepository cartItemRepository;
+    private final ItemRepository itemRepository;
 
-
-//    @PostMapping("/cart")
-//    @ResponseBody
-//    public ResponseEntity cart(@RequestBody CartItemDTO cartItemDTO,Principal principal){
-//        Long cartItemNo;
-//
-//        try{
-//            cartItemNo = cartService.create(cartItemDTO, principal.getName());
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
-//        System.out.println("logloglog" + principal.getName() + " " + cartItemDTO.getItemNo()  + cartItemDTO.getCount());
-//        cartItemNo = cartService.create(cartItemDTO,principal.getName());
-//        return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
-//
-//    }
 
     @PostMapping("/cart")
     @ResponseBody
@@ -56,18 +43,28 @@ public class CartController {
     }
 
 
-//    @GetMapping(value = "/cart")
-//    public ResponseEntity cartList(Principal principal, Model model) {
-//        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(principal.getName());
-//        model.addAttribute("cartItems", cartDetailDTOList);
-//        return new ResponseEntity<List<CartDetailDTO>>(cartDetailDTOList, HttpStatus.OK);
-//    }
 
     @GetMapping(value = "/cart/{email}")
     public ResponseEntity cartList(@PathVariable String email) {
         Member member = memberRepository.getByEmail(email);
         List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(member.getEmail());
-        return new ResponseEntity<>(cartDetailDTOList, HttpStatus.OK);
+        List<CartListResponseDTO> cartListResponseDTOList = null;
+
+        for(CartDetailDTO detail : cartDetailDTOList){
+            Item item = itemRepository.findByName(detail.getItemName());
+            CartListResponseDTO dto = CartListResponseDTO.builder()
+                    .cartItemNo(detail.getCartItemNo())
+                    .count(detail.getCount())
+                    .fileId(item.getItemImg().get(0).getItemImgNo())
+                    .price(detail.getPrice())
+                    .itemName(detail.getItemName())
+                    .build();
+
+
+            cartListResponseDTOList.add(dto);
+
+        }
+        return new ResponseEntity<>(cartListResponseDTOList, HttpStatus.OK);
     }
 
 
@@ -101,21 +98,27 @@ public class CartController {
         return new ResponseEntity<Long>(cartItemNo, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/cart/cartOrder")
+
+    @PostMapping(value = "/cartOrder")
     @ResponseBody
-    public ResponseEntity orderCartItem(@RequestBody CartOrderDTO cartOrderDTO, Principal principal){
-        List<CartOrderDTO> cartOrderDTOList = cartOrderDTO.getCartOrderDTOList();
+    public ResponseEntity orderCartItem(@RequestBody CartOrderRequestDTO requestDTO){
+        Member member= memberRepository.getByEmail(requestDTO.getEmail());
+        String address = requestDTO.getAddress();
+        System.out.println("이메일 : " + requestDTO.getEmail() + "  주소 : " + requestDTO.getAddress());
+
+
+        List<Long> cartOrderDTOList = requestDTO.getCartItemNo();
+
         if (cartOrderDTOList == null || cartOrderDTOList.size() == 0){
             return new ResponseEntity<String>("상품이 없습니다.", HttpStatus.BAD_REQUEST);
         }
 
 
-        for (CartOrderDTO dto : cartOrderDTOList){
-            if(cartService.validateCartItem(dto.getCartItemNo(), principal.getName()))
+        for (Long num : cartOrderDTOList){
+            if(cartService.validateCartItem(num , member.getEmail()))
                 return new ResponseEntity<String>("자신의 카트가 아닙니다.", HttpStatus.FORBIDDEN);
         }
-        Long orderNo = cartService.orderCartItem(cartOrderDTOList, principal.getName());
+        Long orderNo = cartService.orderCartItem(cartOrderDTOList, member.getEmail(), address);
         return new ResponseEntity<Long>(orderNo, HttpStatus.OK);
     }
-
 }

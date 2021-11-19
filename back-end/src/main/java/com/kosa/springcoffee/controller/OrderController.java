@@ -3,6 +3,7 @@ package com.kosa.springcoffee.controller;
 import com.kosa.springcoffee.dto.OrderStatuslDTO;
 import com.kosa.springcoffee.dto.OrderDTO;
 import com.kosa.springcoffee.dto.OrderHistDTO;
+import com.kosa.springcoffee.dto.OrderResponseDTO;
 import com.kosa.springcoffee.entity.Member;
 import com.kosa.springcoffee.entity.Order;
 import com.kosa.springcoffee.repository.MemberRepository;
@@ -35,12 +36,16 @@ public class OrderController {
         Long orderNo;
         try {
             orderNo = orderService.create(orderDTO, orderDTO.getEmail());
+
+
         } catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+        Order order = orderRepository.findByOrderNo(orderNo);
+        OrderResponseDTO dto = OrderResponseDTO.builder().orderNo(orderNo).total(order.getTotalPrice()).build();
 
-        return new ResponseEntity<Long>(orderNo, HttpStatus.OK);
+        return new ResponseEntity<OrderResponseDTO>(dto, HttpStatus.OK);
     }
 
 //    @GetMapping(value = {"/orders/{email}", "/orders/{page}/{email}"})

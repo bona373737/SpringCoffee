@@ -1,13 +1,10 @@
 <template>
-    <div>
+    <div class="outer">
         <div class="tab-bar">
-            <div class="tab-shop py-3" style="width:100%;">
+            <div class="tab-shop py-3">
                 <span class="tab-title">공지사항</span>            
             </div>
         </div>
-        <div class="py-2"><br></div>
-        <span class="info"><i class="bi bi-info-circle-fill"></i></span><br>
-        <span style="font-size: 11pt;">Spring Coffee의 새로운 소식을 접해보세요!</span>
 
         <router-view></router-view>
 
@@ -22,6 +19,9 @@ export default {
 
 
 <style scoped>
+.outer {
+  background-color: #f7f7f7;
+}
 .tab-bar {
   background-image: url('../../../assets/background.jpg');
   background-repeat : no-repeat;
@@ -31,11 +31,17 @@ export default {
 
 .tab-shop {
   background-color: rgba(0, 0, 0, 0.5);
-}
+  width: 100%;
+  height: 150px;
+  display: table;
+  }
 
 .tab-title {
-    font-size: 22pt;
+    font-weight: bold;
+    font-size: 25pt;
     color: white;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .outterDiv{

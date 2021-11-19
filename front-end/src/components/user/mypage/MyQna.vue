@@ -11,7 +11,7 @@
       <thead>
       <tr>
         <th>No.</th>
-        <th>Q&A유형</th>
+        <th>문의종류</th>
         <th>제목</th>
         <th>작성일</th>
         <th>답변상태</th>
@@ -40,7 +40,7 @@ export default {
     return{
     }
   },
-  mounted() {
+  created() {
     this.$store.dispatch('fetchMyQna', this.$store.state.email)
   },
   methods:{
