@@ -88,9 +88,8 @@ public class OrderController {
 
     @PostMapping("/prepare")
     @ResponseBody
-    public ResponseEntity prepare(@RequestBody OrderStatuslDTO dto){
-        Member member = memberRepository.getByEmail(dto.getEmail());
-        Order order = orderRepository.findByOrderNo(dto.getOrderNo());
+    public ResponseEntity prepare(@RequestParam Long orderNo){
+        Order order = orderRepository.findByOrderNo(orderNo);
 
         if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
 
@@ -99,9 +98,8 @@ public class OrderController {
     }
     @PostMapping("/shipping")
     @ResponseBody
-    public ResponseEntity shipping(@RequestBody OrderStatuslDTO dto){
-        Member member = memberRepository.getByEmail(dto.getEmail());
-        Order order = orderRepository.findByOrderNo(dto.getOrderNo());
+    public ResponseEntity shipping(@RequestParam Long orderNo){
+        Order order = orderRepository.findByOrderNo(orderNo);
 
         if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
 
@@ -110,9 +108,8 @@ public class OrderController {
     }
     @PostMapping("/done")
     @ResponseBody
-    public ResponseEntity done(@RequestBody OrderStatuslDTO dto){
-        Member member = memberRepository.getByEmail(dto.getEmail());
-        Order order = orderRepository.findByOrderNo(dto.getOrderNo());
+    public ResponseEntity done(@RequestParam Long orderNo){
+        Order order = orderRepository.findByOrderNo(orderNo);
 
         if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
 
