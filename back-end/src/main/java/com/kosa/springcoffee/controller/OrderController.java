@@ -63,8 +63,8 @@ public class OrderController {
         return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
     }
 
-    @GetMapping(value = {"/orders", "/orders/{page}"})
-    public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page) {
+    @GetMapping(value = {"/orders"})
+    public ResponseEntity orderHist(@RequestParam(name = "page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
 
         Page<OrderHistDTO> orderHistDtos = orderService.getOrderListForAdmin(pageable);
