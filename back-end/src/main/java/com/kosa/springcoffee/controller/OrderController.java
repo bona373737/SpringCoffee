@@ -1,9 +1,12 @@
 package com.kosa.springcoffee.controller;
 
+import com.kosa.springcoffee.dto.OrderCancelDTO;
 import com.kosa.springcoffee.dto.OrderDTO;
 import com.kosa.springcoffee.dto.OrderHistDTO;
 import com.kosa.springcoffee.entity.Member;
+import com.kosa.springcoffee.entity.Order;
 import com.kosa.springcoffee.repository.MemberRepository;
+import com.kosa.springcoffee.repository.OrderRepository;
 import com.kosa.springcoffee.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -28,7 +31,7 @@ public class OrderController {
 
     private final OrderService orderService;
     private final MemberRepository memberRepository;
-
+    private final OrderRepository orderRepository;
     @PostMapping(value = "/")
     @ResponseBody
     public ResponseEntity order(@RequestBody OrderDTO orderDTO){
@@ -71,16 +74,19 @@ public class OrderController {
         return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
     }
 
-    @PostMapping("/{orderNo}/{email}/cancel")
+    @PostMapping("/cancel")
     @ResponseBody
-    public ResponseEntity cancel(@PathVariable("orderNo") Long orderNo, @PathVariable("email") String email){
-        Member member = memberRepository.getByEmail(email);
-        if(!orderService.validateOrder(orderNo, member.getEmail())){
+    public ResponseEntity cancel(@RequestBody OrderCancelDTO dto){
+        Member member = memberRepository.getByEmail(dto.getEmail());
+        Order order = orderRepository.findByOrderNo(dto.getOrderNo());
+
+        if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
+        if(!orderService.validateOrder(order.getOrderNo(), member.getEmail())){
             return new ResponseEntity<String>("주문취소권한이 없습니다", HttpStatus.FORBIDDEN);
         }
 
-        orderService.cancelOrder(orderNo);
-        return new ResponseEntity<Long>(orderNo, HttpStatus.OK);
+        orderService.cancelOrder(order.getOrderNo());
+        return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
     }
 
 }
