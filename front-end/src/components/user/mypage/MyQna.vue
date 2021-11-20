@@ -70,4 +70,8 @@ th{
   border-right: none;
   vertical-align: middle;
 }
+
+.tbody-th1:hover {
+  color: #A36043;
+}
 </style>
