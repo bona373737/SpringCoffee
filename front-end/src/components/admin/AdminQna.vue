@@ -87,11 +87,16 @@ export default {
 <style scoped>
 .outerDiv{
   margin-top: 50px;
+
 }
 
 .table{
   width: 90%;
   margin: auto;
+}
+
+th{
+  vertical-align: middle;
 }
 
 .page-btn{

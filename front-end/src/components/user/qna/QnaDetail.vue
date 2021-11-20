@@ -34,39 +34,41 @@
       <!-- 답변   -->
       <div class="answer">
         <h5>&gt; 답변</h5>
-          <table>
-            <tr style="text-indent: 2em" v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">
+            <div class="answerDiv" v-show="this.$store.state.role !=='ROLE_ADMIN'"
+                 v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">
               {{answer.content}}
-            </tr>
-          </table><br>
+            </div>
 
           <section v-show="this.$store.state.role ==='ROLE_ADMIN'">
             <div v-show="this.$store.state.qnaBoardDetail.replyList.length < 1">
               <div class="answer-row" >
-                <textarea readonly="true" v-model="content" ></textarea>
+                <textarea v-model="content" ></textarea>
+                <button  class="btn btn-outline-success btn-sm updateBtn" @click="replyAdd">등록</button>
               </div>
-              <button class="btn btn-outline-success btn-sm" @click="replyAdd">답변등록</button>
-
             </div>
 
-
-            <span class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length > 0">
-              <div v-if="!isReply">
-                <button class="btn btn-outline-success btn-sm" @click="updateReply()"> 수정하기</button>
-              </div>
-              <div v-if="isReply">
-                <textarea v-model="content"></textarea>
+            <div class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length > 0">
+              <div v-if="!isReply" >
+                <div class="answerDiv" v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">
+                  {{answer.content}}
+                </div>
+                <div class="answerBtn">
+                <button class="btn btn-outline-success btn-sm" @click="updateReply()">수정</button>
                 <div>
-                  <button class="btn btn-outline-success btn-sm" @click="replyupdate(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">수정</button>
-                  <button class="btn btn-outline-success btn-sm" @click="replyDelete(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">삭제</button>
+                <button class="btn btn-outline-success btn-sm" @click="replyDelete(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">삭제</button>
+                </div>
                 </div>
               </div>
-            </span>
+
+              <div v-if="isReply" >
+                <textarea v-model="content"></textarea>
+                <button class="btn btn-outline-success btn-sm" @click="replyupdate(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">수정</button>
+              </div>
+            </div>
           </section>
 
         </div>
       </div>
-
     </div>
 </template>
 
@@ -147,9 +149,9 @@ export default {
 </script>
 
 <style scoped>
-textarea{
-  width: 95%;
-  min-height: 100px;
+.updateBtn{
+  vertical-align: middle ;
+  display: table-cell
 }
 
 .outer {
@@ -236,7 +238,54 @@ textarea{
   font-weight: bold;
   color: #4F2E20;
 }
+
+textarea{
+  width: 80%;
+  text-indent: 1rem;
+  min-height: 100px;
+  margin-right: 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+  border-color: #663C2A;
+  vertical-align: middle ;
+}
+
+/*.answerEdit{*/
+/*  !*margin: auto;*!*/
+/*  vertical-align: middle;*/
+/*  display: block;*/
+/*}*/
+.answerDiv{
+  text-indent: 1rem;
+  width:80% ;
+  text-align: left;
+  margin-top: 20px;
+  min-height: 100px;
+  border : 1px solid #663C2A;
+  border-radius: 8px;
+  vertical-align: middle ;
+  display: inline-block;
+
+}
+
+.answerBtn{
+  vertical-align: middle;
+  margin-left: 15px;
+  margin-top: 25px;
+  /*margin-bottom: 10px;*/
+  display: inline-block;
+
+
+}
+
 /* 여긴 수정필요 */
+/*.answer-row .textarea{*/
+/*  position: absolute;*/
+/*  top:50%;*/
+/*  vertical-align: middle;*/
+/*  display: table;*/
+/*}*/
+
 button{
   margin-right: 5px;
   margin-bottom: 5px;
@@ -248,8 +297,12 @@ button{
   border: 2px solid #4F2E20;
 }
 
-.btn-outline-success:hover{
+.btn-outline-success:hover {
   border: 2px solid #A36043;
   background: #A36043;
+  color: white;
+
 }
+
+
 </style>

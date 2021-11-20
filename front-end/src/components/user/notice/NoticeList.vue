@@ -224,6 +224,7 @@ export default {
 th{
   border-left: 1px solid white;
   border-right: 1px solid white;
+  vertical-align: middle;
 }
 
 .page-btn{
