@@ -118,6 +118,7 @@ const routes = [
   },
   {
     path: '/admin/:',
+    redirect: '/userlist',
     name: 'AdminPage',
     component: () => import('@/components/admin/AdminPage.vue'),
     children: [
@@ -126,7 +127,7 @@ const routes = [
         component: () => import('@/components/admin/AdminList.vue'),
       },
       {
-        path: "itemAdd",
+        path: "/itemAdd",
         component: () => import('@/components/admin/ItemAdd.vue'),
       },
       {

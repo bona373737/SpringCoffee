@@ -15,7 +15,7 @@
 
           <div class="bt-menu" >
               <ui class="bt-info py-2">
-                  <li class="content" style="margin-right:15px" @click="$router.push('/userList')">
+                  <li class="content" style="margin-right:15px" @click="$router.replace('/userList')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
                         <router-link to="/admin/userlist">
@@ -31,7 +31,7 @@
                       </router-link>
                       </div>
                   </li>
-                  <li class="content" style="margin-right: 5px" @click="$router.push('/adminQna')">
+                  <li class="content" style="margin-right: 5px" @click="$router.replace('/adminQna')">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-question-circle"></i></div>
                       <div class="bt-text">문의목록</div>
