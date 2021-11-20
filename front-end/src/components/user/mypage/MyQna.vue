@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="outer-div">
     <table class="table table-bordered table-condensed">
       <colgroup>
         <col width="5%" />
@@ -51,7 +51,23 @@ export default {
         params: {qnaBoardNo: qnaBoardNo}
       })
     },
-
   }
 }
 </script>
+
+<style scoped>
+.outer-div{
+  width: 70%;
+  margin: auto;
+}
+
+table{
+  margin-top: 50px;
+}
+
+th{
+  border-left: none;
+  border-right: none;
+  vertical-align: middle;
+}
+</style>

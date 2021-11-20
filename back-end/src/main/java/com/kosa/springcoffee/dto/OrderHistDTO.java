@@ -24,7 +24,7 @@ public class OrderHistDTO {
     }
 
 
-    public void addOrderItemDto(OrderItemDTO dto){
+    public void addOrderItemDto(OrderItemDTO dto) {
         orderItemDTOList.add(dto);
     }
 }

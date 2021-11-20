@@ -1,9 +1,6 @@
 package com.kosa.springcoffee.controller;
 
-import com.kosa.springcoffee.dto.OrderCancelDTO;
-import com.kosa.springcoffee.dto.OrderDTO;
-import com.kosa.springcoffee.dto.OrderHistDTO;
-import com.kosa.springcoffee.dto.OrderResponseDTO;
+import com.kosa.springcoffee.dto.*;
 import com.kosa.springcoffee.entity.Member;
 import com.kosa.springcoffee.entity.Order;
 import com.kosa.springcoffee.repository.MemberRepository;
@@ -15,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/v3")
+@RequestMapping("/v6")
 @Log4j2
 @RequiredArgsConstructor
 public class OrderController {
@@ -33,7 +31,8 @@ public class OrderController {
     private final OrderService orderService;
     private final MemberRepository memberRepository;
     private final OrderRepository orderRepository;
-    @PostMapping(value = "/")
+
+    @PostMapping(value = "/submit")
     @ResponseBody
     public ResponseEntity order(@RequestBody OrderDTO orderDTO){
         Long orderNo;
@@ -51,37 +50,67 @@ public class OrderController {
         return new ResponseEntity<OrderResponseDTO>(dto, HttpStatus.OK);
     }
 
-    @GetMapping(value = {"/orders/{email}", "/orders/{page}/{email}"})
-    public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page,@PathVariable(name = "email") String email, Model model) {
+    @GetMapping(value = {"/orders/{page}/{email}"})
+    public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page,@PathVariable(name = "email") String email) {
         Member member = memberRepository.getByEmail(email);
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
 
         Page<OrderHistDTO> orderHistDtos = orderService.getOrderList(member.getEmail(), pageable);
-        model.addAttribute("orders", orderHistDtos);
-        model.addAttribute("page", pageable.getPageNumber());
-        model.addAttribute("maxPage", 5);
+
         return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
     }
 
-
-    @GetMapping(value = {"/orders", "/orders/{page}"})
-    public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page) {
+    @GetMapping(value = {"/orders"})
+    public ResponseEntity orderHist(@RequestParam(name = "page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
 
         Page<OrderHistDTO> orderHistDtos = orderService.getOrderListForAdmin(pageable);
         return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
     }
-    
-    @PostMapping("/{orderNo}/{email}/cancel")
-    @ResponseBody
-    public ResponseEntity cancel(@RequestBody OrderCancelDTO dto){
+
+    @PostMapping("/cancel")
+    public ResponseEntity cancel(@RequestBody OrderStatuslDTO dto){
         Member member = memberRepository.getByEmail(dto.getEmail());
-        if(!orderService.validateOrder(dto.getOrderNo(), member.getEmail())){
+        Order order = orderRepository.findByOrderNo(dto.getOrderNo());
+
+        if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
+        if(!orderService.validateOrder(order.getOrderNo(), member.getEmail())){
             return new ResponseEntity<String>("주문취소권한이 없습니다", HttpStatus.FORBIDDEN);
         }
 
-        orderService.cancelOrder(dto.getOrderNo());
-        return new ResponseEntity<Long>(dto.getOrderNo(), HttpStatus.OK);
+        orderService.cancelOrder(order.getOrderNo());
+        return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
+    }
+
+    @PostMapping("/prepare")
+    @ResponseBody
+    public ResponseEntity prepare(@RequestParam Long orderNo){
+        Order order = orderRepository.findByOrderNo(orderNo);
+
+        if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
+
+        orderService.cancelOrder(order.getOrderNo());
+        return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
+    }
+    @PostMapping("/shipping")
+    @ResponseBody
+    public ResponseEntity shipping(@RequestParam Long orderNo){
+        Order order = orderRepository.findByOrderNo(orderNo);
+
+        if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
+
+        orderService.cancelOrder(order.getOrderNo());
+        return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
+    }
+    @PostMapping("/done")
+    @ResponseBody
+    public ResponseEntity done(@RequestParam Long orderNo){
+        Order order = orderRepository.findByOrderNo(orderNo);
+
+        if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
+
+        orderService.cancelOrder(order.getOrderNo());
+        return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
     }
 
 }

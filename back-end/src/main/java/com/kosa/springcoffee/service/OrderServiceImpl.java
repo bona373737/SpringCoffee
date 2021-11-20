@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class OrderServiceImpl implements OrderService{
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
-
+    private final ItemService itemService;
 
     @Override
     public Long create(OrderDTO orderDTO, String email) {
@@ -40,7 +41,7 @@ public class OrderServiceImpl implements OrderService{
         orderItemList.add(orderItem);
 
         Order order = Order.createOrder(member, orderItemList);
-        order.setStatus(OrderStatus.ORDER);
+        order.setStatus(OrderStatus.결제완료);
         order.setOrderAddress(orderDTO.getOrderAddress());
         orderRepository.save(order);
 
@@ -72,11 +73,25 @@ public class OrderServiceImpl implements OrderService{
 
 
     @Override
+    @Transactional(readOnly = true)
     public Page<OrderHistDTO> getOrderList(String email, Pageable pageable) {
         List<Order> orders = orderRepository.findOrders(email, pageable);
         Long totalCount = orderRepository.countOrder(email);
 
-        return getOrderHistDTOPage(pageable, orders, totalCount);
+        List<OrderHistDTO> orderHistDtos = new ArrayList<>();
+
+        for (Order order : orders) {
+            OrderHistDTO orderHistDto = new OrderHistDTO(order);
+            List<OrderItem> orderItems = order.getOrderItems();
+            for (OrderItem orderItem : orderItems) {
+                OrderItemDTO orderItemDto = new OrderItemDTO(orderItem);
+                orderHistDto.addOrderItemDto(orderItemDto);
+            }
+            orderHistDtos.add(orderHistDto);
+        }
+
+
+        return new PageImpl<OrderHistDTO>(orderHistDtos, pageable, totalCount);
     }
 
 
@@ -100,6 +115,27 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public void shippingOrder(Long orderNo) {
+        Order order = orderRepository.findByOrderNo(orderNo);
+        order.shipping();
+        orderRepository.save(order);
+    }
+
+    @Override
+    public void doneOrder(Long orderNo) {
+        Order order = orderRepository.findByOrderNo(orderNo);
+        order.done();
+        orderRepository.save(order);
+    }
+
+    @Override
+    public void prepareOrder(Long orderNo) {
+        Order order = orderRepository.findByOrderNo(orderNo);
+        order.prepare();
+        orderRepository.save(order);
+    }
+
+    @Override
     public Long cartOrder(List<OrderDTO> orderDTOList, String email,String address) {
         Member member = memberRepository.getByEmail(email);
         List<OrderItem> orderItemList = new ArrayList<>();
@@ -110,10 +146,12 @@ public class OrderServiceImpl implements OrderService{
         }
 
         Order order = Order.createOrder(member, orderItemList);
-        order.setStatus(OrderStatus.ORDER);
+        order.setStatus(OrderStatus.결제완료);
         order.setOrderAddress(address);
         orderRepository.save(order);
         return order.getOrderNo();
     }
+
+
 
 }

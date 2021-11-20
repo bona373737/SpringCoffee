@@ -35,11 +35,16 @@ public class Member extends BaseEntity implements UserDetails {
 
     @OneToMany(mappedBy = "writer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Board> boards = new ArrayList<>();
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
+
+    @OneToOne(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    private Cart cart;
 
     @OneToMany(mappedBy = "writer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<QnaBoard> qnaBoards = new ArrayList<>();
+
     public void addMemberRole(MemberRole memberRole){
         roles.add(memberRole);
     }
