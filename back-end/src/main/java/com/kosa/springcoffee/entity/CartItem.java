@@ -12,11 +12,9 @@ public class CartItem {
     private Long cartItemNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "cart_cartNo")
     private Cart cart;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "item_itemNo")
     private Item item;
 
     private int count;

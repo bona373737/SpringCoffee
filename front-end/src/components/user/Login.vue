@@ -26,13 +26,12 @@
               <input class="form-input" type="password" placeholder="비밀번호" v-model="loginForm.password">
               <div class="tip-email">{{passwordTipMsg}}</div>
             </div>
-
-            <button class="btn btn-success" @click="login">로그인</button>
-
-            <div class="register">
-                회원이 아니신가요?<span class="register-link"> 회원가입</span>
-            </div>
-
+          </div>
+          <div class="btn-box py-2">
+              <a class="btn" @click="login">로그인</a>
+          </div>
+          <div class="tips py-2">
+              <div class="login" @click="register">회원이 아니신가요?<span> 회원가입</span></div>
           </div>
         </div>
       </div>
@@ -176,31 +175,13 @@ export default {
   padding: 5px;
 }
 
-.btn-success {
-  background: #663C2A;
-  border: 2px #663C2A;
-  margin-top: 10px;
-  height: 40px;
+.btn-box a {
+  background-color: #663C2A;
+  color: white;
 }
 
-.btn-success:hover{
-  background: #A36043;
-  border: 2px #A36043;
-  height: 40px;
-}
-
-.register {
-  margin-top: 10px;
-  font-size: 9pt;
-  color: #666;
-}
-
-.register .register-link {
-  font-weight: bolder;
-  color: #663C2A;
-}
-
-.register .register-link:hover {
-  color: #A36043;
+.btn-box a:hover {
+  background-color: #A36043;
+  color: white;
 }
 </style>

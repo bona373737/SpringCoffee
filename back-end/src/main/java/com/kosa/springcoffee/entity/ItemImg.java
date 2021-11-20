@@ -20,7 +20,6 @@ public class ItemImg {
 
     private Long fileSize;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Item item;
 

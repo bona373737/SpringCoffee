@@ -18,7 +18,9 @@
                   <li class="content" style="margin-right:15px" @click="$router.push('/userList')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
+                        <router-link to="/admin/userlist">
                             <div class="bt-text">회원관리</div>
+                        </router-link>
                       </div>
                   </li>
                   <li class="content" style="margin-right: 5px">
@@ -49,17 +51,13 @@
                 <router-view></router-view>
               </div>
       </div>
+
   </div>
 </template>
 
 <script>
 export default {
-    name: 'AdminPage',
-    data() {
-        return {
-            
-        }
-    },
+
 }
 </script>
 

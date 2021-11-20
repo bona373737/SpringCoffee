@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.File;
@@ -31,7 +32,7 @@ public class ItemImgController {
 
     @CrossOrigin
     @GetMapping(value = "/thumbnail/{itemImgNo}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
-    public ResponseEntity getTumbnail(@PathVariable Long itemImgNo) throws IOException{
+    public ResponseEntity getThumbnail(@PathVariable Long itemImgNo) throws IOException{
         String absolutePath = new File("").getAbsolutePath() + File.separator + File.separator;
         String path;
 
@@ -62,8 +63,38 @@ public class ItemImgController {
 
         InputStream imageStream = new FileInputStream(absolutePath + path);
         byte[] imageByteArray = toByteArray(imageStream);
+
         imageStream.close();
 
         return new ResponseEntity<>(imageByteArray, HttpStatus.OK);
     }
+
+
+//    @GetMapping(
+//            value = "/base64/{itemImgNo}",
+//            produces = {}
+//    )
+//    public ResponseEntity getImageBase64(@PathVariable Long itemImgNo) throws IOException{
+//        MultipartFile file = itemImgService.getMultipartFile(itemImgNo);
+//        String base64 = null;
+//        try {
+//            base64 = itemImgService.convertBinary(file);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return new ResponseEntity<>(base64, HttpStatus.OK);
+//    }
+//
+//    @GetMapping(
+//            value = "/multipart/{itemImgNo}",
+//            produces = {MediaType.MULTIPART_FORM_DATA_VALUE,MediaType.MULTIPART_MIXED_VALUE, MediaType.MULTIPART_RELATED_VALUE}
+//    )
+//    public ResponseEntity getImageMultipart(@PathVariable Long itemImgNo) throws IOException{
+//        MultipartFile file = itemImgService.getMultipartFile(itemImgNo);
+//
+//
+//        return new ResponseEntity<>(file, HttpStatus.OK);
+//    }
+
+
 }
