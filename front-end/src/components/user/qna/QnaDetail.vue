@@ -14,8 +14,12 @@
         <tr class="table-title">
           <td>제목</td>
           <td>{{$store.state.qnaBoardDetail.title}} </td></tr>
-        <tr class="table-context">
+        <tr class="table-title">
           <td>문의종류</td>
+          <td>{{$store.state.qnaBoardDetail.category}} </td>
+        </tr>
+        <tr class="table-context">
+          <td>문의내용</td>
           <td> {{$store.state.qnaBoardDetail.content}} </td>
         </tr>
       </table>
