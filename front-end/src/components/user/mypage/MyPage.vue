@@ -104,7 +104,7 @@ export default {
 }
 
 .py-2 {
-    width: 800px;
+    width: 80%;
     margin: auto;
     background-color: white;
 }
@@ -126,7 +126,7 @@ export default {
 }
 
 .bt-menu {
-    width: 800px;
+    width: 80%;
     padding: 30px 0;
     margin: auto;
     border-bottom: 1px solid #4F2E20;

@@ -10,7 +10,7 @@
         <div class="py-2">
           <div style="height: 48px;"/>
           <span class="info"><i class="bi bi-gear-fill"></i></span><br>
-          <span class="info-text" style="font-size: 11pt;">관리자 페이지입니다</span>
+          <span class="info-text">관리자 페이지입니다</span>
         </div>
 
           <div class="bt-menu" >
