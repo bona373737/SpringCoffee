@@ -47,6 +47,7 @@
                         <input class="form-input" type="password" placeholder="비밀번호 확인" v-model="passwordCheck" @change="pwcheck">
                       </div>
                       <div class="tip-password-check tips">{{passwordCheckTipMsg}}</div>
+                      <div class="tip-password-check tips ok">{{passwordCheckSuccessTipMsg}}</div>
                       <div class="tips password-format">비밀번호는 영문 대소문자, 숫자를 혼합하여 8~20자로 입력해주세요.</div>
                     </div>  
 
@@ -83,6 +84,7 @@ export default {
           nameTipMsg: '',
           passwordTipMsg: '',
           passwordCheckTipMsg: '',
+          passwordCheckSuccessTipMsg: '',
           passwordCheck: '',
           registerForm: {
             email: '',
@@ -149,9 +151,11 @@ export default {
       pwcheck() {
         if (this.passwordCheck !== this.registerForm.password) {
           this.passwordCheckTipMsg = '비밀번호가 일치하지 않습니다.'
+          this.passwordCheckSuccessTipMsg = ''
           return false
         } else {
           this.passwordCheckTipMsg = ''
+          this.passwordCheckSuccessTipMsg = '비밀번호가 일치합니다.'
           return true
         }
       },
@@ -175,13 +179,11 @@ export default {
           this.passwordTipMsg = '비밀번호를 입력해주세요.'
           return false
         }else if(!this.passwordFormatCheck()) {
-          this.passwordTipMsg = '비밀번호 조건을 확인해주세요.'
           return false
         } 
         else if(!this.pwcheck()) {
-          this.passwordCheckTipMsg = '비밀번호가 일치하지 않습니다.'
           return false
-        } else this.passwordTipMsg = ''
+        }
 
         return true;
       },
@@ -311,6 +313,10 @@ export default {
   margin: 3px auto;
   font-size: 9pt;
   color: red;
+}
+
+.ok {
+  color: green;
 }
 
 .valid {
