@@ -29,6 +29,12 @@ public class Item {
     private String category;
 
     @OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval = true)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    @OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval = true)
+    private List<CartItem> cartItems = new ArrayList<>();
+
+    @OneToMany(mappedBy = "item", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<ItemImg> itemImg = new ArrayList<>();
 
     @Builder

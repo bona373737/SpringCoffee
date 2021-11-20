@@ -3,6 +3,8 @@ package com.kosa.springcoffee.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "sc_cart")
 @Getter
@@ -14,8 +16,10 @@ public class Cart {
     private Long cartNo;
 
     @OneToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "sc_member_email")
     private Member member;
+
+    @OneToMany(mappedBy = "cart", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    private List<CartItem> cartItems = new ArrayList<>();
 
     public static Cart createCart(Member member) {
         Cart cart = new Cart();

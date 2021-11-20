@@ -70,31 +70,31 @@ public class ItemImgController {
     }
 
 
-    @GetMapping(
-            value = "/base64/{itemImgNo}",
-            produces = {}
-    )
-    public ResponseEntity getImageBase64(@PathVariable Long itemImgNo) throws IOException{
-        MultipartFile file = itemImgService.getMultipartFile(itemImgNo);
-        String base64 = null;
-        try {
-            base64 = itemImgService.convertBinary(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(base64, HttpStatus.OK);
-    }
-
-    @GetMapping(
-            value = "/multipart/{itemImgNo}",
-            produces = {MediaType.MULTIPART_FORM_DATA_VALUE,MediaType.MULTIPART_MIXED_VALUE, MediaType.MULTIPART_RELATED_VALUE}
-    )
-    public ResponseEntity getImageMultipart(@PathVariable Long itemImgNo) throws IOException{
-        MultipartFile file = itemImgService.getMultipartFile(itemImgNo);
-
-
-        return new ResponseEntity<>(file, HttpStatus.OK);
-    }
+//    @GetMapping(
+//            value = "/base64/{itemImgNo}",
+//            produces = {}
+//    )
+//    public ResponseEntity getImageBase64(@PathVariable Long itemImgNo) throws IOException{
+//        MultipartFile file = itemImgService.getMultipartFile(itemImgNo);
+//        String base64 = null;
+//        try {
+//            base64 = itemImgService.convertBinary(file);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return new ResponseEntity<>(base64, HttpStatus.OK);
+//    }
+//
+//    @GetMapping(
+//            value = "/multipart/{itemImgNo}",
+//            produces = {MediaType.MULTIPART_FORM_DATA_VALUE,MediaType.MULTIPART_MIXED_VALUE, MediaType.MULTIPART_RELATED_VALUE}
+//    )
+//    public ResponseEntity getImageMultipart(@PathVariable Long itemImgNo) throws IOException{
+//        MultipartFile file = itemImgService.getMultipartFile(itemImgNo);
+//
+//
+//        return new ResponseEntity<>(file, HttpStatus.OK);
+//    }
 
 
 }

@@ -119,15 +119,6 @@ public class ItemController {
 
     }
 
-//    @PostMapping("/register")
-//    public ResponseEntity<Long> create(@RequestBody ItemDTO dto){
-//        itemService.create(dto);
-//        log.info("상품 등록");
-//        Long num = itemService.create(dto);
-//
-//        return new ResponseEntity<>(num, HttpStatus.OK);
-//    }
-
     @GetMapping("/list")
     public ResponseEntity readAllItem() {
         log.info("상품 전체 조회");
@@ -147,7 +138,6 @@ public class ItemController {
     @GetMapping("/{itemNo}")
     public ResponseEntity getItemDetail(@PathVariable("itemNo") Long itemNo){
         Item item = itemRepository.findByItemNo(itemNo);
-
 
         ItemResponseDTO dto = ItemResponseDTO.builder()
                 .itemNo(item.getItemNo())
