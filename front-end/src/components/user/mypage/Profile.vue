@@ -2,7 +2,7 @@
   <div class="form py-5">
     <div class="wrapper">
       <div v-if="!isCorrect">
-        <div class="tab-name d-flex py-3" style="font-size: 16pt; padding: 20px;">본인인증</div>
+        <div class="tab-name d-flex py-3">본인인증</div>
         <div class="py-3">
           <div class="m-info d-flex">
             <span class="tab-1 text-end"> 이메일</span>
@@ -24,7 +24,7 @@
 
 
       <!-- 비밀번호 인증 시  -->
-      <div v-if="isCorrect">
+      <div v-if="isCorrect" class="info-box">
         <div class="tab-name py-3" style="font-size: 16pt; padding: 20px;">
           회원정보
           <div>
@@ -242,6 +242,16 @@ export default {
 </script>
 
 <style scoped>
+.info-box{
+  box-shadow: 1px 1px 10px #333;
+  border-radius: 15px;
+}
+
+.py-3{
+  font-size: 16pt;
+  padding-top: 38px;
+}
+
 .form {
   width: 80%;
   margin: auto;
@@ -289,7 +299,7 @@ export default {
 }
 
 .btn-primary:hover{
-  background: #4F2E20;
+  background: #A36043;
   border: 2px #4F2E20;
   height: 40px;
 }
@@ -309,6 +319,7 @@ td{
 .btn{
   margin-right: 5px;
   margin-bottom: 10px;
+
 }
 
 </style>

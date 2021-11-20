@@ -11,19 +11,14 @@
             </div>
 
           <section v-show="this.$store.state.role ==='ROLE_ADMIN'">
-            <div v-show="this.$store.state.qnaBoardDetail.replyList.length < 1"
-                 v-if="this.$store.state.qnaBoardDetail.replyList">
-<!--              <div v-show="length < 1">-->
+            <div v-show="this.$store.state.qnaBoardDetail.replyList.length < 1">
               <div class="answer-row" >
                 <textarea v-model="content" ></textarea>
                 <button  class="btn btn-outline-success btn-sm updateBtn" @click="replyAdd">등록</button>
               </div>
             </div>
 
-            <div class="answer-row"
-                 v-if="this.$store.state.qnaBoardDetail.replyList"
-                 v-show="this.$store.state.qnaBoardDetail.replyList.length > 0">
-<!--            <div class="answer-row" v-show="length > 0" >-->
+            <div class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length > 0">
               <div v-if="!isReply" >
                 <div class="answerDiv" v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">
                   {{answer.content}}
@@ -103,7 +98,7 @@ export default {
       .then(res =>{
         console.log(res.data)
         alert("답변이 추가되었습니다.")
-        // this.$router.go(-1)
+        // this.router.go()
         this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo)
       })
     },

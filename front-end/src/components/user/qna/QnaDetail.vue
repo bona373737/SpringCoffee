@@ -76,12 +76,12 @@
 
 <script>
 import axios from "axios";
-// import QnaReply from "@/components/user/qna/QnaReply";
+import QnaReply from "@/components/user/qna/QnaReply";
 
 export default {
-  // components: {
-  //   QnaReply,
-  // },
+  components: {
+    QnaReply,
+  },
 
   data(){
     return{
@@ -89,7 +89,7 @@ export default {
       content:'',
       qnaBoardNo:this.$route.params.qnaBoardNo,
       replyer:this.$store.state.email,
-      // length : this.$store.state.qnaBoardDetail.replyList
+      // length : this.$store.state.qnaBoardDetail.replyList.length
     }
   },
   created() {
