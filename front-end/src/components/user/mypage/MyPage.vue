@@ -173,7 +173,6 @@ export default {
 }
 
 .rout {
-    padding: 20px;
     width:100%;
     height:100%;
 }

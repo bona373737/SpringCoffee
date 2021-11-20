@@ -31,9 +31,7 @@
                 @click="goNoticeUpdate(this.$route.params.boardNo)"> 수정 </button>
         <button class="btn btn-success" @click="$router.push('/noticeLayout')"> 목록 </button>
       </div>
-
       <br>
-
     </div>
   </div>
 </template>

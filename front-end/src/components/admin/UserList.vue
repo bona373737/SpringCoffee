@@ -46,7 +46,7 @@ export default {
       email : '',
     }
   },
-  mounted() {
+  created() {
     this.$store.dispatch('fetchUserList')
   },
   methods: {

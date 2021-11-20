@@ -63,6 +63,8 @@ const routes = [
         path: 'qnaDetail/:qnaBoardNo',
         name: 'qnaDetail',
         component: () => import('@/components/user/qna/QnaDetail.vue'),
+        props: true
+        // props: (route) => ({query})
       },
       {
         path: '/qnaAdd',
@@ -74,6 +76,11 @@ const routes = [
         name: 'qnaUpdate',
         component: () => import('@/components/user/qna/QnaUpdate.vue')
       },
+      {
+        path: '/qnaReply',
+        name: 'qnaReply',
+        component: () => import('@/components/user/qna/QnaReply.vue')
+      }
     ]
   },
   {

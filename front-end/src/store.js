@@ -67,7 +67,6 @@ let store = createStore({
         state.adminOrderList = payload;
     }
 
-
   },
   actions: {
     fetchNoticeBoardList(context,page){
