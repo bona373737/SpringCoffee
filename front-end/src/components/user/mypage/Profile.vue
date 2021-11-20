@@ -135,7 +135,7 @@
 
 <!--            <div class="m-info py-3">-->
               <button class="btn btn-primary" @click="infoUpdate()">수정</button>
-              <button class="btn btn-primary" @click="$router.push()">뒤로가기</button>
+              <button class="btn btn-primary" @click="backToVarifyPage()">뒤로가기</button>
 <!--            </div>-->
         </div>
       </div>
@@ -231,6 +231,10 @@ export default {
       } else if(this.checkPW2 === this.checkPW3) {
         this.eqPW=true;
       }
+    },
+    backToVarifyPage() {
+      this.isCorrect = false
+      this.password = ''
     },
   },
 }

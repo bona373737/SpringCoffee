@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="p-5">
+    <div class="p-1">
       <a href="/">
         <img src="../.././assets/sclogo.png" alt="Img" style="width:200px">
       </a>
