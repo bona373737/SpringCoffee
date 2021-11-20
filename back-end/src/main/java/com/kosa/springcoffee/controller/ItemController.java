@@ -54,7 +54,7 @@ public class ItemController {
 
     }
 
-    @PutMapping("/update/{itemNo}")
+    @PutMapping(value = "/update/{itemNo}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity update(@PathVariable Long itemNo,
                                  @RequestParam(value="image") List<MultipartFile> files,
                                  @RequestParam(value="name") String name,
@@ -143,7 +143,7 @@ public class ItemController {
         log.info("카테고리별 상품 전체 조회");
         return new ResponseEntity(itemService.readAllItemByCategory(category), HttpStatus.OK);
     }
-
+    
     @GetMapping("/{itemNo}")
     public ResponseEntity getItemDetail(@PathVariable("itemNo") Long itemNo){
         Item item = itemRepository.findByItemNo(itemNo);

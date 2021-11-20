@@ -51,11 +51,6 @@
 <script>
 export default {
   name: 'Header',
-  methods:{
-    changeShow() {
-      this.$store.commit('checkShow')
-    }
-  }
 }
 </script>
 

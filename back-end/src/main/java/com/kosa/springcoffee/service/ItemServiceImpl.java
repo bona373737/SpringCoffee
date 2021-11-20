@@ -16,16 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-
-import static com.google.common.io.ByteStreams.toByteArray;
 
 @Service
 @Log4j2
@@ -37,25 +32,6 @@ public class ItemServiceImpl implements ItemService{
     private final ItemImgRepository itemImgRepository;
     private final ItemImgService itemImgService;
     private final FileHandler fileHandler;
-    @Override
-    public byte[] fileNoTobyte(Long itemImgNo) throws IOException {
-        String absolutePath = new File("").getAbsolutePath() + File.separator + File.separator;
-        String path;
-
-        if(itemImgNo != 0){
-            ItemImg img = itemImgRepository.findByItemImgNo(itemImgNo);
-            path = img.getFilePath();
-        }
-        else
-            path = "images" + File.separator + "thumbnail" + File.separator + "thumbnail.png";
-
-        InputStream imageStream = new FileInputStream(absolutePath + path);
-        byte[] imageByteArray = toByteArray(imageStream);
-
-        imageStream.close();
-
-        return imageByteArray;
-    }
 
     @Override
     public Long createWithImg(ItemDTO itemDTO, List<MultipartFile> itemImgFileList) throws Exception{

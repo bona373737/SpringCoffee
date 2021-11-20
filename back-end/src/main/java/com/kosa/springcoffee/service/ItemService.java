@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface ItemService {
 
-
-    byte[] fileNoTobyte(Long itemImgNo) throws IOException;
     Long createWithImg(ItemDTO itemDTO, List<MultipartFile> itemImgFileList) throws Exception;
 
     void modifyWithImg(Long itemNo,ItemDTO itemDTO, List<MultipartFile> itemImgFileList) throws Exception;

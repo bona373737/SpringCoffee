@@ -1,9 +1,6 @@
 package com.kosa.springcoffee.controller;
 
-import com.kosa.springcoffee.dto.OrderStatuslDTO;
-import com.kosa.springcoffee.dto.OrderDTO;
-import com.kosa.springcoffee.dto.OrderHistDTO;
-import com.kosa.springcoffee.dto.OrderResponseDTO;
+import com.kosa.springcoffee.dto.*;
 import com.kosa.springcoffee.entity.Member;
 import com.kosa.springcoffee.entity.Order;
 import com.kosa.springcoffee.repository.MemberRepository;
@@ -15,10 +12,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -30,6 +31,7 @@ public class OrderController {
     private final OrderService orderService;
     private final MemberRepository memberRepository;
     private final OrderRepository orderRepository;
+
     @PostMapping(value = "/submit")
     @ResponseBody
     public ResponseEntity order(@RequestBody OrderDTO orderDTO){
@@ -47,16 +49,6 @@ public class OrderController {
 
         return new ResponseEntity<OrderResponseDTO>(dto, HttpStatus.OK);
     }
-
-//    @GetMapping(value = {"/orders/{email}", "/orders/{page}/{email}"})
-//    public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page,@PathVariable(name = "email") String email) {
-//        Member member = memberRepository.getByEmail(email);
-//        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
-//
-//        Page<OrderHistDTO> orderHistDtos = orderService.getOrderList(member.getEmail(), pageable);
-//
-//        return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
-//    }
 
     @GetMapping(value = {"/orders/{page}/{email}"})
     public ResponseEntity orderHist(@PathVariable(name = "page") Optional<Integer> page,@PathVariable(name = "email") String email) {
@@ -77,12 +69,12 @@ public class OrderController {
     }
 
     @PostMapping("/cancel")
-    @ResponseBody
     public ResponseEntity cancel(@RequestBody OrderStatuslDTO dto){
         Member member = memberRepository.getByEmail(dto.getEmail());
         Order order = orderRepository.findByOrderNo(dto.getOrderNo());
 
         if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
+//        if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
         if(!orderService.validateOrder(order.getOrderNo(), member.getEmail())){
             return new ResponseEntity<String>("주문취소권한이 없습니다", HttpStatus.FORBIDDEN);
         }

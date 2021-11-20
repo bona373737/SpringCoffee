@@ -93,7 +93,7 @@ public class OrderServiceTest {
         orderService.cancelOrder(orderId);
 
         // 주문의 상태가 "CANCEL" 이고 처음 수량 100이 맞다면 테스트 통과
-        assertEquals(OrderStatus.CANCEL, order.getStatus());
+        assertEquals(OrderStatus.주문취소, order.getStatus());
         assertEquals(100, item.getStockQuantity());
 
     }

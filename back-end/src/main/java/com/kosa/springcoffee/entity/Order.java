@@ -45,19 +45,19 @@ public class Order extends BaseEntityOrder{
 
     public void cancel() {
 
-        this.setStatus(OrderStatus.CANCEL);
+        this.setStatus(OrderStatus.주문취소);
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
         }
     }
     public void shipping() {
-        this.setStatus(OrderStatus.SHIPPING);
+        this.setStatus(OrderStatus.배송중);
     }
     public void done() {
-        this.setStatus(OrderStatus.DONE);
+        this.setStatus(OrderStatus.배송완료);
     }
     public void prepare() {
-        this.setStatus(OrderStatus.PREPARE);
+        this.setStatus(OrderStatus.배송준비중);
     }
 
     public int getTotalPrice() {
