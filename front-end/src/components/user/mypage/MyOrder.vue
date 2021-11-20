@@ -2,10 +2,10 @@ a<template>
 <div>
     <div class="wrapper">
         <div class="py-2 text-start">
-            <span v-if="isStatus" class="me-5" style="font-size:16pt; font-weight:700; height">전체 목록</span>
-            <span v-if="!isStatus" class="me-5" style="font-size:16pt; color:#999 font-weight:700; height">주문 목록</span>
-            <span v-if="!isStatus" style="font-size:16pt; font-weight:700; height">취소 목록</span>
-            <span v-if="isStatus" style="font-size:16pt; color:#999; font-weight:700; height">취소 목록</span>
+            <span v-if="isStatus" class="me-5" style="font-size:16pt; font-weight:700;">전체 목록</span>
+            <span v-if="!isStatus" class="me-5" style="font-size:16pt; color:#999;font-weight:700;">주문 목록</span>
+            <span v-if="!isStatus" style="font-size:16pt; font-weight:700;">취소 목록</span>
+            <span v-if="isStatus" style="font-size:16pt; color:#999; font-weight:700;">취소 목록</span>
         </div>
         <div v-if="isStatus">
             
@@ -17,7 +17,7 @@ a<template>
                 <a style="background-color: #A36043; color:white;">주문번호 </a> <a>{{order.orderNo}}</a><br>
                 <a style="background-color: #4F2E20; color:white;">주문상태  </a> <a>{{order.orderStatus}}</a><br>
                 <div class="d-flex text-end border-bottom border-top">
-                    <span class="me-5" style="background-color:">상품</span>
+                    <span class="me-5" style="">상품</span>
                     <span class="me-5" style="">상품번호</span>
                     <span class="me-5" style="">구매수량</span>
                     <span>결제금액</span>
@@ -52,6 +52,7 @@ export default {
         isStatus: true,
         myOrder: [],
         myOrderList: [],
+        totalPages: 0,
         count: 0,
         status: '',
         thumbnail: Map,
@@ -69,7 +70,7 @@ export default {
       this.getMyOrderNo(this.count)
     },
     nextPage() {
-        if(this.count < this.myOrder.totalPages) {
+        if(this.count < this.totalPages) {
             this.count++;
             this.getMyOrderNo(this.count)
         }
@@ -77,6 +78,7 @@ export default {
     getMyOrderNo(page) {
         axios.get(`/v6/orders/${page}/${this.$store.state.email}`)
             .then(res => {
+                this.totalPages=res.data.totalPages;
                 this.myOrder=res.data.content;
                 console.log('성공', res)
             }).catch(err => {
@@ -89,10 +91,15 @@ export default {
     cancelOrder(order) {
         if(confirm("주문을 취소하시겠습니까?") == true) {
             alert('주문이 취소되었습니다.')
+            console.log(order.orderNo)
+            console.log(this.$store.state.email)
             axios.post(`v6/cancel`, {
                 orderNo : order.odrerNo,
                 email : this.$store.state.email
-            })
+            }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }})
                 .then(res => {
                 console.log('success', res)
             }).catch(err => {

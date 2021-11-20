@@ -50,8 +50,8 @@
             </tr>
 
             <tr class="product-item" v-for="(cart, i) in this.$store.state.cartList" :key="cart.cartItemNo">
-                <td><input type="checkbox" @click="onCart(cart, i)"></td>
-                <!-- <td><img width="100" height="100" :src="getThumbnail(item.fileId, i)"></td> -->
+                <td><input type="checkbox" @click="onCart(cart,i)"></td>
+                <td><img width="100" height="100" :src="getThumbnail(cart.fileId)"></td>
                 <td @click="goItemDetail(cart)">{{cart.itemName}}</td>
                 <td>{{cart.price}}</td>
                 <td>
@@ -85,7 +85,7 @@ export default {
       price: 0,
       buyItem: [],
       myCart: [],
-      thumbnail: [],
+      address: this.$store.state.memberProfile.address,
     };
   },
   created() {
@@ -93,9 +93,9 @@ export default {
     this.$store.dispatch('fetchMemberProfile');
   },
   methods: {
-    // getThumbnail(fileId, index) {
-    //   return this.thumbnail[index]="http://localhost:8080/v2-2/thumbnail/"+fileId
-    // },
+    getThumbnail(fileId) {
+      return "http://localhost:8080/v2-2/thumbnail/"+fileId
+    },
 
     updateAddress() {
       if(this.isUpdate==false)
@@ -107,18 +107,31 @@ export default {
     onCart(cart, index) {
       if(this.buyItem[index] == '') {
         this.buyItem[index]=true;
-        this.myCart[index]=cart.cartItemNo
+        this.myCart.splice(index,0,cart.cartItemNo)
       } 
       else if(this.buyItem[index] != true) {
+        this.myCart.push(cart.cartItemNo);
         this.buyItem[index]=true
-        this.myCart[index]=cart.cartItemNo
-      } else if(this.buyItem[index] === true) {
+      } else if(this.buyItem[index] == true) {
         this.buyItem[index]=false;
-        //delete 
-        this.myCart.splice(index,1)
+        this.myCart=this.myCart.filter((element) => element !== cart.cartItemNo);
+        // this.myCart.splice(index, 1);
       }
       console.log(this.myCart)
-
+      
+      
+      // //값이 있는 경우
+      // if(this.myCart.includes(cart.cartItemNo)){
+      //   console.log(this.myCart.includes(cart.cartItemNo,0))
+      //   let includeIndex = this.myCart.indexOf(cart.cartItemNo)
+      //   this.myCart.splice(includeIndex, 1)
+      //   console.log(this.myCart)
+      // }
+      // //값이 없는 경우
+      // else {
+      //   this.myCart.push(cart.cartItemNo)
+      //   console.log(this.myCart)
+      // }
     },
 
     onSubmit() {

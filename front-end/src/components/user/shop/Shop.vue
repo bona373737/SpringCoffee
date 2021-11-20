@@ -34,7 +34,7 @@
               </tr>
               <tr class="product-item text-center" v-for="(cart, i) in this.$store.state.cartList" :key="cart.cartItemNo">
                 <td>
-                  <img width="100" height="100" :src="getThumbnail(cart.itemNo, i)">
+                  <img width="100" height="100" :src="getThumbnail(cart.fileId)">
                 </td>
                 <td> {{cart.itemName}}</td>
                 <td>
@@ -90,18 +90,18 @@
             </tr>
           <tr class="product-item" v-for="(item, i) in this.$store.state.itemList" :key="item.fileId">
               <td @click="goItemDetail(item.itemNo)" style="cursor: pointer;">
-                <img width="100" height="100" :src="getThumbnail(item.fileId, i)">
+                <img width="100" height="100" :src="getThumbnail(item.fileId)">
               </td>
               <td @click="goItemDetail(item.itemNo)" style="font-weight:700; cursor: pointer;"> {{item.name}}</td>
-              <td @click="goItemDetail(item.itemNo)" style="cursor: pointer;" class="text-end"><span style="font-weight:700; color:">{{String(item.price).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</span>원</td>
+              <td @click="goItemDetail(item.itemNo)" style="cursor: pointer;" class="text-end"><span style="font-weight:700; ">{{String(item.price).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</span>원</td>
               <td>
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <td><input placeholder="0" type="number" min='0' style="background-color:transparent; text-align:center; border: 1px solid #999; border-radius: 5px; width:50px; height:30px" v-model="count[i]"></td>
+                    <input placeholder="0" type="number" min='0' style="background-color:transparent; text-align:center; border: 1px solid #999; border-radius: 5px; width:50px; height:30px" v-model="count[i]">
                   </div>
               </td>
               <td><button type="button" class="btn" @click="postCart(item, count[i])">장바구니에 담기</button></td>
           </tr>
-        </table>
+        k</table>
     </div>
   </div>
 </template>
@@ -121,13 +121,14 @@ export default {
         totPrice: 0,
         count: [],
         image: '',
-        thumbnail: [],
     };
   },
 
   methods: {
-    getThumbnail(fileId, index) {
-      return this.thumbnail[index]="http://localhost:8080/v2-2/thumbnail/"+fileId
+    getThumbnail(fileId) {
+      console.log(fileId)
+      // return this.thumbnail[index]="http://localhost:8080/v2-2/thumbnail/"+fileId
+      return "http://localhost:8080/v2-2/thumbnail/"+fileId
     },
     getSumPrice() {
       let index = Object.keys(this.$store.state.cartList).length

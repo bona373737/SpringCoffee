@@ -28,7 +28,7 @@ public class Item {
 
     private String category;
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval = true)
     private List<ItemImg> itemImg = new ArrayList<>();
 
     @Builder

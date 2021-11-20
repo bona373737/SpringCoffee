@@ -5,7 +5,7 @@
     <div class="outterDiv">
       <div class="grid d-flex">
         <div class="grid-box py-5">
-          <img v-if="!isCheck" src="" alt="">
+          <img v-if="!isCheck" :src="getThumbnail(this.$store.state.itemDetail.fileId)" alt="">
           <img v-if="isCheck" src="" alt="">
           <input v-if="isCheck" v-on:change="onInputImage" accept="image/*" ref="serveyImage" type="file">
         </div>
@@ -58,6 +58,11 @@ export default {
     this.$store.dispatch('fetchItemDetail', this.$route.params.itemNo)
   },
   methods: {
+    getThumbnail(fileId) {
+      console.log(fileId)
+      // return this.thumbnail[index]="http://localhost:8080/v2-2/thumbnail/"+fileId
+      return "http://localhost:8080/v2-2/thumbnail/"+fileId
+    },
     postCart() {
       if(!this.$store.state.isLogin) {
         alert('회원가입 하신 유저만 장바구니를 사용 가능합니다.')
