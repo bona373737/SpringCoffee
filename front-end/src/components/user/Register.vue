@@ -327,6 +327,12 @@ export default {
   color: #666;
 }
 
+.register {
+  margin-top: 10px;
+  font-size: 9pt;
+  color: #666;
+}
+
 .btn-success {
   background: #663C2A;
   border: 2px #663C2A;

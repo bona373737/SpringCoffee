@@ -89,4 +89,8 @@ header {
   transition: 0.1s;
 }
 
+.navset {
+  font-size: 11pt;
+}
+
 </style> 
