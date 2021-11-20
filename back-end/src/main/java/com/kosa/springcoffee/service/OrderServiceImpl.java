@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class OrderServiceImpl implements OrderService{
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
-
+    private final ItemService itemService;
 
     @Override
     public Long create(OrderDTO orderDTO, String email) {
@@ -84,6 +85,11 @@ public class OrderServiceImpl implements OrderService{
             List<OrderItem> orderItems = order.getOrderItems();
             for (OrderItem orderItem : orderItems) {
                 OrderItemDTO orderItemDto = new OrderItemDTO(orderItem);
+                try {
+                    orderItemDto.setImage(itemService.fileNoTobyte(orderItem.getItem().getItemImg().get(0).getItemImgNo()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 orderHistDto.addOrderItemDto(orderItemDto);
             }
             orderHistDtos.add(orderHistDto);
@@ -150,5 +156,7 @@ public class OrderServiceImpl implements OrderService{
         orderRepository.save(order);
         return order.getOrderNo();
     }
+
+
 
 }
