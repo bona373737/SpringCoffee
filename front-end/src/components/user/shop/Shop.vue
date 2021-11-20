@@ -61,27 +61,27 @@
     <div class="outter-border">
         <div class="ProductListTechnologies d-flex py-5">
           <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('fetchItem')">
-            <img width="100" height="100" src="../../../assets/shop2.webp" role="presentation" class="" alt="">
+            <img width="100" height="100" src="../../../assets/1-all.png" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top" style="color: brown">전체보기</div>
           </div>
           <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'beans')">
-            <img width="100" height="100" src="../../../assets/shop1.webp" role="presentation" class="" alt="">
+            <img width="100" height="100" src="../../../assets/2-coffee-bean.png" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top">커피빈</div>
           </div>
-          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'syrup')">            
-            <img width="100" height="100" src="../../../assets/tumbler.jpg" role="presentation" class="" alt="">
-            <div class="ProductListTechnologies__name py-2 border-top">시럽</div>
-          </div>
-          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'powder')">
-            <img width="100" height="100" src="../../../assets/shop1.webp" role="presentation" class="" alt="">
+          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'powder')">            
+            <img width="100" height="100" src="../../../assets/3-powder.png" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top">파우더</div>
           </div>
+          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'syrup')">
+            <img width="100" height="100" src="../../../assets/4-syrup.png" role="presentation" class="" alt="">
+            <div class="ProductListTechnologies__name py-2 border-top">시럽</div>
+          </div>
           <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'md')">            
-            <img width="100" height="100" src="../../../assets/tumbler.jpg" role="presentation" class="" alt="">
+            <img width="100" height="100" src="../../../assets/5-md.png" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top">MD</div>
           </div>
           <div class="ProductListTechnologies__element" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" @click="this.$store.dispatch('fetchCart'), this.getSumPrice()">            
-            <img width="100" height="100" src="../../../assets/shoppingcart.png" role="presentation" class="" alt="">
+            <img width="100" height="100" src="../../../assets/6-cart.png" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top" >장바구니</div>
           </div>
         </div>
