@@ -2,7 +2,7 @@
   <div class="form py-5">
     <div class="wrapper">
       <div v-if="!isCorrect">
-        <div class="tab-name d-flex py-3" style="font-size: 16pt; padding: 20px;">본인인증</div>
+        <div class="tab-name d-flex py-3">본인인증</div>
         <div class="py-3">
           <div class="m-info d-flex">
             <span class="tab-1 text-end"> 이메일</span>
@@ -24,7 +24,7 @@
 
 
       <!-- 비밀번호 인증 시  -->
-      <div v-if="isCorrect">
+      <div v-if="isCorrect" class="info-box">
         <div class="tab-name py-3" style="font-size: 16pt; padding: 20px;">
           회원정보
           <div>
@@ -36,7 +36,7 @@
         <table style="margin: auto">
           <tr >
             <td style="border-right: 1px solid #999">
-              <span class="tab-1 text-end"> 이메일</span>
+              <span class="tab-1 text-end" style="padding-top: 10px"> 이메일</span>
             </td>
             <td>
               <span class="tab-2">{{this.$store.state.memberProfile.email}}</span>
@@ -56,7 +56,7 @@
             </td>
             <td>
               <input id="pw2" type="password" v-model="checkPW2" @change="preCheck()">
-              <br><span style="font-size:8pt;">영문 대소문자 및 숫자 포함 6~12자리</span>
+              <br><span style="font-size:9pt;">영문 대소문자 및 숫자 포함 8~20자리</span>
             </td>
           </tr>
           <tr>
@@ -66,8 +66,8 @@
             <td>
               <input id="pw3" type="password" v-model="checkPW3" @change="preCheck()">
               <div v-show="passwordCheck">
-              <span style="font-size:8pt; color: red" v-if="!eqPW">패스워드가 일치하지 않습니다.</span>
-              <span style="font-size:8pt; color: green" v-if="eqPW">패스워드가 일치합니다 !</span>
+              <span style="font-size:9pt; color: red" v-if="!eqPW">비밀번호가 일치하지 않습니다.</span>
+              <span style="font-size:9pt; color: green" v-if="eqPW">비밀번호가 일치합니다 !</span>
               </div>
             </td>
           </tr>
@@ -242,8 +242,20 @@ export default {
 </script>
 
 <style scoped>
+.info-box{
+  box-shadow: 1px 1px 10px #333;
+  border-radius: 15px;
+}
+
+.py-3{
+  font-size: 16pt;
+  padding-top: 38px;
+}
+
 .form {
-  width: 100%;
+  width: 80%;
+  margin: auto;
+  background-color: white;
 }
 
 .wrapper {
@@ -287,7 +299,7 @@ export default {
 }
 
 .btn-primary:hover{
-  background: #4F2E20;
+  background: #A36043;
   border: 2px #4F2E20;
   height: 40px;
 }
@@ -297,13 +309,17 @@ table{
 }
 
 tr{
-  height: 70px;
+  height: 60px;
   vertical-align: top;
+}
+td{
+  padding-top: 10px;
 }
 
 .btn{
   margin-right: 5px;
   margin-bottom: 10px;
+
 }
 
 </style>

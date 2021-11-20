@@ -1,7 +1,7 @@
 <template>
   <div class="outer">
-      <div v-if="this.$store.state.role!='ROLE_ADMIN'" v-on="this.$router.replace('NotfoundPage')"></div>
-      <div class="adminpage" v-if="this.$store.state.role=='ROLE_ADMIN'">
+      <div v-if="this.$store.state.role !== 'ROLE_ADMIN'" v-on="this.$router.replace('NotfoundPage')"></div>
+      <div class="adminpage" v-if="this.$store.state.role ==='ROLE_ADMIN'">
         <div class="tab-bar">
             <div class="tab-my py-3" style="width:100%;">
                 <span class="tab-title">관리자 페이지</span>            
@@ -10,15 +10,15 @@
         <div class="py-2">
           <div style="height: 48px;"/>
           <span class="info"><i class="bi bi-gear-fill"></i></span><br>
-          <span class="info-text" style="font-size: 11pt;">관리자 페이지입니다</span>
+          <span class="info-text">관리자 페이지입니다</span>
         </div>
 
           <div class="bt-menu" >
               <ui class="bt-info py-2">
-                  <li class="content" style="margin-right:15px" @click="$router.push('/userList')">
+                  <li class="content" style="margin-right:15px" @click="$router.replace('/userList')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
-                            <div class="bt-text" style="">회원관리</div>
+                            <div class="bt-text">회원관리</div>
                       </div>
                   </li>
                   <li class="content" style="margin-right: 5px" @click="$router.push('/admin/itemadd')">
@@ -27,7 +27,7 @@
                         <div class="bt-text">상품등록</div>
                       </div>
                   </li>
-                  <li class="content" style="margin-right: 5px" @click="$router.push('/adminQna')">
+                  <li class="content" style="margin-right: 5px" @click="$router.replace('/adminQna')">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-question-circle"></i></div>
                       <div class="bt-text">문의목록</div>
@@ -141,8 +141,9 @@ export default {
   text-align: center;
   margin: auto;
 }
+
 .bt-menu .bt-info .bt-icon {
-  font-size: 38pt;
+  font-size: 37pt;
 }
 
 .content {
@@ -156,9 +157,10 @@ export default {
   width: 100px;
   height: 100px;
   background-color: white;
-  border: 1px solid #4F2E20;
+  border: 2px solid #4F2E20;
   border-radius: 10px;
 }
+
 .content .con-card:hover {
   cursor: pointer;
   color: #A36043;

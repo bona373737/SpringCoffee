@@ -1,6 +1,5 @@
 <template>
   <div class="outer">
-
       <div class="mypage" v-if="this.$store.state.isLogin">
         <div class="tab-bar">
             <div class="tab-my py-3" style="width:100%;">
@@ -74,6 +73,7 @@ export default {
 
 .outer {
   background-color: #f7f7f7;
+  margin-top: 38px;
 }
 
 .tab-title {
@@ -104,7 +104,7 @@ export default {
 }
 
 .py-2 {
-    width: 800px;
+    width: 80%;
     margin: auto;
     background-color: white;
 }
@@ -126,7 +126,7 @@ export default {
 }
 
 .bt-menu {
-    width: 800px;
+    width: 80%;
     padding: 30px 0;
     margin: auto;
     border-bottom: 1px solid #4F2E20;
@@ -148,7 +148,7 @@ export default {
 }
 
 .bt-menu .bt-info .bt-icon {
-    font-size: 38pt;
+    font-size: 37pt;
 }
 
 .content {
@@ -160,7 +160,7 @@ export default {
     width: 100px;
     height: 100px;
     background-color: white;
-    border: 1px solid #4F2E20;
+    border: 2px solid #4F2E20;
     border-radius: 10px;
 }
 
@@ -173,7 +173,6 @@ export default {
 }
 
 .rout {
-    padding: 20px;
     width:100%;
     height:100%;
 }

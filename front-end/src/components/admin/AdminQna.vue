@@ -137,5 +137,8 @@ th{
   font-weight: bold;
 }
 
+.tbody-th1:hover {
+  color: #A36043;
+}
 
 </style>
