@@ -26,7 +26,7 @@
         <th>{{ member.address }}</th>
         <th>
           <div>
-            <button class="btn btn-outline-success btn-sm" @click="goMemberDetail(member.email)">수정</button>
+            <button class="btn btn-outline-success btn-sm" @click="goMemberUpdate(member.email)">수정</button>
             <button class="btn btn-outline-success btn-sm" @click="deleteAdmin(member.email)">삭제</button>
             <button class="btn btn-outline-success btn-sm" @click="deleteAuthority(member.email)">권한박탈</button>
           </div>
@@ -51,9 +51,9 @@ export default {
     this.$store.dispatch('fetchAdminList')
   },
   methods: {
-    goMemberDetail(email){
+    goMemberUpdate(email){
       this.$router.push({
-        name:'memberDetail',
+        name:'memberInfoUpdate',
         params:{email:email}
       })
     },
@@ -80,8 +80,15 @@ export default {
 
 <style scoped>
 .outterDiv{
+  width: 90%;
   margin: auto;
   background-color: white;
+}
+
+th{
+  border-left: none;
+  border-right: none;
+  vertical-align: middle;
 }
 
 /*.table-thead  {*/

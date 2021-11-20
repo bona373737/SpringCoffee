@@ -144,13 +144,13 @@ const routes = [
         component: () => import('@/components/admin/UserList.vue'),
       },
       {
-        path: "/memberDetail/:email",
-        name: 'memberDetail',
-        component: () => import('@/components/admin/MemberDetail.vue'),
-      },
-      {
         path :'/adminOrder',
         component:() => import('@/components/admin/AdminOrder.vue')
+      },
+      {
+        path :'/memberInfoUpdate/:email',
+        name : 'memberInfoUpdate',
+        component:() => import('@/components/admin/MemberInfoUpdate')
       }
     ]
   },

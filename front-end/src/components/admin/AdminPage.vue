@@ -15,7 +15,7 @@
 
           <div class="bt-menu" >
               <ui class="bt-info py-2">
-                  <li class="content" style="margin-right: 5px" @click="$router.push('/userList')">
+                  <li class="content" style="margin-right:15px" @click="$router.push('/userList')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
                             <div class="bt-text">회원관리</div>
@@ -43,11 +43,11 @@
                   </li>
               </ui>
 
-              <div class="rout border-top border-dark">
-                <router-view></router-view>
-              </div>
 
           </div>
+              <div class="rout">
+                <router-view></router-view>
+              </div>
       </div>
   </div>
 </template>
@@ -63,15 +63,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .outer {
   background-color: #f7f7f7;
 }
 
 .rout {
     padding: 20px;
-    width:100%;
-    height:100%;
+    width:80%;
+    /*height:100%;*/
+    border: none;
+    margin: auto;
+    background-color: white;
 }
 
 .tab-title {
@@ -107,7 +110,6 @@ export default {
   background-color: white;
 }
 
-
 .info {
   font-size: 30pt;
   color: #663C2A;
@@ -126,10 +128,10 @@ export default {
 
 .bt-menu {
   width: 80%;
-  padding: 30px;
+  padding: 50px;
   margin: auto;
-  border-bottom: 1px solid #4F2E20;
   background-color: white;
+  border-bottom: 1px solid #4F2E20;
 }
 
 .bt-menu .bt-info {
@@ -142,7 +144,6 @@ export default {
 
 .bt-menu .bt-info li {
   color: #4F2E20;
-  /* padding: 10px; */
   text-align: center;
   margin: auto;
 }
@@ -160,13 +161,14 @@ export default {
   width: 100px;
   height: 100px;
   background-color: white;
-  box-shadow: 1px 1px 10px #333;
+  border: 1px solid #4F2E20;
   border-radius: 10px;
-  /* margin-right: 20px; */
 }
 .content .con-card:hover {
   cursor: pointer;
   color: #A36043;
+  border: none;
+  box-shadow: 1px 1px 10px #333;
   transition: 0.2s;
 }
 

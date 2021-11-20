@@ -259,8 +259,8 @@ let store = createStore({
                 context.commit('setMemberDetail',response.data)
             })
     },
-    fetchAdminOrderList(context){
-        axios.get(`/v6/orders`)
+    fetchAdminOrderList(context,page){
+        axios.get(`/v6/orders`,{params:{page:page}})
             .then(response =>{
                 context.commit('setAdminOrderList', response.data)
             })

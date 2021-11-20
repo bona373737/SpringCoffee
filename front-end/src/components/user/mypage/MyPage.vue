@@ -143,7 +143,6 @@ export default {
 
 .bt-menu .bt-info li {
     color: #4F2E20;
-    /* padding: 10px; */
     text-align: center;
     margin: auto;
 }
