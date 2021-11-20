@@ -37,9 +37,6 @@
         <router-link class="navbox" to="/offstore">
           <p class="tooltip-text">STORE</p>
         </router-link>
-        <router-link class="navbox" to="/">
-          <p class="tooltip-text">Spring Coffee</p>
-        </router-link>
       </div>
       <div class="userInfo">
       </div>

@@ -15,12 +15,6 @@
               <div class="container-fluid content-wrap">
                 <div class="text-white">
                   <img  src="../.././assets/content3.jpg" alt="">
-                  <!-- <h1 class="display-5 fw-bold">Spring Coffee</h1>
-                  <h4 class="fw-bold">회원분들에게만 다양한 혜택을 드립니다!</h4>
-                  <p> 스프링 커피와 함께하세요</p>
-                  <router-link to="/login">
-                    <button class="btn btn-success" type="button">회원가입</button>
-                  </router-link> -->
                 </div>
               </div>
             </div>
