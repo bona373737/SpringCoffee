@@ -4,7 +4,7 @@
 
     <div class="outterDiv py-5">
       <table class="notice-context text-start m-auto" style="width:500px;">
-        <div class="me-5 border-bottom" style="width:70px; font-size:14pt; height:30px; color: #4F2E20; font-weight: 700;">상품정보</div>
+        <div class="me-5 border-bottom" style="width:80px; font-size:14pt; height:30px; color: #4F2E20; font-weight: 700;">상품정보</div>
         <tr>
           <th>상품명</th>
           <td class="table-title"><input type="text" v-model="name"></td>
@@ -27,8 +27,10 @@
         </tr>
         <tr>
           <th>카테고리</th>
-            <input class="cate" style="width: 10px;" type="radio" v-model="category" value="coffee"> coffee
-            <input class="cate" style="width: 10px; margin-left: 10px" type="radio" v-model="category" value="tumbler"> tumbler
+            <input class="cate" style="width: 10px;" type="radio" v-model="category" value="beans"> 원두
+            <input class="cate" style="width: 10px; margin-left: 10px" type="radio" v-model="category" value="syrup"> 시럽
+            <input class="cate" style="width: 10px;" type="radio" v-model="category" value="powder"> 파우더
+            <input class="cate" style="width: 10px; margin-left: 10px" type="radio" v-model="category" value="md"> MD
         </tr>
       </table>
       <br>
