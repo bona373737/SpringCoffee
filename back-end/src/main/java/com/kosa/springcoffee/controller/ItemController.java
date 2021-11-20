@@ -66,7 +66,7 @@ public class ItemController {
 
     }
 
-    @PutMapping("/update/{itemNo}")
+    @PutMapping(value = "/update/{itemNo}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity update(@PathVariable Long itemNo,
                                  @RequestParam(value="image") List<MultipartFile> files,
                                  @RequestParam(value="name") String name,
