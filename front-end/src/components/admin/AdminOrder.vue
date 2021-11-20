@@ -24,17 +24,18 @@
             <li v-for="item in order.orderItemDTOList" :key="item.itemNo">
               제품번호:{{ item.itemNo }},
               주문수량:{{item.count}},
-              총금액:{{item.allPrice}}</li>
+              총금액:{{item.allPrice}}
+            </li>
           </ul>
         </th>
         <th>
           <div class="status">
             <select :value="order.orderStatus" :id="order.orderNo" @change="changeOrderStatus">
-              <option value="결제완료">결제완료</option>
               <option value="배송준비중">배송준비중</option>
               <option value="배송중">배송중</option>
               <option value="배송완료">배송완료</option>
-              <option value="주문취소">주문취소</option>
+              <option value="결제완료" :disabled="true">결제완료</option>
+              <option value="주문취소" :disabled="true" >주문취소</option>
             </select>
           </div>
         </th>
@@ -63,6 +64,7 @@ export default {
   data(){
     return{
       orderStatus: '',
+      // page:this.page
       // realPage: this.page -1,
     }
   },
@@ -85,19 +87,21 @@ export default {
       axios.post('/v6/done',null,{params:{orderNo:orderNo}})
           .then(res =>{
             console.log(res.data)
-            this.$store.dispatch('fetchAdminOrderList')
           })
+            this.$store.dispatch('fetchAdminOrderList',this.page)
     },
     changeOrderStatus(e){
       const orderNo = e.target.id;
       const orderStatus = e.target.value;
 
-      if(orderStatus === 'PREPARE'){
+      if(orderStatus === "배송준비중"){
         this.orderStatusPrepare(orderNo)
-      }else if(orderStatus ==='SHIPPING'){
+      }else if(orderStatus === "배송중"){
         this.orderStatusShipping(orderNo)
-      }else if(orderStatus === 'DONE'){
+      }else if(orderStatus === "배송완료"){
         this.orderStatusDone(orderNo)
+      }else{
+        console.log("결제완료,주문취소는 관리자가 상태변경 불가")
       }
     },
     movePage(page){
