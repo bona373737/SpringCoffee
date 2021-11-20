@@ -187,6 +187,38 @@ export default {
     padding: 0 30px 0 30px;
 }
 
+.btn-primary {
+  background-color: #A36043;
+  border: 1px solid #A36043;
+}
+
+.btn-primary:hover {
+  background-color: white;
+  color: #A36043;
+}
+
+.btn-warning {
+  background-color: #663C2A;
+  color: white;
+  border: 1px solid #663C2A;
+}
+
+.btn-warning:hover {
+  background-color: white;
+  color: #663C2A;
+}
+
+.btn-success {
+  background-color: #4F2E20;
+  color: white;
+  border: 1px solid #4F2E20;
+}
+
+.btn-success:hover {
+  background-color: white;
+  color: #663C2A;
+}
+
 .order {
     margin: auto;
     padding: 10px;
