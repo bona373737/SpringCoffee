@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,34 +43,34 @@ public class CartController {
     }
 
 
-    @GetMapping(value = "/cart/{email}")
-    public ResponseEntity cartList(@PathVariable String email) {
-        Member member = memberRepository.getByEmail(email);
-        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(member.getEmail());
-        return new ResponseEntity<>(cartDetailDTOList, HttpStatus.OK);
-    }
-
 //    @GetMapping(value = "/cart/{email}")
 //    public ResponseEntity cartList(@PathVariable String email) {
 //        Member member = memberRepository.getByEmail(email);
 //        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(member.getEmail());
-//        List<CartListResponseDTO> cartListResponseDTOList = null;
-//
-//        for(CartDetailDTO detail : cartDetailDTOList) {
-//            Item item = itemRepository.findByName(detail.getItemName());
-//            CartListResponseDTO dto = CartListResponseDTO.builder()
-//                    .cartItemNo(detail.getCartItemNo())
-//                    .count(detail.getCount())
-//                    .fileId(item.getItemImg().get(0).getItemImgNo())
-//                    .price(detail.getPrice())
-//                    .itemName(detail.getItemName())
-//                    .build();
-//
-//            System.out.println(detail.getItemName());
-//            cartListResponseDTOList.add(dto);
-//        }
-//        return new ResponseEntity<>(cartListResponseDTOList, HttpStatus.OK);
+//        return new ResponseEntity<>(cartDetailDTOList, HttpStatus.OK);
 //    }
+
+    @GetMapping(value = "/cart/{email}")
+    public ResponseEntity cartList(@PathVariable String email) {
+        Member member = memberRepository.getByEmail(email);
+        List<CartDetailDTO> cartDetailDTOList = cartService.getCartList(member.getEmail());
+        List<CartListResponseDTO> cartListResponseDTOList = new ArrayList<>();
+
+        for(CartDetailDTO detail : cartDetailDTOList) {
+            Item item = itemRepository.findByName(detail.getItemName());
+            CartListResponseDTO dto = CartListResponseDTO.builder()
+                    .cartItemNo(detail.getCartItemNo())
+                    .count(detail.getCount())
+                    .fileId(item.getItemImg().get(0).getItemImgNo())
+                    .price(detail.getPrice())
+                    .itemName(detail.getItemName())
+                    .build();
+
+
+            cartListResponseDTOList.add(dto);
+        }
+        return new ResponseEntity<>(cartListResponseDTOList, HttpStatus.OK);
+    }
 
 
     @PatchMapping(value = "/cartItem")
