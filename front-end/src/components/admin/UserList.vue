@@ -8,8 +8,8 @@
       <colgroup>
         <col width="10%" />
         <col width="20%" />
-        <col width="30%" />
-        <col width="40%" />
+        <col width="45%" />
+        <col width="25%" />
       </colgroup>
       <thead>
       <tr>
@@ -111,6 +111,11 @@ button{
   height: 40px;
 }
 
+.btns .btn-success:hover {
+  background: #A36043;
+  border: 2px #A36043;
+}
+
 .btn-outline-success{
   margin-right: 5px;
   color: #4F2E20;
@@ -120,6 +125,7 @@ button{
 .btn-outline-success:hover{
   border: 2px solid #A36043;
   background: #A36043;
+  color: white;
 }
 
 </style>

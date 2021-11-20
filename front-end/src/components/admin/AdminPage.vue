@@ -18,17 +18,13 @@
                   <li class="content" style="margin-right:15px" @click="$router.replace('/userList')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
-                        <router-link to="/admin/userlist">
                             <div class="bt-text">회원관리</div>
-                        </router-link>
                       </div>
                   </li>
                   <li class="content" style="margin-right: 5px">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-shop"></i></div>
-                      <router-link to="/admin/itemadd">
                         <div class="bt-text">상품등록</div>
-                      </router-link>
                       </div>
                   </li>
                   <li class="content" style="margin-right: 5px" @click="$router.replace('/adminQna')">
@@ -145,8 +141,9 @@ export default {
   text-align: center;
   margin: auto;
 }
+
 .bt-menu .bt-info .bt-icon {
-  font-size: 38pt;
+  font-size: 37pt;
 }
 
 .content {
@@ -159,9 +156,10 @@ export default {
   width: 100px;
   height: 100px;
   background-color: white;
-  border: 1px solid #4F2E20;
+  border: 2px solid #4F2E20;
   border-radius: 10px;
 }
+
 .content .con-card:hover {
   cursor: pointer;
   color: #A36043;

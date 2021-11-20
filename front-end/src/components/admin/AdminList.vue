@@ -8,8 +8,8 @@
       <colgroup>
         <col width="10%" />
         <col width="20%" />
-        <col width="30%" />
-        <col width="40%" />
+        <col width="45%" />
+        <col width="25%" />
       </colgroup>
       <thead class="table-thead">
       <tr>
@@ -28,7 +28,7 @@
           <div>
             <button class="btn btn-outline-success btn-sm" @click="goMemberUpdate(member.email)">수정</button>
             <button class="btn btn-outline-success btn-sm" @click="deleteAdmin(member.email)">삭제</button>
-            <button class="btn btn-outline-success btn-sm" @click="deleteAuthority(member.email)">권한박탈</button>
+            <button class="btn btn-outline-success btn-sm" @click="deleteAuthority(member.email)">권한  박탈</button>
           </div>
         </th>
       </tr>
@@ -60,6 +60,7 @@ export default {
     deleteAuthority(email){
       console.log(email)
       axios.post('/v5/remove-role',null,{params:{email:email}})
+      alert(email + "에 관리자 권한을 박탈했습니다.")
     },
     deleteAdmin(email) {
       let result = confirm('정말 삭제하시겠습니까?')
@@ -110,6 +111,11 @@ button{
   height: 40px;
 }
 
+.btns .btn-success:hover {
+  background: #A36043;
+  border: 2px #A36043;
+}
+
 .btn-outline-success{
   margin-right: 5px;
   color: #4F2E20;
@@ -119,18 +125,7 @@ button{
 .btn-outline-success:hover{
   border: 2px solid #A36043;
   background: #A36043;
-}
-
-.btns .btn-success {
-  background: #663C2A;
-  border: 2px #663C2A;
-  height: 40px;
-}
-
-.btns .btn-success:hover{
-  background: #4F2E20;
-  border: 2px #4F2E20;
-  height: 40px;
+  color: white;
 }
 
 </style>

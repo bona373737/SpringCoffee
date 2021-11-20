@@ -148,7 +148,7 @@ export default {
 }
 
 .bt-menu .bt-info .bt-icon {
-    font-size: 38pt;
+    font-size: 37pt;
 }
 
 .content {
@@ -160,7 +160,7 @@ export default {
     width: 100px;
     height: 100px;
     background-color: white;
-    border: 1px solid #4F2E20;
+    border: 2px solid #4F2E20;
     border-radius: 10px;
 }
 
