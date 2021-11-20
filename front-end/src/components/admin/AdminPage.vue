@@ -18,17 +18,13 @@
                   <li class="content" style="margin-right:15px" @click="$router.push('/userList')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
-                        <router-link to="/admin/userlist">
-                            <div class="bt-text">회원관리</div>
-                        </router-link>
+                            <div class="bt-text" style="">회원관리</div>
                       </div>
                   </li>
-                  <li class="content" style="margin-right: 5px">
+                  <li class="content" style="margin-right: 5px" @click="$router.push('/admin/itemadd')">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-shop"></i></div>
-                      <router-link to="/admin/itemadd">
                         <div class="bt-text">상품등록</div>
-                      </router-link>
                       </div>
                   </li>
                   <li class="content" style="margin-right: 5px" @click="$router.push('/adminQna')">
@@ -151,6 +147,7 @@ export default {
 
 .content {
   display: flex;
+  
   /* justify-content: center; */
   text-align: center;
 }

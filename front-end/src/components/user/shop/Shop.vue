@@ -8,7 +8,7 @@
         <div class="py-2"><br>
         </div>
         <div class="align-items-center justify-content-center justify-content-lg-end">
-          <span class="bag" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span class="bag "><i @click="this.$store.dispatch('fetchCart') & this.getSumPrice()" class="bi bi-bag-check-fill"></i></span><br></span><br>
+          <span class="bag" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span class="bag "><i @click="this.$store.dispatch('fetchCart'), this.getSumPrice()" class="bi bi-bag-check-fill"></i></span><br></span><br>
           <span style="font-size: 11pt;">장바구니에 담아서 결제하세요!</span>
         <div class="text-end">
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -32,7 +32,7 @@
                 <td style="color: #A36043; font-weight: 700;"> 총 가격 </td>
                 <td> </td>
               </tr>
-              <tr class="product-item text-center" v-for="(cart, i) in this.$store.state.cartList" :key="cart.cartItemNo">
+              <tr class="product-item text-center" v-for="cart in this.$store.state.cartList" :key="cart.cartItemNo">
                 <td>
                   <img width="100" height="100" :src="getThumbnail(cart.fileId)">
                 </td>
@@ -42,13 +42,18 @@
                   {{cart.count}}
                   <span class="minus"><i @click="setCountM(cart), patchCart(cart)" class="bi bi-caret-down-fill"></i></span>
                 </td>
-                <td> {{this.sum[i]}}</td>
-                <td><i style="cursor:pointer;" @click="deleteCart(cart)" class="bi bi-x-lg"></i></td>
+                <td> {{cart.price*cart.count}}</td>
+                <td><i style="cursor:pointer;" @click="deleteCart(cart), getSumPrice()" class="bi bi-x-lg"></i></td>
               </tr>
             </table>
-            <span style="font-weight: 800; font-size: 16pt;"> {{String(this.totPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</span>원
+              <div style="width:100%; text-align:center;" v-if="Object.keys(this.$store.state.cartList).length==0"> 장바구니가 비어있습니다.</div>
               <hr>
-              <button type="button" class="btn btn-success text-reset" data-bs-dismiss="offcanvas" aria-label="Close"><router-link to="/cart" style="text-decoration: none; color: white">주문하기</router-link></button>
+              <div v-if="Object.keys(this.$store.state.cartList).length>0">
+                 <span style="font-weight: 800; font-size: 16pt;"> {{String(this.totPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</span>원 
+                <button type="button" class="btn btn-cart text-reset" data-bs-dismiss="offcanvas" aria-label="Close">
+                  <router-link to="/cart" style="text-decoration: none; color: white"> 주문하기</router-link>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -59,15 +64,23 @@
             <img width="100" height="100" src="../../../assets/shop2.webp" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top" style="color: brown">전체보기</div>
           </div>
-          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'coffee')">
+          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'beans')">
             <img width="100" height="100" src="../../../assets/shop1.webp" role="presentation" class="" alt="">
-            <div class="ProductListTechnologies__name py-2 border-top">커피</div>
+            <div class="ProductListTechnologies__name py-2 border-top">커피빈</div>
           </div>
-          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'tumbler')">            
+          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'syrup')">            
             <img width="100" height="100" src="../../../assets/tumbler.jpg" role="presentation" class="" alt="">
-            <div class="ProductListTechnologies__name py-2 border-top">텀블러</div>
+            <div class="ProductListTechnologies__name py-2 border-top">시럽</div>
           </div>
-          <div class="ProductListTechnologies__element" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" @click="this.$store.dispatch('fetchCart') & this.getSumPrice()">            
+          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'powder')">
+            <img width="100" height="100" src="../../../assets/shop1.webp" role="presentation" class="" alt="">
+            <div class="ProductListTechnologies__name py-2 border-top">파우더</div>
+          </div>
+          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'md')">            
+            <img width="100" height="100" src="../../../assets/tumbler.jpg" role="presentation" class="" alt="">
+            <div class="ProductListTechnologies__name py-2 border-top">MD</div>
+          </div>
+          <div class="ProductListTechnologies__element" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" @click="this.$store.dispatch('fetchCart'), this.getSumPrice()">            
             <img width="100" height="100" src="../../../assets/shoppingcart.png" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top" >장바구니</div>
           </div>
@@ -99,9 +112,11 @@
                     <input placeholder="0" type="number" min='0' style="background-color:transparent; text-align:center; border: 1px solid #999; border-radius: 5px; width:50px; height:30px" v-model="count[i]">
                   </div>
               </td>
-              <td><button type="button" class="btn" @click="postCart(item, count[i])">장바구니에 담기</button></td>
+              <td>
+                <button type="button" class="btn btn-cart" @click="postCart(item, count[i])">장바구니에 담기</button>
+              </td>
           </tr>
-        k</table>
+        </table>
     </div>
   </div>
 </template>
@@ -126,21 +141,18 @@ export default {
 
   methods: {
     getThumbnail(fileId) {
-      console.log(fileId)
-      // return this.thumbnail[index]="http://localhost:8080/v2-2/thumbnail/"+fileId
       return "http://localhost:8080/v2-2/thumbnail/"+fileId
     },
     getSumPrice() {
+      this.$store.dispatch('fetchCart');
+      this.totPrice=0;
+      this.sum=[];
       let index = Object.keys(this.$store.state.cartList).length
-      console.log('테스트')
       for(let i=0; i<index; i++) {
-        console.log('테스트2')
         let price = this.$store.state.cartList[i].price
         let count = this.$store.state.cartList[i].count
         this.sum[i]=price*count;
-        console.log(this.sum[i])
         this.totPrice+=this.sum[i];
-        console.log(this.sum[i])
       }
     },
     postCart(item, count) {
@@ -151,7 +163,7 @@ export default {
         email : this.$store.state.email
       })
       .then(res => {
-        console.log('success', JSON.stringify(res, null, 2))
+        console.log('success', res)
       }).catch(err => {
         console.log('failed', err)
       })
@@ -162,13 +174,15 @@ export default {
         return false;
       }
 
+      this.getSumPrice()
+
       axios.patch('v5/cartItem', {
         cartItemNo : cart.cartItemNo,
         count : cart.count,
         email : this.$store.state.email
       })
       .then(res => {
-        console.log('success', JSON.stringify(res, null, 2))
+        console.log('success', res)
       }).catch(err => {
         console.log('failed', err)
       })
@@ -182,8 +196,9 @@ export default {
     deleteCart(cart) {
         axios.delete(`v5/${cart.cartItemNo}/${this.$store.state.email}`)
         .then(res => {
-          this.$store.dispatch('fetchCart');
+          this.$store.dispatch('fetchCart')
           console.log('success', res)
+          this.getSumPrice()
         }).catch(err => {
           console.log('failed', err)
         })
@@ -315,6 +330,15 @@ input::placeholder {
 .btn-group input {
   margin: auto;
   height: 100%;
+}
+
+.btn-cart {
+  color: white;
+  background-color: #A36043;
+}
+
+.btn-cart:hover {
+  background-color: #4F2E20;
 }
 
 </style>
