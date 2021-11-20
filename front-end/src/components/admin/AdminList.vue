@@ -47,7 +47,7 @@ export default {
       // email : '',
     }
   },
-  mounted() {
+  created() {
     this.$store.dispatch('fetchAdminList')
   },
   methods: {

@@ -30,10 +30,11 @@
         <th>
           <div class="status">
             <select :value="order.orderStatus" :id="order.orderNo" @change="changeOrderStatus">
-              <option value="ORDER">주문접수</option>
-              <option value="PREPARE">상품준비중</option>
-              <option value="SHIPPING">배송중</option>
-              <option value="DONE">배송완료</option>
+              <option value="결제완료">결제완료</option>
+              <option value="배송준비중">배송준비중</option>
+              <option value="배송중">배송중</option>
+              <option value="배송완료">배송완료</option>
+              <option value="주문취소">주문취소</option>
             </select>
           </div>
         </th>
@@ -47,7 +48,6 @@
               :class="{pageNo : page === this.$store.state.adminOrderList.number}"
               @click="movePage(page)">{{page}}</button>
       <button class="btn btn-outline-secondary btn-sm" :disabled="this.$store.state.adminOrderList.last">다음</button>
-
     </div>
 
   </div>

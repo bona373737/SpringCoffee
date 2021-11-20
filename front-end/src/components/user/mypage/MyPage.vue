@@ -1,6 +1,5 @@
 <template>
   <div class="outer">
-
       <div class="mypage" v-if="this.$store.state.isLogin">
         <div class="tab-bar">
             <div class="tab-my py-3" style="width:100%;">
@@ -74,6 +73,7 @@ export default {
 
 .outer {
   background-color: #f7f7f7;
+  margin-top: 38px;
 }
 
 .tab-title {
@@ -173,7 +173,6 @@ export default {
 }
 
 .rout {
-    padding: 20px;
     width:100%;
     height:100%;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="outer">
-      <div v-if="this.$store.state.role!='ROLE_ADMIN'" v-on="this.$router.replace('NotfoundPage')"></div>
-      <div class="adminpage" v-if="this.$store.state.role=='ROLE_ADMIN'">
+      <div v-if="this.$store.state.role !== 'ROLE_ADMIN'" v-on="this.$router.replace('NotfoundPage')"></div>
+      <div class="adminpage" v-if="this.$store.state.role ==='ROLE_ADMIN'">
         <div class="tab-bar">
             <div class="tab-my py-3" style="width:100%;">
                 <span class="tab-title">관리자 페이지</span>            

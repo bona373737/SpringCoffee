@@ -78,7 +78,7 @@
 <script>
 export default {
   name: 'QnaList',
-  mounted() {
+  created() {
     this.$store.dispatch('fetchQnaBoardList');
   },
   data() {

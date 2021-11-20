@@ -1,104 +1,71 @@
 <template>
   <div class="outer">
-    <div class="py-2">
-        <div style="height: 48px;"/>
-        <span class="info"><i class="bi bi-question-circle-fill"></i></span><br>
-        <span class="info-text">궁금한 것이 있으면 언제든 문의해주세요!</span>
-    </div>
+
     <div class="outterDiv py-5">
-      <table class="qna-context">
-        <colgroup>
-            <col width="20%" />
-            <col width="80%" />
-          </colgroup>
-        <tr class="table-title">
-          <td>제목</td>
-          <td>{{$store.state.qnaBoardDetail.title}} </td></tr>
-        <tr class="table-title">
-          <td>문의종류</td>
-          <td>{{$store.state.qnaBoardDetail.category}} </td>
-        </tr>
-        <tr class="table-context">
-          <td>문의내용</td>
-          <td> {{$store.state.qnaBoardDetail.content}} </td>
-        </tr>
-      </table>
-      <br>
-
-      <div class="BtnWrap">
-        <button class="btn btn-success" @click="qnaDelete(this.$route.params.qnaBoardNo)"
-                v-show="this.$store.state.qnaBoardDetail.writer === this.$store.state.email"> 삭제 </button>
-        <button class="btn btn-success" @click="goQnaUpdate(this.$route.params.qnaBoardNo)"
-                v-show="this.$store.state.qnaBoardDetail.writer === this.$store.state.email"> 수정 </button>
-        <button class="btn btn-success" @click="$router.push('/qnaLayout')"> 목록 </button>
-      </div>
-      
-      <hr>
-
-      <QnaReply></QnaReply>
-
       <!-- 답변   -->
-<!--      <div class="answer">-->
-<!--        <h5>&gt; 답변</h5>-->
-<!--            <div class="answerDiv" v-show="this.$store.state.role !=='ROLE_ADMIN'"-->
-<!--                 v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">-->
-<!--              {{answer.content}}-->
-<!--            </div>-->
+      <div class="answer">
+        <h5>&gt; 답변</h5>
+            <div class="answerDiv" v-show="this.$store.state.role !=='ROLE_ADMIN'"
+                 v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">
+              {{answer.content}}
+            </div>
 
-<!--          <section v-show="this.$store.state.role ==='ROLE_ADMIN'">-->
-<!--            <div v-show="this.$store.state.qnaBoardDetail.replyList.length < 1">-->
-<!--              <div class="answer-row" >-->
-<!--                <textarea v-model="content" ></textarea>-->
-<!--                <button  class="btn btn-outline-success btn-sm updateBtn" @click="replyAdd">등록</button>-->
-<!--              </div>-->
-<!--            </div>-->
+          <section v-show="this.$store.state.role ==='ROLE_ADMIN'">
+            <div v-show="this.$store.state.qnaBoardDetail.replyList.length < 1">
+              <div class="answer-row" >
+                <textarea v-model="content" ></textarea>
+                <button  class="btn btn-outline-success btn-sm updateBtn" @click="replyAdd">등록</button>
+              </div>
+            </div>
 
-<!--            <div class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length > 0">-->
-<!--              <div v-if="!isReply" >-->
-<!--                <div class="answerDiv" v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">-->
-<!--                  {{answer.content}}-->
-<!--                </div>-->
-<!--                <div class="answerBtn">-->
-<!--                <button class="btn btn-outline-success btn-sm" @click="updateReply()">수정</button>-->
-<!--                <div>-->
-<!--                <button class="btn btn-outline-success btn-sm" @click="replyDelete(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">삭제</button>-->
-<!--                </div>-->
-<!--                </div>-->
-<!--              </div>-->
+            <div class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length > 0">
+              <div v-if="!isReply" >
+                <div class="answerDiv" v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">
+                  {{answer.content}}
+                </div>
+                <div class="answerBtn">
+                <button class="btn btn-outline-success btn-sm" @click="updateReply()">수정</button>
+                <div>
+                <button class="btn btn-outline-success btn-sm" @click="replyDelete(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">삭제</button>
+                </div>
+                </div>
+              </div>
 
-<!--              <div v-if="isReply" >-->
-<!--                <textarea v-model="content"></textarea>-->
-<!--                <button class="btn btn-outline-success btn-sm" @click="replyupdate(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">수정</button>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </section>-->
+              <div v-if="isReply" >
+                <textarea v-model="content"></textarea>
+                <button class="btn btn-outline-success btn-sm" @click="replyupdate(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">수정</button>
+              </div>
+            </div>
+          </section>
 
-<!--        </div>-->
+        </div>
       </div>
     </div>
 </template>
 
 <script>
 import axios from "axios";
-import QnaReply from "@/components/user/qna/QnaReply";
 
 export default {
-  components: {
-    QnaReply,
-  },
-
   data(){
     return{
       isReply: false,
       content:'',
       qnaBoardNo:this.$route.params.qnaBoardNo,
       replyer:this.$store.state.email,
-      // length : this.$store.state.qnaBoardDetail.replyList.length
     }
   },
-  created() {
-    this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo);
+  // props:{
+  //   length : Number
+  // },
+  mounted() {
+    this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo)
   },
+  // computed:{
+  //   length(){
+  //     return this.$store.state.qnaBoardDetail.replyList.length
+  //   }
+  // },
   methods:{
     updateReply() {
       this.isReply=true;
@@ -131,6 +98,7 @@ export default {
       .then(res =>{
         console.log(res.data)
         alert("답변이 추가되었습니다.")
+        // this.router.go()
         this.$store.dispatch('fetchQnaBoardDetail',this.$route.params.qnaBoardNo)
       })
     },
@@ -166,12 +134,12 @@ export default {
   display: table-cell
 }
 
-.outer {
-  background-color: #f7f7f7;
-}
+/*.outer {*/
+/*  !*background-color: #f7f7f7;*!*/
+/*}*/
 
 .outterDiv{
-  width: 60%;
+  width: 100%;
   margin: auto;
   background-color: white;
   padding: 0px 20px;
