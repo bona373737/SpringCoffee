@@ -23,6 +23,7 @@ let store = createStore({
       memberProfile: {},
       memberList:[],
       memberDetail:{},
+      adminOrderList : []
     }
   },
   mutations: { // 변경하길 원하는 것들은 이곳에다가 기재한다
@@ -61,6 +62,9 @@ let store = createStore({
     },
     setMemberDetail(state,payload){
         state.memberDetail = payload;
+    },
+    setAdminOrderList(state,payload){
+        state.adminOrderList = payload;
     }
 
 
@@ -79,25 +83,6 @@ let store = createStore({
           .then( response =>{
             context.commit('setNoticeBoardList',response.data)
           })
-    },
-    fetchNoticeBoardCategory(context, paramObj){
-      const page = paramObj.page;
-      const category = paramObj.category;
-
-      let url = '/v1/list';
-      let pageObj = {};
-
-      console.log(`카테고리 조회`);
-      
-      url = '/v2/list/' + category; // 'v1/list/notice'
-      pageObj = {
-        page: page
-      };
-      
-      axios.get(url, {params:pageObj})
-      .then(response =>{
-          context.commit('setNoticeBoardList', response.data)
-      });
     },
     fetchNoticeBoardDetail(context, boardNo){
       axios.get(`/v1/${boardNo}`)
@@ -248,11 +233,13 @@ let store = createStore({
 
     getItemCategory(context, category) {
       axios.get(`v2/list/${category}`)
-        .then(res => {
-          context.commit("setItem", res.data.dtoList);
-        }).catch(err => {
-            console.log('failed', err)
-        })
+      .then(res => {
+        console.log(category)
+        console.log(res)
+        context.commit('setItem', res.data.dtoList);
+      }).catch(err => {
+          console.log('failed', err)
+      })
     },
     fetchUserList(context){
         axios.get('/v5/userlist')
@@ -270,6 +257,12 @@ let store = createStore({
         axios.get('/v5/mypage',{params:{email:email}})
             .then(response =>{
                 context.commit('setMemberDetail',response.data)
+            })
+    },
+    fetchAdminOrderList(context,page){
+        axios.get(`/v6/orders`,{params:{page:page}})
+            .then(response =>{
+                context.commit('setAdminOrderList', response.data)
             })
     }
   },

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="outer">
       <div v-if="this.$store.state.role!='ROLE_ADMIN'" v-on="this.$router.replace('NotfoundPage')"></div>
       <div class="adminpage" v-if="this.$store.state.role=='ROLE_ADMIN'">
         <div class="tab-bar">
@@ -7,26 +7,21 @@
                 <span class="tab-title">관리자 페이지</span>            
             </div>
         </div>
-        <div class="py-2"><br></div>
-        <span class="info"><i class="bi bi-gear-fill"></i></span><br>
-        <span style="font-size: 11pt;">관리자 페이지입니다</span>
-        
+        <div class="py-2">
+          <div style="height: 48px;"/>
+          <span class="info"><i class="bi bi-gear-fill"></i></span><br>
+          <span class="info-text" style="font-size: 11pt;">관리자 페이지입니다</span>
+        </div>
 
-          <!-- <div class="user-info py-3 border-top">
-              <div class="user-intro">
-                  홍길동
-              </div>
-          </div> -->
-
-          <div class="bt-menu">
-              <ui class="bt-info py-3">
-                  <li class="content" @click="$router.push('/userList')">
+          <div class="bt-menu" >
+              <ui class="bt-info py-2">
+                  <li class="content" style="margin-right:15px" @click="$router.push('/userList')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
                             <div class="bt-text">회원관리</div>
                       </div>
                   </li>
-                  <li class="content">
+                  <li class="content" style="margin-right: 5px">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-shop"></i></div>
                       <router-link to="/admin/itemadd">
@@ -34,39 +29,25 @@
                       </router-link>
                       </div>
                   </li>
-                  <li class="content" @click="$router.push('/adminQna')">
+                  <li class="content" style="margin-right: 5px" @click="$router.push('/adminQna')">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-question-circle"></i></div>
                       <div class="bt-text">문의목록</div>
                       </div>
                   </li>
-                  <li class="content">
+                  <li class="content" @click="$router.push('/adminOrder')">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-currency-dollar"></i></div>
                       <div class="bt-text">주문관리</div>
                       </div>
                   </li>
               </ui>
-              <div class="rout border-top border-dark">
-                <router-view></router-view>
 
-              </div>
 
-                <!-- <div class="content py-5">
-                    <div class="con-card">
-                        dasdas
-                    </div>
-                    <div class="con-card">
-                        dasdas
-                    </div>
-                    <div class="con-card">
-                        dasdas
-                    </div>
-                    <div class="con-card">
-                        dasdas
-                    </div>
-                </div> -->
           </div>
+              <div class="rout">
+                <router-view></router-view>
+              </div>
       </div>
   </div>
 </template>
@@ -82,11 +63,26 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.outer {
+  background-color: #f7f7f7;
+}
+
 .rout {
     padding: 20px;
-    width:100%;
-    height:100%;
+    width:80%;
+    /*height:100%;*/
+    border: none;
+    margin: auto;
+    background-color: white;
+}
+
+.tab-title {
+  font-weight: bold;
+  font-size: 25pt;
+  color: white;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .tab-bar {
@@ -98,72 +94,82 @@ export default {
 
 .tab-my {
   background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 150px;
+  display: table;
 }
 
 .tab-title {
-    font-size: 25pt;
-    color: white;
-    font-weight: bold;
+  font-size: 22pt;
+  color: white;
+}
+
+.py-2 {
+  width: 80%;
+  margin: auto;
+  background-color: white;
 }
 
 .info {
-    font-size: 26pt;
+  font-size: 30pt;
+  color: #663C2A;
 }
 
-.user-info {
-    width: 100%;
-    background-color: greenyellow;
+.info:hover {
+  color: #A36043;
+  transition: 0.3s;
 }
 
-.user-intro {
-    color: white;
-    text-shadow: 1px 1px 5px green;
-    font-size: 30pt;
-    font-weight: 900;
+.info-text {
+  font-size: 12pt;
+  color: #4F2E20;
+  display: block;
 }
 
 .bt-menu {
-    padding: 30px;
+  width: 80%;
+  padding: 50px;
+  margin: auto;
+  background-color: white;
+  border-bottom: 1px solid #4F2E20;
 }
 
 .bt-menu .bt-info {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    margin: auto;
-    list-style-type : none;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  list-style-type : none;
 }
 
 .bt-menu .bt-info li {
-    color: #333;
-    padding: 10px;
+  color: #4F2E20;
+  text-align: center;
+  margin: auto;
 }
-
 .bt-menu .bt-info .bt-icon {
-    font-size: 38pt;
-}
-
-.bt-menu .bt-info .bt-text {
-
+  font-size: 38pt;
 }
 
 .content {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  /* justify-content: center; */
+  text-align: center;
 }
 
 .content .con-card {
-    width: 100px;
-    height: 100px;
-    background-color: white;
-    box-shadow: 1px 1px 10px #333;
-    border-radius: 10px;
-    margin-right: 20px;
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border: 1px solid #4F2E20;
+  border-radius: 10px;
+}
+.content .con-card:hover {
+  cursor: pointer;
+  color: #A36043;
+  border: none;
+  box-shadow: 1px 1px 10px #333;
+  transition: 0.2s;
 }
 
-.content .con-card:hover {
-    cursor: pointer;
-    color: green;
-    transition: 0.3s;
-}
 </style>

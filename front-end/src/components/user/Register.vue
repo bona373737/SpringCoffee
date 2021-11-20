@@ -1,60 +1,71 @@
 <template>
-<div>
-  <div v-if="this.$store.state.isLogin" v-on="this.$router.replace('NotfoundPage')"></div>
+  
     <div class="register">
-      <div class="tab-bar">
-        <div class="tab-shop py-3" style="width:100%;">
-            <span class="tab-title">회원가입</span>            
+      <div v-if="this.$store.state.isLogin" v-on="this.$router.replace('NotfoundPage')"></div>
+
+      <div class="outer">
+
+        <div class="tab-bar">
+          <div class="tab-shop py-3">
+              <span class="tab-title">회원가입</span>            
+          </div>
         </div>
-      </div>
-      <div class="py-2"><br></div>
-      <span class="qna"><i class="bi bi-shield-lock-fill"></i></span><br>
-      <span style="font-size: 11pt;">Spring Coffee 의 회원이 되어보세요!</span><br>
-      <span style="font-size: 11pt;">다양한 이벤트가 기다리고 있습니다!</span>
+
+        <div class="py-2">
+          <div class="info"><i class="bi bi-shield-lock-fill"></i></div>
+          <div class="info-text" style="font-size: 11pt;">Spring Coffee 의 회원이 되어보세요!</div>
+        </div>
+        
         <div class="wrapper py-5">
             <div class="container">
-                <div class="register-form">
-                    <div class="input">
-                      <input class="form-input" type="text" placeholder="이메일" v-model="registerForm.email">
-                      <div class="tips">
-                          <span class="email-check" @click="emailCheck(registerForm.email)">이메일 중복 체크</span>
-                      </div>
-                    </div>
-                    <div class="input">
-                      <input class="form-input" type="text" placeholder="이름" v-model="registerForm.name">
-                      <div class="tips">
-                          [ 본인 이름을 입력하세요 ]
-                      </div>
-                    </div>
-                    <div class="input">
-                      <input class="form-input" type="password" placeholder="패스워드" v-model="registerForm.password" @change="pwcheck">
-                      <div class="tips">
-                          [ 영문 대소문자 및 숫자 포함 25자리 ]
-                      </div>
-                    </div>
-                    <div class="input">
-                      <input class="form-input" type="password" placeholder="패스워드 확인" v-model="password2" @change="pwcheck">
-                      <br>
 
-                      <div class="tips">
-                          <div v-if="isPW">
-                          </div>
-                          <div v-if="!isPW">
-                            <span style="color: red;">패스워드가 동일한지 확인하세요.</span>
-                          </div>
+                <div class="register-form">
+                    <div class="form form-email">
+                      <div class="input">
+                        <input class="form-input" type="text" placeholder="이메일" v-model="registerForm.email">
+                        <button class="btn-sm email-check" @click="emailCheck()">중복확인</button>
                       </div>
+                      <div class="tip-email tips">{{emailTipMsg}}</div>
                     </div>
+
+                    <div class="form form-name">
+                      <div class="input">
+                        <input class="form-input" type="text" placeholder="이름" v-model="registerForm.name" @change="isNameInput">
+                      </div>
+                      <div class="tip-name tips">{{nameTipMsg}}</div>
+                    </div>
+
+                    <div class="form form-password">
+                      <div class="input">
+                        <input class="form-input" type="password" placeholder="비밀번호" v-model="registerForm.password" @change="passwordFormatCheck">
+                      </div>
+                      <div class="tip-password tips">{{passwordTipMsg}}</div>
+                    </div>
+
+                    <div class="form form-check-password">
+                      <div class="input">
+                        <input class="form-input" type="password" placeholder="비밀번호 확인" v-model="passwordCheck" @change="pwcheck">
+                      </div>
+                      <div class="tip-password-check tips">{{passwordCheckTipMsg}}</div>
+                      <div class="tip-password-check tips ok">{{passwordCheckSuccessTipMsg}}</div>
+                      <div class="tips password-format">비밀번호는 영문 대소문자, 숫자를 혼합하여 8~20자로 입력해주세요.</div>
+                    </div>  
+
                     <div class="btn-box py-2">
                         <a href="javascript:;" class="btn btn-success" @click="register">회원가입</a>
                     </div>
+
                     <div class="tips py-2">
-                        <div class="login" @click="login">이미 회원이신가요?<span>로그인</span></div>
-                    </div>
+                        <div class="login">
+                          이미 회원이신가요?<span class="login-link" @click="login">로그인</span>
+                        </div>
+                    </div>                 
                 </div>
             </div>
-        </div>
+          </div>
+      </div>
     </div>
-</div>
+
 </template>
 
 <script>
@@ -65,13 +76,19 @@ export default {
     },
     data() {
         return {
-          isPW: true,
-          isEmail: false,
-          dupEmail: 'temp',
-          password2: '',
+          isValidEmail: false,
+          isValidPassword: false,
+          isPasswordChecked: false,
+          preEmailCheck: false,
+          emailTipMsg: '',
+          nameTipMsg: '',
+          passwordTipMsg: '',
+          passwordCheckTipMsg: '',
+          passwordCheckSuccessTipMsg: '',
+          passwordCheck: '',
           registerForm: {
             email: '',
-            name: null,
+            name: '',
             password: '',
             fromSocial: false,
             isAdmin: 0,
@@ -79,86 +96,110 @@ export default {
         }
     },
     methods: {
-      pwcheck() {
-        if (this.password2 !== this.registerForm.password) {
-          this.isPW=false;
+
+      emailCheck() {
+        let email = this.registerForm.email;
+        let regEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if(!email){
+          this.isValidEmail=false
+          this.emailTipMsg = '이메일을 입력해주세요.'
+          return false
+        }
+        else if (!regEmail.test(email)) {
+          this.isValidEmail=false
+          this.emailTipMsg = '이메일 형식으로 입력해주세요.'
+          return false
+        } else{
+          axios.post(`/v5/email-check?email=${email}`)
+        .then((res) => {
+          if(res.data) {
+              this.isValidEmail=true
+              this.emailTipMsg = '사용가능한 이메일입니다.'
+          } else{
+              this.isValidEmail=false
+              this.emailTipMsg = '사용하고 있는 이메일입니다.'
+          }
+          })
+          return this.isValidEmail
+        }
+        
+      },
+      
+      isNameInput() {
+        let name = this.registerForm.name
+        if(name) {
+          this.nameTipMsg = ''
+          return true
         } else {
-          this.isPW=true;
+          this.nameTipMsg = '이름을 입력해주세요.'
+          return false
         }
       },
-      register() {
-        if(!this.isPW) {
-          return false;
-        }
 
+      passwordFormatCheck() {
+        let password = this.registerForm.password;
+        let regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,25}$/;
+        if (!regPass.test(password)) {
+          this.passwordTipMsg = '비밀번호 조건을 확인해주세요.'
+          return false 
+        } else {
+          this.passwordTipMsg = ''
+          return true
+        }
+      },
+
+      pwcheck() {
+        if (this.passwordCheck !== this.registerForm.password) {
+          this.passwordCheckTipMsg = '비밀번호가 일치하지 않습니다.'
+          this.passwordCheckSuccessTipMsg = ''
+          return false
+        } else {
+          this.passwordCheckTipMsg = ''
+          this.passwordCheckSuccessTipMsg = '비밀번호가 일치합니다.'
+          return true
+        }
+      },
+
+      register() {
         if (this.preCheck()) {
           axios.post('/v5/signup', this.registerForm)
-          .then(() => {
-            alert(this.registerForm.name + '님 회원가입에 감사드립니다!');
-            this.$router.push('/login');
-          });
+                    .then(() => {
+                      alert(this.registerForm.name + '님 회원가입되었습니다!');
+                      this.$router.push('/login');
+                    });
         }
       },
       preCheck() {
-        let email = this.registerForm.email;
-        let regEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 
-        if (!regEmail.test(email)) {
-          alert('올바른 이메일 형식을 입력해주세요!')
-          return false;
-        }
+        if(!this.emailCheck()) {return false}
 
-        if (this.dupEmail !== email) {
-          alert('이메일 중복 체크를 해주세요!')
-          return false;
-        }
+        if(!this.isNameInput()) {return false}
 
-
-        let name = this.registerForm.name;
-        if (name == null) {
-          alert('이름을 입력해주세요!')
-          return false;
-        }
-
-        let password = this.registerForm.password;
-        let regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,25}$/;
-        if (!regPass.test(password)) {
-          alert('패스워드 입력 조건을 확인하세요!')
-          return false;
+        if(!this.registerForm.password) {
+          this.passwordTipMsg = '비밀번호를 입력해주세요.'
+          return false
+        }else if(!this.passwordFormatCheck()) {
+          return false
+        } 
+        else if(!this.pwcheck()) {
+          return false
         }
 
         return true;
       },
+
       login() {
         this.$router.push('/login');
       },
-      emailCheck(email) {
-        axios.post(`/v5/email-check?email=${email}`)
-        .then((res) => {
-          if(res.data) {
-
-            let email = this.registerForm.email;
-            let regEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-
-            if (!regEmail.test(email)) {
-              alert('올바른 이메일 형식을 입력해주세요!')
-              return false;
-            }
-
-            this.isEmail=true;
-            this.dupEmail=this.registerForm.email;
-            alert('사용가능한 이메일입니다.')
-          } else {
-            this.isEmail=false;
-            alert('중복된 이메일입니다.')
-          }
-        })
-      }
     }
 }
 </script>
 
 <style scoped>
+.outer{
+  background-color: #f7f7f7;
+}
+
 .tab-bar {
   background-image: url('../.././assets/background.jpg');
   background-repeat : no-repeat;
@@ -167,48 +208,151 @@ export default {
 }
 
 .tab-shop {
+  width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
 .tab-title {
-    font-size: 22pt;
+    font-weight: bold;
+    font-size: 25pt;
     color: white;
 }
 
-.qna {
-    font-size: 26pt;
+.outer .py-2 {
+    width: 60%;
+    margin: auto;
+    background-color: white;
 }
 
-.qna:hover {
-    color: green;
-    font-size: 26pt;
+.info {
+    padding-top: 48px;
+    font-size: 30pt;
+    color: #663C2A;
+}
+
+.info:hover {
+    color: #A36043;
     transition: 0.3s;
 }
 
-.outterborder{
-  width: 300px;
-  margin: auto;
-  padding: 20px;
+.info-text {
+  color: #4F2E20;
+  font-size: 12pt;
+  display: block;
+  /* padding-bottom: 50px; */
 }
 
-.email-check:hover {
-  cursor: pointer;
-  font-weight: 700;
-  transition: 0.2s;
+.wrapper {
+  width: 60%;
+  margin: auto;
+  background-color: white;
+}
+
+.register-form{
+  width: 80%;
+  margin: auto;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.form {
+  height: 80px;
+}
+
+.input {
+  width: 50%;
+  height: 40px;
+  padding: 5px;
+  border: 1px solid #4F2E20;
+  border-radius: 5px;
+  margin: auto;
+  text-align:start;
+  display: flex;
+  flex-direction: row
+}
+
+.input :first-child{
+  align-items: center;
+}
+
+.input:focus-within{
+  border-width: 2px;
+}
+
+.input input {
+  height: 30px;
+  width: 100%;
+  padding: 0px 10px;
+  border: none;
+  border-radius: 0;
+}
+
+.input input:focus {
+  outline-width: 0;
+  border-bottom: 2px solid #4F2E20;
+  border-radius: 0;
+}
+
+.email-check{
+  margin-left: 5%;
+  width: 25%;
+  height: 30px;
+  border: none;
+  background-color: #663C2A;
+  color: white;
+  font-size: 12px;
+  text-align:center;
+}
+
+.email-check:hover{
+  background: #A36043;
+  color: white;
 }
 
 .tips {
+  margin: 3px auto;
+  font-size: 9pt;
+  color: red;
+}
+
+.ok {
+  color: green;
+}
+
+.valid {
+  color: #A36043;
+}
+
+.password-format {
+  color: #666;
+}
+
+.btn-success {
+  background: #663C2A;
+  border: 2px #663C2A;
+  margin-top: 10px;
+  height: 40px;
+}
+
+.btn-success:hover{
+  background: #A36043;
+  border: 2px #A36043;
+  height: 40px;
+}
+
+.login {
+  margin-top: 10px;
   font-size: 9pt;
   color: #666;
 }
 
-.input {
-  padding: 10px;
+.login .login-link {
+  font-weight: bolder;
+  color: #663C2A;
 }
 
-.form-input {
-  border: 1px solid #333;
-  border-radius: 5px;
-  padding: 5px;
+.login .login-link:hover {
+  color: #A36043;
 }
+
 </style>

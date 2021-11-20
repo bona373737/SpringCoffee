@@ -21,7 +21,7 @@
          </select>
        </span>
        <span class="btns">
-        <button class="btn success" @click="fetchMyQna(this.$store.state.email)" v-show="this.$store.state.isLogin == true"> 내 Q&A만보기 </button>
+        <button class="btn success" @click="fetchMyQna(this.$store.state.email)" v-show="this.$store.state.isLogin === true"> 내 Q&A만보기 </button>
         <button class="btn btn-success" @click="addBtn()"> 문의하기 </button>
         </span>
       </div>
@@ -63,11 +63,11 @@
       </div>
 
        <div class="page-btn">
-         <button class="btn btn-outline-secondary btn-sm" @click="movePage('prev')" :disabled="!this.$store.state.qnaBoardList.prev">&lt;&lt;</button>
+         <button class="btn btn-outline-secondary btn-sm" @click="movePage('prev')" :disabled="!this.$store.state.qnaBoardList.prev">이전</button>
          <button class="btn btn-outline-secondary btn-sm btn-page" v-for="page in this.$store.state.qnaBoardList.pageList" :key="page"
                  :class="{pageNo : page === this.$store.state.qnaBoardList.page}"
                  @click="fetchQnaBoard(page)">{{page}}</button>
-         <button class="btn btn-outline-secondary btn-sm" @click="movePage('next')" :disabled="!this.$store.state.qnaBoardList.next">&gt;&gt;</button>
+         <button class="btn btn-outline-secondary btn-sm" @click="movePage('next')" :disabled="!this.$store.state.qnaBoardList.next">다음</button>
        </div>
 
     </div>
@@ -150,9 +150,11 @@ export default {
   margin: auto;
   background-color: white;
 }
+
 .btnWrap{
   margin: 6px;
 }
+
 .outterDiv notice-head{
   margin-right: 80%;
 }
@@ -203,6 +205,7 @@ export default {
 th{
   border-left: 1px solid white;
   border-right: 1px solid white;
+  vertical-align: middle;
 }
 
 .filter{
@@ -212,7 +215,8 @@ th{
 }
 
 .filter span {
-  margin-right: 5x auto;
+  margin-right: 5px;
+  margin: auto;
 }
 
 .filter select {
