@@ -17,10 +17,10 @@
       <td class="nav">
         <div>
           <ul>
-            <li>SHOP</li>
-            <li>NOTICE</li>
-            <li>Q&A</li>
-            <li>STORE</li>
+            <li @click="$router.push('/shop')">SHOP</li>
+            <li @click="$router.push('/noticeLayout')">NOTICE</li>
+            <li @click="$router.push('/qnaLayout')">Q&A</li>
+            <li @click="$router.push('/offstore')">STORE</li>
           </ul>
         </div>
       </td>

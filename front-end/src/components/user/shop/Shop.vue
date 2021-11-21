@@ -5,11 +5,19 @@
                 <span class="tab-title">상품목록</span>            
             </div>
         </div>
-        <div class="py-2"><br>
+        <div class="outer-div">
+        <div class="py-2" ><br>
+        <div class="align-items-center justify-content-center justify-content-lg-end" style="margin: 20px 0px 2px 0px">
+<!--          <div class="align-items-center justify-content-center justify-content-lg-end">-->
+          <div> </div>
+          <span class="bag" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight">
+                <span class="bag "><i @click="this.$store.dispatch('fetchCart'), this.getSumPrice()" class="bi bi-bag-check-fill"></i>
+                </span><br>
+                </span><br>
+          <span style="font-size: 12pt;">장바구니에 담아서 결제하세요!</span>
         </div>
-        <div class="align-items-center justify-content-center justify-content-lg-end">
-          <span class="bag" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><span class="bag "><i @click="this.$store.dispatch('fetchCart'), this.getSumPrice()" class="bi bi-bag-check-fill"></i></span><br></span><br>
-          <span style="font-size: 11pt;">장바구니에 담아서 결제하세요!</span>
         <div class="text-end">
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
@@ -49,7 +57,7 @@
               <div style="width:100%; text-align:center;" v-if="Object.keys(this.$store.state.cartList).length==0"> 장바구니가 비어있습니다.</div>
               <hr>
               <div v-if="Object.keys(this.$store.state.cartList).length>0">
-                 <span style="font-weight: 800; font-size: 16pt;"> {{String(this.totPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</span>원 
+                 <span style="font-weight: 800; font-size: 16pt;"> {{String(this.totPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</span>원
                 <button type="button" class="btn btn-cart text-reset" data-bs-dismiss="offcanvas" aria-label="Close">
                   <router-link to="/cart" style="text-decoration: none; color: white"> 주문하기</router-link>
                 </button>
@@ -57,7 +65,7 @@
             </div>
           </div>
         </div>
-      </div>
+<!--      </div>-->
     <div class="outter-border">
         <div class="ProductListTechnologies d-flex py-5">
           <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('fetchItem')">
@@ -68,7 +76,7 @@
             <img width="100" height="100" src="../../../assets/2-coffee-bean.png" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top">커피빈</div>
           </div>
-          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'powder')">            
+          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'powder')">
             <img width="100" height="100" src="../../../assets/3-powder.png" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top">파우더</div>
           </div>
@@ -76,11 +84,11 @@
             <img width="100" height="100" src="../../../assets/4-syrup.png" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top">시럽</div>
           </div>
-          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'md')">            
+          <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'md')">
             <img width="100" height="100" src="../../../assets/5-md.png" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top">MD</div>
           </div>
-          <div class="ProductListTechnologies__element" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" @click="this.$store.dispatch('fetchCart'), this.getSumPrice()">            
+          <div class="ProductListTechnologies__element" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" @click="this.$store.dispatch('fetchCart'), this.getSumPrice()">
             <img width="100" height="100" src="../../../assets/6-cart.png" role="presentation" class="" alt="">
             <div class="ProductListTechnologies__name py-2 border-top" >장바구니</div>
           </div>
@@ -118,6 +126,8 @@
           </tr>
         </table>
     </div>
+        </div>
+        </div>
   </div>
 </template>
 
@@ -214,6 +224,17 @@ export default {
 </script>
 
 <style scoped>
+.outer-div{
+  width: 100;
+  background-color: #f7f7f7;
+}
+
+.py-2{
+  width: 80%;
+  background-color: white;
+  margin: auto;
+}
+
 .tab-bar {
   background-image: url('../../../assets/background.jpg');
   background-repeat : no-repeat;
@@ -237,17 +258,17 @@ export default {
 }
 
 .bag {
-    font-size: 26pt;
+    font-size: 35pt;
+    color: #663C2A;
 }
 
 .bag:hover {
-    color: green;
-    font-size: 26pt;
+    color: #A36043;
     transition: 0.3s;
 }
 
 .outter-border{
-    width: 700px;
+    width: 90%;
     margin: auto;
 }
 .product-item {
@@ -334,11 +355,11 @@ input::placeholder {
 
 .btn-cart {
   color: white;
-  background-color: #A36043;
+  background-color: #663C2A;
 }
 
 .btn-cart:hover {
-  background-color: #4F2E20;
+  background-color: #A36043;
 }
 
 </style>

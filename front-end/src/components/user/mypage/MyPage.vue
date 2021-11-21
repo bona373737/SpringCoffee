@@ -173,8 +173,12 @@ export default {
 }
 
 .rout {
-    width:100%;
-    height:100%;
+  padding: 15px;
+  width:80%;
+  /*height:100%;*/
+  border: none;
+  margin: auto;
+  background-color: white;
 }
 
 </style>

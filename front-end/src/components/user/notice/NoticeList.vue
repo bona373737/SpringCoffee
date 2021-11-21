@@ -196,8 +196,8 @@ export default {
 }
 
 .search .btn-success:hover{
-  background: #4F2E20;
-  border: 2px #4F2E20;
+  background: #A36043;
+  border: 2px #A36043;
   height: 40px;
 }
 

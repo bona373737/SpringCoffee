@@ -30,6 +30,9 @@
       </tr>
       </tbody>
     </table>
+    <div class="rout">
+
+    </div>
   </div>
 </template>
 
@@ -60,6 +63,8 @@ export default {
   width: 90%;
   margin: auto;
   background-color: white;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 table{
