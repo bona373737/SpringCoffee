@@ -14,8 +14,12 @@
         <tr class="table-title">
           <td>제목</td>
           <td>{{$store.state.qnaBoardDetail.title}} </td></tr>
-        <tr class="table-context">
+        <tr class="table-title">
           <td>문의종류</td>
+          <td>{{$store.state.qnaBoardDetail.category}} </td>
+        </tr>
+        <tr class="table-context">
+          <td>문의내용</td>
           <td> {{$store.state.qnaBoardDetail.content}} </td>
         </tr>
       </table>
@@ -31,57 +35,65 @@
       
       <hr>
 
+      <QnaReply></QnaReply>
+
       <!-- 답변   -->
-      <div class="answer">
-        <h5>&gt; 답변</h5>
-            <div class="answerDiv" v-show="this.$store.state.role !=='ROLE_ADMIN'"
-                 v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">
-              {{answer.content}}
-            </div>
+<!--      <div class="answer">-->
+<!--        <h5>&gt; 답변</h5>-->
+<!--            <div class="answerDiv" v-show="this.$store.state.role !=='ROLE_ADMIN'"-->
+<!--                 v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">-->
+<!--              {{answer.content}}-->
+<!--            </div>-->
 
-          <section v-show="this.$store.state.role ==='ROLE_ADMIN'">
-            <div v-show="this.$store.state.qnaBoardDetail.replyList.length < 1">
-              <div class="answer-row" >
-                <textarea v-model="content" ></textarea>
-                <button  class="btn btn-outline-success btn-sm updateBtn" @click="replyAdd">등록</button>
-              </div>
-            </div>
+<!--          <section v-show="this.$store.state.role ==='ROLE_ADMIN'">-->
+<!--            <div v-show="this.$store.state.qnaBoardDetail.replyList.length < 1">-->
+<!--              <div class="answer-row" >-->
+<!--                <textarea v-model="content" ></textarea>-->
+<!--                <button  class="btn btn-outline-success btn-sm updateBtn" @click="replyAdd">등록</button>-->
+<!--              </div>-->
+<!--            </div>-->
 
-            <div class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length > 0">
-              <div v-if="!isReply" >
-                <div class="answerDiv" v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">
-                  {{answer.content}}
-                </div>
-                <div class="answerBtn">
-                <button class="btn btn-outline-success btn-sm" @click="updateReply()">수정</button>
-                <div>
-                <button class="btn btn-outline-success btn-sm" @click="replyDelete(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">삭제</button>
-                </div>
-                </div>
-              </div>
+<!--            <div class="answer-row" v-show="this.$store.state.qnaBoardDetail.replyList.length > 0">-->
+<!--              <div v-if="!isReply" >-->
+<!--                <div class="answerDiv" v-for="answer in this.$store.state.qnaBoardDetail.replyList" :key="answer.qnaReplyNo">-->
+<!--                  {{answer.content}}-->
+<!--                </div>-->
+<!--                <div class="answerBtn">-->
+<!--                <button class="btn btn-outline-success btn-sm" @click="updateReply()">수정</button>-->
+<!--                <div>-->
+<!--                <button class="btn btn-outline-success btn-sm" @click="replyDelete(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">삭제</button>-->
+<!--                </div>-->
+<!--                </div>-->
+<!--              </div>-->
 
-              <div v-if="isReply" >
-                <textarea v-model="content"></textarea>
-                <button class="btn btn-outline-success btn-sm" @click="replyupdate(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">수정</button>
-              </div>
-            </div>
-          </section>
+<!--              <div v-if="isReply" >-->
+<!--                <textarea v-model="content"></textarea>-->
+<!--                <button class="btn btn-outline-success btn-sm" @click="replyupdate(this.$store.state.qnaBoardDetail.replyList[0].qnaReplyNo)">수정</button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </section>-->
 
-        </div>
+<!--        </div>-->
       </div>
     </div>
 </template>
 
 <script>
 import axios from "axios";
+import QnaReply from "@/components/user/qna/QnaReply";
 
 export default {
+  components: {
+    QnaReply,
+  },
+
   data(){
     return{
       isReply: false,
       content:'',
       qnaBoardNo:this.$route.params.qnaBoardNo,
       replyer:this.$store.state.email,
+      // length : this.$store.state.qnaBoardDetail.replyList.length
     }
   },
   created() {

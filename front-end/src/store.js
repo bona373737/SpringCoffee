@@ -66,9 +66,16 @@ let store = createStore({
         state.adminOrderList = payload;
     }
 
-
   },
   actions: {
+    fetchNoticeBoardListMain(context){
+      axios.get(`/v1/list/공지`,{params:{
+          size:4,
+      }})
+      .then(response => {
+        context.commit('setNoticeBoardList', response.data);
+      })
+    },
     fetchNoticeBoardList(context,page){
       axios.get(`/v1/list`,{params:{
           page:page,
@@ -88,6 +95,22 @@ let store = createStore({
           .then(response =>{
             context.commit('setNoticeBoardDetail', response.data);
           })
+    },
+    fetchQnaBoardListMain(context){
+      axios.get('/v3/list', {params:{size:4}})
+          .then(response =>{
+            context.commit('setQnaBoardList', response.data);
+          })
+    },
+    fetchNoticeBoardCategory(context,paramObj){
+        const category = paramObj.category
+        const page = paramObj.page
+        console.log(category)
+        console.log(page)
+        axios.get('v1/list/'+category,{params:{page:page}})
+            .then(response =>{
+                context.commit('setNoticeBoardList',response.data)
+            })
     },
     fetchQnaBoardList(context,page){
       axios.get('/v3/list',{params:{page:page}})
@@ -243,7 +266,7 @@ let store = createStore({
       .then(res => {
         console.log(category)
         console.log(res)
-        context.commit('setItem', res.data.dtoList);
+        context.commit('setItem', res.data);
       }).catch(err => {
           console.log('failed', err)
       })

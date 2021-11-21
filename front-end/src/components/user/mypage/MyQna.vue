@@ -30,6 +30,9 @@
       </tr>
       </tbody>
     </table>
+    <div class="rout">
+
+    </div>
   </div>
 </template>
 
@@ -57,8 +60,11 @@ export default {
 
 <style scoped>
 .outer-div{
-  width: 70%;
+  width: 90%;
   margin: auto;
+  background-color: white;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 table{
@@ -69,5 +75,9 @@ th{
   border-left: none;
   border-right: none;
   vertical-align: middle;
+}
+
+.tbody-th1:hover {
+  color: #A36043;
 }
 </style>

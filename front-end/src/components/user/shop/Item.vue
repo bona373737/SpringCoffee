@@ -27,7 +27,7 @@
             <div class="con text-end border-top"><span class="itemdata">{{this.$store.state.itemDetail.price}}원</span></div> -->
             <div class="order border-top py-4 text-end">
               <button @click="updateItem()" class="btn btn-primary me-2" v-if="this.$store.state.role=='ROLE_ADMIN' && !isCheck">수정하기</button>
-              <button @click="deleteItem()" class="btn btn-warning me-2" v-if="this.$store.state.role=='ROLE_ADMIN' && !isCheck">삭제하기</button>
+              <button @click="deleteItem(this.$store.state.itemDetail.itemNo)" class="btn btn-warning me-2" v-if="this.$store.state.role=='ROLE_ADMIN' && !isCheck">삭제하기</button>
               <button @click="putItem" class="btn btn-success me-2" v-if="this.$store.state.role=='ROLE_ADMIN' && isCheck">변경하기</button>
               <button @click="cancelUpdate()" class="btn btn-secondary me-2" v-if="this.$store.state.role=='ROLE_ADMIN' && isCheck">취소하기</button>
               <button @click="postCart()" v-if="!isCheck" class="btn btn-success me-2"> 장바구니</button> 
@@ -99,8 +99,17 @@ export default {
       }
     },
 
-    deleteItem() {
-      axios.delete(`v2/${this.store.state.itemDetail.itemNo}`)
+    noticeDelete(boardNo){
+      axios.delete(`/v1/${boardNo}`)
+          .then( res => {
+            console.log(res.data)
+            alert("공지사항 게시글이 삭제 되었습니다.")
+            this.$router.push({name : 'noticeList'});
+          })
+    },
+
+    deleteItem(itemNo) {
+      axios.delete(`v2/${itemNo}`)
       .then(res => {
         alert('삭제되었습니다.')
         this.$router.push('/shop')
@@ -176,6 +185,38 @@ export default {
 
 .itemdata {
     padding: 0 30px 0 30px;
+}
+
+.btn-primary {
+  background-color: #A36043;
+  border: 1px solid #A36043;
+}
+
+.btn-primary:hover {
+  background-color: white;
+  color: #A36043;
+}
+
+.btn-warning {
+  background-color: #663C2A;
+  color: white;
+  border: 1px solid #663C2A;
+}
+
+.btn-warning:hover {
+  background-color: white;
+  color: #663C2A;
+}
+
+.btn-success {
+  background-color: #4F2E20;
+  color: white;
+  border: 1px solid #4F2E20;
+}
+
+.btn-success:hover {
+  background-color: white;
+  color: #663C2A;
 }
 
 .order {

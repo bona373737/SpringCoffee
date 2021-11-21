@@ -62,7 +62,6 @@
 </template>
 
 <script>
-
 export default {
   name:'NoticeList',
   created() {
@@ -108,7 +107,7 @@ export default {
       const paramObj = {
         page : page,
         category: this.category
-      };
+      }
       this.$store.dispatch('fetchNoticeBoardCategory', paramObj);
     },
   }
@@ -196,8 +195,8 @@ export default {
 }
 
 .search .btn-success:hover{
-  background: #4F2E20;
-  border: 2px #4F2E20;
+  background: #A36043;
+  border: 2px #A36043;
   height: 40px;
 }
 

@@ -63,6 +63,8 @@ const routes = [
         path: 'qnaDetail/:qnaBoardNo',
         name: 'qnaDetail',
         component: () => import('@/components/user/qna/QnaDetail.vue'),
+        props: true
+        // props: (route) => ({query})
       },
       {
         path: '/qnaAdd',
@@ -74,6 +76,11 @@ const routes = [
         name: 'qnaUpdate',
         component: () => import('@/components/user/qna/QnaUpdate.vue')
       },
+      {
+        path: '/qnaReply',
+        name: 'qnaReply',
+        component: () => import('@/components/user/qna/QnaReply.vue')
+      }
     ]
   },
   {
@@ -118,6 +125,7 @@ const routes = [
   },
   {
     path: '/admin/:',
+    redirect: '/userlist',
     name: 'AdminPage',
     component: () => import('@/components/admin/AdminPage.vue'),
     children: [
@@ -126,7 +134,7 @@ const routes = [
         component: () => import('@/components/admin/AdminList.vue'),
       },
       {
-        path: "itemAdd",
+        path: "/itemadd",
         component: () => import('@/components/admin/ItemAdd.vue'),
       },
       {
@@ -145,7 +153,12 @@ const routes = [
         path :'/memberInfoUpdate/:email',
         name : 'memberInfoUpdate',
         component:() => import('@/components/admin/MemberInfoUpdate')
-      }
+      },
+      {
+        path :'/adminQnaDetail',
+        name : 'adminQnaDetail',
+        component:() => import('@/components/admin/AdminQnaDetail.vue')
+      },
     ]
   },
   {

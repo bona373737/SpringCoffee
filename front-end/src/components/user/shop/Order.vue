@@ -49,7 +49,7 @@
               <td class="order-tab"></td>
             </tr>
 
-            <tr class="product-item" v-for="(cart, i) in this.$store.state.cartList" :key="cart.cartItemNo">
+            <tr class="product-item" v-for="(cart, i) in this.$store.state.cartList" :key="cart">
                 <td><input type="checkbox" @click="onCart(cart,i)"></td>
                 <td><img width="100" height="100" :src="getThumbnail(cart.fileId)"></td>
                 <td @click="goItemDetail(cart)">{{cart.itemName}}</td>
@@ -65,7 +65,7 @@
         </table>
         <div class="py-3"></div><br>
       
-        <div >
+        <div v-if="Object.keys(this.$store.state.cartList).length > 0">
           <button type="button" class="btn me-3" @click="onSubmit()">결제하기</button>
         </div>
       </div>
@@ -152,8 +152,7 @@ export default {
         address : this.address
       })
       .then(res => {
-        alert('등록 되었습니다.')
-        this.$router.go('/myorder')
+        this.$router.go('#')
         console.log(res)
       })
     },
