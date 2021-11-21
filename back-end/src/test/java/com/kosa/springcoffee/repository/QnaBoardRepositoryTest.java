@@ -1,7 +1,7 @@
 package com.kosa.springcoffee.repository;
 
-import com.kosa.springcoffee.base.security.MemberRepository;
 import com.kosa.springcoffee.member.Member;
+import com.kosa.springcoffee.member.MemberRepository;
 import com.kosa.springcoffee.qnaboard.QnaBoard;
 import com.kosa.springcoffee.qnaboard.QnaBoardRepository;
 import org.junit.jupiter.api.Test;

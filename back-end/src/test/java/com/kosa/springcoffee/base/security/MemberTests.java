@@ -5,6 +5,7 @@ package com.kosa.springcoffee.base.security;
 
 import com.kosa.springcoffee.BackEndApplication;
 import com.kosa.springcoffee.member.Member;
+import com.kosa.springcoffee.member.MemberRepository;
 import com.kosa.springcoffee.member.MemberRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

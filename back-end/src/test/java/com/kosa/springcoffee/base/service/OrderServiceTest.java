@@ -2,9 +2,9 @@ package com.kosa.springcoffee.base.service;
 
 import com.kosa.springcoffee.item.Item;
 import com.kosa.springcoffee.member.Member;
+import com.kosa.springcoffee.member.MemberRepository;
 import com.kosa.springcoffee.order.dto.OrderDTO;
 import com.kosa.springcoffee.item.ItemRepository;
-import com.kosa.springcoffee.base.security.MemberRepository;
 import com.kosa.springcoffee.order.*;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;

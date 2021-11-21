@@ -16,7 +16,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
     CartItem findByCartItemNo(Long cartItemNo);
 
-    @Query("select new com.kosa.springcoffee.dto.CartDetailDTO(ci.cartItemNo, i.name, i.price, ci.count) " +
+    @Query("select new com.kosa.springcoffee.cart.dto.CartDetailDTO(ci.cartItemNo, i.name, i.price, ci.count) " +
             "from sc_cart_item  ci " +
             "join ci.item i " +
             "where ci.cart.cartNo = :cartNo ")

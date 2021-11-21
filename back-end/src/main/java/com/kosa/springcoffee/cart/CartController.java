@@ -2,9 +2,9 @@ package com.kosa.springcoffee.cart;
 
 import com.kosa.springcoffee.cart.dto.*;
 import com.kosa.springcoffee.item.Item;
-import com.kosa.springcoffee.member.Member;
 import com.kosa.springcoffee.item.ItemRepository;
-import com.kosa.springcoffee.base.security.MemberRepository;
+import com.kosa.springcoffee.member.Member;
+import com.kosa.springcoffee.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

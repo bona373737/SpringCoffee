@@ -1,7 +1,7 @@
 package com.kosa.springcoffee.repository;
 
+import com.kosa.springcoffee.member.MemberRepository;
 import com.kosa.springcoffee.noticeboard.BoardRepository;
-import com.kosa.springcoffee.base.security.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
