@@ -21,7 +21,7 @@
                             <div class="bt-text">회원관리</div>
                       </div>
                   </li>
-                  <li class="content" style="margin-right: 5px">
+                  <li class="content" style="margin-right: 5px" @click="$router.push('/admin/itemadd')">
                       <div class="con-card">
                       <div class="bt-icon"><i class="bi bi-shop"></i></div>
                         <div class="bt-text">상품등록</div>
@@ -148,6 +148,7 @@ export default {
 
 .content {
   display: flex;
+  
   /* justify-content: center; */
   text-align: center;
 }

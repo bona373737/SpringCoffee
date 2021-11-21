@@ -15,7 +15,7 @@
         
         <div class="bt-menu">
             <ui class="bt-info py-2">
-                <li class="content" style="margin-right: 5px" @click="this.$router.replace('/mypage')">
+                <li class="content" style="margin-right: 5px;" @click="this.$router.replace('/mypage')">
                       <div class="con-card">
                         <div class="bt-icon"><i class="bi bi-person-circle"></i></div>
                         <div class="bt-text">회원정보</div>
