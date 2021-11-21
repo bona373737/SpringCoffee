@@ -65,7 +65,7 @@
         </table>
         <div class="py-3"></div><br>
       
-        <div >
+        <div v-if="Object.keys(this.$store.state.cartList).length > 0">
           <button type="button" class="btn me-3" @click="onSubmit()">결제하기</button>
         </div>
       </div>
@@ -152,8 +152,7 @@ export default {
         address : this.address
       })
       .then(res => {
-        alert('등록 되었습니다.')
-        this.$router.push('/shop')
+        this.$router.go('#')
         console.log(res)
       })
     },
