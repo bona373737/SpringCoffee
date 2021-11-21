@@ -13,7 +13,7 @@
             <span class="bag" type="button"
                   data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
                   aria-controls="offcanvasRight">
-                  <span class="bag "><i @click="this.$store.dispatch('fetchCart'), this.getSumPrice()" class="bi bi-bag-check-fill"></i>
+                  <span class="bag "><i @click="this.$store.dispatch('fetchCart')" class="bi bi-bag-check-fill"></i>
                   </span><br>
                   </span><br>
             <span style="font-size: 12pt;">장바구니에 담아서 결제하세요!</span>
@@ -53,13 +53,13 @@
                     <span class="minus"><i @click="setCountM(cart), patchCart(cart)" class="bi bi-caret-down-fill"></i></span>
                   </td>
                   <td> {{cart.price*cart.count}}</td>
-                  <td><i style="cursor:pointer;" @click="deleteCart(cart), getSumPrice()" class="bi bi-x-lg"></i></td>
+                  <td><i style="cursor:pointer;" @click="deleteCart(cart)" class="bi bi-x-lg"></i></td>
                 </tr>
               </table>
                 <div style="width:100%; text-align:center;" v-if="Object.keys(this.$store.state.cartList).length==0"> 장바구니가 비어있습니다.</div>
                 <hr>
                 <div v-if="Object.keys(this.$store.state.cartList).length>0">
-                   <span style="font-weight: 800; font-size: 16pt;"> {{String(this.totPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</span>원
+                   <!-- <span style="font-weight: 800; font-size: 16pt;"> {{String(this.totPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</span>원 -->
                   <button type="button" class="btn btn-cart text-reset" data-bs-dismiss="offcanvas" aria-label="Close">
                     <router-link to="/cart" style="text-decoration: none; color: white"> 주문하기</router-link>
                   </button>
@@ -91,7 +91,7 @@
                   <img width="100" height="100" src="../../../assets/5-md.png" role="presentation" class="" alt="">
                   <div class="ProductListTechnologies__name py-2 border-top">MD</div>
                 </div>
-                <div class="ProductListTechnologies__element" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" @click="this.$store.dispatch('fetchCart'), this.getSumPrice()">
+                <div class="ProductListTechnologies__element" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" @click="this.$store.dispatch('fetchCart')">
                   <img width="100" height="100" src="../../../assets/6-cart.png" role="presentation" class="" alt="">
                   <div class="ProductListTechnologies__name py-2 border-top" >장바구니</div>
                 </div>
@@ -145,8 +145,6 @@ export default {
 
   data() {
     return {
-        sum: [],
-        totPrice: 0,
         count: [],
         image: '',
     };
@@ -155,18 +153,6 @@ export default {
   methods: {
     getThumbnail(fileId) {
       return "http://localhost:8080/v2-2/thumbnail/"+fileId
-    },
-    getSumPrice() {
-      this.$store.dispatch('fetchCart');
-      this.totPrice=0;
-      this.sum=[];
-      let index = Object.keys(this.$store.state.cartList).length
-      for(let i=0; i<index; i++) {
-        let price = this.$store.state.cartList[i].price
-        let count = this.$store.state.cartList[i].count
-        this.sum[i]=price*count;
-        this.totPrice+=this.sum[i];
-      }
     },
     postCart(item, count) {
       axios.post(`/v5/cart`,
@@ -186,8 +172,6 @@ export default {
         this.deleteCart(cart);
         return false;
       }
-
-      this.getSumPrice()
 
       axios.patch('v5/cartItem', {
         cartItemNo : cart.cartItemNo,
@@ -211,7 +195,6 @@ export default {
         .then(res => {
           this.$store.dispatch('fetchCart')
           console.log('success', res)
-          this.getSumPrice()
         }).catch(err => {
           console.log('failed', err)
         })
