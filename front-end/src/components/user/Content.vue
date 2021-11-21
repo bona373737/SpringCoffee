@@ -72,7 +72,7 @@
                   <table class="table table-bordered table-condensed">
                     <tbody>
                     <tr class="tbody-th1" v-for="qnaBoard in this.$store.state.qnaBoardList.dtoList" v-bind:key="qnaBoard.qnaBoardNo"
-                        @click="goQnaDetail(qnaBoard.boardNo)">
+                        @click="goQnaDetail(qnaBoard.qnaBoardNo)">
                       <th>{{ qnaBoard.title }}</th>
                     </tr>
                     </tbody>
@@ -92,7 +92,21 @@ export default {
   created() {
     this.$store.dispatch('fetchNoticeBoardListMain');
     this.$store.dispatch('fetchQnaBoardListMain');
-  },    
+  },
+  methods:{
+    goQnaDetail(qnaBoardNo) {
+      this.$router.push({
+        name: 'qnaDetail',
+        params: {qnaBoardNo: qnaBoardNo}
+      })
+    },
+    goNoticeDetail(boardNo) {
+      this.$router.push({
+        name: 'noticeDetail',
+        params: { boardNo: boardNo }
+      })
+    },
+  }
 }
 </script>
 
@@ -165,7 +179,7 @@ export default {
   border-right: 1px solid white;
 }
 
-.content2 .tbody-th1:hover, .content .tbody-th1:hover {
+.content2 .tbody-th1:hover, .content .tbody-th1:hover, .content3 .tbody-th1:hover {
   cursor: pointer;
   color: #A36043;
   transition: 0.3s;

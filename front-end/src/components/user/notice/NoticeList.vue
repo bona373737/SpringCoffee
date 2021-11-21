@@ -62,7 +62,6 @@
 </template>
 
 <script>
-
 export default {
   name:'NoticeList',
   created() {
@@ -108,7 +107,7 @@ export default {
       const paramObj = {
         page : page,
         category: this.category
-      };
+      }
       this.$store.dispatch('fetchNoticeBoardCategory', paramObj);
     },
   }

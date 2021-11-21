@@ -2,7 +2,7 @@
   <div class="form py-5">
     <div class="wrapper">
       <div v-if="!isCorrect">
-        <div class="tab-name d-flex py-3">본인인증</div>
+        <div class="tab-name d-flex py-3" style="text-indent: 15px">본인인증</div>
         <div class="py-3">
           <div class="m-info d-flex">
             <span class="tab-1 text-end"> 이메일</span>

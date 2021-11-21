@@ -64,7 +64,7 @@ export default {
       address: this.$store.state.memberDetail.address,
     }
   },
-  mounted() {
+  created() {
     this.$store.dispatch('fetchMemberDetail',this.$route.params.email)
   },
   methods: {

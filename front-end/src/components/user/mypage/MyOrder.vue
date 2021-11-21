@@ -15,7 +15,7 @@ a<template>
                     <button class="btn btn-warning" style="font-size: 11pt">취소</button>
                 </div>
                 <a style="background-color: #A36043; color:white;">주문번호 </a> <a>{{order.orderNo}}</a><br>
-                <a style="background-color: #4F2E20; color:white;">주문상태  </a> <a>{{order.orderStatus}}</a><br>
+                <a style="background-color: #4F2E20; color:white;" >주문상태  </a> <a>{{order.orderStatus}}</a><br><br>
                 <div class="d-flex text-end border-bottom border-top">
                     <span class="me-5" style="">상품</span>
                     <span class="me-5" style="">상품번호</span>
@@ -114,6 +114,7 @@ export default {
 }
 
 .myorder {
+  margin-bottom: 20px;
 
     /* background-color: ; */
 }

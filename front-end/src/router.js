@@ -153,7 +153,12 @@ const routes = [
         path :'/memberInfoUpdate/:email',
         name : 'memberInfoUpdate',
         component:() => import('@/components/admin/MemberInfoUpdate')
-      }
+      },
+      {
+        path :'/adminQnaDetail',
+        name : 'adminQnaDetail',
+        component:() => import('@/components/admin/AdminQnaDetail.vue')
+      },
     ]
   },
   {
