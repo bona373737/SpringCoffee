@@ -49,7 +49,7 @@
 
 <script>
 export default {
-  name:'myQna',
+  name:'adminQna',
   data(){
     return{
     }
@@ -61,7 +61,7 @@ export default {
     goQnaDetail(qnaBoardNo) {
       console.log(qnaBoardNo)
       this.$router.push({
-        name: 'qnaDetail',
+        name: 'adminQnaDetail',
         params: {qnaBoardNo: qnaBoardNo}
       })
     },

@@ -4,39 +4,43 @@
 
     <div class="outterDiv py-5">
       <table class="notice-context text-start m-auto" style="width:500px;">
-        <div class="me-5 border-bottom" style="width:80px; font-size:14pt; height:30px; color: #4F2E20; font-weight: 700;">상품정보</div>
+        <div class="me-5 border-bottom" style="width:80px; font-size:14pt; height:30px; color: #4F2E20; font-weight: 700;">상품정보</div><br>
         <tr>
-          <th>상품명</th>
+          <th class="item-th">상품명</th>
           <td class="table-title"><input type="text" v-model="name"></td>
         </tr>
         <tr>
-          <th>상품설명</th>
+          <th class="item-th">상품설명</th>
           <td class="table-context"><textarea v-model="content"></textarea></td>
         </tr>
         <tr>
-          <th>상품이미지</th>
+          <th class="item-th">상품이미지</th>
+          <td>
           <input v-on:change="onInputImage" accept="image/*" ref="serveyImage" type="file">
+          </td>
         </tr>
         <tr>
-          <th>재고량</th>
+          <th class="item-th">재고량</th>
           <td class="table-stockQuantity"><input v-model="stockQuantity"></td>
         </tr>
         <tr>
-          <th>가격</th>
+          <th class="item-th">가격</th>
           <td class="table-price"><input v-model="price"></td>
         </tr>
         <tr>
-          <th>카테고리</th>
+          <th class="item-th">카테고리</th>
+          <td>
             <input class="cate" style="width: 10px;" type="radio" v-model="category" value="beans"> 원두
             <input class="cate" style="width: 10px; margin-left: 10px" type="radio" v-model="category" value="syrup"> 시럽
             <input class="cate" style="width: 10px;" type="radio" v-model="category" value="powder"> 파우더
             <input class="cate" style="width: 10px; margin-left: 10px" type="radio" v-model="category" value="md"> MD
+          </td>
         </tr>
       </table>
       <br>
       <div class="BtnWrap">
         <button class="btn btn-success me-3" @click="onSubmit"> 추가 </button>
-        <button class="btn btn-secondary"> 목록으로 가기 </button>
+        <button class="btn btn-success" @click="this.$router.push('/shop')"> 목록 </button>
       </div>
 
     </div>
@@ -125,7 +129,7 @@ export default {
 
 </script>
 
-<style scope>
+<style scoped>
 .notice-context input {
   width: 100%
 }
@@ -133,5 +137,29 @@ export default {
   width: 100%;
   height: 200px;
 }
+
+.btn-success{
+  background: #663C2A;
+  border: 2px #663C2A;
+  margin:10px 0px 0px;
+  height: 40px;
+}
+
+.btn-success:hover{
+  background: #A36043;
+  border: 2px #A36043;
+}
+
+tr{
+  height: 45px;
+  vertical-align: middle;
+}
+
+.item-th{
+  padding-right: 30px;
+  text-align: right;
+  color: #4F2E20;
+}
+
 
 </style>

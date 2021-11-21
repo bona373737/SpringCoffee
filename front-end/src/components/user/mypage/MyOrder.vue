@@ -16,7 +16,7 @@ a<template>
                 <span class="me-5" style="">구매수량</span>
                 <span>결제금액</span>
             </div>
-            
+
             <div class="d-flex text-end" v-for="list in this.myOrder[i].orderItemDTOList" :key="list.itemNo">
                 <span></span>
                 <span class="me-5" style="">{{list.itemNo}}</span>
@@ -29,7 +29,7 @@ a<template>
         <div class="move">
             <span class="prev"><i @click="prevPage()"  class="bi bi-caret-left-fill"> </i></span>
             <span class="pageNum"> </span>
-            <span class="next"><i @click="nextPage()" class="bi bi-caret-right-fill"> </i></span>            
+            <span class="next"><i @click="nextPage()" class="bi bi-caret-right-fill"> </i></span>
         </div>
     </div>
 </div>
@@ -106,6 +106,7 @@ export default {
 }
 
 .myorder {
+  margin-bottom: 20px;
 
     /* background-color: ; */
 }
