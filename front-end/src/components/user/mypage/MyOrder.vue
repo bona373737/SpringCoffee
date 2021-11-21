@@ -11,7 +11,7 @@ a<template>
             
 
             <div class="myorder text-start border-top py-1" v-for="(order,i) in this.myOrder" :key="order.orderNo">
-                <div @click="cancelOrder(order)" style="position: absolute; margin-left: 445px" v-if="order.orderStatus=='결제완료'">
+                <div @click="cancelOrder(order.orderNo)" style="position: absolute; margin-left: 445px" v-if="order.orderStatus=='결제완료'">
                     <button class="btn btn-warning" style="font-size: 11pt">취소</button>
                 </div>
                 <a style="background-color: #A36043; color:white;">주문번호 </a> <a>{{order.orderNo}}</a><br>
@@ -91,16 +91,9 @@ export default {
     cancelOrder(order) {
         if(confirm("주문을 취소하시겠습니까?") == true) {
             alert('주문이 취소되었습니다.')
-            console.log(order.orderNo)
-            console.log(this.$store.state.email)
-            axios.post(`v6/cancel`, {
-                orderNo : order.odrerNo,
-                email : this.$store.state.email
-            }, {
-            headers: {
-                'Content-Type': 'application/json'
-            }})
+            axios.post(`v6/cancel/${order}`,)
                 .then(res => {
+                  this.$router.go('#')
                 console.log('success', res)
             }).catch(err => {
                 console.log('failed', err)

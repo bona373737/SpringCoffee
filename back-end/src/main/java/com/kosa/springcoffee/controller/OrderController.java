@@ -68,15 +68,26 @@ public class OrderController {
         return new ResponseEntity<Page<OrderHistDTO>>(orderHistDtos, HttpStatus.OK);
     }
 
-    @PostMapping("/cancel")
-    public ResponseEntity cancel(@RequestBody OrderStatuslDTO dto){
-        Member member = memberRepository.getByEmail(dto.getEmail());
-        Order order = orderRepository.findByOrderNo(dto.getOrderNo());
+//    @PostMapping("/cancel")
+//    public ResponseEntity cancel(@RequestBody OrderStatuslDTO dto){
+//        Member member = memberRepository.getByEmail(dto.getEmail());
+//        Order order = orderRepository.findByOrderNo(dto.getOrderNo());
+//
+//        if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
+//        if(!orderService.validateOrder(order.getOrderNo(), member.getEmail())){
+//            return new ResponseEntity<String>("주문취소권한이 없습니다", HttpStatus.FORBIDDEN);
+//        }
+//
+//        orderService.cancelOrder(order.getOrderNo());
+//        return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
+//    }
+
+    @PostMapping("/cancel/{orderNo}")
+    @ResponseBody
+    public ResponseEntity cancel(@PathVariable Long orderNo){
+        Order order = orderRepository.findByOrderNo(orderNo);
 
         if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
-        if(!orderService.validateOrder(order.getOrderNo(), member.getEmail())){
-            return new ResponseEntity<String>("주문취소권한이 없습니다", HttpStatus.FORBIDDEN);
-        }
 
         orderService.cancelOrder(order.getOrderNo());
         return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);

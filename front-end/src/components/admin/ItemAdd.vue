@@ -105,7 +105,7 @@ export default {
             'Content-Type': 'multipart/form-data'
           }
         }).then(res => {
-          this.$router.push('#')
+          this.$router.go('#')
           console.log('SUCCESS!!', res);
         })
     },
