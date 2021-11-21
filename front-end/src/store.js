@@ -123,13 +123,6 @@ let store = createStore({
         .then(response => {
           console.log('ㅇㅇ')
           console.log(response)
-          // for(let i=0; i<Object.keys(response.data).length; i++) {
-          //   axios.get(`v2-2/thumbnail/${response.data[i].fileId}`)
-          //   .then(res => {              
-          //     // response.data[i].image=getFile(res.data)
-          //     // response.data[i].image=window.URL.createObjectURL(new Blob([window.btoa(base64)]));
-          //     console.log(res)
-          //   })
           context.commit('setItem', response.data)
           console.log('성공', response)
           // }

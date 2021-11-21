@@ -50,9 +50,24 @@
 
       <div class="align-items-md-stretch">
         <div class="contents">
+
           <div class="content1">
             <h4>Best 상품</h4><hr style="width: 20%; color: #663C2A;">
+            <div class="best-product">
+                <ui class="bt-info py-2 product-item" style="margin-right: 5px;" v-for="item in this.$store.state.itemList" :key="item.fileId">
+                    <li @click="goItemDetail(item.itemNo)">
+                      <div class="con-card">
+                          <img width="100" height="100" :src="getThumbnail(item.fileId)">
+                          <div class="bt-text">
+                            {{item.name}}<br>
+                            {{String(item.price).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원
+                          </div>
+                      </div>
+                    </li>
+                </ui>
+            </div>
           </div>
+
           <div class="content2">
               <h4>NOTICE</h4><hr style="width: 20%; color: #663C2A;">
               <div class="notice-list">
@@ -90,10 +105,19 @@
 export default {
   name: 'Content',
   created() {
+    this.$store.dispatch('getItemCategory', 'beans');
     this.$store.dispatch('fetchNoticeBoardListMain');
     this.$store.dispatch('fetchQnaBoardListMain');
   },
+  data() {
+    return {
+      // itemlist: this.$store.state.itemList,
+    }
+  },
   methods:{
+    getThumbnail(fileId) {
+      return "http://localhost:8080/v2-2/thumbnail/"+fileId
+    },
     goQnaDetail(qnaBoardNo) {
       this.$router.push({
         name: 'qnaDetail',
@@ -167,6 +191,46 @@ export default {
   /* background-color: blanchedalmond; */
 }
 
+.best-product {
+  text-align: center;
+}
+
+.bt-info {
+    justify-content: center;
+    margin: auto;
+    list-style-type : none;
+}
+
+.bt-info li {
+    color: #4F2E20;
+    text-align: center;
+    margin: auto;
+    margin-right: 15px;
+    margin-left: 15px;
+    float: left;
+}
+
+.content {
+    display: flex;
+    text-align: center;
+}
+
+.product-item .con-card {
+    width: 180px;
+    height: 180px;
+    padding: 5px;
+    background-color: white;
+    border: 2px solid #4F2E20;
+    border-radius: 10px;
+}
+
+.product-item .con-card:hover {
+    cursor: pointer;
+    color: #A36043;
+    border: none;
+    box-shadow: 1px 1px 10px #333;
+    transition: 0.2s;
+}
 .content2 .notice-list, .content3 .notice-list{
   /* width: 70%; */
   margin: 5px 10px;

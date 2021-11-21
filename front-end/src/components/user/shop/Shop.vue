@@ -77,7 +77,7 @@
                 </div>
                 <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'beans')">
                   <img width="100" height="100" src="../../../assets/2-coffee-bean.png" role="presentation" class="" alt="">
-                  <div class="ProductListTechnologies__name py-2 border-top">커피빈</div>
+                  <div class="ProductListTechnologies__name py-2 border-top">원두</div>
                 </div>
                 <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('getItemCategory', 'powder')">
                   <img width="100" height="100" src="../../../assets/3-powder.png" role="presentation" class="" alt="">
