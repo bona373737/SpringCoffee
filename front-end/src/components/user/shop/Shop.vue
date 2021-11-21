@@ -49,7 +49,7 @@
               <div style="width:100%; text-align:center;" v-if="Object.keys(this.$store.state.cartList).length==0"> 장바구니가 비어있습니다.</div>
               <hr>
               <div v-if="Object.keys(this.$store.state.cartList).length>0">
-                 <span style="font-weight: 800; font-size: 16pt;"> {{String(this.totPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</span>원 
+                 <!-- <span style="font-weight: 800; font-size: 16pt;"> {{String(this.totPrice).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</span>원  -->
                 <button type="button" class="btn btn-cart text-reset" data-bs-dismiss="offcanvas" aria-label="Close">
                   <router-link to="/cart" style="text-decoration: none; color: white"> 주문하기</router-link>
                 </button>

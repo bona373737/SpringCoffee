@@ -256,7 +256,7 @@ let store = createStore({
       .then(res => {
         console.log(category)
         console.log(res)
-        context.commit('setItem', res.data.dtoList);
+        context.commit('setItem', res.data);
       }).catch(err => {
           console.log('failed', err)
       })

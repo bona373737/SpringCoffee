@@ -134,7 +134,7 @@ const routes = [
         component: () => import('@/components/admin/AdminList.vue'),
       },
       {
-        path: "/itemAdd",
+        path: "/itemadd",
         component: () => import('@/components/admin/ItemAdd.vue'),
       },
       {
