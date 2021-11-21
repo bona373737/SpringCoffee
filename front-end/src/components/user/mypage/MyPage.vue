@@ -73,7 +73,7 @@ export default {
 
 .outer {
   background-color: #f7f7f7;
-  margin-top: 38px;
+
 }
 
 .tab-title {
