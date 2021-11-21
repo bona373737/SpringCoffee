@@ -40,7 +40,7 @@
       <br>
       <div class="BtnWrap">
         <button class="btn btn-success me-3" @click="onSubmit"> 추가 </button>
-        <button class="btn btn-success"> 목록 </button>
+        <button class="btn btn-success" @click="this.$router.push('/shop')"> 목록 </button>
       </div>
 
     </div>
