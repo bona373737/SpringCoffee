@@ -89,7 +89,7 @@ public class OrderController {
 
         if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
 
-        orderService.cancelOrder(order.getOrderNo());
+        orderService.prepareOrder(order.getOrderNo());
         return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
     }
     @PostMapping("/shipping")
@@ -99,7 +99,7 @@ public class OrderController {
 
         if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
 
-        orderService.cancelOrder(order.getOrderNo());
+        orderService.shippingOrder(order.getOrderNo());
         return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
     }
     @PostMapping("/done")
@@ -109,7 +109,7 @@ public class OrderController {
 
         if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
 
-        orderService.cancelOrder(order.getOrderNo());
+        orderService.doneOrder(order.getOrderNo());
         return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
     }
 

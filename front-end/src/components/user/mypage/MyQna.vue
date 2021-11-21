@@ -57,8 +57,9 @@ export default {
 
 <style scoped>
 .outer-div{
-  width: 70%;
+  width: 90%;
   margin: auto;
+  background-color: white;
 }
 
 table{
