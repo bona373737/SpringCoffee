@@ -68,6 +68,14 @@ let store = createStore({
 
   },
   actions: {
+    fetchNoticeBoardListMain(context){
+      axios.get(`/v1/list/notice`,{params:{
+          size:4,
+      }})
+      .then(response => {
+        context.commit('setNoticeBoardList', response.data);
+      })
+    },
     fetchNoticeBoardList(context,page){
       axios.get(`/v1/list`,{params:{
           page:page,
@@ -86,6 +94,12 @@ let store = createStore({
       axios.get(`/v1/${boardNo}`)
           .then(response =>{
             context.commit('setNoticeBoardDetail', response.data);
+          })
+    },
+    fetchQnaBoardListMain(context){
+      axios.get('/v3/list', {params:{size:4}})
+          .then(response =>{
+            context.commit('setQnaBoardList', response.data);
           })
     },
     fetchQnaBoardList(context,page){
@@ -242,7 +256,7 @@ let store = createStore({
       .then(res => {
         console.log(category)
         console.log(res)
-        context.commit('setItem', res.data.dtoList);
+        context.commit('setItem', res.data);
       }).catch(err => {
           console.log('failed', err)
       })

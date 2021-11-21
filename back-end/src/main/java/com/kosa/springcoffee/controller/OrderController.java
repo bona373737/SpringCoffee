@@ -106,9 +106,7 @@ public class OrderController {
     @ResponseBody
     public ResponseEntity done(@RequestParam Long orderNo){
         Order order = orderRepository.findByOrderNo(orderNo);
-
         if (order == null) return new ResponseEntity<String>("주문이 없습니다.", HttpStatus.FORBIDDEN);
-
         orderService.doneOrder(order.getOrderNo());
         return new ResponseEntity<Long>(order.getOrderNo(), HttpStatus.OK);
     }

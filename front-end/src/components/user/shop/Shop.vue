@@ -65,7 +65,7 @@
             </div>
           </div>
         </div>
-<!--      </div>-->
+      </div>
     <div class="outter-border">
         <div class="ProductListTechnologies d-flex py-5">
           <div class="ProductListTechnologies__element me-4" @click="this.$store.dispatch('fetchItem')">
@@ -361,5 +361,4 @@ input::placeholder {
 .btn-cart:hover {
   background-color: #A36043;
 }
-
 </style>

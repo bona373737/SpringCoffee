@@ -22,123 +22,124 @@
         </div>
       </div>
 
-
       <!-- 비밀번호 인증 시  -->
       <div v-if="isCorrect" class="info-box">
-        <div class="tab-name py-3" style="font-size: 16pt; padding: 20px;">
-          회원정보
-          <div>
-            <span style="font-size:10pt; color: red;">*표시 필수입력해주세요</span>
+        <div class="funcNav py-3 text-start">
+          <a class="func" @click="onUpdate">회원정보</a>
+          <a class="func" @click="onDelete">회원탈퇴</a>
+        </div>
+        <div v-if="isUpdate">
+          <div class="tab-name py-3" style="font-size: 16pt; padding: 20px;">
+            회원정보
+            <div>
+              <span style="font-size:10pt; color: red;">*표시 필수입력해주세요</span>
+            </div>
+          </div>
+          <br>
+
+          <table style="margin: auto">
+            <tr >
+              <td style="border-right: 1px solid #999">
+                <span class="tab-1 text-end" style="padding-top: 10px"> 이메일</span>
+              </td>
+              <td>
+                <span class="tab-2">{{this.$store.state.memberProfile.email}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="border-right: 1px solid #999">
+                <span class="tab-1 text-end">현재 비밀번호<span style="color:red;"> *</span></span>
+              </td>
+              <td>
+                <input type="password" v-model="checkPW1">
+              </td>
+            </tr>
+            <tr>
+              <td style="border-right: 1px solid #999">
+                <span class="tab-1 text-end">비밀번호 변경<span style="color: white;"> *</span></span>
+              </td>
+              <td>
+                <input id="pw2" type="password" v-model="checkPW2" @change="preCheck()">
+                <br><span style="font-size:9pt;">영문 대소문자 및 숫자 포함 8~20자리</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="border-right: 1px solid #999">
+                <span class="tab-1 text-end">비밀번호 확인<span style="color: white;"> *</span></span>
+              </td>
+              <td>
+                <input id="pw3" type="password" v-model="checkPW3" @change="preCheck()">
+                <div v-show="passwordCheck">
+                <span style="font-size:9pt; color: red" v-if="!eqPW">비밀번호가 일치하지 않습니다.</span>
+                <span style="font-size:9pt; color: green" v-if="eqPW">비밀번호가 일치합니다 !</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="border-right: 1px solid #999">
+                <span class="tab-1 text-end"> 이름 </span>
+              </td>
+              <td>
+                <span class="tab-2">{{this.$store.state.memberProfile.name}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="border-right: 1px solid #999">
+                <span class="tab-1 text-end">배송지</span>
+                <span style="color:white;">*</span>
+              </td>
+              <td>
+                <input type="text" v-model="address">
+              </td>
+            </tr>
+          </table>
+                <button class="btn btn-primary" @click="infoUpdate()">수정</button>
+                <button class="btn btn-primary" @click="backToVarifyPage()">뒤로가기</button>
+          </div>
+          <div v-if="isDelete">
+          <div class="tab-name py-3" style="font-size: 16pt; padding: 20px;">
+              회원탈퇴
+            <div>
+              <span style="font-size:10pt; color: #666;">스프링 커피 서비스를 이용해주셔서 감사합니다.</span><br>
+              <span style="font-size:10pt; color: red;">*표시 필수입력해주세요</span>
+            </div>
+          </div>
+          <br>
+
+          <table style="margin: auto">
+            <tr >
+              <td style="border-right: 1px solid #999">
+                <span class="tab-1 text-end" style="padding-top: 10px"> 이메일</span>
+              </td>
+              <td>
+                <span class="tab-2">{{this.$store.state.memberProfile.email}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="border-right: 1px solid #999">
+                <span class="tab-1 text-end">현재 비밀번호<span style="color: red;"> *</span></span>
+              </td>
+              <td>
+                <input id="pw2" type="password" v-model="checkPW2" @change="preCheck()">
+              </td>
+            </tr>
+            <tr>
+              <td style="border-right: 1px solid #999">
+                <span class="tab-1 text-end">비밀번호 확인<span style="color: red;"> *</span></span>
+              </td>
+              <td>
+                <input id="pw3" type="password" v-model="checkPW3" @change="preCheck()">
+                <div v-show="passwordCheck">
+                <span style="font-size:9pt; color: red" v-if="!eqPW">비밀번호가 일치하지 않습니다.</span>
+                <span style="font-size:9pt; color: green" v-if="eqPW">비밀번호가 일치합니다 !</span>
+                </div>
+              </td>
+            </tr>
+          </table>
+                <button class="btn btn-primary" @click="deleteMember(checkPW3)">회원탈퇴</button>
           </div>
         </div>
-        <br>
-
-        <table style="margin: auto">
-          <tr >
-            <td style="border-right: 1px solid #999">
-              <span class="tab-1 text-end" style="padding-top: 10px"> 이메일</span>
-            </td>
-            <td>
-              <span class="tab-2">{{this.$store.state.memberProfile.email}}</span>
-            </td>
-          </tr>
-          <tr>
-            <td style="border-right: 1px solid #999">
-              <span class="tab-1 text-end">현재 비밀번호<span style="color:red;"> *</span></span>
-            </td>
-            <td>
-              <input type="password" v-model="checkPW1">
-            </td>
-          </tr>
-          <tr>
-            <td style="border-right: 1px solid #999">
-               <span class="tab-1 text-end">비밀번호 변경<span style="color:red;"> *</span></span>
-            </td>
-            <td>
-              <input id="pw2" type="password" v-model="checkPW2" @change="preCheck()">
-              <br><span style="font-size:9pt;">영문 대소문자 및 숫자 포함 8~20자리</span>
-            </td>
-          </tr>
-          <tr>
-            <td style="border-right: 1px solid #999">
-              <span class="tab-1 text-end">비밀번호 확인<span style="color:red;"> *</span></span>
-            </td>
-            <td>
-              <input id="pw3" type="password" v-model="checkPW3" @change="preCheck()">
-              <div v-show="passwordCheck">
-              <span style="font-size:9pt; color: red" v-if="!eqPW">비밀번호가 일치하지 않습니다.</span>
-              <span style="font-size:9pt; color: green" v-if="eqPW">비밀번호가 일치합니다 !</span>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td style="border-right: 1px solid #999">
-              <span class="tab-1 text-end"> 이름 </span>
-            </td>
-            <td>
-              <span class="tab-2">{{this.$store.state.memberProfile.name}}</span>
-            </td>
-          </tr>
-          <tr>
-            <td style="border-right: 1px solid #999">
-              <span class="tab-1 text-end">배송지</span>
-              <span style="color:white;">*</span>
-            </td>
-            <td>
-              <input type="text" v-model="address">
-            </td>
-          </tr>
-        </table>
-
-<!--        <div class="py-3">-->
-<!--          <div class="m-info d-flex">-->
-<!--            <span class="tab-1 text-end"> 이메일</span>-->
-<!--            <span class="tab-2">{{this.$store.state.memberProfile.email}}</span>-->
-<!--          </div>-->
-<!--          <div class="m-info d-flex">-->
-<!--            <span class="tab-1 text-end">현재 비밀번호<span style="color:red;"> *</span></span>-->
-<!--            <span class="tab-2">-->
-<!--              <input type="password" v-model="checkPW1">-->
-<!--            </span>-->
-<!--          </div>-->
-<!--          <div class="m-info d-flex">-->
-<!--            <span class="tab-1 text-end"><br><br>비밀번호 변경-->
-<!--            </span>-->
-<!--            -->
-<!--            <span style="color:white;">*</span>-->
-<!--            <span class="tab-2">-->
-<!--                <input id="pw2" type="password" v-model="checkPW2" @change="preCheck()">-->
-<!--                <br><span style="font-size:8pt;">영문 대소문자 및 숫자 포함 6~12자리</span>-->
-<!--            </span>-->
-<!--          </div>-->
-<!--          <div class="m-info d-flex">-->
-<!--              <span class="tab-1 text-end" style="font-size:10pt;"></span>-->
-<!--              <span style="color:white;">*</span>-->
-<!--              <span class="tab-2">-->
-<!--                  <input id="pw3" type="password" v-model="checkPW3" @change="preCheck()"> -->
-<!--                  <br><span style="font-size:8pt; color: red" v-if="!eqPW">패스워드가 일치하지 않습니다.</span>-->
-<!--                  <span style="font-size:8pt; color: green" v-if="eqPW">패스워드가 일치합니다 !</span>-->
-<!--              </span>-->
-<!--          </div>-->
-<!--          </div>-->
-<!--          <div class="m-info d-flex">-->
-<!--            <span class="tab-1 text-end"> 이름 </span>-->
-<!--            <span class="tab-2">{{this.$store.state.memberProfile.name}}</span>-->
-<!--          </div>-->
-<!--          <div class="m-info d-flex">-->
-<!--            <span class="tab-1 text-end">배송지</span>-->
-<!--            <span style="color:white;">*</span>-->
-<!--            <span class="tab-2">-->
-<!--              <input type="text" v-model="address">-->
-<!--            </span>-->
-<!--          </div>-->
-
-<!--            <div class="m-info py-3">-->
-              <button class="btn btn-primary" @click="infoUpdate()">수정</button>
-              <button class="btn btn-primary" @click="backToVarifyPage()">뒤로가기</button>
-<!--            </div>-->
         </div>
-      </div>
     </div>
 </template>
 
@@ -149,6 +150,8 @@ export default {
   name: 'Profile',
   data() {
     return {
+      isUpdate: true,
+      isDelete: false,
       isCorrect: false,
       eqPW: false,
       password: '',
@@ -237,12 +240,38 @@ export default {
       this.isCorrect = false
       this.password = ''
     },
+
+    onUpdate() {
+      this.isUpdate=true;
+      this.isDelete=false;
+    },
+
+    onDelete() {
+      this.isDelete=true;
+      this.isUpdate=false;
+    },
+    deleteMember(password){
+      if(password != this.password) {
+        alert('비밀번호가 일치하지 않습니다.')
+        return false;
+      }
+
+      axios.delete(`/v5/delete`, {params: {
+        email: this.$store.state.email
+      }})
+          .then( res => {
+            console.log(res.data)
+            localStorage.removeItem("access_token");
+            alert("회원탈퇴되었습니다.")
+            this.$router.go('/')
+          })
+    }
   },
 }
 </script>
 
 <style scoped>
-.info-box{
+.info-box {
   box-shadow: 1px 1px 10px #333;
   border-radius: 15px;
 }
@@ -322,4 +351,16 @@ td{
 
 }
 
+.funcNav {
+  width:300px;
+  height:50px;
+  padding: 15px;
+}
+
+.func {
+  text-decoration: none;
+  color: #663C2A;
+  border-bottom: 1px solid #333;
+  margin-right: 10px;
+}
 </style>
