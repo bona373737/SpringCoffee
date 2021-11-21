@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.dto;
+package com.kosa.springcoffee.cart.dto;
 
 import lombok.Getter;
 import lombok.Setter;

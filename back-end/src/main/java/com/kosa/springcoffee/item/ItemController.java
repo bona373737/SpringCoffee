@@ -1,13 +1,10 @@
-package com.kosa.springcoffee.controller;
+package com.kosa.springcoffee.item;
 
-import com.kosa.springcoffee.dto.ItemDTO;
-import com.kosa.springcoffee.dto.ItemReadDTO;
-import com.kosa.springcoffee.dto.ItemResponseDTO;
-import com.kosa.springcoffee.entity.Item;
-import com.kosa.springcoffee.entity.ItemImg;
-import com.kosa.springcoffee.repository.ItemImgRepository;
-import com.kosa.springcoffee.repository.ItemRepository;
-import com.kosa.springcoffee.service.ItemService;
+import com.kosa.springcoffee.item.dto.ItemDTO;
+import com.kosa.springcoffee.item.dto.ItemReadDTO;
+import com.kosa.springcoffee.item.dto.ItemResponseDTO;
+import com.kosa.springcoffee.itemimg.ItemImg;
+import com.kosa.springcoffee.itemimg.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

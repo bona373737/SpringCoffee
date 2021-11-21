@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.member.security.dto;
+package com.kosa.springcoffee.base.security.dto;
 
 import lombok.Getter;
 import lombok.Setter;

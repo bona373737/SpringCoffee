@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.dto;
+package com.kosa.springcoffee.order.dto;
 
 import lombok.Builder;
 import lombok.Getter;

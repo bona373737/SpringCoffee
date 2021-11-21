@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.dto;
+package com.kosa.springcoffee.base.dto;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;

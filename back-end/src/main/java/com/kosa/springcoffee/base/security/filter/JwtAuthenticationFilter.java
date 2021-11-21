@@ -1,6 +1,6 @@
-package com.kosa.springcoffee.member.security.filter;
+package com.kosa.springcoffee.base.security.filter;
 
-import com.kosa.springcoffee.member.security.util.JwtTokenProvider;
+import com.kosa.springcoffee.base.security.util.JwtTokenProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;

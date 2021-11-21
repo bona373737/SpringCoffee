@@ -1,5 +1,6 @@
-package com.kosa.springcoffee.dto;
+package com.kosa.springcoffee.qnaboard.dto;
 
+import com.kosa.springcoffee.qnareply.dto.QnaReplyDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

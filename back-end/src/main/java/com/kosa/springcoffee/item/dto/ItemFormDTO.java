@@ -1,6 +1,7 @@
-package com.kosa.springcoffee.dto;
+package com.kosa.springcoffee.item.dto;
 
 import com.kosa.springcoffee.item.Item;
+import com.kosa.springcoffee.itemimg.dto.ItemImgDTO;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;

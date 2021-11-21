@@ -1,6 +1,5 @@
-package com.kosa.springcoffee.repository;
+package com.kosa.springcoffee.cart;
 
-import com.kosa.springcoffee.entity.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

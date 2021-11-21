@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.member.security;
+package com.kosa.springcoffee.base.security;
 
 
 

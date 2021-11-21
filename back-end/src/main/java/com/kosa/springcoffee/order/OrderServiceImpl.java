@@ -1,13 +1,13 @@
-package com.kosa.springcoffee.service;
+package com.kosa.springcoffee.order;
 
-import com.kosa.springcoffee.Member.Member;
-import com.kosa.springcoffee.dto.OrderDTO;
-import com.kosa.springcoffee.dto.OrderHistDTO;
-import com.kosa.springcoffee.dto.OrderItemDTO;
-import com.kosa.springcoffee.entity.*;
-import com.kosa.springcoffee.repository.ItemRepository;
-import com.kosa.springcoffee.Member.security.MemberRepository;
-import com.kosa.springcoffee.repository.OrderRepository;
+import com.kosa.springcoffee.item.Item;
+import com.kosa.springcoffee.item.ItemRepository;
+import com.kosa.springcoffee.item.ItemService;
+import com.kosa.springcoffee.member.Member;
+import com.kosa.springcoffee.member.MemberRepository;
+import com.kosa.springcoffee.order.dto.OrderDTO;
+import com.kosa.springcoffee.order.dto.OrderHistDTO;
+import com.kosa.springcoffee.order.dto.OrderItemDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

@@ -1,11 +1,11 @@
-package com.kosa.springcoffee.service;
+package com.kosa.springcoffee.item;
 
-import com.kosa.springcoffee.dto.*;
-import com.kosa.springcoffee.entity.Item;
-import org.springframework.stereotype.Service;
+import com.kosa.springcoffee.base.dto.*;
+import com.kosa.springcoffee.item.dto.ItemDTO;
+import com.kosa.springcoffee.item.dto.ItemReadDTO;
+import com.kosa.springcoffee.item.dto.ItemResponseDTO;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface ItemService {

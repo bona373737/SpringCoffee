@@ -1,7 +1,7 @@
-package com.kosa.springcoffee.config;
+package com.kosa.springcoffee.base.config;
 
-import com.kosa.springcoffee.member.security.filter.JwtAuthenticationFilter;
-import com.kosa.springcoffee.member.security.util.JwtTokenProvider;
+import com.kosa.springcoffee.base.security.filter.JwtAuthenticationFilter;
+import com.kosa.springcoffee.base.security.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;

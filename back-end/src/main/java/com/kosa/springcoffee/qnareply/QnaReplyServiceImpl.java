@@ -1,9 +1,9 @@
-package com.kosa.springcoffee.board.qnareply;
+package com.kosa.springcoffee.qnareply;
 
-import com.kosa.springcoffee.board.qnaboard.QnaBoardService;
-import com.kosa.springcoffee.dto.QnaReplyDTO;
+import com.kosa.springcoffee.qnaboard.QnaBoardService;
 import com.kosa.springcoffee.member.Member;
-import com.kosa.springcoffee.board.qnaboard.QnaBoard;
+import com.kosa.springcoffee.qnaboard.QnaBoard;
+import com.kosa.springcoffee.qnareply.dto.QnaReplyDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

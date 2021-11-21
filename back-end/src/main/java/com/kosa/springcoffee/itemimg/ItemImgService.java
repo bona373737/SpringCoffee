@@ -1,7 +1,7 @@
-package com.kosa.springcoffee.item.itemimg;
+package com.kosa.springcoffee.itemimg;
 
-import com.kosa.springcoffee.dto.ItemImgDTO;
-import com.kosa.springcoffee.dto.ItemImgResponseDTO;
+import com.kosa.springcoffee.itemimg.dto.ItemImgDTO;
+import com.kosa.springcoffee.itemimg.dto.ItemImgResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

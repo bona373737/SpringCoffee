@@ -1,6 +1,6 @@
-package com.kosa.springcoffee.board.qnareply;
+package com.kosa.springcoffee.qnareply;
 
-import com.kosa.springcoffee.board.qnaboard.QnaBoard;
+import com.kosa.springcoffee.qnaboard.QnaBoard;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

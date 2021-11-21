@@ -1,6 +1,10 @@
-package com.kosa.springcoffee.board.qnaboard;
+package com.kosa.springcoffee.qnaboard;
 
-import com.kosa.springcoffee.dto.*;
+import com.kosa.springcoffee.qnaboard.dto.EmailPageRequestDTO;
+import com.kosa.springcoffee.qnaboard.dto.QnaBoardDTO;
+import com.kosa.springcoffee.qnaboard.dto.QnaCategoryAnsweredPageRequestDTO;
+import com.kosa.springcoffee.qnareply.dto.QnaReplyDTO;
+import com.kosa.springcoffee.base.dto.*;
 import com.kosa.springcoffee.member.Member;
 
 import java.time.format.DateTimeFormatter;

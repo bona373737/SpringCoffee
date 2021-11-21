@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.exception;
+package com.kosa.springcoffee.base.exception;
 
 public class NoStockException extends RuntimeException{
     public NoStockException(String message){

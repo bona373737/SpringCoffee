@@ -1,7 +1,7 @@
-package com.kosa.springcoffee.board.qnareply;
+package com.kosa.springcoffee.qnareply;
 
-import com.kosa.springcoffee.dto.QnaReplyDTO;
 
+import com.kosa.springcoffee.qnareply.dto.QnaReplyDTO;
 
 public interface QnaReplyService {
 

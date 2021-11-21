@@ -1,9 +1,9 @@
-package com.kosa.springcoffee.service;
+package com.kosa.springcoffee.base.service;
 
-import com.kosa.springcoffee.dto.ItemImgDTO;
+import com.kosa.springcoffee.itemimg.dto.ItemImgDTO;
 import com.kosa.springcoffee.item.Item;
-import com.kosa.springcoffee.item.itemimg.ItemImg;
-import com.kosa.springcoffee.item.itemimg.ItemImgService;
+import com.kosa.springcoffee.itemimg.ItemImg;
+import com.kosa.springcoffee.itemimg.ItemImgService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;

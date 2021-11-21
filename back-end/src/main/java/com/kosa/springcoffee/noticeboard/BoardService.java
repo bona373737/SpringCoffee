@@ -1,7 +1,9 @@
-package com.kosa.springcoffee.board.noticeboard;
+package com.kosa.springcoffee.noticeboard;
 
-import com.kosa.springcoffee.dto.*;
+import com.kosa.springcoffee.base.dto.*;
 import com.kosa.springcoffee.member.Member;
+import com.kosa.springcoffee.noticeboard.dto.BoardDTO;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 

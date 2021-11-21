@@ -1,6 +1,6 @@
-package com.kosa.springcoffee.board.noticeboard;
+package com.kosa.springcoffee.noticeboard;
 
-import com.kosa.springcoffee.entity.BaseEntity;
+import com.kosa.springcoffee.base.entity.BaseEntity;
 import com.kosa.springcoffee.member.Member;
 import lombok.*;
 

@@ -1,8 +1,9 @@
-package com.kosa.springcoffee.board.qnaboard;
+package com.kosa.springcoffee.qnaboard;
 
-import com.kosa.springcoffee.dto.*;
-import com.kosa.springcoffee.board.qnaboard.QnaBoard;
-import com.kosa.springcoffee.board.qnaboard.QnaBoardService;
+import com.kosa.springcoffee.base.dto.*;
+import com.kosa.springcoffee.qnaboard.dto.EmailPageRequestDTO;
+import com.kosa.springcoffee.qnaboard.dto.QnaBoardDTO;
+import com.kosa.springcoffee.qnaboard.dto.QnaCategoryAnsweredPageRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

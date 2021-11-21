@@ -1,13 +1,9 @@
 package com.kosa.springcoffee.repository;
 
-import com.kosa.springcoffee.entity.Board;
-import com.kosa.springcoffee.entity.Member;
-import org.junit.jupiter.api.Test;
+import com.kosa.springcoffee.noticeboard.BoardRepository;
+import com.kosa.springcoffee.base.security.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Optional;
-        import java.util.stream.IntStream;
 
 @SpringBootTest
 public class BoardRepositoryTest {

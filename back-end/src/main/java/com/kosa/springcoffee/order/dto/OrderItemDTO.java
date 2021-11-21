@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.dto;
+package com.kosa.springcoffee.order.dto;
 
 import com.kosa.springcoffee.order.OrderItem;
 import lombok.*;

@@ -1,9 +1,8 @@
-package com.kosa.springcoffee.controller;
+package com.kosa.springcoffee.member;
 
-import com.kosa.springcoffee.dto.*;
-import com.kosa.springcoffee.Member.Member;
-import com.kosa.springcoffee.Member.security.MemberRepository;
-import com.kosa.springcoffee.service.MemberService;
+import com.kosa.springcoffee.base.dto.PageRequestDTO;
+import com.kosa.springcoffee.base.dto.PageResultDTO;
+import com.kosa.springcoffee.member.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -12,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-import static com.kosa.springcoffee.Member.MemberRole.ROLE_ADMIN;
-import static com.kosa.springcoffee.Member.MemberRole.ROLE_USER;
+import static com.kosa.springcoffee.member.MemberRole.ROLE_ADMIN;
+import static com.kosa.springcoffee.member.MemberRole.ROLE_USER;
 
 @RestController
 @Log4j2

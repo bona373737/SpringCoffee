@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.dto;
+package com.kosa.springcoffee.qnareply.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

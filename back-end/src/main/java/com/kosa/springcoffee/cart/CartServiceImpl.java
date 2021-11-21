@@ -1,14 +1,13 @@
-package com.kosa.springcoffee.service;
+package com.kosa.springcoffee.cart;
 
-import com.kosa.springcoffee.dto.*;
-import com.kosa.springcoffee.entity.Cart;
-import com.kosa.springcoffee.entity.CartItem;
-import com.kosa.springcoffee.entity.Item;
-import com.kosa.springcoffee.Member.Member;
-import com.kosa.springcoffee.repository.CartItemRepository;
-import com.kosa.springcoffee.repository.CartRepository;
-import com.kosa.springcoffee.repository.ItemRepository;
-import com.kosa.springcoffee.Member.security.MemberRepository;
+import com.kosa.springcoffee.cart.dto.CartDetailDTO;
+import com.kosa.springcoffee.cart.dto.CartItemDTO;
+import com.kosa.springcoffee.order.dto.OrderDTO;
+import com.kosa.springcoffee.item.Item;
+import com.kosa.springcoffee.item.ItemRepository;
+import com.kosa.springcoffee.member.Member;
+import com.kosa.springcoffee.member.MemberRepository;
+import com.kosa.springcoffee.order.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;

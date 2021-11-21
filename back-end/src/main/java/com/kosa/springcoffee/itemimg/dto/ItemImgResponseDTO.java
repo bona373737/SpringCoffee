@@ -1,6 +1,6 @@
-package com.kosa.springcoffee.dto;
+package com.kosa.springcoffee.itemimg.dto;
 
-import com.kosa.springcoffee.item.itemimg.ItemImg;
+import com.kosa.springcoffee.itemimg.ItemImg;
 import lombok.Getter;
 
 @Getter

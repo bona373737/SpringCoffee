@@ -1,6 +1,7 @@
-package com.kosa.springcoffee.entity;
+package com.kosa.springcoffee.order;
 
-import com.kosa.springcoffee.Member.Member;
+import com.kosa.springcoffee.base.entity.BaseEntityOrder;
+import com.kosa.springcoffee.member.Member;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order extends BaseEntityOrder{
+public class Order extends BaseEntityOrder {
 
     @Id @GeneratedValue
     private Long orderNo;

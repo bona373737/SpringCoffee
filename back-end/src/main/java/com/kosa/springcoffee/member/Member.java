@@ -1,6 +1,11 @@
-package com.kosa.springcoffee.entity;
+package com.kosa.springcoffee.member;
 
 
+import com.kosa.springcoffee.noticeboard.Board;
+import com.kosa.springcoffee.qnaboard.QnaBoard;
+import com.kosa.springcoffee.cart.Cart;
+import com.kosa.springcoffee.base.entity.*;
+import com.kosa.springcoffee.order.Order;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

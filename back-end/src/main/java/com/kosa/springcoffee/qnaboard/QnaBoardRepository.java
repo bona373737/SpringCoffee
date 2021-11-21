@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.board.qnaboard;
+package com.kosa.springcoffee.qnaboard;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,9 +1,9 @@
-package com.kosa.springcoffee.service;
+package com.kosa.springcoffee.member;
 
-import com.kosa.springcoffee.Member.*;
-import com.kosa.springcoffee.dto.*;
-import com.kosa.springcoffee.Member.security.MemberRepository;
-import com.kosa.springcoffee.Member.security.util.JwtTokenProvider;
+import com.kosa.springcoffee.base.dto.PageRequestDTO;
+import com.kosa.springcoffee.base.dto.PageResultDTO;
+import com.kosa.springcoffee.member.dto.*;
+import com.kosa.springcoffee.base.security.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;

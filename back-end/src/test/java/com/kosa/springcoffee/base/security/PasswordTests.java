@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.member.security;
+package com.kosa.springcoffee.base.security;
 
 import com.kosa.springcoffee.BackEndApplication;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,7 @@
-package com.kosa.springcoffee.board.noticeboard;
+package com.kosa.springcoffee.noticeboard;
 
-import com.kosa.springcoffee.dto.*;
+import com.kosa.springcoffee.base.dto.*;
+import com.kosa.springcoffee.noticeboard.dto.BoardDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;

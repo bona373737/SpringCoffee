@@ -1,5 +1,6 @@
-package com.kosa.springcoffee.entity;
+package com.kosa.springcoffee.cart;
 
+import com.kosa.springcoffee.item.Item;
 import lombok.Getter;
 import lombok.Setter;
 

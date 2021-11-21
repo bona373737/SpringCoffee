@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.dto;
+package com.kosa.springcoffee.base.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

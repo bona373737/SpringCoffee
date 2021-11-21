@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.member.security.util;
+package com.kosa.springcoffee.base.security.util;
 
 import com.kosa.springcoffee.member.MemberRole;
 import io.jsonwebtoken.Claims;

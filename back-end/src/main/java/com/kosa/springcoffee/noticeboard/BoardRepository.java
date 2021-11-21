@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.board.noticeboard;
+package com.kosa.springcoffee.noticeboard;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

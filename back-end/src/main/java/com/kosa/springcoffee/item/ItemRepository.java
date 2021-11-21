@@ -1,5 +1,6 @@
 package com.kosa.springcoffee.item;
 
+import com.kosa.springcoffee.item.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

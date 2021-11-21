@@ -1,6 +1,6 @@
-package com.kosa.springcoffee.entity;
+package com.kosa.springcoffee.cart;
 
-import com.kosa.springcoffee.Member.Member;
+import com.kosa.springcoffee.member.Member;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.item.itemimg;
+package com.kosa.springcoffee.itemimg;
 
 import com.kosa.springcoffee.item.Item;
 import lombok.*;

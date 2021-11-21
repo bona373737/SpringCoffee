@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.dto;
+package com.kosa.springcoffee.item.dto;
 
 import com.kosa.springcoffee.item.Item;
 import lombok.*;

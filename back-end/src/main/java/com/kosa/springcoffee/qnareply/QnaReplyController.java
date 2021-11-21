@@ -1,7 +1,6 @@
-package com.kosa.springcoffee.board.qnareply;
+package com.kosa.springcoffee.qnareply;
 
-import com.kosa.springcoffee.dto.QnaReplyDTO;
-import com.kosa.springcoffee.board.qnareply.QnaReplyService;
+import com.kosa.springcoffee.qnareply.dto.QnaReplyDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

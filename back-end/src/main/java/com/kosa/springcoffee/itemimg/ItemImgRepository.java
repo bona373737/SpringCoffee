@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.item.itemimg;
+package com.kosa.springcoffee.itemimg;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

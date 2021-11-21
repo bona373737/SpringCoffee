@@ -1,9 +1,6 @@
-package com.kosa.springcoffee.item.itemimg;
+package com.kosa.springcoffee.itemimg;
 
-import com.kosa.springcoffee.dto.ItemImgDTO;
-import com.kosa.springcoffee.item.itemimg.ItemImg;
-import com.kosa.springcoffee.item.itemimg.ItemImgRepository;
-import com.kosa.springcoffee.item.itemimg.ItemImgService;
+import com.kosa.springcoffee.itemimg.dto.ItemImgDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 

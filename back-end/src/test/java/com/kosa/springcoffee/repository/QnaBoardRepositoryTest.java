@@ -1,7 +1,9 @@
 package com.kosa.springcoffee.repository;
 
-import com.kosa.springcoffee.entity.Member;
-import com.kosa.springcoffee.entity.QnaBoard;
+import com.kosa.springcoffee.base.security.MemberRepository;
+import com.kosa.springcoffee.member.Member;
+import com.kosa.springcoffee.qnaboard.QnaBoard;
+import com.kosa.springcoffee.qnaboard.QnaBoardRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,12 +1,12 @@
-package com.kosa.springcoffee.service;
+package com.kosa.springcoffee.base.service;
 
-import com.kosa.springcoffee.dto.CartItemDTO;
+import com.kosa.springcoffee.cart.dto.CartItemDTO;
 import com.kosa.springcoffee.cart.CartItem;
 import com.kosa.springcoffee.item.Item;
 import com.kosa.springcoffee.member.Member;
 import com.kosa.springcoffee.cart.CartItemRepository;
 import com.kosa.springcoffee.item.ItemRepository;
-import com.kosa.springcoffee.member.security.MemberRepository;
+import com.kosa.springcoffee.base.security.MemberRepository;
 import com.kosa.springcoffee.cart.CartService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

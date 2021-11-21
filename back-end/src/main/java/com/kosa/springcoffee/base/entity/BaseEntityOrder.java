@@ -1,4 +1,4 @@
-package com.kosa.springcoffee.entity;
+package com.kosa.springcoffee.base.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

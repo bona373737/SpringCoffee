@@ -1,7 +1,7 @@
-package com.kosa.springcoffee.service;
+package com.kosa.springcoffee.order;
 
-import com.kosa.springcoffee.dto.OrderDTO;
-import com.kosa.springcoffee.dto.OrderHistDTO;
+import com.kosa.springcoffee.order.dto.OrderDTO;
+import com.kosa.springcoffee.order.dto.OrderHistDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,5 +1,6 @@
-package com.kosa.springcoffee.entity;
+package com.kosa.springcoffee.order;
 
+import com.kosa.springcoffee.item.Item;
 import lombok.*;
 
 import javax.persistence.*;

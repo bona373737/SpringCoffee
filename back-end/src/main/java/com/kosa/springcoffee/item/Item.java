@@ -1,7 +1,10 @@
-package com.kosa.springcoffee.entity;
+package com.kosa.springcoffee.item;
 
-import com.kosa.springcoffee.dto.ItemDTO;
-import com.kosa.springcoffee.exception.NoStockException;
+import com.kosa.springcoffee.cart.CartItem;
+import com.kosa.springcoffee.base.exception.NoStockException;
+import com.kosa.springcoffee.item.dto.ItemDTO;
+import com.kosa.springcoffee.itemimg.ItemImg;
+import com.kosa.springcoffee.order.OrderItem;
 import lombok.*;
 
 import javax.persistence.*;

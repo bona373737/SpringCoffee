@@ -1,7 +1,7 @@
-package com.kosa.springcoffee.service;
+package com.kosa.springcoffee.base.service;
 
 
-import com.kosa.springcoffee.item.itemimg.ItemImgRepository;
+import com.kosa.springcoffee.itemimg.ItemImgRepository;
 import com.kosa.springcoffee.item.ItemRepository;
 import com.kosa.springcoffee.item.ItemService;
 import com.kosa.springcoffee.item.ItemServiceImpl;

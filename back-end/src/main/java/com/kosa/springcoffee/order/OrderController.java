@@ -1,11 +1,10 @@
-package com.kosa.springcoffee.controller;
+package com.kosa.springcoffee.order;
 
-import com.kosa.springcoffee.dto.*;
-import com.kosa.springcoffee.Member.Member;
-import com.kosa.springcoffee.entity.Order;
-import com.kosa.springcoffee.Member.security.MemberRepository;
-import com.kosa.springcoffee.repository.OrderRepository;
-import com.kosa.springcoffee.service.OrderService;
+import com.kosa.springcoffee.member.Member;
+import com.kosa.springcoffee.member.MemberRepository;
+import com.kosa.springcoffee.order.dto.OrderDTO;
+import com.kosa.springcoffee.order.dto.OrderHistDTO;
+import com.kosa.springcoffee.order.dto.OrderResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.Optional;
 

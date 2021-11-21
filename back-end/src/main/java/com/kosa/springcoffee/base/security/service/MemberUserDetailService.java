@@ -1,6 +1,6 @@
-package com.kosa.springcoffee.member.security.service;
+package com.kosa.springcoffee.base.security.service;
 
-import com.kosa.springcoffee.member.security.MemberRepository;
+import com.kosa.springcoffee.base.security.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.userdetails.UserDetails;

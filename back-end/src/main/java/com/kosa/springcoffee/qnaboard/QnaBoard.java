@@ -1,7 +1,7 @@
-package com.kosa.springcoffee.board.qnaboard;
+package com.kosa.springcoffee.qnaboard;
 
-import com.kosa.springcoffee.board.qnareply.QnaReply;
-import com.kosa.springcoffee.entity.BaseEntity;
+import com.kosa.springcoffee.qnareply.QnaReply;
+import com.kosa.springcoffee.base.entity.BaseEntity;
 import com.kosa.springcoffee.member.Member;
 import lombok.*;
 

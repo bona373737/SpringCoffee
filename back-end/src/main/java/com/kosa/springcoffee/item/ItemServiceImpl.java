@@ -1,11 +1,13 @@
-package com.kosa.springcoffee.service;
+package com.kosa.springcoffee.item;
 
-import com.kosa.springcoffee.dto.*;
-import com.kosa.springcoffee.entity.Board;
-import com.kosa.springcoffee.entity.Item;
-import com.kosa.springcoffee.entity.ItemImg;
-import com.kosa.springcoffee.repository.ItemImgRepository;
-import com.kosa.springcoffee.repository.ItemRepository;
+import com.kosa.springcoffee.base.dto.*;
+import com.kosa.springcoffee.item.dto.ItemDTO;
+import com.kosa.springcoffee.item.dto.ItemReadDTO;
+import com.kosa.springcoffee.item.dto.ItemResponseDTO;
+import com.kosa.springcoffee.itemimg.ItemImg;
+import com.kosa.springcoffee.itemimg.ItemImgRepository;
+import com.kosa.springcoffee.itemimg.ItemImgService;
+import com.kosa.springcoffee.base.service.FileHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -13,13 +15,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
 @Service

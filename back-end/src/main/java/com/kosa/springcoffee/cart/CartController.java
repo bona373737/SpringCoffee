@@ -1,13 +1,10 @@
-package com.kosa.springcoffee.controller;
+package com.kosa.springcoffee.cart;
 
-import com.kosa.springcoffee.dto.*;
-import com.kosa.springcoffee.entity.CartItem;
-import com.kosa.springcoffee.entity.Item;
-import com.kosa.springcoffee.Member.Member;
-import com.kosa.springcoffee.repository.CartItemRepository;
-import com.kosa.springcoffee.repository.ItemRepository;
-import com.kosa.springcoffee.Member.security.MemberRepository;
-import com.kosa.springcoffee.service.CartService;
+import com.kosa.springcoffee.cart.dto.*;
+import com.kosa.springcoffee.item.Item;
+import com.kosa.springcoffee.member.Member;
+import com.kosa.springcoffee.item.ItemRepository;
+import com.kosa.springcoffee.base.security.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
